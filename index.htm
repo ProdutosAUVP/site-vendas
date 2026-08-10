@@ -136,6 +136,13 @@ h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,56px);lin
    6. TELAS DE CONTEUDO
    ============================================================ */
 .quadro{position:relative;width:100%;height:100%;min-height:100%;display:grid;place-items:center;background:var(--grad-escuro);border:1px dashed rgba(239,191,78,.28)}
+/* telas com imagem/vídeo real de fundo */
+.quadro.midia{border:0;background:#09090b;overflow:hidden}
+.quadro .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:0;border:0}
+.quadro.midia .faixa{z-index:2;background:linear-gradient(0deg,rgba(9,9,11,.84) 0%,rgba(9,9,11,.6) 38%,rgba(9,9,11,.18) 74%,transparent)}
+.quadro.midia .faixa h1,.quadro.midia .faixa .legenda,.quadro.midia .faixa .kicker{text-shadow:0 2px 26px rgba(9,9,11,.85),0 1px 3px rgba(9,9,11,.6)}
+.tela.ativa .quadro.midia img.bg{animation:respira 22s ease-out both}
+@keyframes respira{from{transform:scale(1.005)}to{transform:scale(1.075)}}
 .quadro .tag{position:absolute;top:24px;left:28px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-esc)}
 .quadro .brief{font-family:var(--mono);font-size:11px;line-height:1.7;color:rgba(255,255,255,.5);max-width:38ch;text-align:center;padding:22px}
 .quadro .brief b{display:block;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;font-size:9.5px;margin-bottom:9px}
@@ -144,8 +151,16 @@ h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,56px);lin
 .faixa .legenda{margin:15px 0 0;font-size:16px;line-height:1.55;color:rgba(255,255,255,.72);max-width:56ch}
 .legenda{font-size:16px;line-height:1.6;color:var(--tinta2);margin:14px 0 0;max-width:56ch}
 .chips{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
-.chip{font-family:var(--cta);font-weight:600;font-size:11.5px;letter-spacing:.03em;border-radius:6px;padding:8px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.88)}
-.chip.copy{border-color:rgba(239,191,78,.55)}
+/* tags em vidro líquido sobre a mídia de fundo */
+.chip{position:relative;overflow:hidden;isolation:isolate;font-family:var(--cta);font-weight:600;font-size:11.5px;letter-spacing:.03em;border-radius:12px;padding:10px 16px;color:#fff;
+  background:linear-gradient(148deg,rgba(255,255,255,.24),rgba(255,255,255,.07) 46%,rgba(255,255,255,.15));
+  backdrop-filter:blur(16px) saturate(180%);-webkit-backdrop-filter:blur(16px) saturate(180%);
+  border:1px solid rgba(255,255,255,.28);
+  box-shadow:0 10px 26px -12px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.5),inset 0 -1px 1px rgba(255,255,255,.12);
+  transition:transform .32s var(--mola),border-color .32s,box-shadow .32s}
+.chip::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(118deg,rgba(255,255,255,.42),transparent 40%,transparent 72%,rgba(255,255,255,.16))}
+.chip:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.46);box-shadow:0 14px 30px -12px rgba(0,0,0,.75),inset 0 1px 0 rgba(255,255,255,.6),inset 0 -1px 1px rgba(255,255,255,.14)}
+.chip.copy{border-color:rgba(239,191,78,.6);box-shadow:0 10px 26px -12px rgba(0,0,0,.7),inset 0 1px 0 rgba(239,191,78,.45)}
 .cta{display:inline-flex;align-items:center;gap:8px;font-family:var(--cta);font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.05em;padding:18px 32px;border-radius:5px;background:var(--gold);color:var(--verde-cap);border:1px solid var(--gold);transition:all 300ms ease;margin-top:30px}
 .cta:hover{background:transparent;color:var(--gold);border-color:var(--gold)}
 .galeria{min-height:100%;padding:56px;display:flex;flex-direction:column}
@@ -198,7 +213,12 @@ h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,56px);lin
 .mcard{border:1px solid var(--vidro-borda);border-radius:16px;background:rgba(255,255,255,.5);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);overflow:hidden;transition:border-color .24s,box-shadow .24s}
 .mcard.aberto{border-color:rgba(239,191,78,.45);box-shadow:0 14px 34px -14px rgba(239,191,78,.3)}
 .mcard-head{display:flex;gap:22px;align-items:stretch;width:100%;text-align:left;padding:16px;cursor:pointer;background:none}
-.medalhao{flex:none;width:158px;border-radius:12px;background:var(--grad-escuro);border:1px solid rgba(239,191,78,.2);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:9px;padding:16px;min-height:112px}
+.medalhao{position:relative;overflow:hidden;flex:none;width:158px;border-radius:12px;background:var(--grad-escuro);border:1px solid rgba(239,191,78,.2);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:9px;padding:16px;min-height:112px}
+.medalhao.capa{border-color:rgba(239,191,78,.34)}
+.medalhao.capa::before{content:"";position:absolute;inset:0;background-image:var(--capa);background-size:cover;background-position:center;transform:scale(1.02);transition:transform .5s var(--mola)}
+.medalhao.capa::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(9,9,11,.28) 0%,rgba(9,9,11,.62) 48%,rgba(9,9,11,.86) 100%)}
+.mcard:hover .medalhao.capa::before,.mcard.aberto .medalhao.capa::before{transform:scale(1.1)}
+.medalhao>*{position:relative;z-index:1}
 .medalhao .ring{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--gold);display:grid;place-items:center;font-family:var(--display);font-weight:700;color:var(--gold);font-size:18px}
 .medalhao .mlabel{font-family:var(--cta);font-weight:700;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
 .medalhao .mnome{font-family:var(--display);font-weight:600;font-size:12px;line-height:1.12;text-transform:uppercase;color:#fff;text-align:center;letter-spacing:.02em}
@@ -250,6 +270,10 @@ h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,56px);lin
   .progresso{display:none}
   .tela{position:static}
   .quadro{min-height:70vh}
+  .quadro.midia{min-height:calc(100vh - 56px);min-height:calc(100svh - 56px)}
+  .quadro.midia .faixa{position:absolute;padding:28px 20px 74px;background:linear-gradient(0deg,rgba(9,9,11,.92) 0%,rgba(9,9,11,.7) 44%,rgba(9,9,11,.2) 80%,transparent)}
+  .quadro.midia .chips{gap:9px}
+  .quadro.midia .chip{font-size:11px;padding:9px 13px}
   .faixa{position:static;background:#18181b;padding:30px 22px}
   .galeria,.home-wrap,.eco-wrap{padding:30px 22px 84px}
   .home-wrap{justify-content:flex-start;min-height:auto}
@@ -300,8 +324,8 @@ h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,56px);lin
       </div>
     </div></section>
 
-<section class="tela" id="t1"><div class="quadro in">
-      <div class="brief"><b>Imagem em tela cheia</b>Raul em palco/bastidor. Sobre a foto, 3 números da casa em destaque.</div>
+<section class="tela" id="t1"><div class="quadro midia in">
+      <img class="bg" src="foto%20alunos.jpg" alt="" decoding="async" fetchpriority="low">
       <div class="faixa">        <h1>Mais do que um treinamento, somos uma comunidade.</h1>
         <div class="chips"><span class="chip">+60 mil clientes ativos</span><span class="chip">40 Mi de pessoas impactadas</span><span class="chip">59.944 investidores formados pela AUVP</span></div>
       </div></div></section>
@@ -313,8 +337,8 @@ h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,56px);lin
         <div class="chips"><span class="chip">+100 aulas gravadas</span><span class="chip">App próprio no celular</span><span class="chip">E-books, mapas mentais e cadernos</span></div>
       </div></div></section>
 
-    <section class="tela" id="t4"><div class="quadro in">
-      <div class="brief"><b>Vídeo em tela cheia &middot; autoplay mudo</b>Corte rápido (15-20s) de uma aula: player, professor, material, exercício. Mostra o processo, não conta.</div>
+    <section class="tela" id="t4"><div class="quadro midia in">
+      <video class="bg" data-src="Gravando%202026-08-10%20124415.mp4" muted loop playsinline preload="none" disablepictureinpicture aria-hidden="true"></video>
       <div class="faixa">        <h1>Assim são nossas aulas por dentro</h1>
         <div class="chips"><span class="chip">Exemplos práticos</span><span class="chip">Material visual</span><span class="chip">Didática e clareza</span></div>
       </div></div></section>
@@ -499,11 +523,23 @@ function ir(id,semHash){
   document.title=(id==='home'?'AUVP Escola':ROTULOS[id]+' · AUVP Escola')+' - apresentação';
   palco.scrollTop=0;window.scrollTo(0,0);
   var a=document.getElementById(id);if(a)a.scrollTop=0;
+  midia(id);
   gaveta(false);
   /* hash em vez de pushState: funciona também com o arquivo aberto localmente (file://) */
   if(!semHash&&location.hash!=='#/'+id)location.hash='/'+id;
 }
 function passo(d){var i=ORDEM.indexOf(atual)+d;if(i>=0&&i<ORDEM.length)ir(ORDEM[i])}
+
+/* o vídeo de fundo só carrega e roda na tela que está no ar */
+function midia(id){
+  document.querySelectorAll('video.bg').forEach(function(v){
+    var tela=v.closest('.tela');
+    if(tela&&tela.id===id){
+      if(!v.getAttribute('src')&&v.dataset.src)v.setAttribute('src',v.dataset.src);
+      var p=v.play();if(p&&p.catch)p.catch(function(){});
+    }else if(!v.paused){v.pause()}
+  });
+}
 
 document.addEventListener('click',function(e){
   var b=e.target.closest('[data-alvo]');
@@ -579,6 +615,17 @@ document.addEventListener('keydown',function(e){
    CONTEÚDO GERADO
    ============================================================ */
 const CRONO=JSON.parse(document.getElementById('crono').textContent);
+/* capas dos módulos (usadas no medalhão do cronograma) */
+const CAPAS={
+  1:'https://cdn.asupernova.com.br/lp-auvp/vite/MODULO-1-768x481.png',
+  2:'https://cdn.asupernova.com.br/lp-auvp/vite/MODULO-2-768x481.png',
+  3:'https://cdn.asupernova.com.br/lp-auvp/vite/MODULO-3-768x481.png',
+  4:'https://cdn.asupernova.com.br/lp-auvp/vite/MODULO-4-768x481.png',
+  5:'https://cdn.asupernova.com.br/lp-auvp/vite/MODULO-5-768x481.png',
+  6:'https://cdn.asupernova.com.br/lp-auvp/vite/MODULO-6-768x481.png',
+  7:'https://cdn.asupernova.com.br/lp-auvp/vite/MODULO-7-768x481.jpg',
+  ir:'https://cdn.asupernova.com.br/lp-auvp/vite/MODULO-BONUS-768x481.jpg'
+};
 const FERR=[["Plataforma PIAR","compreenda e mapeie seu perfil de investidor"],["Diagrama do Cerrado","gerencie sua carteira de investimentos com fundamento"],["Orçamento Doméstico","controle seus gastos e gerencie seu dinheiro"],["AUVP Analítica","para quem analisa a fundo seus investimentos"]];
 const ESTAGIOS=[
   ["01","Aprendizado",[["AUVP Escola",""],["AUVP Agro",""],["AUVP Pro",""],["AUVP Sempre",""],["AUVP Internacional",""]]],
@@ -609,8 +656,10 @@ const ESTAGIOS=[
     var nome=w.length>1?w.slice(0,-1).join(' ')+' <span class="dourado">'+w[w.length-1]+'</span>':'<span class="dourado">'+w[0]+'</span>';
     var ring=isBonus?'&#9733;':m.index;
     var label=isBonus?'Módulo Bônus':'Módulo '+m.index;
+    var capa=isBonus?(/imposto de renda/i.test(m.title)?CAPAS.ir:null):CAPAS[m.index];
+    var medal=capa?' capa" style="--capa:url(\''+capa+'\')':'"';
     return '<div class="mcard'+(isBonus?' bonus':'')+'"><button class="mcard-head" aria-expanded="false">'
-      +'<div class="medalhao"><div class="ring">'+ring+'</div><div class="mlabel">'+label+'</div><div class="mnome">'+nome+'</div></div>'
+      +'<div class="medalhao'+medal+'"><div class="ring">'+ring+'</div><div class="mlabel">'+label+'</div><div class="mnome">'+nome+'</div></div>'
       +'<div class="mcard-body"><h3>'+esc(m.title)+'</h3><div class="mtags">'+tags.map(function(t){return '<span class="mtag">'+esc(t)+'</span>';}).join('')+'</div>'
       +(m.description?'<p class="mdesc">'+esc(m.description)+'</p>':'')+'</div>'
       +'<span class="chev">&#9662;</span></button>'
