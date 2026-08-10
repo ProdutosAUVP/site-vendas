@@ -481,7 +481,7 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
       <div class="grade g-3">
         <a class="foto capa play" href="https://comunidade.auvp.com.br/lives/" target="_blank" rel="noopener noreferrer" style="--capa:url('https://cdn.asupernova.com.br/lp-auvp/vite/o-que-voce-vai-aprender2.webp')"><span class="cimg"></span><span class="veu"></span><div class="rot"><b>Plantões ao vivo com Raul Sena</b><small>Toda segunda, às 19h.</small></div></a>
         <a class="foto capa" href="https://comunidade.auvp.com.br/" target="_blank" rel="noopener noreferrer" style="--capa:url('Captura%20de%20tela%202026-08-10%20135133.png')"><span class="cimg"></span><span class="veu"></span><div class="rot"><b>Comunidade de alunos e especialistas</b><small>Todos de prontidão para tirar dúvida e trocar ideia a qualquer momento.</small></div></a>
-        <a class="foto capa" href="https://apps.apple.com/br/app/escola-auvp/id6502692783" target="_blank" rel="noopener noreferrer" style="--capa:url('https://play-lh.googleusercontent.com/1x1FPGCuxeruPcVXC25UTPzm6ZjOHajnlWQi39HwVUUyLaODgBj6JHjaUPcf82cssDDgbSmy3lNpbmz8ezGk=w5120-h2880-rw')"><span class="cbg"></span><span class="cimg"></span><span class="veu"></span><span class="acesso">Acessar<svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></span><div class="rot"><b>App próprio e aulas gravadas</b><small>Estude do celular, onde estiver.</small></div></a>
+        <a class="foto capa" href="https://apps.apple.com/br/app/escola-auvp/id6502692783" target="_blank" rel="noopener noreferrer" style="--capa:url('https://play-lh.googleusercontent.com/1x1FPGCuxeruPcVXC25UTPzm6ZjOHajnlWQi39HwVUUyLaODgBj6JHjaUPcf82cssDDgbSmy3lNpbmz8ezGk=w5120-h2880-rw')"><span class="cbg"></span><span class="cimg"></span><span class="veu"></span><div class="rot"><b>App próprio e aulas gravadas</b><small>Estude do celular, onde estiver.</small></div></a>
       </div>
     </div></section>
 
@@ -857,11 +857,11 @@ const FERR=[
 ];
 /* miniaturas dos produtos (etapa Aprendizado) */
 const MINIS={
-  "AUVP Escola":"https://lh3.googleusercontent.com/d/1Kj5DixL1XmZ_8nAeCl3FzJSDrkr7SKT6=w800",
-  "AUVP Agro":"escola agro.png",
-  "AUVP Pro":"trilha pro.png",
-  "AUVP Sempre":"modulos avançados.png",
-  "AUVP Internacional":"internacional.jpg"
+  "AUVP Escola":{src:"foto alunos.jpg",zoom:"cover",pos:"50% 42%"},
+  "AUVP Agro":{src:"escola agro.png",zoom:"300%",pos:"6% 8%"},
+  "AUVP Pro":{src:"simulados pro.png",zoom:"540%",pos:"13% 42%"},
+  "AUVP Sempre":{src:"modulos avançados.png",zoom:"430%",pos:"13% 9%"},
+  "AUVP Internacional":{src:"internacional.jpg",zoom:"cover",pos:"50% 50%"}
 };
 const ESTAGIOS=[
   ["01","Aprendizado",[["AUVP Escola",""],["AUVP Agro",""],["AUVP Pro",""],["AUVP Sempre",""],["AUVP Internacional",""]]],
@@ -941,7 +941,8 @@ document.getElementById('timeline').innerHTML=ESTAGIOS.map(function(g,i){
     +'<div class="est-cab"><span class="no">'+g[0]+'</span><h3>'+g[1]+'</h3></div><ul>'
     +g[2].map(function(it,j){
       var m=MINIS[it[0]];
-      var mini=i===0?'<span class="mini'+(m?' tem':'')+'"'+(m?' style="--capa:url(\''+encodeURI(m)+'\')"':'')+'>'+it[0].replace(/^AUVP\s+/,'').charAt(0)+'</span>':'';
+      var est=m?' style="--capa:url(\''+encodeURI(m.src)+'\');background-size:'+m.zoom+';background-position:'+m.pos+'"':'';
+      var mini=i===0?'<span class="mini'+(m?' tem':'')+'"'+est+'>'+it[0].replace(/^AUVP\s+/,'').charAt(0)+'</span>':'';
       return '<li style="--j:'+j+'">'+mini+'<span class="txt"><b>'+it[0]+'</b>'+(it[1]?'<small>'+it[1]+'</small>':'')+'</span></li>';
     }).join('')
     +'</ul></div>';
