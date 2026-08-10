@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AUVP Escola - apresentação (protótipo navegável)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anek+Latin:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Sora:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#EFBF4E;--gold-esc:#D4A73D;--gold-deep:#B8860B;--verde-cap:#023619;
+  --tinta:#18181B;--tinta2:#52525B;--tinta3:#71717A;
+  --vidro:rgba(255,255,255,.5);--vidro-borda:rgba(0,0,0,.12);--gold-bg:rgba(239,191,78,.1);
+  --grad-claro:radial-gradient(ellipse at top,#f4f4f5 0%,#e4e4e7 100%);
+  --grad-escuro:radial-gradient(ellipse at center,rgba(239,191,78,.08) 0%,#18181b 70%);
+  --display:'Anek Latin',system-ui,sans-serif;--corpo:'Roboto',system-ui,-apple-system,sans-serif;
+  --cta:'Sora',var(--corpo);--mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--grad-claro);background-attachment:fixed;color:var(--tinta);font-family:var(--corpo);-webkit-font-smoothing:antialiased;overflow:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.app{display:grid;grid-template-columns:266px minmax(0,1fr);height:100vh}
+.trilho{background:rgba(255,255,255,.55);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-right:1px solid var(--vidro-borda);display:flex;flex-direction:column;overflow:hidden}
+.marca{padding:22px 20px 16px;border-bottom:1px solid var(--vidro-borda)}
+.marca b{font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:-.02em;display:block;color:var(--tinta)}
+.marca span{font-family:var(--cta);font-weight:700;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep)}
+.nav{flex:1;overflow-y:auto;padding:12px 12px 8px}
+.grupo{font-family:var(--cta);font-weight:700;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--tinta3);padding:13px 8px 6px}
+.item{display:flex;gap:10px;align-items:center;width:100%;text-align:left;padding:8px 9px;border-radius:8px;font-family:var(--display);font-weight:500;font-size:13.5px;line-height:1.2;color:var(--tinta2);transition:.16s}
+.item:hover{background:rgba(0,0,0,.04);color:var(--tinta)}
+.item.on{background:var(--gold-bg);color:var(--tinta)}
+.item.on .tecla{border-color:var(--gold);color:var(--gold-deep);background:rgba(239,191,78,.12)}
+.tecla{font-family:var(--mono);font-size:10px;min-width:20px;height:20px;flex:none;display:grid;place-items:center;border:1px solid rgba(0,0,0,.16);border-radius:5px;color:var(--tinta3)}
+.item.quente .tecla{border-color:var(--gold-deep);color:var(--gold-deep)}
+.item.quente.on{background:rgba(239,191,78,.18)}
+.rodape{border-top:1px solid var(--vidro-borda);padding:12px}
+.chave{display:flex;justify-content:space-between;align-items:center;width:100%;font-family:var(--cta);font-weight:600;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta2);padding:8px 6px;border-radius:6px}
+.chave:hover{background:rgba(0,0,0,.04)}
+.led{width:28px;height:15px;border-radius:20px;background:rgba(0,0,0,.14);position:relative;flex:none;transition:.16s}
+.led::after{content:"";position:absolute;top:2px;left:2px;width:11px;height:11px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.2);transition:.16s}
+.chave[aria-pressed="true"] .led{background:var(--gold)}
+.chave[aria-pressed="true"] .led::after{transform:translateX(13px)}
+.chave[aria-pressed="true"]{color:var(--gold-deep)}
+.atalhos{font-family:var(--mono);font-size:9.5px;line-height:1.7;color:var(--tinta3);padding:8px 6px 2px}
+.palco{position:relative;overflow:hidden;background:var(--grad-claro)}
+.tela{display:none;position:absolute;inset:0;overflow-y:auto}
+.tela.ativa{display:block}
+.tela.ativa .in{animation:entra .36s cubic-bezier(.2,.7,.3,1) both}
+@keyframes entra{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.eyebrow{display:inline-flex;align-items:center;font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--gold-esc);background:var(--gold-bg);border:1px solid rgba(239,191,78,.2);border-radius:999px;padding:5px 13px;margin:0 0 18px}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,56px);line-height:1.05;letter-spacing:-.025em;margin:0;max-width:20ch;color:var(--tinta)}
+.dourado{color:var(--gold-esc)}
+.quadro{position:relative;width:100%;height:100%;min-height:100vh;display:grid;place-items:center;background:var(--grad-escuro);border:1px dashed rgba(239,191,78,.28)}
+.quadro .tag{position:absolute;top:24px;left:28px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-esc)}
+.quadro .brief{font-family:var(--mono);font-size:11px;line-height:1.7;color:rgba(255,255,255,.5);max-width:38ch;text-align:center;padding:22px}
+.quadro .brief b{display:block;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;font-size:9.5px;margin-bottom:9px}
+.faixa{position:absolute;left:0;right:0;bottom:0;padding:48px 56px 44px;background:linear-gradient(0deg,#18181b 8%,rgba(24,24,27,.72) 55%,transparent)}
+.faixa h1{color:#fff}
+.faixa .legenda{margin:15px 0 0;font-size:16px;line-height:1.55;color:rgba(255,255,255,.72);max-width:56ch}
+.legenda{font-size:16px;line-height:1.6;color:var(--tinta2);margin:14px 0 0;max-width:56ch}
+.chips{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.chip{font-family:var(--cta);font-weight:600;font-size:11.5px;letter-spacing:.03em;border-radius:6px;padding:8px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.88)}
+.chip.copy{border-color:rgba(239,191,78,.55)}
+.cta{display:inline-flex;align-items:center;gap:8px;font-family:var(--cta);font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.05em;padding:18px 32px;border-radius:5px;background:var(--gold);color:var(--verde-cap);border:1px solid var(--gold);transition:all 300ms ease;margin-top:30px}
+.cta:hover{background:transparent;color:var(--gold);border-color:var(--gold)}
+.deixa{display:none;margin-top:22px;max-width:56ch;background:rgba(24,24,27,.9);border-left:2px solid var(--gold-deep);border-radius:8px;padding:12px 15px}
+.deixa p{margin:0 0 6px;font-family:var(--mono);font-size:11.5px;line-height:1.6;color:#F2F2F2}
+.deixa p:last-child{margin:0}
+.deixa b{color:var(--gold);font-weight:600}
+body.vendedor .deixa{display:block}
+body.copy .copy{outline:1px dashed var(--gold);outline-offset:5px;border-radius:2px;position:relative}
+body.copy .copy::after{content:attr(data-slot);position:absolute;top:-9px;left:-5px;font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;background:var(--gold);color:var(--tinta);padding:1px 6px;border-radius:3px;white-space:nowrap;z-index:5}
+.galeria{min-height:100vh;padding:56px;display:flex;flex-direction:column}
+.galeria .cab{margin-bottom:28px}
+.grade{display:grid;gap:15px;flex:1}
+.g-2{grid-template-columns:repeat(2,1fr)}.g-3{grid-template-columns:repeat(3,1fr)}.g-4{grid-template-columns:repeat(4,1fr)}
+.foto{position:relative;border:1px solid var(--vidro-borda);border-radius:16px;overflow:hidden;min-height:160px;background:rgba(255,255,255,.5);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);display:flex;flex-direction:column;justify-content:flex-end;transition:transform 320ms ease,box-shadow 320ms ease,border-color 320ms ease}
+.foto:hover{transform:translateY(-8px);box-shadow:0 20px 40px -10px rgba(239,191,78,.25);border-color:rgba(239,191,78,.4)}
+.foto .ph{position:absolute;top:16px;left:18px;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta3)}
+.foto .rot{padding:18px;background:linear-gradient(0deg,rgba(255,255,255,.92),transparent)}
+.foto .rot b{font-family:var(--display);font-weight:600;font-size:18px;display:block;letter-spacing:-.01em;color:var(--tinta)}
+.foto .rot small{font-size:13px;color:var(--tinta2);line-height:1.4;display:block;margin-top:4px}
+.foto.play::after{content:"\25B6";position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);font-size:26px;color:var(--gold);opacity:.9}
+.acesso{position:absolute;top:16px;right:16px;font-family:var(--cta);font-weight:700;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--verde-cap);background:var(--gold);padding:4px 9px;border-radius:4px}
+.mod-fita{display:flex;gap:15px;overflow-x:auto;padding:4px 2px 12px}
+.mod{position:relative;flex:none;width:214px;border:1px solid var(--vidro-borda);border-radius:16px;overflow:hidden;background:rgba(255,255,255,.5);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);min-height:256px;display:flex;flex-direction:column;justify-content:flex-end;transition:transform 320ms ease,box-shadow 320ms ease,border-color 320ms ease}
+.mod:hover{transform:translateY(-8px);box-shadow:0 20px 40px -10px rgba(239,191,78,.25);border-color:rgba(239,191,78,.4)}
+.mod .rot{padding:18px;background:linear-gradient(0deg,rgba(255,255,255,.92),transparent)}
+.mod .rot i{font-family:var(--cta);font-weight:600;font-style:normal;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-deep);display:block;margin-bottom:7px}
+.mod .rot b{font-family:var(--display);font-weight:600;font-size:17px;line-height:1.15;display:block;color:var(--tinta)}
+.mod .rot small{font-size:12.5px;color:var(--tinta2);line-height:1.4;display:block;margin-top:5px}
+.eco-wrap{min-height:100vh;padding:56px;display:flex;flex-direction:column}
+.eco-topo{text-align:center;margin-bottom:8px}
+.kicker{font-family:var(--cta);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-esc);margin:0 0 14px}
+.eco-topo .mote{font-family:var(--display);font-weight:700;font-size:clamp(26px,3vw,42px);letter-spacing:-.025em;margin:0;color:var(--tinta)}
+.eco-topo h1{margin:8px auto 0;font-family:var(--display);font-weight:600;font-size:clamp(20px,2vw,26px);color:var(--tinta2);max-width:none}
+.linha-tempo{display:grid;grid-template-columns:repeat(4,1fr);flex:1;margin-top:38px;position:relative}
+.linha-tempo::before{content:"";position:absolute;top:24px;left:9%;right:9%;height:2px;background:linear-gradient(90deg,var(--gold),rgba(239,191,78,.25))}
+.estagio{padding:0 12px;position:relative}
+.estagio .no{width:16px;height:16px;border-radius:50%;background:var(--gold);border:3px solid #fff;box-shadow:0 0 0 1px rgba(239,191,78,.5);margin:16px auto 20px;position:relative;z-index:2}
+.estagio h3{font-family:var(--display);font-weight:600;font-size:20px;text-align:center;margin:0 0 4px;letter-spacing:-.01em;color:var(--tinta)}
+.estagio .faixa-est{font-family:var(--cta);font-weight:600;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-deep);text-align:center;display:block;margin-bottom:18px}
+.estagio ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.estagio li{border:1px solid var(--vidro-borda);border-radius:12px;padding:12px 14px;background:rgba(255,255,255,.5);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);transition:.2s}
+.estagio li:hover{border-color:rgba(239,191,78,.4);box-shadow:0 8px 20px -8px rgba(239,191,78,.25)}
+.estagio li b{font-family:var(--display);font-weight:600;font-size:14px;display:block;letter-spacing:-.005em;color:var(--tinta)}
+.estagio li small{font-size:11.5px;color:var(--tinta2);line-height:1.4;display:block;margin-top:2px}
+.estagio.destaque .no{background:var(--gold-deep)}
+.objecoes{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+.obj{border:1px solid var(--vidro-borda);border-radius:12px;overflow:hidden;background:rgba(255,255,255,.5);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);transition:.2s}
+.obj>button{width:100%;text-align:left;padding:16px 18px;display:flex;justify-content:space-between;gap:14px;align-items:center;font-family:var(--display);font-weight:600;font-size:17px;color:var(--tinta)}
+.obj>button::after{content:"+";font-family:var(--mono);color:var(--gold-deep);font-size:18px;flex:none}
+.obj.aberta>button::after{content:"\2013"}
+.obj.aberta{border-color:rgba(239,191,78,.5);background:rgba(239,191,78,.06)}
+.resposta{display:none;padding:0 18px 17px}
+.obj.aberta .resposta{display:block}
+.resposta p{margin:0 0 9px;font-size:14.5px;line-height:1.5;color:var(--tinta2)}
+.resposta p:last-child{margin:0}
+.resposta .virada{font-family:var(--mono);font-size:11.5px;color:var(--gold-deep);line-height:1.6}
+.hub-wrap{min-height:100vh;padding:56px;display:flex;flex-direction:column;justify-content:center}
+.hub-topo{max-width:56ch;margin-bottom:32px}
+.hub-grade{display:grid;grid-template-columns:repeat(3,minmax(0,260px));gap:15px}
+.coluna h4{font-family:var(--cta);font-weight:600;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep);margin:0 0 11px;padding-bottom:9px;border-bottom:1px solid rgba(0,0,0,.1)}
+.coluna{display:flex;flex-direction:column;gap:9px}
+.bloco{border:1px solid var(--vidro-borda);border-radius:12px;padding:13px;text-align:left;font-family:var(--display);font-weight:500;font-size:14.5px;line-height:1.18;transition:.2s;background:rgba(255,255,255,.5);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);flex:1;color:var(--tinta)}
+.bloco:hover{border-color:rgba(239,191,78,.5);box-shadow:0 10px 24px -10px rgba(239,191,78,.3);transform:translateY(-3px)}
+.bloco.quente{border-color:rgba(184,134,11,.4)}
+.bloco.quente:hover{border-color:var(--gold-deep)}
+
+.crono{display:flex;flex-direction:column;gap:15px}
+.crono-sub{font-size:14px;color:var(--tinta2);font-style:italic;margin:6px 0 6px}
+.mcard{border:1px solid var(--vidro-borda);border-radius:16px;background:rgba(255,255,255,.5);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);overflow:hidden;transition:border-color .24s,box-shadow .24s}
+.mcard.aberto{border-color:rgba(239,191,78,.45);box-shadow:0 14px 34px -14px rgba(239,191,78,.3)}
+.mcard-head{display:flex;gap:22px;align-items:stretch;width:100%;text-align:left;padding:16px;cursor:pointer;background:none}
+.medalhao{flex:none;width:158px;border-radius:12px;background:var(--grad-escuro);border:1px solid rgba(239,191,78,.2);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:9px;padding:16px;min-height:112px}
+.medalhao .ring{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--gold);display:grid;place-items:center;font-family:var(--display);font-weight:700;color:var(--gold);font-size:18px}
+.medalhao .mlabel{font-family:var(--cta);font-weight:700;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.medalhao .mnome{font-family:var(--display);font-weight:600;font-size:12px;line-height:1.12;text-transform:uppercase;color:#fff;text-align:center;letter-spacing:.02em}
+.mcard-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:9px;padding-right:6px;justify-content:center}
+.mcard-body h3{font-family:var(--display);font-weight:600;font-size:21px;color:var(--tinta);margin:0;letter-spacing:-.01em}
+.mtags{display:flex;flex-wrap:wrap;gap:8px}
+.mtag{font-family:var(--cta);font-weight:600;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--gold-deep);background:var(--gold-bg);border:1px solid rgba(239,191,78,.25);border-radius:5px;padding:4px 9px}
+.mdesc{font-size:14px;color:var(--tinta2);line-height:1.5;margin:0}
+.chev{flex:none;align-self:center;color:var(--gold-deep);font-size:18px;transition:transform .28s ease;line-height:1}
+.mcard.aberto .chev{transform:rotate(180deg)}
+.aulas{display:none;padding:2px 18px 14px;border-top:1px solid rgba(0,0,0,.08)}
+.mcard.aberto .aulas{display:block;animation:entra .28s ease both}
+.aula{display:flex;align-items:baseline;gap:14px;padding:9px 2px;border-bottom:1px solid rgba(0,0,0,.05)}
+.aula:last-child{border-bottom:0}
+.aula .an{font-family:var(--cta);font-weight:600;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--gold-deep);flex:none;width:66px}
+.aula .at{flex:1;font-size:14px;color:var(--tinta);line-height:1.35}
+.aula .ad{font-family:var(--mono);font-size:12px;color:var(--tinta2);flex:none}
+.aula.bonus .an{color:var(--gold)}
+.aulas-nota{font-family:var(--mono);font-size:12px;color:var(--tinta2);padding:12px 2px 4px;font-style:italic}
+.aula-obs{display:flex;gap:10px;align-items:flex-start;margin-top:14px;padding:12px 14px;border:1px solid rgba(239,191,78,.35);background:var(--gold-bg);border-radius:10px}
+.aula-obs .obs-ic{flex:none;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--gold-deep);color:var(--gold-deep);font-family:var(--display);font-weight:700;font-size:12px;display:grid;place-items:center;margin-top:1px}
+.aula-obs p{margin:0;font-size:13px;line-height:1.5;color:var(--tinta)}
+.aula-obs b{color:var(--gold-deep)}
+.mcard.bonus .medalhao{border-color:rgba(239,191,78,.4)}
+
+@media (max-width:1080px){.hub-grade{grid-template-columns:repeat(2,1fr)}.g-4{grid-template-columns:repeat(2,1fr)}.g-3{grid-template-columns:repeat(2,1fr)}.linha-tempo{grid-template-columns:repeat(2,1fr);row-gap:26px}.linha-tempo::before{display:none}}
+@media (max-width:860px){
+  body{overflow:auto}.app{grid-template-columns:1fr;height:auto}
+  .trilho{position:sticky;top:0;z-index:9;border-right:0;border-bottom:1px solid var(--vidro-borda)}
+  .nav{display:flex;gap:8px;overflow-x:auto;padding:10px}.grupo{display:none}
+  .item{width:auto;white-space:nowrap;flex:none;border:1px solid var(--vidro-borda)}
+  .rodape{display:flex;gap:8px}.atalhos{display:none}.chave{flex:1}
+  .tela{position:static}.palco{min-height:auto}.quadro{min-height:70vh}
+  .faixa{position:static;background:#18181b;padding:30px 22px}
+  .galeria,.hub-wrap,.eco-wrap{padding:30px 22px 50px}
+  .grade,.g-2,.g-3,.g-4{grid-template-columns:1fr}
+  .objecoes,.hub-grade,.linha-tempo{grid-template-columns:1fr;row-gap:26px}
+  .mcard-head{flex-direction:column;gap:14px}.medalhao{width:100%;min-height:88px}
+  h1{font-size:34px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="trilho">
+    <div class="marca"><b>AUVP Escola</b><span>Apresentação geral</span></div>
+    <nav class="nav">
+      <div class="grupo">Início</div>
+      <button class="item" data-alvo="hub"><i class="tecla">H</i>Hub Inicial</button>
+      <div class="grupo">Contexto</div>
+      <button class="item" data-alvo="t1"><i class="tecla">1</i>Quem somos nós?</button>
+      <div class="grupo">O Produto</div>
+      <button class="item" data-alvo="t3"><i class="tecla">3</i>A Escola</button>
+      <button class="item" data-alvo="t4"><i class="tecla">4</i>Dinâmica das aulas</button>
+      <button class="item" data-alvo="t5"><i class="tecla">5</i>Módulos do treinamento</button>
+      <button class="item" data-alvo="tmat"><i class="tecla">M</i>Materiais de apoio</button>
+      <button class="item" data-alvo="t6"><i class="tecla">6</i>Ferramentas</button>
+      <button class="item" data-alvo="t7"><i class="tecla">7</i>Lives, comunidade e app</button>
+      <div class="grupo">Expansão</div>
+      <button class="item" data-alvo="tpro"><i class="tecla">P</i>AUVP Pro</button>
+      <button class="item" data-alvo="tagro"><i class="tecla">A</i>AUVP Agro</button>
+      <button class="item" data-alvo="t11"><i class="tecla">I</i>AUVP Internacional</button>
+      <button class="item" data-alvo="t12"><i class="tecla">S</i>AUVP Sempre</button>
+      <button class="item" data-alvo="t10"><i class="tecla">E</i>O Ecossistema AUVP</button>
+      <div class="grupo">Fechamento</div>
+      <button class="item" data-alvo="t17"><i class="tecla">B</i>Boas-vindas</button>
+    </nav>
+  </aside>
+  <main class="palco" id="palco">
+    <section class="tela ativa" id="hub"><div class="hub-wrap in">
+      <div class="hub-grade">
+        <div class="coluna"><h4>Contexto</h4>
+          <button class="bloco" data-alvo="t1">Quem somos nós?</button></div>
+        <div class="coluna"><h4>O Produto</h4>
+          <button class="bloco" data-alvo="t3">A Escola</button>
+          <button class="bloco" data-alvo="t4">Dinâmica das aulas</button>
+          <button class="bloco" data-alvo="t5">Módulos</button>
+          <button class="bloco" data-alvo="tmat">Materiais de apoio</button>
+          <button class="bloco" data-alvo="t6">Ferramentas</button>
+          <button class="bloco" data-alvo="t7">Lives + comunidade</button></div>
+        <div class="coluna"><h4>Expansão</h4>
+          <button class="bloco" data-alvo="tpro">AUVP Pro</button>
+          <button class="bloco" data-alvo="tagro">AUVP Agro</button>
+          <button class="bloco" data-alvo="t11">Internacional</button>
+          <button class="bloco" data-alvo="t12">AUVP Sempre</button>
+          <button class="bloco" data-alvo="t10">O Ecossistema</button></div>
+      </div>
+    </div></section>
+
+    <section class="tela" id="t1"><div class="quadro in">
+      <div class="brief"><b>Imagem em tela cheia</b>Raul em palco/bastidor. Sobre a foto, 3 números da casa em destaque.</div>
+      <div class="faixa">        <h1>Mais do que um treinamento, somos uma comunidade.</h1>
+        <div class="chips"><span class="chip">+60 mil clientes ativos</span><span class="chip">40 Mi de pessoas impactadas</span><span class="chip">59.944 investidores formados pela AUVP</span></div>
+      </div></div></section>
+
+
+    <section class="tela" id="t3"><div class="quadro in">
+      <div class="brief"><b>Imagem em tela cheia</b>Mockup em notebook/tablet/celular rodando uma aula + capas dos e-books.</div>
+      <div class="faixa">        <h1>O que é a AUVP Escola?</h1>
+        <div class="chips"><span class="chip">+100 aulas gravadas</span><span class="chip">App próprio no celular</span><span class="chip">E-books, mapas mentais e cadernos</span></div>
+      </div></div></section>
+
+    <section class="tela" id="t4"><div class="quadro in">
+      <div class="brief"><b>Vídeo em tela cheia &middot; autoplay mudo</b>Corte rápido (15-20s) de uma aula: player, professor, material, exercício. Mostra o processo, não conta.</div>
+      <div class="faixa">        <h1>Assim são nossas aulas por dentro</h1>
+        <div class="chips"><span class="chip">Exemplos práticos</span><span class="chip">Material visual</span><span class="chip">Didática e clareza</span></div>
+      </div></div></section>
+
+    <section class="tela" id="t5"><div class="galeria in">
+      <div class="cab"><h1>Cronograma de conteúdo</h1>
+        <p class="crono-sub">* Os módulos abaixo podem ser expandidos para consultar a lista de aulas.</p></div>
+      <div class="crono" id="crono-lista"></div>
+    </div></section>
+
+    <section class="tela" id="tmat"><div class="galeria in">
+      <div class="cab"><h1>Material para estudar e aprender de verdade</h1></div>
+      <div class="grade g-3">
+        <div class="foto"><span class="ph">Capas dos e-books</span><div class="rot"><b>E-books</b><small>Guias completos para baixar e consultar quando quiser.</small></div></div>
+        <div class="foto"><span class="ph">Mapa mental</span><div class="rot"><b>Mapas mentais</b><small>O resumo visual de cada aula, tudo em uma página.</small></div></div>
+        <div class="foto"><span class="ph">Caderno de exercícios</span><div class="rot"><b>Cadernos de exercício</b><small>Pratique o que aprendeu em cada módulo para fixar o conteúdo.</small></div></div>
+      </div>
+    </div></section>
+
+    <section class="tela" id="t6"><div class="galeria in">
+      <div class="cab"><h1>Ferramentas exclusivas para facilitar sua vida</h1></div>
+      <div class="grade g-2" id="ferramentas"></div>
+    </div></section>
+
+    <section class="tela" id="t7"><div class="galeria in">
+      <div class="cab"><h1 class="copy" data-slot="titulo">Bateu a dúvida? Estamos sempre por aqui.</h1></div>
+      <div class="grade g-3">
+        <div class="foto play"><span class="ph">Foto Raul na live</span><div class="rot"><b>Plantões ao vivo com Raul Sena</b><small>Toda segunda, às 19h.</small></div></div>
+        <div class="foto"><span class="ph">Print da comunidade</span><div class="rot"><b>Comunidade de alunos e especialistas</b><small>Todos de prontidão para tirar dúvida e trocar ideia a qualquer momento.</small></div></div>
+        <div class="foto"><span class="ph">Mockup celular</span><div class="rot"><b>App próprio e aulas gravadas</b><small>Estude do celular, onde estiver.</small></div></div>
+      </div>
+    </div></section>
+
+
+
+    <section class="tela" id="t10"><div class="eco-wrap in">
+      <div class="eco-topo">
+        <p class="mote copy" data-slot="mote">Pensou em dinheiro, pensou na AUVP.</p>
+        <h1>Tudo começa na <span class="dourado">Escola</span>.</h1>
+      </div>
+      <div class="linha-tempo" id="timeline"></div>
+    </div></section>
+
+    <section class="tela" id="tpro"><div class="quadro in">
+      <div class="brief"><b>Imagem em tela cheia</b>Ambiente de estudo para certificação / selo AUVP Pro.</div>
+      <div class="faixa">        <h1>AUVP Pro</h1>
+        <p class="legenda">Prepare-se para conquistar as principais certificações do mercado financeiro.</p>
+        <div class="chips"><span class="chip">Trilha estruturada</span><span class="chip">Simulados</span><span class="chip">Suporte e Comunidade</span></div>
+      </div></div></section>
+
+    <section class="tela" id="tagro"><div class="quadro in">
+      <div class="brief"><b>Imagem em tela cheia</b>Agronegócio com dado de mercado sobreposto / selo AUVP Agro.</div>
+      <div class="faixa">        <h1>AUVP Agro</h1>
+        <p class="legenda">Para quem constrói patrimônio no agronegócio.</p>
+        <div class="chips"><span class="chip">Cotações em tempo real</span><span class="chip">Inteligência de mercado</span><span class="chip">Treinamentos estratégicos</span></div>
+      </div></div></section>
+
+    <section class="tela" id="t11"><div class="quadro in">
+      <div class="brief"><b>Imagem em tela cheia</b>Mapa/globo ou skyline internacional. Clima de "seu dinheiro fora do país".</div>
+      <div class="faixa">        <h1>AUVP Internacional</h1>
+        <p class="legenda">Torne-se um Estrategista Global.</p>
+        <div class="chips"><span class="chip">Investir no exterior</span><span class="chip">Remessas</span><span class="chip">Diversificação em dólar</span></div>
+      </div></div></section>
+
+    <section class="tela" id="t12"><div class="quadro in">
+      <div class="brief"><b>Imagem em tela cheia</b>Imagem dos módulos da AUVP Sempre.</div>
+      <div class="faixa">        <h1>AUVP Sempre</h1>
+        <p class="legenda">Evolução contínua para quem já concluiu a Escola com conteúdos avançados, ferramentas exclusivas e comunidade de suporte.</p>
+        <div class="chips"><span class="chip">Acesso a módulos avançados</span><span class="chip">Aulas atualizadas</span><span class="chip">Live semanal</span></div>
+      </div></div></section>
+
+
+
+
+
+    <section class="tela" id="t17"><div class="quadro in">
+      <div class="brief"><b>Imagem em tela cheia</b>Boas-vindas: aluno/comunidade, clima de começo de jornada. Logo AUVP centralizada.</div>
+      <div class="faixa" style="text-align:center"><p class="kicker">Bem-vindo à AUVP</p>        <h1 class="copy" data-slot="titulo" style="margin:0 auto;max-width:24ch">Vamos juntos construir sua liberdade financeira.</h1>
+      </div></div></section>
+  </main>
+</div>
+<script type="application/json" id="crono">[{"index":1,"title":"Preparando seu cérebro","subtitle":"Mindset e fundamentos","description":"Muda sua relação com o dinheiro e prepara a mente para investir.","totalDuration":"3h 40min","lessons":[{"number":"Aula 01","title":"Preparando seu cérebro","duration":"04:49"},{"number":"Aula 02","title":"Por que os ricos ficam cada vez mais ricos?","duration":"13:37"},{"number":"Aula 03","title":"Crenças limitantes","duration":"17:09"},{"number":"Aula 04","title":"Juros Compostos","duration":"15:43"},{"number":"Aula 05","title":"O que é Liberdade Financeira?","duration":"20:07"},{"number":"Bônus","title":"AUVP Crédito","duration":"02:42"},{"number":"Aula 06","title":"Como não cair em golpes","duration":"23:28"},{"number":"Aula 07","title":"Metade salada e metade droga","duration":"07:19"},{"number":"Aula 08","title":"Autoajuda é o caralho","duration":"11:09"},{"number":"Aula 09","title":"Pare de procrastinar","duration":"13:19"},{"number":"Aula 10","title":"Aula da família","duration":"1:21:33"},{"number":"Bônus","title":"Onde investir sua reserva de emergência","duration":"11:16"}]},{"index":2,"title":"Organize seus gastos","subtitle":"Vida financeira no controle","description":"Orçamento, dívidas e o caminho até o primeiro milhão.","totalDuration":"1h 24min","lessons":[{"number":"Aula 01","title":"Finanças pessoais","duration":"20:30"},{"number":"Aula 02","title":"Como usar seu cartão de crédito","duration":"19:00"},{"number":"Aula 03","title":"Como resolver as dívidas","duration":"05:55"},{"number":"Aula 04","title":"Financiamento de imóvel faz sentido?","duration":"19:39"},{"number":"Aula 05","title":"Consórcios SÃO TOPS?","duration":"09:30"},{"number":"Aula 06","title":"Viver de renda e primeiro milhão","duration":"10:17"}]},{"index":3,"title":"Renda Fixa","subtitle":"Tesouro, CDBs, LCIs e mais","description":"Tesouro, CDBs, LCIs e todo o universo da renda fixa.","totalDuration":"5h 00min","lessons":[{"number":"Aula 01","title":"O que é Renda Fixa?","duration":"11:40"},{"number":"Aula 02","title":"Escolhendo uma corretora","duration":"13:20"},{"number":"Aula 03","title":"Introdução ao Tesouro Direto","duration":"17:55"},{"number":"Aula 04","title":"Tesouro Selic","duration":"15:49"},{"number":"Aula 05","title":"Tesouro pré-fixado","duration":"13:51"},{"number":"Aula 06","title":"Tesouro IPCA+","duration":"07:50"},{"number":"Aula 07","title":"Marcação a mercado","duration":"03:32"},{"number":"Aula 07","title":"Marcação a mercado - Parte 2","duration":"18:00"},{"number":"Aula 08","title":"Tesouro Prefixado e IPCA+ com Juros Semestrais","duration":"05:19"},{"number":"Bônus","title":"Conhecendo nossos ETF's - AUPO11","duration":"20:36"},{"number":"Bônus","title":"Conhecendo nossos ETF's - AREA11","duration":"13:38"},{"number":"Aula 09","title":"Tesouro Educa+ e Renda+","duration":"06:31"},{"number":"Aula 10","title":"CDBs, LCs e RDBs","duration":"27:00"},{"number":"Aula 11","title":"LCI e LCA","duration":"08:15"},{"number":"Aula 12","title":"CRI's e CRA's","duration":"10:53"},{"number":"Aula 13","title":"Debentures","duration":"17:21"},{"number":"Aula 14","title":"Previdência Privada","duration":"11:19"},{"number":"Aula 15","title":"Fundos de Investimento","duration":"24:38"},{"number":"Aula 16","title":"Contrafluxo","duration":"26:07"},{"number":"Aula 17","title":"Montando uma carteira de Renda Fixa","duration":"07:55"}]},{"index":4,"title":"Renda Variável","subtitle":"Ações, FIIs, ETFs","description":"Ações, FIIs e ETFs: como montar sua carteira de renda variável.","totalDuration":"9h 39min","lessons":[{"number":"Aula 01","title":"Introdução à Renda Variável","duration":"03:28"},{"number":"Aula 02","title":"Bolsa de Valores","duration":"17:26"},{"number":"Aula 03","title":"Ações: Preço x Valor","duration":"10:24"},{"number":"Aula 04","title":"Abertura de capital (IPO)","duration":"20:43"},{"number":"Aula 05","title":"Nomenclaturas e termos da bolsa","duration":"27:05"},{"number":"Aula 06","title":"As escolas de investimento","duration":"27:41"},{"number":"Aula 07","title":"Analisando ações","duration":"07:23"},{"number":"Aula 07","title":"Análise de ações - Parte 2","duration":"50:50"},{"number":"Aula 07","title":"Análise de ações - Parte 3","duration":"31:27"},{"number":"Aula 07","title":"Análise de ações - Parte 4","duration":"33:05"},{"number":"Aula 08","title":"Comprando ações, na prática","duration":"09:40"},{"number":"Aula 09","title":"Inserindo no diagrama","duration":"33:19"},{"number":"Aula 10","title":"Pra que serve o preço médio?","duration":"16:02"},{"number":"Aula 11","title":"Proventos","duration":"17:56"},{"number":"Aula 12","title":"Dividendos e Data EX","duration":"19:38"},{"number":"Aula 13","title":"Desdobramentos e Grupamentos","duration":"11:30"},{"number":"Aula 14","title":"Aluguel de Ações","duration":"10:30"},{"number":"Aula 15","title":"Índices e ETF's","duration":"13:51"},{"number":"Aula 16","title":"Fundos Imobiliários","duration":"21:38"},{"number":"Aula 16","title":"Como analisar FIIs na prática? Parte 2","duration":"10:21"},{"number":"Aula 16","title":"Analisando um FII na prática - Parte 3","duration":"21:17"},{"number":"Aula 16","title":"Como identificar FIIs de qualidade - Parte 4","duration":"16:41"},{"number":"Aula 17","title":"Fiagro e fundos de papéis","duration":"19:02"},{"number":"Aula 18","title":"Fi-Infra","duration":"09:54"},{"number":"Extra","title":"Small Caps","duration":"32:26"},{"number":"Aula 19","title":"O método burro","duration":"08:23"},{"number":"Aula 20","title":"Como montar uma carteira de investimentos","duration":"21:09"},{"number":"Extra","title":"Armadilhas do Mercado Financeiro","duration":"21:40"}]},{"index":5,"title":"Reserva de valor","subtitle":"","totalDuration":"2h 16min","tags":["7 aulas padrão","2 aulas bônus","2h 16min"],"description":"Ouro e Bitcoin como reserva de valor da sua carteira.","lessons":[{"number":"Aula 01","title":"O que é uma reserva de valor, e qual a sua função?","duration":"19:11"},{"number":"Aula 02","title":"Comprando ouro físico","duration":"14:03"},{"number":"Aula 03","title":"Como investir em ouro","duration":"11:49"},{"number":"Aula 04","title":"História do bitcoin","duration":"19:57"},{"number":"Aula 05","title":"Por que ter Bitcoin?","duration":"12:09"},{"number":"Aula 06","title":"Qual o momento certo de comprar Bitcoin?","duration":"07:45"},{"number":"Aula 07","title":"Armazenando e protegendo seus Bitcoins","duration":"28:11"},{"number":"Extra","title":"Os ciclos ESTRANHOS do Bitcoin","duration":"13:51"},{"number":"Bônus","title":"O que são e quais os benefícios dos stablecoins","duration":"10:11"}]},{"index":6,"title":"Investindo no exterior","subtitle":"","totalDuration":"3h 13min","tags":["12 aulas padrão","3h 13min"],"description":"Como investir no exterior: ETFs, REITs, stocks e renda fixa nos EUA.","lessons":[{"number":"Aula 01","title":"Por que investir no exterior?","duration":"25:09"},{"number":"Aula 02","title":"Como funciona o mercado americano?","duration":"13:19"},{"number":"Aula 03","title":"Mercado dos EUA x Brasil","duration":"13:29"},{"number":"Aula 04","title":"ETFs Internacionais","duration":"14:36"},{"number":"Aula 04","title":"ETFs Internacionais - Parte 2","duration":"18:02"},{"number":"Aula 04","title":"ETFs Internacionais - Parte 3","duration":"12:26"},{"number":"Aula 05","title":"REITs","duration":"25:33"},{"number":"Aula 06","title":"Stocks (Ações Americanas)","duration":"13:38"},{"number":"Aula 06","title":"Stocks (Ações Americanas) - Setor de Consumo","duration":"16:09"},{"number":"Aula 06","title":"Stocks (Ações Americanas) - Setor de Energia","duration":"16:35"},{"number":"Aula 06","title":"Stocks (Ações Americanas) - Setor de Tecnologia","duration":"18:06"},{"number":"Aula 07","title":"Renda fixa nos Estados Unidos","duration":"19:07"}]},{"index":7,"title":"O começo","subtitle":"","totalDuration":"1h 6min","tags":["4 aulas padrão","1h 6min"],"description":"Coloque em prática: monte e gerencie a sua carteira.","lessons":[{"number":"Aula 01","title":"Operacionalizando sua Carteira","duration":"19:51"},{"number":"Aula 02","title":"Corrigindo os erros da sua carteira","duration":"12:39"},{"number":"Aula 03","title":"O que a AUVP ainda pode fazer por você?","duration":"16:31"},{"number":"Aula 04","title":"Planejando sua liberdade financeira","duration":"17:09"}]},{"index":null,"title":"Bônus: Imposto de Renda","subtitle":"","totalDuration":"3h 13min","tags":["12 aulas padrão","3h 13min"],"description":"Declare seus investimentos e pague os tributos corretamente.","nota":"Este módulo será regravado anualmente, de acordo com mudanças na dinâmica de IR.","lessons":[{"number":"Aula 01","title":"O que é Imposto de Renda?","duration":"17:41"},{"number":"Aula 02","title":"Preparando a declaração","duration":"09:05"},{"number":"Aula 03","title":"O que é e como funciona o IR no Brasil","duration":"24:38"},{"number":"Aula 04","title":"Declarando ações","duration":"24:12"},{"number":"Aula 05","title":"Imposto de Renda na Renda Fixa","duration":"17:00"},{"number":"Aula 06","title":"Imposto de Renda nos Fundos de Investimento","duration":"05:32"},{"number":"Aula 07","title":"Imposto de Renda nos FIIs, Fiagros e FI-Infras","duration":"14:03"},{"number":"Aula 08","title":"Declarando dividendos, JCP, rendimentos e bonificações","duration":"21:24"},{"number":"Aula 09","title":"Investimentos Internacionais","duration":"19:25"},{"number":"Aula 10","title":"Criptomoedas","duration":"24:45"},{"number":"Aula 11","title":"Como gerar um DARF?","duration":"06:41"},{"number":"Aula 12","title":"Declaração de Autônomo com Carnê-Leão","duration":"08:17"}]},{"index":null,"title":"Bônus: Criptomoedas","subtitle":"","totalDuration":"~2 horas (131 min)","tags":["15 aulas","~2 horas (131 min)"],"description":"Os fundamentos para investir em criptoativos com segurança.","lessons":[{"number":"Aula 0","title":"Introdução ao módulo de criptomoedas","duration":"03:15"},{"number":"Aula 01","title":"Por que o Bitcoin foi criado? O problema do dinheiro fiduciário e a inflação","duration":"07:34"},{"number":"Aula 02","title":"Blockchain explicada para uma criança","duration":"04:38"},{"number":"Aula 03","title":"Ethereum (ETH) e os contratos inteligentes","duration":"05:28"},{"number":"Aula 04","title":"A diferença entre \"Coin\" e \"Token\"","duration":"05:02"},{"number":"Aula 05","title":"DeFi (Finanças Descentralizadas)","duration":"09:46"},{"number":"Aula 06","title":"Stablecoins: O Dólar na Blockchain","duration":"08:41"},{"number":"Aula 07","title":"Analisando Altcoins: fundamentos reais","duration":"13:46"},{"number":"Aula 08","title":"Airdrops, ICOs e outras receitas","duration":"09:59"},{"number":"Aula 09","title":"Narrativas e Setores","duration":"08:47"},{"number":"Aula 10","title":"O perigo das Memecoins e Shitcoins","duration":"06:27"},{"number":"Aula 11","title":"Not Your Keys, Not Your Coins (Auto-custódia)","duration":"06:52"},{"number":"Aula 12","title":"Como comprar de forma 100% anônima?","duration":"14:35"},{"number":"Aula 13","title":"Como identificar um golpe no universo cripto?","duration":"06:59"},{"number":"Aula 14","title":"Qual o melhor momento para comprar? Analisando indicadores","duration":"18:56"}]},{"index":null,"title":"Bônus: AUVP Analítica","subtitle":"","totalDuration":"~1 hora (85 min)","tags":["10 aulas","~1 hora (85 min)"],"description":"Tire o máximo da AUVP Analítica para avaliar ativos.","lessons":[{"number":"Aula 01","title":"Bem-vindo à AUVP Analítica","duration":"07:27"},{"number":"Aula 02","title":"Ações, Stocks e REITs","duration":"16:59"},{"number":"Aula 03","title":"Fundos imobiliários","duration":"06:35"},{"number":"Aula 04","title":"Metodologias da AUVP Analítica","duration":"11:07"},{"number":"Aula 05","title":"Filtros e visualizações","duration":"17:12"},{"number":"Aula 06","title":"Comparador","duration":"04:10"},{"number":"Aula 07","title":"Simulador de investimentos","duration":"06:18"},{"number":"Aula 08","title":"ETF's","duration":"06:35"},{"number":"Aula 09","title":"Agenda e previsão de dividendos","duration":"04:06"},{"number":"Aula 10","title":"Outras funcionalidades","duration":"05:00"}]},{"index":null,"title":"Bônus: Indicadores","subtitle":"","totalDuration":"~52 min","tags":["8 aulas","~52 min"],"description":"","lessons":[{"number":"Bônus","title":"ROE (Return on Equity)","duration":"02:48"},{"number":"Bônus","title":"Cotação","duration":"12:35"},{"number":"Bônus","title":"Dívida Líquida x Dívida Bruta","duration":"01:36"},{"number":"Bônus","title":"Dividend Yield","duration":"10:55"},{"number":"Bônus","title":"EBIT (Earnings Before Interest and Taxes)","duration":"03:43"},{"number":"Bônus","title":"P/VPA - Preço sobre Valor Patrimonial por Ação","duration":"10:51"},{"number":"Bônus","title":"P/L - Preço sobre Lucro","duration":"05:19"},{"number":"Bônus","title":"Emissão de cotas","duration":"04:42"}]},{"index":null,"title":"Bônus: Masterclasses","subtitle":"","totalDuration":"2h 38min","tags":["4 aulas","2h 38min"],"description":"","lessons":[{"number":"Aula 01","title":"O que são os ETFs globais e por que eles são fundamentais?","duration":"53:27"},{"number":"Aula 02","title":"Marcação a mercado","duration":"14:04"},{"number":"Aula 03","title":"A leitura e interpretação de indicadores","duration":"54:33"},{"number":"Aula 04","title":"A importância de se blindar do consumismo","duration":"37:32"}]}]</script>
+<script>
+const CRONO=JSON.parse(document.getElementById('crono').textContent);
+const FERR=[["Plataforma PIAR","compreenda e mapeie seu perfil de investidor"],["Diagrama do Cerrado","gerencie sua carteira de investimentos com fundamento"],["Orçamento Doméstico","controle seus gastos e gerencie seu dinheiro"],["AUVP Analítica","para quem analisa a fundo seus investimentos"]];
+const ESTAGIOS=[
+  ["01","Aprendizado",[["AUVP Escola",""],["AUVP Agro",""],["AUVP Pro",""],["AUVP Sempre",""],["AUVP Internacional",""]]],
+  ["02","Acompanhamento",[["Open Finance","Seus gastos num só lugar"],["Carteiras recomendadas","Para o seu perfil"],["Plataforma de investimentos","Exclusiva para alunos"]]],
+  ["03","Proteção da Família",[["Seguro de vida","Proteção para toda a família"],["Análise de crédito","O financiamento mais barato"],["Previdência privada","Com a menor taxa do mercado"]]],
+  ["04","Patrimônio & Consultoria",[["Consultoria / Private","+R$300 mil &middot; Private +R$5 mi"],["Holding imobiliária","Organização e sucessão"],["Offshore e AMC","Para grandes clientes"]]]
+];
+const palco=document.getElementById('palco');
+function ir(id){document.querySelectorAll('.tela').forEach(t=>t.classList.toggle('ativa',t.id===id));document.querySelectorAll('.item').forEach(b=>b.classList.toggle('on',b.dataset.alvo===id));palco.scrollTop=0;const a=document.getElementById(id);if(a)a.scrollTop=0;}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-alvo]');if(b)ir(b.dataset.alvo)});
+const TECLAS={'1':'t1','3':'t3','4':'t4','5':'t5','6':'t6','7':'t7','p':'tpro','a':'tagro','i':'t11','s':'t12','e':'t10','m':'tmat','b':'t17','h':'hub'};
+document.addEventListener('keydown',e=>{if(e.metaKey||e.ctrlKey||e.altKey)return;const k=e.key.toLowerCase();if(k==='escape'){ir('hub');return}if(TECLAS[k])ir(TECLAS[k]);});
+(function(){
+  var esc=function(x){return String(x).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});};
+  var cl=document.getElementById('crono-lista');
+  cl.innerHTML=CRONO.map(function(m){
+    var isBonus=(m.index==null);
+    var padrao=m.lessons.filter(function(l){return /^aula/i.test(l.number);}).length;
+    var extra=m.lessons.length-padrao;
+    var tags;
+    if(m.tags){ tags=m.tags.slice(); }
+    else if(isBonus){ var n=m.pending?m.count:m.lessons.length; tags=[n+' '+(n===1?'aula':'aulas'),m.totalDuration]; }
+    else { tags=[padrao+' '+(padrao===1?'aula padrão':'aulas padrão')]; if(extra) tags.push(extra+' '+(extra===1?'aula bônus':'aulas bônus')); tags.push(m.totalDuration); }
+    var corpo;
+    if(m.pending){ corpo='<div class="aulas-nota">Lista de aulas em atualização.</div>'; }
+    else { corpo=m.lessons.map(function(l){
+      var b=!/^aula/i.test(l.number);
+      return '<div class="aula'+(b?' bonus':'')+'"><span class="an">'+esc(l.number)+'</span><span class="at">'+esc(l.title)+'</span><span class="ad">'+esc(l.duration)+'</span></div>';
+    }).join(''); }
+    if(m.nota){ corpo+='<div class="aula-obs"><span class="obs-ic">!</span><p><b>Observação:</b> '+esc(m.nota)+'</p></div>'; }
+    var base=m.title.replace(/^B[oô]nus:\s*/i,'');
+    var w=esc(base).toUpperCase().split(' ');
+    var nome=w.length>1?w.slice(0,-1).join(' ')+' <span class="dourado">'+w[w.length-1]+'</span>':'<span class="dourado">'+w[0]+'</span>';
+    var ring=isBonus?'&#9733;':m.index;
+    var label=isBonus?'Módulo Bônus':'Módulo '+m.index;
+    return '<div class="mcard'+(isBonus?' bonus':'')+'"><button class="mcard-head" aria-expanded="false">'
+      +'<div class="medalhao"><div class="ring">'+ring+'</div><div class="mlabel">'+label+'</div><div class="mnome">'+nome+'</div></div>'
+      +'<div class="mcard-body"><h3>'+esc(m.title)+'</h3><div class="mtags">'+tags.map(function(t){return '<span class="mtag">'+esc(t)+'</span>';}).join('')+'</div>'
+      +(m.description?'<p class="mdesc">'+esc(m.description)+'</p>':'')+'</div>'
+      +'<span class="chev">&#9662;</span></button>'
+      +'<div class="aulas">'+corpo+'</div></div>';
+  }).join('');
+  cl.addEventListener('click',function(e){
+    var h=e.target.closest('.mcard-head'); if(!h) return;
+    var card=h.parentElement, ab=card.classList.toggle('aberto');
+    h.setAttribute('aria-expanded',ab);
+  });
+})();
+document.getElementById('ferramentas').innerHTML=FERR.map(([t,d])=>'<div class="foto"><span class="ph">Print</span><span class="acesso">Acessar</span><div class="rot"><b>'+t+'</b><small>'+d+'</small></div></div>').join('');
+document.getElementById('timeline').innerHTML=ESTAGIOS.map(([n,titulo,itens],i)=>'<div class="estagio'+(i===3?' destaque':'')+'"><div class="no"></div><h3>'+titulo+'</h3><ul>'+itens.map(([b,d])=>'<li><b>'+b+'</b>'+(d?'<small>'+d+'</small>':'')+'</li>').join('')+'</ul></div>').join('');
+</script>
+</body>
+</html>
