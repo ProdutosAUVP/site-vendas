@@ -14,9 +14,9 @@
 :root{
   --gold:#EFBF4E;--gold-esc:#D4A73D;--gold-deep:#B8860B;--verde-cap:#023619;
   --tinta:#18181B;--tinta2:#52525B;--tinta3:#71717A;
-  --vidro:rgba(255,255,255,.5);--vidro-borda:rgba(0,0,0,.12);--gold-bg:rgba(239,191,78,.1);
+  --vidro-borda:rgba(0,0,0,.12);--gold-bg:rgba(239,191,78,.1);
   /* superfícies e linhas: trocadas em bloco no modo escuro */
-  --sup:rgba(255,255,255,.5);--sup-forte:rgba(255,255,255,.82);--trilho-bg:rgba(255,255,255,.55);
+  --sup:rgba(255,255,255,.66);--sup-forte:rgba(255,255,255,.86);--trilho-bg:rgba(255,255,255,.55);
   --hover:rgba(0,0,0,.04);--linha2:rgba(0,0,0,.07);--linha-f:rgba(0,0,0,.16);
   --rot-veu:rgba(255,255,255,.92);--malha:rgba(24,24,27,.05);--trilha-bg:rgba(24,24,27,.08);
   --fundo:radial-gradient(ellipse at top,#f4f4f5 0%,#e4e4e7 100%);
@@ -32,7 +32,7 @@ body.escuro{
   --tinta:#F4F4F5;--tinta2:#A1A1AA;--tinta3:#8B8B93;
   --gold-deep:#E5AE38;
   --vidro-borda:rgba(255,255,255,.12);--gold-bg:rgba(239,191,78,.13);
-  --sup:rgba(255,255,255,.05);--sup-forte:rgba(255,255,255,.1);--trilho-bg:rgba(24,24,27,.72);
+  --sup:rgba(255,255,255,.06);--sup-forte:rgba(255,255,255,.11);--trilho-bg:rgba(24,24,27,.72);
   --hover:rgba(255,255,255,.07);--linha2:rgba(255,255,255,.09);--linha-f:rgba(255,255,255,.22);
   --rot-veu:rgba(12,12,14,.94);--malha:rgba(255,255,255,.05);--trilha-bg:rgba(255,255,255,.11);
   --fundo:radial-gradient(ellipse at top,#1c1c20 0%,#0e0e10 100%);
@@ -119,7 +119,7 @@ body:not(.escuro) .ajuda{background:rgba(255,255,255,.95)}
 .visor-cena{position:fixed;inset:0;z-index:90;opacity:0;pointer-events:none;transition:opacity .24s}
 .visor-cena.ver{opacity:1}
 .visor-cena .visor{pointer-events:auto}
-.visor{position:absolute;margin:0;left:0;top:0;width:min(46vw,620px);border-radius:16px;overflow:hidden;background:#09090b;border:1px solid rgba(239,191,78,.34);box-shadow:0 34px 76px -26px rgba(0,0,0,.78);cursor:default;opacity:0;transform:scale(.78) translateY(6px);transform-origin:var(--ox,50%) var(--oy,100%);transition:transform .42s var(--mola),opacity .24s}
+.visor{position:absolute;margin:0;left:0;top:0;width:min(46vw,620px);border-radius:16px;overflow:clip;background:#09090b;border:1px solid rgba(239,191,78,.34);box-shadow:0 34px 76px -26px rgba(0,0,0,.78);cursor:default;opacity:0;transform:scale(.78) translateY(6px);transform-origin:var(--ox,50%) var(--oy,100%);transition:transform .42s var(--mola),opacity .24s}
 .visor-cena.ver .visor{opacity:1;transform:none}
 .visor img{display:block;width:100%;height:auto;background:#0c0c0e}
 .visor-x{position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:18px;line-height:1;color:#fff;background:rgba(9,9,11,.55);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:.18s}
@@ -164,7 +164,7 @@ h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,56px);lin
 .coluna{display:flex;flex-direction:column;gap:9px;min-width:0}
 .coluna h4{font-family:var(--cta);font-weight:600;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep);margin:0 0 3px;padding-bottom:9px;border-bottom:1px solid var(--linha2);display:flex;justify-content:space-between;align-items:center}
 .coluna h4 i{font-family:var(--mono);font-style:normal;font-size:9px;color:var(--tinta3);letter-spacing:.02em}
-.bloco{position:relative;display:flex;align-items:center;gap:11px;width:100%;min-height:56px;text-align:left;padding:13px 13px 13px 15px;border:1px solid var(--vidro-borda);border-radius:13px;background:var(--sup);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);color:var(--tinta);overflow:hidden;transition:transform .22s var(--mola),border-color .22s,box-shadow .22s,background .22s;animation:sobe .5s var(--mola) both;animation-delay:calc(var(--i,0)*32ms)}
+.bloco{position:relative;overflow:clip;display:flex;align-items:center;gap:11px;width:100%;min-height:56px;text-align:left;padding:13px 13px 13px 15px;border:1px solid var(--vidro-borda);border-radius:13px;background:var(--sup);color:var(--tinta);overflow:hidden;transition:transform .22s var(--mola),border-color .22s,box-shadow .22s,background .22s;animation:sobe .5s var(--mola) both;animation-delay:calc(var(--i,0)*32ms)}
 @keyframes sobe{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .bloco::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--gold),var(--gold-deep));transform:scaleY(0);transform-origin:50% 0;transition:transform .26s var(--mola)}
 .bloco .bn{font-family:var(--mono);font-size:9.5px;color:var(--tinta3);flex:none;letter-spacing:.04em;transition:color .22s}
@@ -199,6 +199,13 @@ h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,56px);lin
 .tela.ativa .quadro.centro h1{animation:surge .75s var(--mola) .12s backwards}
 .tela.ativa .quadro.centro .legenda{animation:surge .7s var(--mola) .4s backwards}
 .tela.ativa .quadro.centro .chip{animation:surge .62s var(--mola) backwards}
+/* variante com foco no centro da imagem: escurece só as bordas */
+.quadro.midia.foco .bg{object-position:center 42%}
+.quadro.midia.foco .faixa{inset:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding:clamp(30px,5vw,66px);
+  background:radial-gradient(ellipse 44% 50% at 50% 40%,rgba(9,9,11,0) 0%,rgba(9,9,11,.3) 58%,rgba(9,9,11,.72) 100%),linear-gradient(0deg,rgba(9,9,11,.94) 0%,rgba(9,9,11,.55) 24%,transparent 54%)}
+.tela.ativa .quadro.foco{animation:none}
+.tela.ativa .quadro.foco .kicker{animation:surge .7s var(--mola) .15s backwards}
+.tela.ativa .quadro.foco h1{animation:surge .75s var(--mola) .35s backwards}
 .quadro.centro .chip:nth-child(1){animation-delay:.62s}
 .quadro.centro .chip:nth-child(2){animation-delay:.88s}
 .quadro.centro .chip:nth-child(3){animation-delay:1.14s}
@@ -206,7 +213,6 @@ h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,56px);lin
 @keyframes surge{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:none}}
 .tela.ativa .quadro.midia img.bg{animation:respira 22s ease-out both}
 @keyframes respira{from{transform:scale(1.005)}to{transform:scale(1.075)}}
-.quadro .tag{position:absolute;top:24px;left:28px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-esc)}
 .quadro .brief{font-family:var(--mono);font-size:11px;line-height:1.7;color:rgba(255,255,255,.5);max-width:38ch;text-align:center;padding:22px}
 .quadro .brief b{display:block;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;font-size:9.5px;margin-bottom:9px}
 .faixa{position:absolute;left:0;right:0;bottom:0;padding:48px 56px 44px;background:linear-gradient(0deg,#18181b 8%,rgba(24,24,27,.72) 55%,transparent)}
@@ -215,7 +221,7 @@ h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,56px);lin
 .legenda{font-size:16px;line-height:1.6;color:var(--tinta2);margin:14px 0 0;max-width:56ch}
 .chips{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
 /* tags em vidro líquido sobre a mídia de fundo */
-.chip{position:relative;overflow:hidden;isolation:isolate;display:inline-flex;align-items:center;gap:8px;font-family:var(--cta);font-weight:600;font-size:12px;letter-spacing:.01em;border-radius:17px;padding:12px 19px;color:rgba(255,255,255,.96);
+.chip{position:relative;overflow:hidden;overflow:clip;isolation:isolate;display:inline-flex;align-items:center;gap:8px;font-family:var(--cta);font-weight:600;font-size:12px;letter-spacing:.01em;border-radius:17px;padding:12px 19px;color:rgba(255,255,255,.96);
   background:linear-gradient(160deg,rgba(255,255,255,.19),rgba(255,255,255,.09) 55%,rgba(255,255,255,.13));
   backdrop-filter:blur(28px) saturate(190%);-webkit-backdrop-filter:blur(28px) saturate(190%);
   border:1px solid rgba(255,255,255,.16);
@@ -229,14 +235,12 @@ h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,56px);lin
 .chip.lente svg{opacity:.65;transition:opacity .2s,transform .2s}
 .chip.lente:hover svg{opacity:1;transform:scale(1.1)}
 .chip.copy{border-color:rgba(239,191,78,.45);box-shadow:0 12px 38px -16px rgba(0,0,0,.55),inset 0 1px 0 rgba(239,191,78,.4)}
-.cta{display:inline-flex;align-items:center;gap:8px;font-family:var(--cta);font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.05em;padding:18px 32px;border-radius:5px;background:var(--gold);color:var(--verde-cap);border:1px solid var(--gold);transition:all 300ms ease;margin-top:30px}
-.cta:hover{background:transparent;color:var(--gold);border-color:var(--gold)}
 .galeria{min-height:100%;padding:56px;display:flex;flex-direction:column}
 .galeria .cab{margin-bottom:28px}
 .grade{display:grid;gap:15px;flex:1}
 .g-2{grid-template-columns:repeat(2,1fr)}.g-3{grid-template-columns:repeat(3,1fr)}.g-4{grid-template-columns:repeat(4,1fr)}
-.foto{position:relative;border:1px solid var(--vidro-borda);border-radius:16px;overflow:hidden;min-height:160px;background:var(--sup);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);display:flex;flex-direction:column;justify-content:flex-end;transition:transform 320ms ease,box-shadow 320ms ease,border-color 320ms ease}
-.foto:hover{transform:translateY(-8px);box-shadow:0 20px 40px -10px rgba(239,191,78,.25);border-color:rgba(239,191,78,.4)}
+.foto{position:relative;border:1px solid var(--vidro-borda);border-radius:16px;overflow:hidden;overflow:clip;min-height:160px;background:var(--sup);display:flex;flex-direction:column;justify-content:flex-end;transition:transform 320ms ease,box-shadow 320ms ease,border-color 320ms ease}
+.foto:hover{transform:scale(1.018);box-shadow:0 22px 44px -12px rgba(239,191,78,.3);border-color:rgba(239,191,78,.45)}
 /* cards com imagem de capa */
 .foto.capa{background:#09090b}
 .foto .cbg,.foto .cimg{position:absolute;inset:0;background-image:var(--capa);background-repeat:no-repeat;z-index:0}
@@ -272,7 +276,7 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 .estagio:hover{transform:translateY(-4px)}
 .estagio.destaque{background:radial-gradient(120% 62% at 50% 6%,rgba(239,191,78,.17),transparent 66%)}
 /* segmento da barra: cheio, ficando mais forte e mais alto a cada etapa */
-.barra{position:relative;height:calc(7px + var(--i,0)*2px);border-radius:99px;background:var(--trilha-bg);overflow:hidden;margin-bottom:16px}
+.barra{position:relative;height:calc(7px + var(--i,0)*2px);border-radius:99px;background:var(--trilha-bg);overflow:clip;margin-bottom:16px}
 .barra i{position:absolute;inset:0;border-radius:99px;background:linear-gradient(90deg,var(--gold-esc),var(--gold));opacity:calc(.5 + var(--i,0)*.17);transform-origin:0 50%}
 .tela.ativa .barra i{animation:enche .6s var(--mola) both;animation-delay:calc(var(--i,0)*140ms + 120ms)}
 @keyframes enche{from{transform:scaleX(0)}to{transform:scaleX(1)}}
@@ -284,7 +288,7 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 .estagio:hover .no{transform:translateY(-1px);border-color:var(--gold)}
 .estagio h3{font-family:var(--display);font-weight:600;font-size:18.5px;margin:0;letter-spacing:-.015em;color:var(--tinta);line-height:1.15}
 .estagio ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;align-content:start}
-.estagio li{position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;border:1px solid var(--vidro-borda);border-radius:13px;padding:10px 13px;background:var(--sup);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);transition:transform .22s var(--mola),border-color .22s,box-shadow .22s;animation:sobe .5s var(--mola) both;animation-delay:calc((var(--i,0)*3 + var(--j,0))*55ms + 320ms)}
+.estagio li{position:relative;overflow:hidden;overflow:clip;display:flex;align-items:center;gap:12px;border:1px solid var(--vidro-borda);border-radius:13px;padding:10px 13px;background:var(--sup);transition:transform .22s var(--mola),border-color .22s,box-shadow .22s;animation:sobe .5s var(--mola) both;animation-delay:calc((var(--i,0)*3 + var(--j,0))*55ms + 320ms)}
 .estagio li:hover{transform:translateY(-3px);border-color:rgba(239,191,78,.5);box-shadow:0 12px 26px -12px rgba(184,134,11,.55)}
 .estagio.destaque li{background:rgba(239,191,78,.08);border-color:rgba(239,191,78,.26)}
 .estagio li .txt{flex:1;min-width:0}
@@ -294,17 +298,6 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 .mini{flex:none;width:52px;height:52px;border-radius:10px;background:linear-gradient(150deg,#232326,#0f0f11);font-size:19px;background-size:cover;background-position:center;border:1px solid rgba(239,191,78,.28);display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:15px;color:var(--gold);overflow:hidden;transition:transform .3s var(--mola)}
 .mini.tem{background-image:var(--capa);color:transparent}
 .estagio li:hover .mini{transform:scale(1.05)}
-.objecoes{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
-.obj{border:1px solid var(--vidro-borda);border-radius:12px;overflow:hidden;background:var(--sup);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);transition:.2s}
-.obj>button{width:100%;text-align:left;padding:16px 18px;display:flex;justify-content:space-between;gap:14px;align-items:center;font-family:var(--display);font-weight:600;font-size:17px;color:var(--tinta)}
-.obj>button::after{content:"+";font-family:var(--mono);color:var(--gold-deep);font-size:18px;flex:none}
-.obj.aberta>button::after{content:"\2013"}
-.obj.aberta{border-color:rgba(239,191,78,.5);background:rgba(239,191,78,.06)}
-.resposta{display:none;padding:0 18px 17px}
-.obj.aberta .resposta{display:block}
-.resposta p{margin:0 0 9px;font-size:14.5px;line-height:1.5;color:var(--tinta2)}
-.resposta p:last-child{margin:0}
-.resposta .virada{font-family:var(--mono);font-size:11.5px;color:var(--gold-deep);line-height:1.6}
 
 /* cronograma de modulos */
 .crono{display:flex;flex-direction:column;gap:15px}
@@ -312,10 +305,10 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 .crono-barra{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
 .crono-barra button{font-family:var(--cta);font-weight:600;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta2);border:1px solid var(--vidro-borda);background:var(--sup);border-radius:999px;padding:7px 14px;transition:.18s}
 .crono-barra button:hover{border-color:rgba(239,191,78,.55);color:var(--gold-deep)}
-.mcard{border:1px solid var(--vidro-borda);border-radius:16px;background:var(--sup);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);overflow:hidden;transition:border-color .24s,box-shadow .24s}
+.mcard{border:1px solid var(--vidro-borda);border-radius:16px;background:var(--sup);overflow:hidden;overflow:clip;transition:border-color .24s,box-shadow .24s}
 .mcard.aberto{border-color:rgba(239,191,78,.45);box-shadow:0 14px 34px -14px rgba(239,191,78,.3)}
 .mcard-head{display:flex;gap:22px;align-items:stretch;width:100%;text-align:left;padding:16px;cursor:pointer;background:none;color:inherit}
-.medalhao{position:relative;overflow:hidden;flex:none;width:158px;border-radius:12px;background:var(--grad-escuro);border:1px solid rgba(239,191,78,.2);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:9px;padding:16px;min-height:112px}
+.medalhao{position:relative;overflow:hidden;overflow:clip;flex:none;width:158px;border-radius:12px;background:var(--grad-escuro);border:1px solid rgba(239,191,78,.2);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:9px;padding:16px;min-height:112px}
 /* capa do módulo: a proporção do medalhão acompanha a da imagem
    (768x481), então nada é cortado nas laterais */
 .medalhao.capa{width:222px;min-height:0;aspect-ratio:768/481;padding:0;border-color:rgba(239,191,78,.3);background:#09090b}
@@ -384,7 +377,7 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
   .galeria,.home-wrap,.eco-wrap{padding:30px 22px 50px}
   .home-wrap{justify-content:flex-start;min-height:auto}
   .grade,.g-2,.g-3,.g-4{grid-template-columns:1fr}
-  .objecoes,.home-grade,.linha-tempo{grid-template-columns:1fr;row-gap:26px}
+  .home-grade,.linha-tempo{grid-template-columns:1fr;row-gap:26px}
   .estagio{padding-top:0}
   .mcard-head{flex-direction:column;gap:14px}.medalhao{width:100%;min-height:88px}
   .medalhao.capa{width:100%;min-height:0}
@@ -466,9 +459,9 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
     <section class="tela" id="tmat"><div class="galeria in">
       <div class="cab"><h1>Material para estudar e aprender de verdade</h1></div>
       <div class="grade g-3">
-        <a class="foto capa" href="https://drive.google.com/file/d/1K_EOpMIMIp7QzwvloqaUjheVqNRpHX_K/view" target="_blank" rel="noopener noreferrer" style="--capa:url('capa%20modulo%203.jpg')"><span class="cimg"></span><span class="veu"></span><span class="acesso">Acessar<svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></span><div class="rot"><b>E-books</b><small>Guias completos para baixar e consultar quando quiser.</small></div></a>
+        <a class="foto capa" href="https://drive.google.com/file/d/1YKgCxVxwpHtlLeiHua9Pbg_PQezvAsgL/view" target="_blank" rel="noopener noreferrer" style="--capa:url('capa%20modulo%203.jpg')"><span class="cimg"></span><span class="veu"></span><span class="acesso">Acessar<svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></span><div class="rot"><b>E-books</b><small>Guias completos para baixar e consultar quando quiser.</small></div></a>
         <a class="foto capa" href="https://drive.google.com/file/d/12m0xtQ17TwWzxfwonW7uuOWggncXz--c/view" target="_blank" rel="noopener noreferrer" style="--capa:url('https://lwfiles.mycourse.app/65f0605f45786c13a78a559b-public/57fb9691a06a2815fcca7a5012b8abf9.png')"><span class="cimg"></span><span class="veu"></span><span class="acesso">Acessar<svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></span><div class="rot"><b>Mapas mentais</b><small>O resumo visual de cada aula, tudo em uma página.</small></div></a>
-        <div class="foto capa" style="--capa:url('capa%20caderno%20ex%202.jpg')"><span class="cimg"></span><span class="veu"></span><div class="rot"><b>Cadernos de exercício</b><small>Pratique o que aprendeu em cada módulo para fixar o conteúdo.</small></div></div>
+        <a class="foto capa" href="https://drive.google.com/file/d/1NYkQLfjdAenOs0xtqLQkjD9CnkCMvv7-/view" target="_blank" rel="noopener noreferrer" style="--capa:url('capa%20caderno%20ex%202.jpg')"><span class="cimg"></span><span class="veu"></span><span class="acesso">Acessar<svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></span><div class="rot"><b>Cadernos de exercício</b><small>Pratique o que aprendeu em cada módulo para fixar o conteúdo.</small></div></a>
       </div>
     </div></section>
 
@@ -482,7 +475,7 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
       <div class="grade g-3">
         <a class="foto capa play" href="https://comunidade.auvp.com.br/lives/" target="_blank" rel="noopener noreferrer" style="--capa:url('https://cdn.asupernova.com.br/lp-auvp/vite/o-que-voce-vai-aprender2.webp')"><span class="cimg"></span><span class="veu"></span><div class="rot"><b>Plantões ao vivo com Raul Sena</b><small>Toda segunda, às 19h.</small></div></a>
         <a class="foto capa" href="https://comunidade.auvp.com.br/" target="_blank" rel="noopener noreferrer" style="--capa:url('Captura%20de%20tela%202026-08-10%20135133.png')"><span class="cimg"></span><span class="veu"></span><div class="rot"><b>Comunidade de alunos e especialistas</b><small>Todos de prontidão para tirar dúvida e trocar ideia a qualquer momento.</small></div></a>
-        <div class="foto capa" style="--capa:url('https://play-lh.googleusercontent.com/1x1FPGCuxeruPcVXC25UTPzm6ZjOHajnlWQi39HwVUUyLaODgBj6JHjaUPcf82cssDDgbSmy3lNpbmz8ezGk=w5120-h2880-rw')"><span class="cbg"></span><span class="cimg"></span><span class="veu"></span><span class="ph">Mockup celular</span><div class="rot"><b>App próprio e aulas gravadas</b><small>Estude do celular, onde estiver.</small></div></div>
+        <a class="foto capa" href="https://apps.apple.com/br/app/escola-auvp/id6502692783" target="_blank" rel="noopener noreferrer" style="--capa:url('https://play-lh.googleusercontent.com/1x1FPGCuxeruPcVXC25UTPzm6ZjOHajnlWQi39HwVUUyLaODgBj6JHjaUPcf82cssDDgbSmy3lNpbmz8ezGk=w5120-h2880-rw')"><span class="cbg"></span><span class="cimg"></span><span class="veu"></span><span class="acesso">Acessar<svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></span><div class="rot"><b>App próprio e aulas gravadas</b><small>Estude do celular, onde estiver.</small></div></a>
       </div>
     </div></section>
 
@@ -497,7 +490,7 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
     </div></section>
 
     <section class="tela" id="tpro"><div class="quadro midia in">
-      <video class="bg" data-src="pro.mp4" poster="Captura%20de%20tela%202026-08-10%20135857.png" muted loop playsinline preload="none" disablepictureinpicture aria-hidden="true"></video>
+      <video class="bg" data-src="pro.mp4" muted loop playsinline preload="none" disablepictureinpicture aria-hidden="true"></video>
       <div class="faixa">        <h1>AUVP Pro</h1>
         <p class="legenda">Prepare-se para conquistar as principais certificações do mercado financeiro.</p>
         <div class="chips"><button type="button" class="chip lente" data-imagem="trilha%20pro.png">Trilha estruturada<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.2"/><path d="M15.2 15.2 20 20M10.5 8v5M8 10.5h5"/></svg></button><button type="button" class="chip lente" data-imagem="simulados%20pro.png">Simulados<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.2"/><path d="M15.2 15.2 20 20M10.5 8v5M8 10.5h5"/></svg></button><button type="button" class="chip lente" data-imagem="comunidade%20pro.png">Suporte e Comunidade<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.2"/><path d="M15.2 15.2 20 20M10.5 8v5M8 10.5h5"/></svg></button></div>
@@ -528,8 +521,8 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 
 
 
-    <section class="tela" id="t17"><div class="quadro in">
-      <div class="brief"><b>Imagem em tela cheia</b>Boas-vindas: aluno/comunidade, clima de começo de jornada. Logo AUVP centralizada.</div>
+    <section class="tela" id="t17"><div class="quadro midia foco in">
+      <img class="bg" src="https://lh3.googleusercontent.com/d/1Xfz79rwvYaGP1w6XlY0HihETJ1AUw76g=w2400" alt="" decoding="async" fetchpriority="low">
       <div class="faixa" style="text-align:center"><p class="kicker">Bem-vindo à AUVP</p>        <h1 class="copy" data-slot="titulo" style="margin:0 auto;max-width:24ch">Vamos juntos construir sua liberdade financeira.</h1>
       </div></div></section>
     </main>
@@ -858,8 +851,10 @@ const FERR=[
 ];
 /* miniaturas dos produtos (etapa Aprendizado) */
 const MINIS={
-  "AUVP Escola":"foto alunos.jpg",
-  "AUVP Pro":"Captura de tela 2026-08-10 135857.png",
+  "AUVP Escola":"https://cdn.asupernova.com.br/lp-auvp/vite/AUVP-0509.webp",
+  "AUVP Agro":"escola agro.png",
+  "AUVP Pro":"trilha pro.png",
+  "AUVP Sempre":"modulos avançados.png",
   "AUVP Internacional":"internacional.jpg"
 };
 const ESTAGIOS=[
