@@ -8,6 +8,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anek+Latin:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Sora:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
+/* ============================================================
+   1. TOKENS
+   ============================================================ */
 :root{
   --gold:#EFBF4E;--gold-esc:#D4A73D;--gold-deep:#B8860B;--verde-cap:#023619;
   --tinta:#18181B;--tinta2:#52525B;--tinta3:#71717A;
@@ -16,44 +19,123 @@
   --grad-escuro:radial-gradient(ellipse at center,rgba(239,191,78,.08) 0%,#18181b 70%);
   --display:'Anek Latin',system-ui,sans-serif;--corpo:'Roboto',system-ui,-apple-system,sans-serif;
   --cta:'Sora',var(--corpo);--mono:'JetBrains Mono',ui-monospace,monospace;
+  --trilho:270px;--mola:cubic-bezier(.2,.7,.3,1);
 }
+body.recolhido{--trilho:74px}
+
+/* ============================================================
+   2. BASE
+   ============================================================ */
 *{box-sizing:border-box}
 html,body{height:100%}
 body{margin:0;background:var(--grad-claro);background-attachment:fixed;color:var(--tinta);font-family:var(--corpo);-webkit-font-smoothing:antialiased;overflow:hidden}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 :focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.app{display:grid;grid-template-columns:266px minmax(0,1fr);height:100vh}
-.trilho{background:rgba(255,255,255,.55);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-right:1px solid var(--vidro-borda);display:flex;flex-direction:column;overflow:hidden}
-.marca{padding:22px 20px 16px;border-bottom:1px solid var(--vidro-borda)}
-.marca b{font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:-.02em;display:block;color:var(--tinta)}
-.marca span{font-family:var(--cta);font-weight:700;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep)}
-.nav{flex:1;overflow-y:auto;padding:12px 12px 8px}
-.grupo{font-family:var(--cta);font-weight:700;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--tinta3);padding:13px 8px 6px}
-.item{display:flex;gap:10px;align-items:center;width:100%;text-align:left;padding:8px 9px;border-radius:8px;font-family:var(--display);font-weight:500;font-size:13.5px;line-height:1.2;color:var(--tinta2);transition:.16s}
+.app{display:grid;grid-template-columns:auto minmax(0,1fr);height:100vh}
+
+/* ============================================================
+   3. SIDEBAR (trilho) - expandida e recolhida
+   ============================================================ */
+.trilho{width:var(--trilho);background:rgba(255,255,255,.55);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-right:1px solid var(--vidro-borda);display:flex;flex-direction:column;overflow:hidden;transition:width .28s var(--mola)}
+.marca{display:flex;align-items:center;gap:11px;padding:18px 14px 16px;border-bottom:1px solid var(--vidro-borda);min-height:73px}
+.selo{flex:none;width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:linear-gradient(145deg,var(--gold),var(--gold-deep));color:var(--verde-cap);font-family:var(--display);font-weight:700;font-size:17px;line-height:1;box-shadow:0 4px 12px -4px rgba(184,134,11,.55)}
+.marca-txt{flex:1;min-width:0;overflow:hidden}
+.marca-txt b{font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:-.02em;display:block;color:var(--tinta);white-space:nowrap}
+.marca-txt span{font-family:var(--cta);font-weight:700;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);white-space:nowrap}
+.dobra{flex:none;width:28px;height:28px;display:grid;place-items:center;border-radius:7px;color:var(--tinta3);transition:.18s}
+.dobra:hover{background:rgba(0,0,0,.05);color:var(--tinta)}
+.dobra svg{transition:transform .28s var(--mola)}
+body.recolhido .marca{flex-direction:column;gap:10px;padding:14px 8px}
+body.recolhido .marca-txt{display:none}
+body.recolhido .dobra svg{transform:rotate(180deg)}
+
+.nav{flex:1;overflow-y:auto;overflow-x:hidden;padding:10px 11px 8px;scrollbar-width:thin}
+.nav::-webkit-scrollbar{width:6px}
+.nav::-webkit-scrollbar-thumb{background:rgba(0,0,0,.14);border-radius:6px}
+.grupo{font-family:var(--cta);font-weight:700;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--tinta3);padding:14px 8px 6px}
+body.recolhido .grupo{padding:11px 10px 9px;font-size:0}
+body.recolhido .grupo::before{content:"";display:block;height:1px;background:var(--vidro-borda)}
+body.recolhido .nav>.grupo:first-child{padding:4px 0 0}
+body.recolhido .nav>.grupo:first-child::before{display:none}
+.item{display:flex;gap:10px;align-items:center;width:100%;text-align:left;padding:8px 9px;border-radius:9px;font-family:var(--display);font-weight:500;font-size:13.5px;line-height:1.2;color:var(--tinta2);transition:background .16s,color .16s;position:relative}
+.item+.item{margin-top:2px}
 .item:hover{background:rgba(0,0,0,.04);color:var(--tinta)}
 .item.on{background:var(--gold-bg);color:var(--tinta)}
-.item.on .tecla{border-color:var(--gold);color:var(--gold-deep);background:rgba(239,191,78,.12)}
+.item.on::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:18px;border-radius:0 3px 3px 0;background:var(--gold-deep)}
+.item.on .tecla{border-color:var(--gold);color:var(--gold-deep);background:rgba(239,191,78,.14)}
+.item .rot{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 .tecla{font-family:var(--mono);font-size:10px;min-width:20px;height:20px;flex:none;display:grid;place-items:center;border:1px solid rgba(0,0,0,.16);border-radius:5px;color:var(--tinta3)}
-.item.quente .tecla{border-color:var(--gold-deep);color:var(--gold-deep)}
-.item.quente.on{background:rgba(239,191,78,.18)}
-.rodape{border-top:1px solid var(--vidro-borda);padding:12px}
-.chave{display:flex;justify-content:space-between;align-items:center;width:100%;font-family:var(--cta);font-weight:600;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta2);padding:8px 6px;border-radius:6px}
-.chave:hover{background:rgba(0,0,0,.04)}
-.led{width:28px;height:15px;border-radius:20px;background:rgba(0,0,0,.14);position:relative;flex:none;transition:.16s}
-.led::after{content:"";position:absolute;top:2px;left:2px;width:11px;height:11px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.2);transition:.16s}
-.chave[aria-pressed="true"] .led{background:var(--gold)}
-.chave[aria-pressed="true"] .led::after{transform:translateX(13px)}
-.chave[aria-pressed="true"]{color:var(--gold-deep)}
-.atalhos{font-family:var(--mono);font-size:9.5px;line-height:1.7;color:var(--tinta3);padding:8px 6px 2px}
+body.recolhido .item{justify-content:center;padding:9px 0}
+body.recolhido .item .rot{display:none}
+body.recolhido .item .tecla{min-width:26px;height:26px;font-size:11px}
+
+.rodape{border-top:1px solid var(--vidro-borda);padding:11px 12px}
+.atalhos{font-family:var(--mono);font-size:9.5px;line-height:1.85;color:var(--tinta3);white-space:nowrap;overflow:hidden}
+.atalhos kbd{font-family:var(--mono);font-size:9px;border:1px solid rgba(0,0,0,.16);border-radius:4px;padding:0 4px;color:var(--tinta2)}
+body.recolhido .rodape{padding:10px 6px}
+body.recolhido .atalhos{display:none}
+
+/* dica flutuante (tooltip) do trilho recolhido */
+.dica{position:fixed;z-index:80;pointer-events:none;opacity:0;transform:translateX(-6px);transition:opacity .14s,transform .14s;background:rgba(24,24,27,.95);color:#fff;font-family:var(--display);font-weight:500;font-size:12.5px;padding:6px 11px;border-radius:7px;white-space:nowrap;box-shadow:0 8px 22px -8px rgba(0,0,0,.5)}
+.dica.ver{opacity:1;transform:none}
+
+/* ============================================================
+   4. PALCO, PROGRESSO, TOPO MOBILE E PAGINADOR
+   ============================================================ */
 .palco{position:relative;overflow:hidden;background:var(--grad-claro)}
+.progresso{position:absolute;top:0;left:0;height:2px;width:0;z-index:25;background:linear-gradient(90deg,var(--gold-deep),var(--gold));box-shadow:0 0 10px rgba(239,191,78,.6);transition:width .38s var(--mola)}
+.topo{display:none;align-items:center;gap:12px;padding:10px 14px;background:rgba(255,255,255,.82);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--vidro-borda)}
+.topo b{font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:-.01em}
+.hamb{width:34px;height:34px;display:grid;place-items:center;border-radius:8px;color:var(--tinta2)}
 .tela{display:none;position:absolute;inset:0;overflow-y:auto}
 .tela.ativa{display:block}
-.tela.ativa .in{animation:entra .36s cubic-bezier(.2,.7,.3,1) both}
+.tela.ativa .in{animation:entra .36s var(--mola) both}
 @keyframes entra{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.fundo{position:fixed;inset:0;z-index:35;background:rgba(24,24,27,.45);opacity:0;pointer-events:none;transition:opacity .24s}
+
+.pager{position:fixed;right:22px;bottom:22px;z-index:30;display:flex;align-items:center;gap:2px;padding:5px;border-radius:999px;background:rgba(24,24,27,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(239,191,78,.28);box-shadow:0 14px 34px -14px rgba(0,0,0,.6);transition:opacity .24s,transform .24s}
+.pg{width:32px;height:32px;display:grid;place-items:center;border-radius:999px;color:rgba(255,255,255,.85);transition:.16s}
+.pg:hover:not(:disabled){background:rgba(239,191,78,.18);color:var(--gold)}
+.pg:disabled{opacity:.28;cursor:default}
+.pg-txt{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.55);padding:0 8px;letter-spacing:.04em}
+.pg-txt b{color:var(--gold);font-weight:600}
+
+/* ============================================================
+   5. HOME
+   ============================================================ */
+.home-wrap{position:relative;min-height:100%;padding:clamp(30px,4.6vw,62px);display:flex;flex-direction:column;justify-content:center;gap:clamp(26px,3.4vw,42px);overflow:hidden}
+.home-wrap::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(680px 380px at 6% -12%,rgba(239,191,78,.38),transparent 68%),radial-gradient(760px 480px at 108% 116%,rgba(2,54,25,.14),transparent 70%)}
+.home-wrap::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(24,24,27,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(24,24,27,.05) 1px,transparent 1px);background-size:46px 46px;-webkit-mask-image:radial-gradient(ellipse 78% 70% at 46% 38%,#000,transparent 76%);mask-image:radial-gradient(ellipse 78% 70% at 46% 38%,#000,transparent 76%)}
+.home-hero{position:relative;z-index:1}
 .eyebrow{display:inline-flex;align-items:center;font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--gold-esc);background:var(--gold-bg);border:1px solid rgba(239,191,78,.2);border-radius:999px;padding:5px 13px;margin:0 0 18px}
 h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,56px);line-height:1.05;letter-spacing:-.025em;margin:0;max-width:20ch;color:var(--tinta)}
+.home-hero h1{font-size:clamp(38px,5.4vw,70px);max-width:none;display:flex;align-items:baseline;gap:.28em;flex-wrap:wrap}
 .dourado{color:var(--gold-esc)}
-.quadro{position:relative;width:100%;height:100%;min-height:100vh;display:grid;place-items:center;background:var(--grad-escuro);border:1px dashed rgba(239,191,78,.28)}
+.home-hero .dourado{background:linear-gradient(96deg,var(--gold-deep),var(--gold) 48%,var(--gold-esc));-webkit-background-clip:text;background-clip:text;color:transparent}
+.home-regua{margin-top:22px;height:1px;max-width:min(100%,1280px);background:linear-gradient(90deg,rgba(239,191,78,.75),rgba(0,0,0,.08) 55%,transparent)}
+
+.home-grade{position:relative;z-index:1;display:grid;grid-template-columns:repeat(auto-fit,minmax(236px,1fr));gap:20px;max-width:min(100%,1280px);align-items:start}
+.coluna{display:flex;flex-direction:column;gap:9px;min-width:0}
+.coluna h4{font-family:var(--cta);font-weight:600;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep);margin:0 0 3px;padding-bottom:9px;border-bottom:1px solid rgba(0,0,0,.1);display:flex;justify-content:space-between;align-items:center}
+.coluna h4 i{font-family:var(--mono);font-style:normal;font-size:9px;color:var(--tinta3);letter-spacing:.02em}
+.bloco{position:relative;display:flex;align-items:center;gap:11px;width:100%;min-height:56px;text-align:left;padding:13px 13px 13px 15px;border:1px solid var(--vidro-borda);border-radius:13px;background:rgba(255,255,255,.55);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);color:var(--tinta);overflow:hidden;transition:transform .22s var(--mola),border-color .22s,box-shadow .22s,background .22s;animation:sobe .5s var(--mola) both;animation-delay:calc(var(--i,0)*32ms)}
+@keyframes sobe{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.bloco::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--gold),var(--gold-deep));transform:scaleY(0);transform-origin:50% 0;transition:transform .26s var(--mola)}
+.bloco .bn{font-family:var(--mono);font-size:9.5px;color:var(--tinta3);flex:none;letter-spacing:.04em;transition:color .22s}
+.bloco .bt{flex:1;min-width:0;font-family:var(--display);font-weight:500;font-size:14.5px;line-height:1.18}
+.bloco .seta{flex:none;color:var(--gold-deep);opacity:0;transform:translateX(-5px);transition:.22s}
+.bloco:hover,.bloco:focus-visible{transform:translateY(-3px);border-color:rgba(239,191,78,.55);background:rgba(255,255,255,.78);box-shadow:0 14px 30px -14px rgba(184,134,11,.55)}
+.bloco:hover::before,.bloco:focus-visible::before{transform:scaleY(1)}
+.bloco:hover .bn{color:var(--gold-deep)}
+.bloco:hover .seta,.bloco:focus-visible .seta{opacity:1;transform:none}
+.bloco.on{border-color:rgba(239,191,78,.45);background:rgba(239,191,78,.1)}
+.home-pe{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;font-family:var(--mono);font-size:10.5px;color:var(--tinta3);letter-spacing:.02em}
+.home-pe kbd{font-family:var(--mono);font-size:10px;border:1px solid rgba(0,0,0,.16);border-radius:4px;padding:1px 5px;color:var(--tinta2);background:rgba(255,255,255,.6)}
+
+/* ============================================================
+   6. TELAS DE CONTEUDO
+   ============================================================ */
+.quadro{position:relative;width:100%;height:100%;min-height:100%;display:grid;place-items:center;background:var(--grad-escuro);border:1px dashed rgba(239,191,78,.28)}
 .quadro .tag{position:absolute;top:24px;left:28px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-esc)}
 .quadro .brief{font-family:var(--mono);font-size:11px;line-height:1.7;color:rgba(255,255,255,.5);max-width:38ch;text-align:center;padding:22px}
 .quadro .brief b{display:block;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;font-size:9.5px;margin-bottom:9px}
@@ -66,14 +148,7 @@ h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,56px);lin
 .chip.copy{border-color:rgba(239,191,78,.55)}
 .cta{display:inline-flex;align-items:center;gap:8px;font-family:var(--cta);font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.05em;padding:18px 32px;border-radius:5px;background:var(--gold);color:var(--verde-cap);border:1px solid var(--gold);transition:all 300ms ease;margin-top:30px}
 .cta:hover{background:transparent;color:var(--gold);border-color:var(--gold)}
-.deixa{display:none;margin-top:22px;max-width:56ch;background:rgba(24,24,27,.9);border-left:2px solid var(--gold-deep);border-radius:8px;padding:12px 15px}
-.deixa p{margin:0 0 6px;font-family:var(--mono);font-size:11.5px;line-height:1.6;color:#F2F2F2}
-.deixa p:last-child{margin:0}
-.deixa b{color:var(--gold);font-weight:600}
-body.vendedor .deixa{display:block}
-body.copy .copy{outline:1px dashed var(--gold);outline-offset:5px;border-radius:2px;position:relative}
-body.copy .copy::after{content:attr(data-slot);position:absolute;top:-9px;left:-5px;font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;background:var(--gold);color:var(--tinta);padding:1px 6px;border-radius:3px;white-space:nowrap;z-index:5}
-.galeria{min-height:100vh;padding:56px;display:flex;flex-direction:column}
+.galeria{min-height:100%;padding:56px;display:flex;flex-direction:column}
 .galeria .cab{margin-bottom:28px}
 .grade{display:grid;gap:15px;flex:1}
 .g-2{grid-template-columns:repeat(2,1fr)}.g-3{grid-template-columns:repeat(3,1fr)}.g-4{grid-template-columns:repeat(4,1fr)}
@@ -85,14 +160,7 @@ body.copy .copy::after{content:attr(data-slot);position:absolute;top:-9px;left:-
 .foto .rot small{font-size:13px;color:var(--tinta2);line-height:1.4;display:block;margin-top:4px}
 .foto.play::after{content:"\25B6";position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);font-size:26px;color:var(--gold);opacity:.9}
 .acesso{position:absolute;top:16px;right:16px;font-family:var(--cta);font-weight:700;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--verde-cap);background:var(--gold);padding:4px 9px;border-radius:4px}
-.mod-fita{display:flex;gap:15px;overflow-x:auto;padding:4px 2px 12px}
-.mod{position:relative;flex:none;width:214px;border:1px solid var(--vidro-borda);border-radius:16px;overflow:hidden;background:rgba(255,255,255,.5);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);min-height:256px;display:flex;flex-direction:column;justify-content:flex-end;transition:transform 320ms ease,box-shadow 320ms ease,border-color 320ms ease}
-.mod:hover{transform:translateY(-8px);box-shadow:0 20px 40px -10px rgba(239,191,78,.25);border-color:rgba(239,191,78,.4)}
-.mod .rot{padding:18px;background:linear-gradient(0deg,rgba(255,255,255,.92),transparent)}
-.mod .rot i{font-family:var(--cta);font-weight:600;font-style:normal;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-deep);display:block;margin-bottom:7px}
-.mod .rot b{font-family:var(--display);font-weight:600;font-size:17px;line-height:1.15;display:block;color:var(--tinta)}
-.mod .rot small{font-size:12.5px;color:var(--tinta2);line-height:1.4;display:block;margin-top:5px}
-.eco-wrap{min-height:100vh;padding:56px;display:flex;flex-direction:column}
+.eco-wrap{min-height:100%;padding:56px;display:flex;flex-direction:column}
 .eco-topo{text-align:center;margin-bottom:8px}
 .kicker{font-family:var(--cta);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-esc);margin:0 0 14px}
 .eco-topo .mote{font-family:var(--display);font-weight:700;font-size:clamp(26px,3vw,42px);letter-spacing:-.025em;margin:0;color:var(--tinta)}
@@ -120,18 +188,13 @@ body.copy .copy::after{content:attr(data-slot);position:absolute;top:-9px;left:-
 .resposta p{margin:0 0 9px;font-size:14.5px;line-height:1.5;color:var(--tinta2)}
 .resposta p:last-child{margin:0}
 .resposta .virada{font-family:var(--mono);font-size:11.5px;color:var(--gold-deep);line-height:1.6}
-.hub-wrap{min-height:100vh;padding:56px;display:flex;flex-direction:column;justify-content:center}
-.hub-topo{max-width:56ch;margin-bottom:32px}
-.hub-grade{display:grid;grid-template-columns:repeat(3,minmax(0,260px));gap:15px}
-.coluna h4{font-family:var(--cta);font-weight:600;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep);margin:0 0 11px;padding-bottom:9px;border-bottom:1px solid rgba(0,0,0,.1)}
-.coluna{display:flex;flex-direction:column;gap:9px}
-.bloco{border:1px solid var(--vidro-borda);border-radius:12px;padding:13px;text-align:left;font-family:var(--display);font-weight:500;font-size:14.5px;line-height:1.18;transition:.2s;background:rgba(255,255,255,.5);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);flex:1;color:var(--tinta)}
-.bloco:hover{border-color:rgba(239,191,78,.5);box-shadow:0 10px 24px -10px rgba(239,191,78,.3);transform:translateY(-3px)}
-.bloco.quente{border-color:rgba(184,134,11,.4)}
-.bloco.quente:hover{border-color:var(--gold-deep)}
 
+/* cronograma de modulos */
 .crono{display:flex;flex-direction:column;gap:15px}
 .crono-sub{font-size:14px;color:var(--tinta2);font-style:italic;margin:6px 0 6px}
+.crono-barra{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.crono-barra button{font-family:var(--cta);font-weight:600;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta2);border:1px solid var(--vidro-borda);background:rgba(255,255,255,.5);border-radius:999px;padding:7px 14px;transition:.18s}
+.crono-barra button:hover{border-color:rgba(239,191,78,.55);color:var(--gold-deep)}
 .mcard{border:1px solid var(--vidro-borda);border-radius:16px;background:rgba(255,255,255,.5);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);overflow:hidden;transition:border-color .24s,box-shadow .24s}
 .mcard.aberto{border-color:rgba(239,191,78,.45);box-shadow:0 14px 34px -14px rgba(239,191,78,.3)}
 .mcard-head{display:flex;gap:22px;align-items:stretch;width:100%;text-align:left;padding:16px;cursor:pointer;background:none}
@@ -161,72 +224,83 @@ body.copy .copy::after{content:attr(data-slot);position:absolute;top:-9px;left:-
 .aula-obs b{color:var(--gold-deep)}
 .mcard.bonus .medalhao{border-color:rgba(239,191,78,.4)}
 
-@media (max-width:1080px){.hub-grade{grid-template-columns:repeat(2,1fr)}.g-4{grid-template-columns:repeat(2,1fr)}.g-3{grid-template-columns:repeat(2,1fr)}.linha-tempo{grid-template-columns:repeat(2,1fr);row-gap:26px}.linha-tempo::before{display:none}}
+/* ============================================================
+   7. RESPONSIVO
+   ============================================================ */
+@media (max-width:1080px){
+  .g-4{grid-template-columns:repeat(2,1fr)}.g-3{grid-template-columns:repeat(2,1fr)}
+  .linha-tempo{grid-template-columns:repeat(2,1fr);row-gap:26px}.linha-tempo::before{display:none}
+}
 @media (max-width:860px){
-  body{overflow:auto}.app{grid-template-columns:1fr;height:auto}
-  .trilho{position:sticky;top:0;z-index:9;border-right:0;border-bottom:1px solid var(--vidro-borda)}
-  .nav{display:flex;gap:8px;overflow-x:auto;padding:10px}.grupo{display:none}
-  .item{width:auto;white-space:nowrap;flex:none;border:1px solid var(--vidro-borda)}
-  .rodape{display:flex;gap:8px}.atalhos{display:none}.chave{flex:1}
-  .tela{position:static}.palco{min-height:auto}.quadro{min-height:70vh}
+  body{overflow:auto}
+  .app{grid-template-columns:1fr;height:auto}
+  .trilho{position:fixed;z-index:40;top:0;bottom:0;left:0;width:278px;transform:translateX(-100%);transition:transform .28s var(--mola);box-shadow:0 0 50px rgba(0,0,0,.25)}
+  body.gaveta .trilho{transform:none}
+  body.gaveta .fundo{opacity:1;pointer-events:auto}
+  body.recolhido{--trilho:270px}
+  body.recolhido .marca{flex-direction:row;padding:18px 14px 16px}
+  body.recolhido .marca-txt,body.recolhido .atalhos{display:block}
+  body.recolhido .item{justify-content:flex-start;padding:8px 9px}
+  body.recolhido .item .rot{display:block}
+  body.recolhido .grupo{font-size:9.5px;padding:14px 8px 6px}
+  body.recolhido .grupo::before{display:none}
+  .dobra,.rodape,.home-pe{display:none}
+  .topo{display:flex;position:sticky;top:0;z-index:20}
+  .palco{overflow:visible}
+  .progresso{display:none}
+  .tela{position:static}
+  .quadro{min-height:70vh}
   .faixa{position:static;background:#18181b;padding:30px 22px}
-  .galeria,.hub-wrap,.eco-wrap{padding:30px 22px 50px}
+  .galeria,.home-wrap,.eco-wrap{padding:30px 22px 84px}
+  .home-wrap{justify-content:flex-start;min-height:auto}
   .grade,.g-2,.g-3,.g-4{grid-template-columns:1fr}
-  .objecoes,.hub-grade,.linha-tempo{grid-template-columns:1fr;row-gap:26px}
+  .objecoes,.home-grade,.linha-tempo{grid-template-columns:1fr;row-gap:26px}
   .mcard-head{flex-direction:column;gap:14px}.medalhao{width:100%;min-height:88px}
   h1{font-size:34px}
+  .pager{right:50%;transform:translateX(50%);bottom:16px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
-<div class="app">
-  <aside class="trilho">
-    <div class="marca"><b>AUVP Escola</b><span>Apresentação geral</span></div>
-    <nav class="nav">
-      <div class="grupo">Início</div>
-      <button class="item" data-alvo="hub"><i class="tecla">H</i>Hub Inicial</button>
-      <div class="grupo">Contexto</div>
-      <button class="item" data-alvo="t1"><i class="tecla">1</i>Quem somos nós?</button>
-      <div class="grupo">O Produto</div>
-      <button class="item" data-alvo="t3"><i class="tecla">3</i>A Escola</button>
-      <button class="item" data-alvo="t4"><i class="tecla">4</i>Dinâmica das aulas</button>
-      <button class="item" data-alvo="t5"><i class="tecla">5</i>Módulos do treinamento</button>
-      <button class="item" data-alvo="tmat"><i class="tecla">M</i>Materiais de apoio</button>
-      <button class="item" data-alvo="t6"><i class="tecla">6</i>Ferramentas</button>
-      <button class="item" data-alvo="t7"><i class="tecla">7</i>Lives, comunidade e app</button>
-      <div class="grupo">Expansão</div>
-      <button class="item" data-alvo="tpro"><i class="tecla">P</i>AUVP Pro</button>
-      <button class="item" data-alvo="tagro"><i class="tecla">A</i>AUVP Agro</button>
-      <button class="item" data-alvo="t11"><i class="tecla">I</i>AUVP Internacional</button>
-      <button class="item" data-alvo="t12"><i class="tecla">S</i>AUVP Sempre</button>
-      <button class="item" data-alvo="t10"><i class="tecla">E</i>O Ecossistema AUVP</button>
-      <div class="grupo">Fechamento</div>
-      <button class="item" data-alvo="t17"><i class="tecla">B</i>Boas-vindas</button>
-    </nav>
+<div class="app" id="app">
+  <aside class="trilho" id="trilho">
+    <div class="marca">
+      <span class="selo" aria-hidden="true">A</span>
+      <div class="marca-txt"><b>AUVP Escola</b><span>Apresentação geral</span></div>
+      <button class="dobra" id="dobra" aria-label="Recolher menu" aria-expanded="true" title="Recolher menu ( [ )">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5 8.5 12l6 6.5"/></svg>
+      </button>
+    </div>
+    <nav class="nav" id="nav" aria-label="Seções da apresentação"></nav>
+    <div class="rodape">
+      <div class="atalhos"><kbd>&larr;</kbd> <kbd>&rarr;</kbd> navegar &middot; <kbd>Esc</kbd> home<br><kbd>[</kbd> recolher menu</div>
+    </div>
   </aside>
   <main class="palco" id="palco">
-    <section class="tela ativa" id="hub"><div class="hub-wrap in">
-      <div class="hub-grade">
-        <div class="coluna"><h4>Contexto</h4>
-          <button class="bloco" data-alvo="t1">Quem somos nós?</button></div>
-        <div class="coluna"><h4>O Produto</h4>
-          <button class="bloco" data-alvo="t3">A Escola</button>
-          <button class="bloco" data-alvo="t4">Dinâmica das aulas</button>
-          <button class="bloco" data-alvo="t5">Módulos</button>
-          <button class="bloco" data-alvo="tmat">Materiais de apoio</button>
-          <button class="bloco" data-alvo="t6">Ferramentas</button>
-          <button class="bloco" data-alvo="t7">Lives + comunidade</button></div>
-        <div class="coluna"><h4>Expansão</h4>
-          <button class="bloco" data-alvo="tpro">AUVP Pro</button>
-          <button class="bloco" data-alvo="tagro">AUVP Agro</button>
-          <button class="bloco" data-alvo="t11">Internacional</button>
-          <button class="bloco" data-alvo="t12">AUVP Sempre</button>
-          <button class="bloco" data-alvo="t10">O Ecossistema</button></div>
+    <div class="progresso" id="progresso"></div>
+    <header class="topo">
+      <button class="hamb" id="hamb" aria-label="Abrir menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <b id="topo-tit">Home</b>
+    </header>
+
+    <section class="tela ativa" id="home"><div class="home-wrap in">
+      <div class="home-hero">
+        <p class="eyebrow">Apresentação geral</p>
+        <h1>AUVP <span class="dourado">Escola</span></h1>
+        <div class="home-regua"></div>
+      </div>
+      <div class="home-grade" id="home-grade"></div>
+      <div class="home-pe">
+        <span><kbd>&larr;</kbd> <kbd>&rarr;</kbd> percorrer na ordem</span>
+        <span><kbd>H</kbd> voltar para a home</span>
+        <span><kbd>[</kbd> recolher o menu</span>
       </div>
     </div></section>
 
-    <section class="tela" id="t1"><div class="quadro in">
+<section class="tela" id="t1"><div class="quadro in">
       <div class="brief"><b>Imagem em tela cheia</b>Raul em palco/bastidor. Sobre a foto, 3 números da casa em destaque.</div>
       <div class="faixa">        <h1>Mais do que um treinamento, somos uma comunidade.</h1>
         <div class="chips"><span class="chip">+60 mil clientes ativos</span><span class="chip">40 Mi de pessoas impactadas</span><span class="chip">59.944 investidores formados pela AUVP</span></div>
@@ -248,6 +322,10 @@ body.copy .copy::after{content:attr(data-slot);position:absolute;top:-9px;left:-
     <section class="tela" id="t5"><div class="galeria in">
       <div class="cab"><h1>Cronograma de conteúdo</h1>
         <p class="crono-sub">* Os módulos abaixo podem ser expandidos para consultar a lista de aulas.</p></div>
+      <div class="crono-barra" id="crono-barra">
+        <button type="button" data-acao="abrir">Expandir todos</button>
+        <button type="button" data-acao="fechar">Recolher todos</button>
+      </div>
       <div class="crono" id="crono-lista"></div>
     </div></section>
 
@@ -320,10 +398,186 @@ body.copy .copy::after{content:attr(data-slot);position:absolute;top:-9px;left:-
       <div class="brief"><b>Imagem em tela cheia</b>Boas-vindas: aluno/comunidade, clima de começo de jornada. Logo AUVP centralizada.</div>
       <div class="faixa" style="text-align:center"><p class="kicker">Bem-vindo à AUVP</p>        <h1 class="copy" data-slot="titulo" style="margin:0 auto;max-width:24ch">Vamos juntos construir sua liberdade financeira.</h1>
       </div></div></section>
-  </main>
+    </main>
 </div>
+<div class="fundo" id="fundo"></div>
+<nav class="pager" id="pager" aria-label="Navegação sequencial">
+  <button class="pg" id="pg-ant" aria-label="Seção anterior"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5 8.5 12l6 6.5"/></svg></button>
+  <span class="pg-txt"><b id="pg-atual">1</b> / <span id="pg-total">1</span></span>
+  <button class="pg" id="pg-prox" aria-label="Próxima seção"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 5.5l6 6.5-6 6.5"/></svg></button>
+</nav>
+<div class="dica" id="dica" role="tooltip"></div>
 <script type="application/json" id="crono">[{"index":1,"title":"Preparando seu cérebro","subtitle":"Mindset e fundamentos","description":"Muda sua relação com o dinheiro e prepara a mente para investir.","totalDuration":"3h 40min","lessons":[{"number":"Aula 01","title":"Preparando seu cérebro","duration":"04:49"},{"number":"Aula 02","title":"Por que os ricos ficam cada vez mais ricos?","duration":"13:37"},{"number":"Aula 03","title":"Crenças limitantes","duration":"17:09"},{"number":"Aula 04","title":"Juros Compostos","duration":"15:43"},{"number":"Aula 05","title":"O que é Liberdade Financeira?","duration":"20:07"},{"number":"Bônus","title":"AUVP Crédito","duration":"02:42"},{"number":"Aula 06","title":"Como não cair em golpes","duration":"23:28"},{"number":"Aula 07","title":"Metade salada e metade droga","duration":"07:19"},{"number":"Aula 08","title":"Autoajuda é o caralho","duration":"11:09"},{"number":"Aula 09","title":"Pare de procrastinar","duration":"13:19"},{"number":"Aula 10","title":"Aula da família","duration":"1:21:33"},{"number":"Bônus","title":"Onde investir sua reserva de emergência","duration":"11:16"}]},{"index":2,"title":"Organize seus gastos","subtitle":"Vida financeira no controle","description":"Orçamento, dívidas e o caminho até o primeiro milhão.","totalDuration":"1h 24min","lessons":[{"number":"Aula 01","title":"Finanças pessoais","duration":"20:30"},{"number":"Aula 02","title":"Como usar seu cartão de crédito","duration":"19:00"},{"number":"Aula 03","title":"Como resolver as dívidas","duration":"05:55"},{"number":"Aula 04","title":"Financiamento de imóvel faz sentido?","duration":"19:39"},{"number":"Aula 05","title":"Consórcios SÃO TOPS?","duration":"09:30"},{"number":"Aula 06","title":"Viver de renda e primeiro milhão","duration":"10:17"}]},{"index":3,"title":"Renda Fixa","subtitle":"Tesouro, CDBs, LCIs e mais","description":"Tesouro, CDBs, LCIs e todo o universo da renda fixa.","totalDuration":"5h 00min","lessons":[{"number":"Aula 01","title":"O que é Renda Fixa?","duration":"11:40"},{"number":"Aula 02","title":"Escolhendo uma corretora","duration":"13:20"},{"number":"Aula 03","title":"Introdução ao Tesouro Direto","duration":"17:55"},{"number":"Aula 04","title":"Tesouro Selic","duration":"15:49"},{"number":"Aula 05","title":"Tesouro pré-fixado","duration":"13:51"},{"number":"Aula 06","title":"Tesouro IPCA+","duration":"07:50"},{"number":"Aula 07","title":"Marcação a mercado","duration":"03:32"},{"number":"Aula 07","title":"Marcação a mercado - Parte 2","duration":"18:00"},{"number":"Aula 08","title":"Tesouro Prefixado e IPCA+ com Juros Semestrais","duration":"05:19"},{"number":"Bônus","title":"Conhecendo nossos ETF's - AUPO11","duration":"20:36"},{"number":"Bônus","title":"Conhecendo nossos ETF's - AREA11","duration":"13:38"},{"number":"Aula 09","title":"Tesouro Educa+ e Renda+","duration":"06:31"},{"number":"Aula 10","title":"CDBs, LCs e RDBs","duration":"27:00"},{"number":"Aula 11","title":"LCI e LCA","duration":"08:15"},{"number":"Aula 12","title":"CRI's e CRA's","duration":"10:53"},{"number":"Aula 13","title":"Debentures","duration":"17:21"},{"number":"Aula 14","title":"Previdência Privada","duration":"11:19"},{"number":"Aula 15","title":"Fundos de Investimento","duration":"24:38"},{"number":"Aula 16","title":"Contrafluxo","duration":"26:07"},{"number":"Aula 17","title":"Montando uma carteira de Renda Fixa","duration":"07:55"}]},{"index":4,"title":"Renda Variável","subtitle":"Ações, FIIs, ETFs","description":"Ações, FIIs e ETFs: como montar sua carteira de renda variável.","totalDuration":"9h 39min","lessons":[{"number":"Aula 01","title":"Introdução à Renda Variável","duration":"03:28"},{"number":"Aula 02","title":"Bolsa de Valores","duration":"17:26"},{"number":"Aula 03","title":"Ações: Preço x Valor","duration":"10:24"},{"number":"Aula 04","title":"Abertura de capital (IPO)","duration":"20:43"},{"number":"Aula 05","title":"Nomenclaturas e termos da bolsa","duration":"27:05"},{"number":"Aula 06","title":"As escolas de investimento","duration":"27:41"},{"number":"Aula 07","title":"Analisando ações","duration":"07:23"},{"number":"Aula 07","title":"Análise de ações - Parte 2","duration":"50:50"},{"number":"Aula 07","title":"Análise de ações - Parte 3","duration":"31:27"},{"number":"Aula 07","title":"Análise de ações - Parte 4","duration":"33:05"},{"number":"Aula 08","title":"Comprando ações, na prática","duration":"09:40"},{"number":"Aula 09","title":"Inserindo no diagrama","duration":"33:19"},{"number":"Aula 10","title":"Pra que serve o preço médio?","duration":"16:02"},{"number":"Aula 11","title":"Proventos","duration":"17:56"},{"number":"Aula 12","title":"Dividendos e Data EX","duration":"19:38"},{"number":"Aula 13","title":"Desdobramentos e Grupamentos","duration":"11:30"},{"number":"Aula 14","title":"Aluguel de Ações","duration":"10:30"},{"number":"Aula 15","title":"Índices e ETF's","duration":"13:51"},{"number":"Aula 16","title":"Fundos Imobiliários","duration":"21:38"},{"number":"Aula 16","title":"Como analisar FIIs na prática? Parte 2","duration":"10:21"},{"number":"Aula 16","title":"Analisando um FII na prática - Parte 3","duration":"21:17"},{"number":"Aula 16","title":"Como identificar FIIs de qualidade - Parte 4","duration":"16:41"},{"number":"Aula 17","title":"Fiagro e fundos de papéis","duration":"19:02"},{"number":"Aula 18","title":"Fi-Infra","duration":"09:54"},{"number":"Extra","title":"Small Caps","duration":"32:26"},{"number":"Aula 19","title":"O método burro","duration":"08:23"},{"number":"Aula 20","title":"Como montar uma carteira de investimentos","duration":"21:09"},{"number":"Extra","title":"Armadilhas do Mercado Financeiro","duration":"21:40"}]},{"index":5,"title":"Reserva de valor","subtitle":"","totalDuration":"2h 16min","tags":["7 aulas padrão","2 aulas bônus","2h 16min"],"description":"Ouro e Bitcoin como reserva de valor da sua carteira.","lessons":[{"number":"Aula 01","title":"O que é uma reserva de valor, e qual a sua função?","duration":"19:11"},{"number":"Aula 02","title":"Comprando ouro físico","duration":"14:03"},{"number":"Aula 03","title":"Como investir em ouro","duration":"11:49"},{"number":"Aula 04","title":"História do bitcoin","duration":"19:57"},{"number":"Aula 05","title":"Por que ter Bitcoin?","duration":"12:09"},{"number":"Aula 06","title":"Qual o momento certo de comprar Bitcoin?","duration":"07:45"},{"number":"Aula 07","title":"Armazenando e protegendo seus Bitcoins","duration":"28:11"},{"number":"Extra","title":"Os ciclos ESTRANHOS do Bitcoin","duration":"13:51"},{"number":"Bônus","title":"O que são e quais os benefícios dos stablecoins","duration":"10:11"}]},{"index":6,"title":"Investindo no exterior","subtitle":"","totalDuration":"3h 13min","tags":["12 aulas padrão","3h 13min"],"description":"Como investir no exterior: ETFs, REITs, stocks e renda fixa nos EUA.","lessons":[{"number":"Aula 01","title":"Por que investir no exterior?","duration":"25:09"},{"number":"Aula 02","title":"Como funciona o mercado americano?","duration":"13:19"},{"number":"Aula 03","title":"Mercado dos EUA x Brasil","duration":"13:29"},{"number":"Aula 04","title":"ETFs Internacionais","duration":"14:36"},{"number":"Aula 04","title":"ETFs Internacionais - Parte 2","duration":"18:02"},{"number":"Aula 04","title":"ETFs Internacionais - Parte 3","duration":"12:26"},{"number":"Aula 05","title":"REITs","duration":"25:33"},{"number":"Aula 06","title":"Stocks (Ações Americanas)","duration":"13:38"},{"number":"Aula 06","title":"Stocks (Ações Americanas) - Setor de Consumo","duration":"16:09"},{"number":"Aula 06","title":"Stocks (Ações Americanas) - Setor de Energia","duration":"16:35"},{"number":"Aula 06","title":"Stocks (Ações Americanas) - Setor de Tecnologia","duration":"18:06"},{"number":"Aula 07","title":"Renda fixa nos Estados Unidos","duration":"19:07"}]},{"index":7,"title":"O começo","subtitle":"","totalDuration":"1h 6min","tags":["4 aulas padrão","1h 6min"],"description":"Coloque em prática: monte e gerencie a sua carteira.","lessons":[{"number":"Aula 01","title":"Operacionalizando sua Carteira","duration":"19:51"},{"number":"Aula 02","title":"Corrigindo os erros da sua carteira","duration":"12:39"},{"number":"Aula 03","title":"O que a AUVP ainda pode fazer por você?","duration":"16:31"},{"number":"Aula 04","title":"Planejando sua liberdade financeira","duration":"17:09"}]},{"index":null,"title":"Bônus: Imposto de Renda","subtitle":"","totalDuration":"3h 13min","tags":["12 aulas padrão","3h 13min"],"description":"Declare seus investimentos e pague os tributos corretamente.","nota":"Este módulo será regravado anualmente, de acordo com mudanças na dinâmica de IR.","lessons":[{"number":"Aula 01","title":"O que é Imposto de Renda?","duration":"17:41"},{"number":"Aula 02","title":"Preparando a declaração","duration":"09:05"},{"number":"Aula 03","title":"O que é e como funciona o IR no Brasil","duration":"24:38"},{"number":"Aula 04","title":"Declarando ações","duration":"24:12"},{"number":"Aula 05","title":"Imposto de Renda na Renda Fixa","duration":"17:00"},{"number":"Aula 06","title":"Imposto de Renda nos Fundos de Investimento","duration":"05:32"},{"number":"Aula 07","title":"Imposto de Renda nos FIIs, Fiagros e FI-Infras","duration":"14:03"},{"number":"Aula 08","title":"Declarando dividendos, JCP, rendimentos e bonificações","duration":"21:24"},{"number":"Aula 09","title":"Investimentos Internacionais","duration":"19:25"},{"number":"Aula 10","title":"Criptomoedas","duration":"24:45"},{"number":"Aula 11","title":"Como gerar um DARF?","duration":"06:41"},{"number":"Aula 12","title":"Declaração de Autônomo com Carnê-Leão","duration":"08:17"}]},{"index":null,"title":"Bônus: Criptomoedas","subtitle":"","totalDuration":"~2 horas (131 min)","tags":["15 aulas","~2 horas (131 min)"],"description":"Os fundamentos para investir em criptoativos com segurança.","lessons":[{"number":"Aula 0","title":"Introdução ao módulo de criptomoedas","duration":"03:15"},{"number":"Aula 01","title":"Por que o Bitcoin foi criado? O problema do dinheiro fiduciário e a inflação","duration":"07:34"},{"number":"Aula 02","title":"Blockchain explicada para uma criança","duration":"04:38"},{"number":"Aula 03","title":"Ethereum (ETH) e os contratos inteligentes","duration":"05:28"},{"number":"Aula 04","title":"A diferença entre \"Coin\" e \"Token\"","duration":"05:02"},{"number":"Aula 05","title":"DeFi (Finanças Descentralizadas)","duration":"09:46"},{"number":"Aula 06","title":"Stablecoins: O Dólar na Blockchain","duration":"08:41"},{"number":"Aula 07","title":"Analisando Altcoins: fundamentos reais","duration":"13:46"},{"number":"Aula 08","title":"Airdrops, ICOs e outras receitas","duration":"09:59"},{"number":"Aula 09","title":"Narrativas e Setores","duration":"08:47"},{"number":"Aula 10","title":"O perigo das Memecoins e Shitcoins","duration":"06:27"},{"number":"Aula 11","title":"Not Your Keys, Not Your Coins (Auto-custódia)","duration":"06:52"},{"number":"Aula 12","title":"Como comprar de forma 100% anônima?","duration":"14:35"},{"number":"Aula 13","title":"Como identificar um golpe no universo cripto?","duration":"06:59"},{"number":"Aula 14","title":"Qual o melhor momento para comprar? Analisando indicadores","duration":"18:56"}]},{"index":null,"title":"Bônus: AUVP Analítica","subtitle":"","totalDuration":"~1 hora (85 min)","tags":["10 aulas","~1 hora (85 min)"],"description":"Tire o máximo da AUVP Analítica para avaliar ativos.","lessons":[{"number":"Aula 01","title":"Bem-vindo à AUVP Analítica","duration":"07:27"},{"number":"Aula 02","title":"Ações, Stocks e REITs","duration":"16:59"},{"number":"Aula 03","title":"Fundos imobiliários","duration":"06:35"},{"number":"Aula 04","title":"Metodologias da AUVP Analítica","duration":"11:07"},{"number":"Aula 05","title":"Filtros e visualizações","duration":"17:12"},{"number":"Aula 06","title":"Comparador","duration":"04:10"},{"number":"Aula 07","title":"Simulador de investimentos","duration":"06:18"},{"number":"Aula 08","title":"ETF's","duration":"06:35"},{"number":"Aula 09","title":"Agenda e previsão de dividendos","duration":"04:06"},{"number":"Aula 10","title":"Outras funcionalidades","duration":"05:00"}]},{"index":null,"title":"Bônus: Indicadores","subtitle":"","totalDuration":"~52 min","tags":["8 aulas","~52 min"],"description":"","lessons":[{"number":"Bônus","title":"ROE (Return on Equity)","duration":"02:48"},{"number":"Bônus","title":"Cotação","duration":"12:35"},{"number":"Bônus","title":"Dívida Líquida x Dívida Bruta","duration":"01:36"},{"number":"Bônus","title":"Dividend Yield","duration":"10:55"},{"number":"Bônus","title":"EBIT (Earnings Before Interest and Taxes)","duration":"03:43"},{"number":"Bônus","title":"P/VPA - Preço sobre Valor Patrimonial por Ação","duration":"10:51"},{"number":"Bônus","title":"P/L - Preço sobre Lucro","duration":"05:19"},{"number":"Bônus","title":"Emissão de cotas","duration":"04:42"}]},{"index":null,"title":"Bônus: Masterclasses","subtitle":"","totalDuration":"2h 38min","tags":["4 aulas","2h 38min"],"description":"","lessons":[{"number":"Aula 01","title":"O que são os ETFs globais e por que eles são fundamentais?","duration":"53:27"},{"number":"Aula 02","title":"Marcação a mercado","duration":"14:04"},{"number":"Aula 03","title":"A leitura e interpretação de indicadores","duration":"54:33"},{"number":"Aula 04","title":"A importância de se blindar do consumismo","duration":"37:32"}]}]</script>
 <script>
+/* ============================================================
+   MAPA DA APRESENTAÇÃO
+   Fonte única de verdade: o menu lateral, a grade da home, os
+   atalhos de teclado e a navegação sequencial são gerados daqui.
+   Para incluir/remover/reordenar uma tela, mexa só neste array
+   (e no <section class="tela"> correspondente).
+   ============================================================ */
+const NAV=[
+  ['Início',[
+    ['home','Home','H']
+  ]],
+  ['Contexto',[
+    ['t1','Quem somos nós?','1']
+  ]],
+  ['O Produto',[
+    ['t3','A Escola','3'],
+    ['t4','Dinâmica das aulas','4'],
+    ['t5','Módulos do treinamento','5'],
+    ['tmat','Materiais de apoio','M'],
+    ['t6','Ferramentas','6'],
+    ['t7','Lives, comunidade e app','7']
+  ]],
+  ['Expansão',[
+    ['tpro','AUVP Pro','P'],
+    ['tagro','AUVP Agro','A'],
+    ['t11','AUVP Internacional','I'],
+    ['t12','AUVP Sempre','S'],
+    ['t10','O Ecossistema AUVP','E']
+  ]],
+  ['Fechamento',[
+    ['t17','Boas-vindas','B']
+  ]]
+];
+
+const $=function(s){return document.querySelector(s)};
+const esc=function(x){return String(x).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+
+const ORDEM=[],ROTULOS={},TECLAS={};
+NAV.forEach(function(g){g[1].forEach(function(it){ORDEM.push(it[0]);ROTULOS[it[0]]=it[1];TECLAS[it[2].toLowerCase()]=it[0]})});
+
+/* ---------- menu lateral ---------- */
+$('#nav').innerHTML=NAV.map(function(g){
+  return '<div class="grupo"><span>'+esc(g[0])+'</span></div>'+g[1].map(function(it){
+    return '<button class="item" data-alvo="'+it[0]+'" data-rot="'+esc(it[1])+'">'
+      +'<i class="tecla">'+esc(it[2])+'</i><span class="rot">'+esc(it[1])+'</span></button>';
+  }).join('');
+}).join('');
+
+/* ---------- grade da home (todas as seções, menos a própria home) ---------- */
+var n=0;
+$('#home-grade').innerHTML=NAV.map(function(g){
+  var itens=g[1].filter(function(it){return it[0]!=='home'});
+  if(!itens.length) return '';
+  return '<div class="coluna"><h4>'+esc(g[0])+'<i>'+itens.length+'</i></h4>'+itens.map(function(it){
+    n++;
+    return '<button class="bloco" data-alvo="'+it[0]+'" style="--i:'+n+'">'
+      +'<span class="bn">'+String(n).padStart(2,'0')+'</span>'
+      +'<span class="bt">'+esc(it[1])+'</span>'
+      +'<i class="tecla">'+esc(it[2])+'</i>'
+      +'<span class="seta" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg></span>'
+      +'</button>';
+  }).join('')+'</div>';
+}).join('');
+
+/* ============================================================
+   NAVEGAÇÃO
+   ============================================================ */
+const palco=$('#palco'),pager=$('#pager'),pgAnt=$('#pg-ant'),pgProx=$('#pg-prox');
+let atual='home';
+
+function ir(id,semHash){
+  if(!document.getElementById(id)) id='home';
+  atual=id;
+  document.querySelectorAll('.tela').forEach(function(t){t.classList.toggle('ativa',t.id===id)});
+  document.querySelectorAll('.item').forEach(function(b){
+    var on=b.dataset.alvo===id;b.classList.toggle('on',on);
+    b.setAttribute('aria-current',on?'page':'false');
+    if(on&&b.scrollIntoView)b.scrollIntoView({block:'nearest'});
+  });
+  document.querySelectorAll('.bloco').forEach(function(b){b.classList.toggle('on',b.dataset.alvo===id)});
+  var i=ORDEM.indexOf(id);
+  $('#progresso').style.width=((i+1)/ORDEM.length*100).toFixed(2)+'%';
+  $('#pg-atual').textContent=i+1;
+  pgAnt.disabled=i<=0;pgProx.disabled=i>=ORDEM.length-1;
+  pager.style.opacity=id==='home'?'0':'1';
+  pager.style.pointerEvents=id==='home'?'none':'auto';
+  $('#topo-tit').textContent=ROTULOS[id]||'';
+  document.title=(id==='home'?'AUVP Escola':ROTULOS[id]+' · AUVP Escola')+' - apresentação';
+  palco.scrollTop=0;window.scrollTo(0,0);
+  var a=document.getElementById(id);if(a)a.scrollTop=0;
+  gaveta(false);
+  /* hash em vez de pushState: funciona também com o arquivo aberto localmente (file://) */
+  if(!semHash&&location.hash!=='#/'+id)location.hash='/'+id;
+}
+function passo(d){var i=ORDEM.indexOf(atual)+d;if(i>=0&&i<ORDEM.length)ir(ORDEM[i])}
+
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-alvo]');
+  if(b){e.preventDefault();ir(b.dataset.alvo)}
+});
+pgAnt.addEventListener('click',function(){passo(-1)});
+pgProx.addEventListener('click',function(){passo(1)});
+$('#pg-total').textContent=ORDEM.length;
+
+window.addEventListener('hashchange',function(){
+  var id=(location.hash||'').replace(/^#\/?/,'')||'home';
+  if(id!==atual)ir(id,true);
+});
+
+/* ============================================================
+   TRILHO RECOLHÍVEL + GAVETA NO MOBILE
+   ============================================================ */
+const CHAVE='auvp:trilho';
+const dica=$('#dica');
+function guarda(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function le(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function escondeDica(){dica.classList.remove('ver')}
+
+function recolher(v){
+  document.body.classList.toggle('recolhido',v);
+  var d=$('#dobra');
+  d.setAttribute('aria-expanded',String(!v));
+  d.setAttribute('aria-label',v?'Expandir menu':'Recolher menu');
+  d.title=(v?'Expandir menu':'Recolher menu')+' ( [ )';
+  guarda(CHAVE,v?'1':'0');
+  if(!v)escondeDica();
+}
+recolher(le(CHAVE)==='1');
+$('#dobra').addEventListener('click',function(){recolher(!document.body.classList.contains('recolhido'))});
+
+function gaveta(v){
+  document.body.classList.toggle('gaveta',v);
+  $('#hamb').setAttribute('aria-expanded',String(v));
+}
+$('#hamb').addEventListener('click',function(){gaveta(!document.body.classList.contains('gaveta'))});
+$('#fundo').addEventListener('click',function(){gaveta(false)});
+
+/* dica flutuante com o nome da seção quando o trilho está recolhido */
+$('#nav').addEventListener('mouseover',function(e){
+  var b=e.target.closest('.item');
+  if(!b||!document.body.classList.contains('recolhido')||window.innerWidth<=860)return;
+  var r=b.getBoundingClientRect();
+  dica.textContent=b.dataset.rot;
+  dica.style.top=(r.top+r.height/2)+'px';
+  dica.style.left=(r.right+10)+'px';
+  dica.style.transform='translateY(-50%)';
+  dica.classList.add('ver');
+});
+$('#nav').addEventListener('mouseleave',escondeDica);
+$('#nav').addEventListener('scroll',escondeDica);
+
+/* ============================================================
+   TECLADO
+   ============================================================ */
+document.addEventListener('keydown',function(e){
+  if(e.metaKey||e.ctrlKey||e.altKey)return;
+  var alvo=e.target;
+  if(alvo&&(alvo.isContentEditable||/^(input|textarea|select)$/i.test(alvo.tagName)))return;
+  var k=e.key.toLowerCase();
+  if(k==='escape'){escondeDica();if(document.body.classList.contains('gaveta')){gaveta(false)}else{ir('home')}return}
+  if(k==='['||k===']'){recolher(!document.body.classList.contains('recolhido'));return}
+  if(k==='arrowright'){passo(1);return}
+  if(k==='arrowleft'){passo(-1);return}
+  if(TECLAS[k]){e.preventDefault();ir(TECLAS[k])}
+});
+
+/* ============================================================
+   CONTEÚDO GERADO
+   ============================================================ */
 const CRONO=JSON.parse(document.getElementById('crono').textContent);
 const FERR=[["Plataforma PIAR","compreenda e mapeie seu perfil de investidor"],["Diagrama do Cerrado","gerencie sua carteira de investimentos com fundamento"],["Orçamento Doméstico","controle seus gastos e gerencie seu dinheiro"],["AUVP Analítica","para quem analisa a fundo seus investimentos"]];
 const ESTAGIOS=[
@@ -332,13 +586,8 @@ const ESTAGIOS=[
   ["03","Proteção da Família",[["Seguro de vida","Proteção para toda a família"],["Análise de crédito","O financiamento mais barato"],["Previdência privada","Com a menor taxa do mercado"]]],
   ["04","Patrimônio & Consultoria",[["Consultoria / Private","+R$300 mil &middot; Private +R$5 mi"],["Holding imobiliária","Organização e sucessão"],["Offshore e AMC","Para grandes clientes"]]]
 ];
-const palco=document.getElementById('palco');
-function ir(id){document.querySelectorAll('.tela').forEach(t=>t.classList.toggle('ativa',t.id===id));document.querySelectorAll('.item').forEach(b=>b.classList.toggle('on',b.dataset.alvo===id));palco.scrollTop=0;const a=document.getElementById(id);if(a)a.scrollTop=0;}
-document.addEventListener('click',e=>{const b=e.target.closest('[data-alvo]');if(b)ir(b.dataset.alvo)});
-const TECLAS={'1':'t1','3':'t3','4':'t4','5':'t5','6':'t6','7':'t7','p':'tpro','a':'tagro','i':'t11','s':'t12','e':'t10','m':'tmat','b':'t17','h':'hub'};
-document.addEventListener('keydown',e=>{if(e.metaKey||e.ctrlKey||e.altKey)return;const k=e.key.toLowerCase();if(k==='escape'){ir('hub');return}if(TECLAS[k])ir(TECLAS[k]);});
+
 (function(){
-  var esc=function(x){return String(x).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});};
   var cl=document.getElementById('crono-lista');
   cl.innerHTML=CRONO.map(function(m){
     var isBonus=(m.index==null);
@@ -372,9 +621,25 @@ document.addEventListener('keydown',e=>{if(e.metaKey||e.ctrlKey||e.altKey)return
     var card=h.parentElement, ab=card.classList.toggle('aberto');
     h.setAttribute('aria-expanded',ab);
   });
+  /* abrir/fechar todos os módulos de uma vez */
+  document.getElementById('crono-barra').addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b) return;
+    var abrir=b.dataset.acao==='abrir';
+    cl.querySelectorAll('.mcard').forEach(function(c){
+      c.classList.toggle('aberto',abrir);
+      c.querySelector('.mcard-head').setAttribute('aria-expanded',String(abrir));
+    });
+  });
 })();
-document.getElementById('ferramentas').innerHTML=FERR.map(([t,d])=>'<div class="foto"><span class="ph">Print</span><span class="acesso">Acessar</span><div class="rot"><b>'+t+'</b><small>'+d+'</small></div></div>').join('');
-document.getElementById('timeline').innerHTML=ESTAGIOS.map(([n,titulo,itens],i)=>'<div class="estagio'+(i===3?' destaque':'')+'"><div class="no"></div><h3>'+titulo+'</h3><ul>'+itens.map(([b,d])=>'<li><b>'+b+'</b>'+(d?'<small>'+d+'</small>':'')+'</li>').join('')+'</ul></div>').join('');
+document.getElementById('ferramentas').innerHTML=FERR.map(function(f){return '<div class="foto"><span class="ph">Print</span><span class="acesso">Acessar</span><div class="rot"><b>'+esc(f[0])+'</b><small>'+esc(f[1])+'</small></div></div>'}).join('');
+document.getElementById('timeline').innerHTML=ESTAGIOS.map(function(g,i){
+  return '<div class="estagio'+(i===3?' destaque':'')+'"><div class="no"></div><h3>'+g[1]+'</h3><ul>'
+    +g[2].map(function(it){return '<li><b>'+it[0]+'</b>'+(it[1]?'<small>'+it[1]+'</small>':'')+'</li>'}).join('')
+    +'</ul></div>';
+}).join('');
+
+/* estado inicial (respeita link compartilhado com #/secao) */
+ir((location.hash||'').replace(/^#\/?/,'')||'home',true);
 </script>
 </body>
 </html>
