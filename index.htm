@@ -87,6 +87,8 @@ body.recolhido .nav>.grupo:first-child::before{display:none}
 .tecla{font-family:var(--mono);font-size:10px;min-width:20px;height:20px;flex:none;display:grid;place-items:center;border:1px solid var(--linha-f);border-radius:5px;color:var(--tinta3)}
 body.recolhido .item{justify-content:center;padding:9px 0}
 body.recolhido .item .rot{display:none}
+.tecla.sem{border-color:transparent;background:none;color:var(--tinta3);font-size:9.5px}
+.item.on .tecla.sem{background:none;border-color:transparent}
 body.recolhido .item .tecla{min-width:26px;height:26px;font-size:11px}
 
 .rodape{border-top:1px solid var(--vidro-borda);padding:9px 11px;display:flex;flex-direction:column;gap:2px}
@@ -200,7 +202,7 @@ h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,56px);lin
 .tela.ativa .quadro.centro{animation:none}
 .tela.ativa .quadro.centro h1{animation:surge .75s var(--mola) .12s backwards}
 .tela.ativa .quadro.centro .legenda{animation:surge .7s var(--mola) .4s backwards}
-.tela.ativa .quadro.centro .chip{animation:surge .62s var(--mola) backwards}
+.tela.ativa .quadro.centro .chip,.tela.ativa .quadro.centro .num{animation:surge .62s var(--mola) backwards}
 /* variante com foco no centro da imagem: escurece só as bordas */
 .quadro.midia.foco .bg{object-position:center 42%}
 .quadro.midia.foco .faixa{inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(30px,5vw,66px);
@@ -208,10 +210,10 @@ h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,56px);lin
 .tela.ativa .quadro.foco{animation:none}
 .tela.ativa .quadro.foco .kicker{animation:surge .7s var(--mola) .15s backwards}
 .tela.ativa .quadro.foco h1{animation:surge .75s var(--mola) .35s backwards}
-.quadro.centro .chip:nth-child(1){animation-delay:.62s}
-.quadro.centro .chip:nth-child(2){animation-delay:.88s}
-.quadro.centro .chip:nth-child(3){animation-delay:1.14s}
-.quadro.centro .chip:nth-child(4){animation-delay:1.4s}
+.quadro.centro .chip:nth-child(1),.quadro.centro .num:nth-child(1){animation-delay:.62s}
+.quadro.centro .chip:nth-child(2),.quadro.centro .num:nth-child(2){animation-delay:.88s}
+.quadro.centro .chip:nth-child(3),.quadro.centro .num:nth-child(3){animation-delay:1.14s}
+.quadro.centro .chip:nth-child(4),.quadro.centro .num:nth-child(4){animation-delay:1.4s}
 @keyframes surge{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:none}}
 .tela.ativa .quadro.midia img.bg{animation:respira 22s ease-out both}
 @keyframes respira{from{transform:scale(1.005)}to{transform:scale(1.075)}}
@@ -272,34 +274,44 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 .kicker{font-family:var(--cta);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-esc);margin:0 0 14px}
 .eco-topo .mote{font-family:var(--display);font-weight:700;font-size:clamp(26px,3vw,42px);letter-spacing:-.025em;margin:0;color:var(--tinta)}
 .eco-topo h1{margin:8px auto 0;font-family:var(--display);font-weight:600;font-size:clamp(20px,2vw,26px);color:var(--tinta2);max-width:none}
-/* ---------- ecossistema: barra de progresso em degraus ---------- */
-.linha-tempo{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;align-items:start;margin-top:52px;position:relative}
-.estagio{position:relative;padding:0 8px 10px;border-radius:20px;padding-top:calc((3 - var(--i,0))*22px);transition:transform .3s var(--mola)}
-.estagio:hover{transform:translateY(-4px)}
-.estagio.destaque{background:radial-gradient(120% 62% at 50% 6%,rgba(239,191,78,.17),transparent 66%)}
-/* segmento da barra: cheio, ficando mais forte e mais alto a cada etapa */
-.barra{position:relative;height:calc(7px + var(--i,0)*2px);border-radius:99px;background:var(--trilha-bg);overflow:clip;margin-bottom:16px}
-.barra i{position:absolute;inset:0;border-radius:99px;background:linear-gradient(90deg,var(--gold-esc),var(--gold));opacity:calc(.5 + var(--i,0)*.17);transform-origin:0 50%}
-.tela.ativa .barra i{animation:enche .6s var(--mola) both;animation-delay:calc(var(--i,0)*140ms + 120ms)}
-@keyframes enche{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-.estagio.destaque .barra i{background:linear-gradient(90deg,var(--gold),var(--gold-deep));box-shadow:0 0 16px rgba(239,191,78,.85)}
-.estagio:hover .barra i{opacity:1}
-.est-cab{display:flex;align-items:center;gap:11px;margin-bottom:16px}
-.estagio .no{flex:none;display:inline-grid;place-items:center;min-width:34px;height:24px;padding:0 9px;border-radius:99px;background:var(--sup-forte);border:1px solid rgba(239,191,78,.45);font-family:var(--mono);font-weight:600;font-size:11px;color:var(--gold-deep);transition:.26s var(--mola)}
-.estagio.destaque .no{background:linear-gradient(150deg,var(--gold),var(--gold-deep));border-color:transparent;color:var(--verde-cap)}
-.estagio:hover .no{transform:translateY(-1px);border-color:var(--gold)}
-.estagio h3{font-family:var(--display);font-weight:600;font-size:18.5px;margin:0;letter-spacing:-.015em;color:var(--tinta);line-height:1.15}
-.estagio ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;align-content:start}
-.estagio li{position:relative;overflow:hidden;overflow:clip;display:flex;align-items:center;gap:12px;border:1px solid var(--vidro-borda);border-radius:13px;padding:10px 13px;background:var(--sup);transition:transform .22s var(--mola),border-color .22s,box-shadow .22s;animation:sobe .5s var(--mola) both;animation-delay:calc((var(--i,0)*3 + var(--j,0))*55ms + 320ms)}
-.estagio li:hover{transform:translateY(-3px);border-color:rgba(239,191,78,.5);box-shadow:0 12px 26px -12px rgba(184,134,11,.55)}
-.estagio.destaque li{background:rgba(239,191,78,.08);border-color:rgba(239,191,78,.26)}
-.estagio li .txt{flex:1;min-width:0}
-.estagio li b{font-family:var(--display);font-weight:600;font-size:14px;display:block;letter-spacing:-.005em;color:var(--tinta)}
-.estagio li small{font-size:11.5px;color:var(--tinta2);line-height:1.4;display:block;margin-top:2px}
-/* miniatura do produto */
-.mini{flex:none;width:52px;height:52px;border-radius:10px;background:linear-gradient(150deg,#232326,#0f0f11);font-size:19px;background-size:cover;background-position:center;border:1px solid rgba(239,191,78,.28);display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:15px;color:var(--gold);overflow:hidden;transition:transform .3s var(--mola)}
-.mini.tem{background-image:var(--capa);color:transparent}
-.estagio li:hover .mini{transform:scale(1.05)}
+/* ---------- ecossistema: produtos ligados em torno da marca ---------- */
+.orbita{position:relative;flex:1;min-height:400px;margin-top:14px}
+.orbita svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.orbita .anel{fill:none;stroke:var(--gold-deep);stroke-width:1;opacity:.2;stroke-dasharray:2 7}
+.orbita .fio{stroke:var(--gold-deep);stroke-width:1.4;opacity:0}
+.tela.ativa .orbita .fio{animation:acendeFio .5s ease-out var(--d,0ms) forwards}
+@keyframes acendeFio{from{opacity:0}to{opacity:.38}}
+.nucleo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:clamp(104px,11vw,140px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;gap:4px;background:radial-gradient(circle at 50% 32%,#26262b,#0c0c0e);border:1px solid rgba(239,191,78,.45);box-shadow:0 0 0 9px rgba(239,191,78,.07),0 26px 54px -22px rgba(0,0,0,.65)}
+.nucleo img{width:52%;display:block}
+.nucleo span{font-family:var(--cta);font-weight:700;font-size:9px;letter-spacing:.22em;color:rgba(255,255,255,.6)}
+.no-eco{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);z-index:3;width:clamp(178px,17vw,224px);display:flex;gap:10px;align-items:flex-start;text-align:left;padding:11px 12px;border-radius:14px;border:1px solid var(--vidro-borda);background:var(--sup-forte);box-shadow:0 14px 30px -18px rgba(0,0,0,.4);transition:border-color .24s,box-shadow .24s,scale .24s var(--mola);animation:noEntra .5s var(--mola) both;animation-delay:var(--d,0ms)}
+@keyframes noEntra{from{opacity:0;transform:translate(-50%,calc(-50% + 14px))}to{opacity:1;transform:translate(-50%,-50%)}}
+.no-eco:hover{border-color:rgba(239,191,78,.6);box-shadow:0 20px 40px -18px rgba(184,134,11,.6);scale:1.04}
+.no-n{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-weight:600;font-size:10.5px;color:var(--gold-deep);border:1px solid rgba(239,191,78,.5);background:var(--gold-bg)}
+.no-eco:hover .no-n{background:linear-gradient(150deg,var(--gold),var(--gold-deep));color:var(--verde-cap);border-color:transparent}
+.no-txt{min-width:0}
+.no-txt b{display:block;font-family:var(--display);font-weight:600;font-size:13.5px;line-height:1.15;color:var(--tinta)}
+.no-txt small{display:block;margin-top:3px;font-size:11px;line-height:1.35;color:var(--tinta2)}
+
+/* ---------- telas de expansão do ecossistema ---------- */
+.exp-lista{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:12px;max-width:78ch}
+.exp-lista li{display:flex;gap:14px;align-items:flex-start;padding:15px 18px;border:1px solid var(--vidro-borda);border-radius:14px;background:var(--sup);transition:transform .22s var(--mola),border-color .22s,box-shadow .22s;animation:sobe .5s var(--mola) both;animation-delay:calc(var(--j,0)*80ms + 180ms)}
+.exp-lista li:hover{transform:translateX(4px);border-color:rgba(239,191,78,.45);box-shadow:0 12px 26px -14px rgba(184,134,11,.5)}
+.exp-n{flex:none;font-family:var(--mono);font-weight:600;font-size:11px;color:var(--gold-deep);padding-top:3px}
+.exp-lista p{margin:0;font-size:15px;line-height:1.5;color:var(--tinta)}
+.voltar{display:inline-flex;align-items:center;gap:9px;align-self:flex-start;margin-top:auto;padding:11px 17px;border-radius:12px;border:1px solid var(--vidro-borda);background:var(--sup);color:var(--tinta2);font-family:var(--cta);font-weight:600;font-size:11.5px;letter-spacing:.03em;transition:.2s}
+.voltar:hover{border-color:rgba(239,191,78,.5);color:var(--gold-deep);transform:translateX(-3px)}
+
+/* ---------- números em destaque (Quem somos nós?) ---------- */
+.numeros{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:32px}
+.num{position:relative;overflow:clip;isolation:isolate;min-width:190px;max-width:280px;padding:18px 22px 16px;border-radius:18px;text-align:center;
+  background:linear-gradient(160deg,rgba(255,255,255,.19),rgba(255,255,255,.09) 55%,rgba(255,255,255,.13));
+  backdrop-filter:blur(28px) saturate(190%);-webkit-backdrop-filter:blur(28px) saturate(190%);
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 12px 38px -16px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.3)}
+.num::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(125deg,rgba(255,255,255,.22),transparent 46%)}
+.num b{display:block;font-family:var(--display);font-weight:700;font-size:clamp(30px,3.4vw,46px);line-height:1;letter-spacing:-.03em;background:linear-gradient(96deg,var(--gold) 10%,#fff 55%,var(--gold-esc));-webkit-background-clip:text;background-clip:text;color:transparent}
+.num span{display:block;margin:9px auto 0;font-family:var(--cta);font-weight:600;font-size:11.5px;line-height:1.4;letter-spacing:.02em;color:rgba(255,255,255,.84);max-width:24ch}
 
 /* cronograma de modulos */
 .crono{display:flex;flex-direction:column;gap:15px}
@@ -382,11 +394,16 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
   .galeria,.home-wrap,.eco-wrap{padding:30px 22px 50px}
   .home-wrap{justify-content:flex-start;min-height:auto}
   .grade,.g-2,.g-3,.g-4{grid-template-columns:1fr}
-  .home-grade,.linha-tempo{grid-template-columns:1fr;row-gap:26px}
-  .estagio{padding-top:0}
+  .home-grade{grid-template-columns:1fr;row-gap:26px}
   .mcard-head{flex-direction:column;gap:14px}.medalhao{width:100%;min-height:88px}
   .medalhao.capa{width:100%;min-height:0}
   h1{font-size:34px}
+}
+@media (max-width:1150px),(max-height:660px){
+  .orbita{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:12px;align-content:start;min-height:0;margin-top:26px}
+  .orbita svg,.nucleo{display:none}
+  .no-eco{position:static;transform:none;width:auto;animation-name:sobe}
+  .no-eco:hover{scale:1;transform:translateY(-3px)}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -435,7 +452,12 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 <section class="tela" id="t1"><div class="quadro midia centro in">
       <img class="bg" src="foto%20alunos.jpg" alt="" decoding="async" fetchpriority="low">
       <div class="faixa">        <h1>Mais do que um treinamento, somos uma comunidade.</h1>
-        <div class="chips"><span class="chip">+60 mil clientes ativos</span><span class="chip">40 Mi de pessoas impactadas</span><span class="chip">59.944 investidores formados pela AUVP</span></div>
+        <p class="legenda">Nascemos da educação financeira e hoje acompanhamos você em cada momento da sua relação com o dinheiro.</p>
+        <div class="numeros">
+          <div class="num"><b>+60 mil</b><span>clientes ativos</span></div>
+          <div class="num"><b>+55 mil</b><span>investidores formados</span></div>
+          <div class="num"><b>nº 1</b><span>Consultoria: 2º ano seguido no ranking BTG Pactual</span></div>
+        </div>
       </div></div></section>
 
 
@@ -492,15 +514,10 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
         <p class="mote copy" data-slot="mote">Pensou em dinheiro, pensou na AUVP.</p>
         <h1>Tudo começa na <span class="dourado">Escola</span>.</h1>
       </div>
-      <div class="linha-tempo" id="timeline"></div>
+      <div class="orbita" id="orbita"></div>
     </div></section>
 
-    <section class="tela" id="tpro"><div class="quadro midia in">
-      <video class="bg" data-src="pro%201.mp4" muted loop playsinline preload="none" disablepictureinpicture aria-hidden="true"></video>
-      <div class="faixa">        <h1>AUVP Pro</h1>
-        <p class="legenda">Prepare-se para conquistar as principais certificações do mercado financeiro.</p>
-        <div class="chips"><button type="button" class="chip lente" data-imagem="trilha%20pro.png">Trilha estruturada<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.2"/><path d="M15.2 15.2 20 20M10.5 8v5M8 10.5h5"/></svg></button><button type="button" class="chip lente" data-imagem="simulados%20pro.png">Simulados<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.2"/><path d="M15.2 15.2 20 20M10.5 8v5M8 10.5h5"/></svg></button><button type="button" class="chip lente" data-imagem="comunidade%20pro.png">Suporte e Comunidade<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.2"/><path d="M15.2 15.2 20 20M10.5 8v5M8 10.5h5"/></svg></button></div>
-      </div></div></section>
+    
 
     <section class="tela" id="tagro"><div class="quadro midia in">
       <video class="bg" data-src="agro%201.mp4" muted loop playsinline preload="none" disablepictureinpicture aria-hidden="true"></video>
@@ -516,12 +533,7 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
         <div class="chips"><span class="chip">Investir no exterior</span><span class="chip">Remessas</span><span class="chip">Diversificação em dólar</span></div>
       </div></div></section>
 
-    <section class="tela" id="t12"><div class="quadro midia in">
-      <video class="bg" data-src="sempre%201.mp4" muted loop playsinline preload="none" disablepictureinpicture aria-hidden="true"></video>
-      <div class="faixa">        <h1>AUVP Sempre</h1>
-        <p class="legenda">Evolução contínua para quem já concluiu a Escola com conteúdos avançados, ferramentas exclusivas e comunidade de suporte.</p>
-        <div class="chips"><button type="button" class="chip lente" data-imagem="modulos%20avan%C3%A7ados.png">Acesso a módulos avançados<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.2"/><path d="M15.2 15.2 20 20M10.5 8v5M8 10.5h5"/></svg></button><button type="button" class="chip lente" data-imagem="aulas%20att.png">Aulas atualizadas<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.2"/><path d="M15.2 15.2 20 20M10.5 8v5M8 10.5h5"/></svg></button><button type="button" class="chip lente" data-imagem="lives%20semanais.png">Live semanal<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.2"/><path d="M15.2 15.2 20 20M10.5 8v5M8 10.5h5"/></svg></button></div>
-      </div></div></section>
+    
 
 
 
@@ -566,8 +578,12 @@ const NAV=[
     ['home','Home','H']
   ]],
   ['Contexto',[
-    ['t1','Quem somos nós?','1']
+    ['t1','Quem somos nós?','1'],
+    ['t10','O Ecossistema AUVP','E']
   ]],
+  /* as telas do ecossistema saem do array ECO logo abaixo: ficam no menu
+     e na ordem da apresentação, mas fora da grade da home */
+  ['O Ecossistema',[],{semHome:true}],
   ['O Produto',[
     ['t3','A Escola','2'],
     ['t4','Dinâmica das aulas','3'],
@@ -577,35 +593,76 @@ const NAV=[
     ['t7','Lives, comunidade e app','7']
   ]],
   ['Expansão',[
-    ['t12','AUVP Sempre','S'],
-    ['tpro','AUVP Pro','P'],
     ['t11','AUVP Internacional','I'],
-    ['tagro','AUVP Agro','A'],
-    ['t10','O Ecossistema AUVP','E']
+    ['tagro','AUVP Agro','A']
   ]],
   ['Fechamento',[
     ['t17','Boas-vindas','B']
   ]]
 ];
 
+/* ============================================================
+   ECOSSISTEMA
+   Cada produto é um nó da tela principal e uma tela própria.
+   ============================================================ */
+const ECO=[
+  {id:'eco1',n:'1',t:'Você aprende',d:'Treinamentos especializados com garantia de aprendizagem.',
+   tit:'Educação com foco na Escola',sub:'Você aprende',
+   itens:['Mais de 100 aulas com garantia de aprendizado.',
+          'Formação completa do zero à autonomia.',
+          '+ Trilhas de conhecimento especializadas: AUVP Pro, AUVP Agro e AUVP Internacional.']},
+  {id:'eco2',n:'2',t:'Seu patrimônio rende',d:'Com a consultoria nº1 no ranking BTG.',
+   tit:'AUVP Consultoria',sub:'Seu dinheiro rende.',
+   itens:['Gestão e acompanhamento profissional do seu patrimônio.',
+          'Pelo segundo ano consecutivo, a Consultoria Nº 1 no ranking do BTG Pactual.',
+          '3 Planos que evoluem de acordo com seu patrimônio']},
+  {id:'eco3',n:'3',t:'Garante seu banco, sem enrolação',d:'Abertura de conta, cartão e atendimento próprios AUVP.',
+   tit:'Banco e Plataforma AUVP',sub:'Garante seu banco, sem enrolação',
+   itens:['Abertura de conta corrente, cartões e atendimento 100% exclusivos da AUVP.',
+          'Plataforma de Investimentos com Carteiras Recomendadas',
+          'Previdência Privada exclusiva']},
+  {id:'eco4',n:'4',t:'Seus projetos saem do papel',d:'Contrate crédito de forma estratégica',
+   tit:'AUVP Crédito',sub:'Seus projetos saem do papel.',
+   itens:['Comparação em tempo real com mais de 20 bancos para garantir a melhor taxa.',
+          'Alcance seus objetivos sem precisar liquidar seus investimentos ou comprometer seu patrimônio.']},
+  {id:'eco5',n:'5',t:'Você e sua família sempre protegidos',d:'Seguro de vida, invalidez, doenças graves.',
+   tit:'AUVP Corretora de Seguros',sub:'Você e sua família protegidos.',
+   itens:['Segurança para a família com planejamento feito sob medida',
+          'Sem viés de interesse, cotamos em até 6 seguradoras para encontrar a melhor proteção',
+          'Evite que imprevistos comprometam seu patrimônio.']},
+  {id:'eco6',n:'6',t:'Seu dinheiro sem fronteiras',d:'Câmbio transparente para enviar, receber ou investir fora do Brasil.',
+   tit:'AUVP Câmbio',sub:'Seu dinheiro sem fronteiras.',
+   itens:['Câmbio transparente para enviar, receber ou investir no exterior.',
+          'Acompanhamento ponta a ponta com especialistas da AUVP.',
+          'Direcionamento personalizado para a modalidade com os menores custos e prazos ideais para evitar taxas desnecessárias.']},
+  {id:'eco7',n:'7',t:'Seu legado, bem planejado',d:'Sucessão, holding patrimonial e estruturação offshore.',
+   tit:'AUVP Wealth',sub:'Seu legado, bem planejado.',
+   itens:['Blindagem patrimonial e otimização tributária inteligente.',
+          'Governança, criação de fundos exclusivos e operações de M&A.',
+          'Planejamento sucessório e gestão de domicílio fiscal para garantir a paz na família.']}
+];
+NAV[2][1]=ECO.map(function(e){return [e.id,e.tit,null,e.n]});
+
+
 const $=function(s){return document.querySelector(s)};
 var medidas={};
 const esc=function(x){return String(x).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
 
 const ORDEM=[],ROTULOS={},TECLAS={};
-NAV.forEach(function(g){g[1].forEach(function(it){ORDEM.push(it[0]);ROTULOS[it[0]]=it[1];TECLAS[it[2].toLowerCase()]=it[0]})});
+NAV.forEach(function(g){g[1].forEach(function(it){ORDEM.push(it[0]);ROTULOS[it[0]]=it[1];if(it[2])TECLAS[it[2].toLowerCase()]=it[0]})});
 
 /* ---------- menu lateral ---------- */
 $('#nav').innerHTML=NAV.map(function(g){
   return '<div class="grupo"><span>'+esc(g[0])+'</span></div>'+g[1].map(function(it){
     return '<button class="item" data-alvo="'+it[0]+'" data-rot="'+esc(it[1])+'">'
-      +'<i class="tecla">'+esc(it[2])+'</i><span class="rot">'+esc(it[1])+'</span></button>';
+      +'<i class="tecla'+(it[2]?'':' sem')+'">'+esc(it[2]||it[3]||'')+'</i><span class="rot">'+esc(it[1])+'</span></button>';
   }).join('');
 }).join('');
 
 /* ---------- grade da home (todas as seções, menos a própria home) ---------- */
 var n=0;
 $('#home-grade').innerHTML=NAV.map(function(g){
+  if(g[2]&&g[2].semHome)return '';
   var itens=g[1].filter(function(it){return it[0]!=='home'});
   if(!itens.length) return '';
   return '<div class="coluna"><h4>'+esc(g[0])+'<i>'+itens.length+'</i></h4>'+itens.map(function(it){
@@ -613,7 +670,7 @@ $('#home-grade').innerHTML=NAV.map(function(g){
     return '<button class="bloco" data-alvo="'+it[0]+'" style="--i:'+n+'">'
       +'<span class="bn">'+String(n).padStart(2,'0')+'</span>'
       +'<span class="bt">'+esc(it[1])+'</span>'
-      +'<i class="tecla">'+esc(it[2])+'</i>'
+      +'<i class="tecla">'+esc(it[2]||it[3]||'')+'</i>'
       +'<span class="seta" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg></span>'
       +'</button>';
   }).join('')+'</div>';
@@ -855,20 +912,6 @@ const FERR=[
   {t:"Orçamento Doméstico",d:"controle seus gastos e gerencie seu dinheiro",url:"https://financas.auvp.com.br/dashboard/home",capa:"Captura de tela 2026-08-10 134303.png"},
   {t:"AUVP Analítica",d:"para quem analisa a fundo seus investimentos",url:"https://analitica.auvp.com.br/",capa:"Captura de tela 2026-08-10 134437.png"}
 ];
-/* miniaturas dos produtos (etapa Aprendizado) */
-const MINIS={
-  "AUVP Escola":{src:"foto alunos.jpg",zoom:"cover",pos:"50% 42%"},
-  "AUVP Agro":{src:"escola agro.png",zoom:"300%",pos:"6% 8%"},
-  "AUVP Pro":{src:"simulados pro.png",zoom:"540%",pos:"13% 42%"},
-  "AUVP Sempre":{src:"modulos avançados.png",zoom:"430%",pos:"13% 9%"},
-  "AUVP Internacional":{src:"internacional.jpg",zoom:"cover",pos:"50% 50%"}
-};
-const ESTAGIOS=[
-  ["01","Aprendizado",[["AUVP Escola",""],["AUVP Agro",""],["AUVP Pro",""],["AUVP Sempre",""],["AUVP Internacional",""]]],
-  ["02","Acompanhamento",[["Open Finance","Seus gastos num só lugar"],["Carteiras recomendadas","Para o seu perfil"],["Plataforma de investimentos","Exclusiva para alunos"]]],
-  ["03","Proteção da Família",[["Seguro de vida","Proteção para toda a família"],["Análise de crédito","O financiamento mais barato"],["Previdência privada","Com a menor taxa do mercado"]]],
-  ["04","Patrimônio & Consultoria",[["Consultoria / Private","+R$300 mil &middot; Private +R$5 mi"],["Holding imobiliária","Organização e sucessão"],["Offshore e AMC","Para grandes clientes"]]]
-];
 
 (function(){
   var cl=document.getElementById('crono-lista');
@@ -935,18 +978,35 @@ document.getElementById('ferramentas').innerHTML=FERR.map(function(f){
     +(f.url?'<span class="acesso">Acessar<svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></span>':'')
     +'<div class="rot"><b>'+esc(f.t)+'</b><small>'+esc(f.d)+'</small></div></'+tag+'>';
 }).join('');
-document.getElementById('timeline').innerHTML=ESTAGIOS.map(function(g,i){
-  return '<div class="estagio'+(i===3?' destaque':'')+'" style="--i:'+i+'">'
-    +'<div class="barra"><i></i></div>'
-    +'<div class="est-cab"><span class="no">'+g[0]+'</span><h3>'+g[1]+'</h3></div><ul>'
-    +g[2].map(function(it,j){
-      var m=MINIS[it[0]];
-      var est=m?' style="--capa:url(\''+encodeURI(m.src)+'\');background-size:'+m.zoom+';background-position:'+m.pos+'"':'';
-      var mini=i===0?'<span class="mini'+(m?' tem':'')+'"'+est+'>'+it[0].replace(/^AUVP\s+/,'').charAt(0)+'</span>':'';
-      return '<li style="--j:'+j+'">'+mini+'<span class="txt"><b>'+it[0]+'</b>'+(it[1]?'<small>'+it[1]+'</small>':'')+'</span></li>';
-    }).join('')
-    +'</ul></div>';
-}).join('');
+/* ---------- ecossistema: nós ligados ao núcleo ---------- */
+(function(){
+  var RX=36,RY=37,total=ECO.length;
+  var svg='<svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">'
+    +'<ellipse class="anel" cx="50" cy="50" rx="'+RX+'" ry="'+RY+'" vector-effect="non-scaling-stroke"/>';
+  var nos='';
+  ECO.forEach(function(e,i){
+    var a=(-90+i*(360/total))*Math.PI/180;
+    var x=(50+RX*Math.cos(a)).toFixed(2),y=(50+RY*Math.sin(a)).toFixed(2);
+    svg+='<line class="fio" x1="50" y1="50" x2="'+x+'" y2="'+y+'" vector-effect="non-scaling-stroke" style="--d:'+(i*70+240)+'ms"/>';
+    nos+='<button class="no-eco" data-alvo="'+e.id+'" style="--x:'+x+'%;--y:'+y+'%;--d:'+(i*70+320)+'ms">'
+      +'<span class="no-n">'+esc(e.n)+'</span>'
+      +'<span class="no-txt"><b>'+esc(e.t)+'</b><small>'+esc(e.d)+'</small></span></button>';
+  });
+  document.getElementById('orbita').innerHTML=svg+'</svg>'
+    +'<div class="nucleo"><img src="olho-amarelo.svg" alt=""><span>AUVP</span></div>'+nos;
+
+  /* uma tela por produto do ecossistema */
+  var volta='<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H6M11.5 6l-6 6 6 6"/></svg>';
+  palco.insertAdjacentHTML('beforeend',ECO.map(function(e){
+    return '<section class="tela" id="'+e.id+'"><div class="galeria in">'
+      +'<div class="cab"><p class="eyebrow">'+esc(e.sub)+'</p><h1>'+esc(e.tit)+'</h1></div>'
+      +'<ul class="exp-lista">'+e.itens.map(function(it,j){
+          return '<li style="--j:'+j+'"><span class="exp-n">'+String(j+1).padStart(2,'0')+'</span><p>'+esc(it)+'</p></li>';
+        }).join('')+'</ul>'
+      +'<button type="button" class="voltar" data-alvo="t10">'+volta+'Voltar ao ecossistema</button>'
+      +'</div></section>';
+  }).join(''));
+})();
 
 /* estado inicial (respeita link compartilhado com #/secao) */
 ir((location.hash||'').replace(/^#\/?/,'')||'home',true);
