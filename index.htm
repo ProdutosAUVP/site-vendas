@@ -19,7 +19,7 @@
   --sup:rgba(255,255,255,.66);--sup-forte:rgba(255,255,255,.86);--trilho-bg:rgba(255,255,255,.55);
   --hover:rgba(0,0,0,.04);--linha2:rgba(0,0,0,.07);--linha-f:rgba(0,0,0,.16);
   --rot-veu:rgba(255,255,255,.92);--malha:rgba(24,24,27,.05);--trilha-bg:rgba(24,24,27,.08);
-  --nucleo-halo:rgba(239,191,78,.1);--cartao:#fbfbfc;
+  --nucleo-halo:rgba(239,191,78,.1);--cartao:#fbfbfc;--painel:min(460px,40%);
   --aviso-bg:#FEF2F2;--aviso-borda:#FBD5D5;--aviso-forte:#DC2626;--aviso-tinta:#7F1D1D;
   --fundo:radial-gradient(ellipse at top,#f4f4f5 0%,#e4e4e7 100%);
   --grad-escuro:#17171a;
@@ -290,21 +290,24 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 .eco-card h3{margin:2px 0 0;font-family:var(--display);font-weight:600;font-size:15px;line-height:1.16;letter-spacing:-.015em;color:var(--tinta)}
 .eco-sub{margin:0;font-size:12px;line-height:1.35;color:var(--tinta2)}
 
-/* card aberto: cresce a partir do próprio card, com o resto ao fundo */
-.eco-cena{position:fixed;inset:0;z-index:88;display:grid;place-items:center;padding:clamp(20px,4vw,48px);opacity:0;pointer-events:none;transition:opacity .3s;background:rgba(24,24,27,.3);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
-body.escuro .eco-cena{background:rgba(9,9,11,.52)}
-.eco-cena.ver{opacity:1;pointer-events:auto}
-.eco-zoom{position:relative;width:min(560px,92vw);padding:28px 30px 26px;border-radius:22px;border:1px solid rgba(239,191,78,.4);background:var(--cartao);box-shadow:0 44px 96px -34px rgba(0,0,0,.65);transform-origin:50% 50%}
-.eco-zoom .eco-n{width:26px;height:26px;font-size:11.5px;margin-bottom:12px}
-.eco-zoom h3{margin:0;font-family:var(--display);font-weight:600;font-size:clamp(22px,2.4vw,28px);line-height:1.12;letter-spacing:-.02em;color:var(--tinta)}
-.eco-zoom .eco-sub{margin:7px 0 0;font-size:15px;color:var(--tinta2)}
-.eco-zoom ul{list-style:none;margin:20px 0 0;padding:18px 0 0;border-top:1px solid var(--linha2);display:grid;gap:12px}
-.eco-zoom li{position:relative;padding-left:19px;font-size:14.5px;line-height:1.5;color:var(--tinta)}
-.eco-zoom li::before{content:"";position:absolute;left:2px;top:8px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
-.eco-x{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:19px;line-height:1;color:var(--tinta2);border:1px solid var(--vidro-borda);transition:.18s}
+/* painel lateral: o ecossistema continua à vista, comprimido à esquerda */
+.eco-wrap{transition:padding-right .42s var(--mola)}
+#t10.com-painel .eco-wrap{padding-right:calc(var(--painel) + 34px)}
+#t10.com-painel .eco-card{width:clamp(136px,13vw,168px);padding:12px 13px 13px}
+#t10.com-painel .eco-card h3{font-size:13.5px}
+#t10.com-painel .eco-card .eco-sub{font-size:11px}
+.eco-card.sel{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-bg),0 18px 34px -20px rgba(184,134,11,.6)}
+.eco-painel{position:absolute;top:0;right:0;bottom:0;z-index:40;width:var(--painel);display:flex;flex-direction:column;padding:30px 30px 26px;background:var(--cartao);border-left:1px solid var(--vidro-borda);box-shadow:-26px 0 64px -34px rgba(0,0,0,.45);transform:translateX(101%);transition:transform .42s var(--mola);overflow-y:auto}
+#t10.com-painel .eco-painel{transform:none}
+.eco-painel .eco-n{width:26px;height:26px;font-size:11.5px;margin-bottom:14px}
+.eco-painel h3{margin:0;padding-right:40px;font-family:var(--display);font-weight:600;font-size:clamp(21px,2.1vw,27px);line-height:1.12;letter-spacing:-.02em;color:var(--tinta)}
+.eco-painel .eco-sub{margin:8px 0 0;font-size:15px;line-height:1.45;color:var(--tinta2)}
+.eco-painel ul{list-style:none;margin:22px 0 0;padding:20px 0 0;border-top:1px solid var(--linha2);display:grid;gap:14px}
+.eco-painel li{position:relative;padding-left:19px;font-size:14.5px;line-height:1.5;color:var(--tinta);animation:entraItem .42s var(--mola) both;animation-delay:calc(var(--j,0)*70ms + 180ms)}
+@keyframes entraItem{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+.eco-painel li::before{content:"";position:absolute;left:2px;top:8px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.eco-x{position:absolute;top:20px;right:22px;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:19px;line-height:1;color:var(--tinta2);border:1px solid var(--vidro-borda);transition:.18s}
 .eco-x:hover{background:var(--hover);color:var(--tinta)}
-.app{transition:transform .42s var(--mola)}
-body.eco-aberto .app{transform:scale(.97)}
 
 /* ---------- números em destaque (Quem somos nós?) ---------- */
 .numeros{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:32px}
@@ -405,6 +408,10 @@ body.eco-aberto .app{transform:scale(.97)}
 }
 @media (max-width:1080px),(max-height:620px){
   .orbita{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;align-content:start;min-height:0;margin-top:24px}
+  #t10.com-painel .eco-wrap{padding-right:22px}
+  #t10.com-painel .eco-card{width:auto}
+  .eco-painel{position:fixed;inset:auto 0 0 0;width:auto;max-height:min(76vh,620px);border-left:0;border-top:1px solid var(--vidro-borda);border-radius:20px 20px 0 0;transform:translateY(101%);box-shadow:0 -26px 64px -34px rgba(0,0,0,.5);padding:24px 22px 28px}
+  #t10.com-painel .eco-painel{transform:none}
   .fios,.nucleo{display:none}
   .eco-card{position:static;width:auto;animation-name:sobe}
   .eco-card:hover{scale:1;transform:translateY(-3px)}
@@ -519,7 +526,7 @@ body.eco-aberto .app{transform:scale(.97)}
         <h1>Tudo começa na <span class="dourado">Escola</span>.</h1>
       </div>
       <div class="orbita" id="orbita"></div>
-    </div></section>
+    </div><aside class="eco-painel" id="eco-painel" aria-hidden="true"></aside></section>
 
     
 
@@ -562,7 +569,6 @@ body.eco-aberto .app{transform:scale(.97)}
     <li><span class="ic"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg></span>Tags com seta levam a outra seção; cards abrem o link em nova aba</li>
   </ul>
 </div>
-<div class="eco-cena" id="eco-cena" aria-hidden="true"><article class="eco-zoom" id="eco-zoom"></article></div>
 <div class="visor-cena" id="visor-cena" aria-hidden="true">
   <figure class="visor" id="visor">
     <img id="visor-img" alt="">
@@ -882,7 +888,7 @@ document.addEventListener('keydown',function(e){
   var alvo=e.target;
   if(alvo&&(alvo.isContentEditable||/^(input|textarea|select)$/i.test(alvo.tagName)))return;
   var k=e.key.toLowerCase();
-  if(k==='escape'){escondeDica();if(ecoAtivo){fechaEco();return}if(ajuda.classList.contains('ver')){abreAjuda(false);return}if(cena.classList.contains('ver')){fechaVisor();return}if(document.body.classList.contains('gaveta')){gaveta(false)}else{ir('home')}return}
+  if(k==='escape'){escondeDica();if(ecoSel){fechaEco();return}if(ajuda.classList.contains('ver')){abreAjuda(false);return}if(cena.classList.contains('ver')){fechaVisor();return}if(document.body.classList.contains('gaveta')){gaveta(false)}else{ir('home')}return}
   if(k==='['||k===']'){recolher(!document.body.classList.contains('recolhido'));return}
   if(k==='arrowright'){passo(1);return}
   if(k==='arrowleft'){passo(-1);return}
@@ -999,51 +1005,36 @@ const RX=33,RY=35;
     +'<div class="nucleo"><img src="olho-amarelo.svg" alt=""></div>'+cards;
 })();
 
-/* clique no card: ele cresce a partir do próprio lugar e mostra os tópicos,
-   com o resto da apresentação reduzido e desfocado atrás */
-const ecoCena=$('#eco-cena'),ecoZoom=$('#eco-zoom');
-let ecoOrigem=null,ecoAtivo=false;
+/* clique no card: o painel entra pela direita e o ecossistema continua
+   à vista, comprimido à esquerda. Sem sobreposição, sem desfoque. */
+const telaEco=document.getElementById('t10'),ecoPainel=$('#eco-painel');
+let ecoSel=null;
 
 function abreEco(card){
   var e=ECO[+card.dataset.eco]; if(!e)return;
-  ecoOrigem=card;ecoAtivo=true;
-  ecoZoom.innerHTML='<button type="button" class="eco-x" aria-label="Voltar ao ecossistema">&times;</button>'
+  if(ecoSel===card){fechaEco();return}
+  document.querySelectorAll('.eco-card.sel').forEach(function(c){c.classList.remove('sel')});
+  card.classList.add('sel');ecoSel=card;
+  ecoPainel.innerHTML='<button type="button" class="eco-x" aria-label="Fechar e voltar ao ecossistema">&times;</button>'
     +'<span class="eco-n">'+esc(e.n)+'</span>'
     +'<h3>'+esc(e.tit)+'</h3><p class="eco-sub">'+esc(e.sub)+'</p>'
-    +'<ul>'+e.itens.map(function(it){return '<li>'+esc(it)+'</li>'}).join('')+'</ul>';
-  document.body.classList.add('eco-aberto');
-  ecoCena.classList.add('ver');ecoCena.setAttribute('aria-hidden','false');
-  var r=card.getBoundingClientRect(),z=ecoZoom.getBoundingClientRect();
-  var k=Math.max(r.width/z.width,.24);
-  ecoZoom.style.transition='none';
-  ecoZoom.style.opacity='0';
-  ecoZoom.style.transform='translate('+((r.left+r.width/2)-(z.left+z.width/2)).toFixed(1)+'px,'
-    +((r.top+r.height/2)-(z.top+z.height/2)).toFixed(1)+'px) scale('+k.toFixed(3)+')';
-  requestAnimationFrame(function(){
-    ecoZoom.style.transition='transform .42s var(--mola),opacity .26s';
-    ecoZoom.style.transform='none';ecoZoom.style.opacity='1';
-  });
+    +'<ul>'+e.itens.map(function(it,j){return '<li style="--j:'+j+'">'+esc(it)+'</li>'}).join('')+'</ul>';
+  ecoPainel.setAttribute('aria-hidden','false');
+  telaEco.classList.add('com-painel');
+  ecoPainel.scrollTop=0;
 }
 function fechaEco(){
-  if(!ecoAtivo)return;
-  ecoAtivo=false;
-  document.body.classList.remove('eco-aberto');
-  if(ecoOrigem){
-    var r=ecoOrigem.getBoundingClientRect(),z=ecoZoom.getBoundingClientRect();
-    var k=Math.max(r.width/ecoZoom.offsetWidth,.24);
-    ecoZoom.style.transition='transform .34s var(--mola),opacity .26s';
-    ecoZoom.style.transform='translate('+((r.left+r.width/2)-(z.left+z.width/2)).toFixed(1)+'px,'
-      +((r.top+r.height/2)-(z.top+z.height/2)).toFixed(1)+'px) scale('+k.toFixed(3)+')';
-    ecoZoom.style.opacity='0';
-  }
-  ecoCena.classList.remove('ver');ecoCena.setAttribute('aria-hidden','true');
-  ecoOrigem=null;
+  if(!ecoSel&&!telaEco.classList.contains('com-painel'))return;
+  telaEco.classList.remove('com-painel');
+  ecoPainel.setAttribute('aria-hidden','true');
+  document.querySelectorAll('.eco-card.sel').forEach(function(c){c.classList.remove('sel')});
+  ecoSel=null;
 }
 document.addEventListener('click',function(ev){
   var c=ev.target.closest('.eco-card');
   if(c){ev.preventDefault();abreEco(c);return}
-  if(!ecoAtivo)return;
-  if(ev.target.closest('.eco-x')||!ev.target.closest('#eco-zoom'))fechaEco();
+  if(!ecoSel)return;
+  if(ev.target.closest('.eco-x')||(ev.target.closest('#t10')&&!ev.target.closest('#eco-painel')))fechaEco();
 });
 
 /* estado inicial (respeita link compartilhado com #/secao) */
