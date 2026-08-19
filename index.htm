@@ -19,9 +19,10 @@
   --sup:rgba(255,255,255,.66);--sup-forte:rgba(255,255,255,.86);--trilho-bg:rgba(255,255,255,.55);
   --hover:rgba(0,0,0,.04);--linha2:rgba(0,0,0,.07);--linha-f:rgba(0,0,0,.16);
   --rot-veu:rgba(255,255,255,.92);--malha:rgba(24,24,27,.05);--trilha-bg:rgba(24,24,27,.08);
+  --nucleo-halo:rgba(239,191,78,.1);--cartao:#fbfbfc;
   --aviso-bg:#FEF2F2;--aviso-borda:#FBD5D5;--aviso-forte:#DC2626;--aviso-tinta:#7F1D1D;
   --fundo:radial-gradient(ellipse at top,#f4f4f5 0%,#e4e4e7 100%);
-  --grad-escuro:radial-gradient(ellipse at center,rgba(239,191,78,.08) 0%,#18181b 70%);
+  --grad-escuro:#17171a;
   --display:'Anek Latin',system-ui,sans-serif;--corpo:'Roboto',system-ui,-apple-system,sans-serif;
   --cta:'Sora',var(--corpo);--mono:'JetBrains Mono',ui-monospace,monospace;
   --trilho:270px;--mola:cubic-bezier(.2,.7,.3,1);
@@ -36,11 +37,12 @@ body.escuro{
   --sup:rgba(255,255,255,.06);--sup-forte:rgba(255,255,255,.11);--trilho-bg:rgba(24,24,27,.72);
   --hover:rgba(255,255,255,.07);--linha2:rgba(255,255,255,.09);--linha-f:rgba(255,255,255,.22);
   --rot-veu:rgba(12,12,14,.94);--malha:rgba(255,255,255,.05);--trilha-bg:rgba(255,255,255,.11);
+  --nucleo-halo:rgba(239,191,78,.08);--cartao:#191a1d;
   --aviso-bg:rgba(220,38,38,.12);--aviso-borda:rgba(248,113,113,.34);--aviso-forte:#F87171;--aviso-tinta:#FCA5A5;
   --fundo:radial-gradient(ellipse at top,#1c1c20 0%,#0e0e10 100%);
 }
 body.escuro .selo{filter:none}
-body.escuro .medalhao:not(.capa),body.escuro .quadro:not(.midia){background:radial-gradient(ellipse at center,rgba(239,191,78,.1) 0%,#0d0d0f 70%)}
+body.escuro .medalhao:not(.capa),body.escuro .quadro:not(.midia){background:#111113}
 body.escuro .estagio .no{border-color:rgba(239,191,78,.55)}
 
 /* ============================================================
@@ -128,7 +130,7 @@ body:not(.escuro) .ajuda{background:rgba(255,255,255,.95)}
 .visor img{display:block;width:100%;height:auto;background:#0c0c0e}
 .visor-x{position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:18px;line-height:1;color:#fff;background:rgba(9,9,11,.55);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:.18s}
 .visor-x:hover{background:rgba(9,9,11,.8)}
-.chip.lente.aberta{border-color:rgba(239,191,78,.75);background:linear-gradient(160deg,rgba(239,191,78,.3),rgba(239,191,78,.12))}
+.chip.lente.aberta{border-color:rgba(239,191,78,.7);background:rgba(239,191,78,.24)}
 @media (max-width:860px){.visor{width:min(92vw,620px)}}
 
 /* dica flutuante (tooltip) do trilho recolhido */
@@ -139,7 +141,7 @@ body:not(.escuro) .ajuda{background:rgba(255,255,255,.95)}
    4. PALCO, PROGRESSO, TOPO MOBILE E PAGINADOR
    ============================================================ */
 .palco{position:relative;overflow:hidden;background:var(--fundo)}
-.progresso{position:absolute;top:0;left:0;height:2px;width:0;z-index:25;background:linear-gradient(90deg,var(--gold-deep),var(--gold));box-shadow:0 0 10px rgba(239,191,78,.6);transition:width .38s var(--mola)}
+.progresso{position:absolute;top:0;left:0;height:2px;width:0;z-index:25;background:var(--gold);box-shadow:0 0 10px rgba(239,191,78,.5);transition:width .38s var(--mola)}
 .topo{display:none;align-items:center;gap:12px;padding:10px 14px;background:var(--sup-forte);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--vidro-borda)}
 .topo b{font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:-.01em}
 .hamb{width:34px;height:34px;display:grid;place-items:center;border-radius:8px;color:var(--tinta2)}
@@ -161,8 +163,8 @@ body:not(.escuro) .ajuda{background:rgba(255,255,255,.95)}
 h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,56px);line-height:1.05;letter-spacing:-.025em;margin:0;max-width:20ch;color:var(--tinta)}
 .home-hero h1{font-size:clamp(34px,4.4vw,62px);max-width:none;display:flex;align-items:baseline;gap:.28em;flex-wrap:wrap}
 .dourado{color:var(--gold-esc)}
-.home-hero .dourado{background:linear-gradient(96deg,var(--gold-deep),var(--gold) 48%,var(--gold-esc));-webkit-background-clip:text;background-clip:text;color:transparent}
-.home-regua{margin-top:16px;height:1px;max-width:min(100%,1280px);background:linear-gradient(90deg,rgba(239,191,78,.75),var(--linha2) 55%,transparent)}
+.home-hero .dourado{color:var(--gold-esc)}
+.home-regua{margin-top:16px;height:1px;max-width:min(100%,1280px);background:linear-gradient(90deg,var(--gold) 0 96px,var(--linha2) 96px)}
 
 .home-grade{position:relative;z-index:1;display:grid;grid-template-columns:repeat(auto-fit,minmax(208px,1fr));gap:14px;max-width:min(100%,1280px);align-items:start}
 .coluna{display:flex;flex-direction:column;gap:8px;min-width:0}
@@ -170,7 +172,7 @@ h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,56px);lin
 .coluna h4 i{font-family:var(--mono);font-style:normal;font-size:9px;color:var(--tinta3);letter-spacing:.02em}
 .bloco{position:relative;overflow:clip;display:flex;align-items:center;gap:11px;width:100%;min-height:50px;text-align:left;padding:11px 13px 11px 15px;border:1px solid var(--vidro-borda);border-radius:12px;background:var(--sup);color:var(--tinta);overflow:hidden;transition:transform .22s var(--mola),border-color .22s,box-shadow .22s,background .22s;animation:sobe .5s var(--mola) both;animation-delay:calc(var(--i,0)*32ms)}
 @keyframes sobe{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.bloco::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--gold),var(--gold-deep));transform:scaleY(0);transform-origin:50% 0;transition:transform .26s var(--mola)}
+.bloco::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold-deep);transform:scaleY(0);transform-origin:50% 0;transition:transform .26s var(--mola)}
 .bloco .bn{font-family:var(--mono);font-size:9.5px;color:var(--tinta3);flex:none;letter-spacing:.04em;transition:color .22s}
 .bloco .bt{flex:1;min-width:0;font-family:var(--display);font-weight:500;font-size:14px;line-height:1.18}
 .bloco .seta{flex:none;color:var(--gold-deep);opacity:0;transform:translateX(-5px);transition:.22s}
@@ -274,33 +276,30 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 .kicker{font-family:var(--cta);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-esc);margin:0 0 14px}
 .eco-topo .mote{font-family:var(--display);font-weight:700;font-size:clamp(26px,3vw,42px);letter-spacing:-.025em;margin:0;color:var(--tinta)}
 .eco-topo h1{margin:8px auto 0;font-family:var(--display);font-weight:600;font-size:clamp(20px,2vw,26px);color:var(--tinta2);max-width:none}
-/* ---------- ecossistema: produtos ligados em torno da marca ---------- */
-.orbita{position:relative;flex:1;min-height:400px;margin-top:14px}
-.orbita svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
-.orbita .anel{fill:none;stroke:var(--gold-deep);stroke-width:1;opacity:.2;stroke-dasharray:2 7}
-.orbita .fio{stroke:var(--gold-deep);stroke-width:1.4;opacity:0}
-.tela.ativa .orbita .fio{animation:acendeFio .5s ease-out var(--d,0ms) forwards}
-@keyframes acendeFio{from{opacity:0}to{opacity:.38}}
-.nucleo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:clamp(104px,11vw,140px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;gap:4px;background:radial-gradient(circle at 50% 32%,#26262b,#0c0c0e);border:1px solid rgba(239,191,78,.45);box-shadow:0 0 0 9px rgba(239,191,78,.07),0 26px 54px -22px rgba(0,0,0,.65)}
-.nucleo img{width:52%;display:block}
-.nucleo span{font-family:var(--cta);font-weight:700;font-size:9px;letter-spacing:.22em;color:rgba(255,255,255,.6)}
-.no-eco{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);z-index:3;width:clamp(178px,17vw,224px);display:flex;gap:10px;align-items:flex-start;text-align:left;padding:11px 12px;border-radius:14px;border:1px solid var(--vidro-borda);background:var(--sup-forte);box-shadow:0 14px 30px -18px rgba(0,0,0,.4);transition:border-color .24s,box-shadow .24s,scale .24s var(--mola);animation:noEntra .5s var(--mola) both;animation-delay:var(--d,0ms)}
-@keyframes noEntra{from{opacity:0;transform:translate(-50%,calc(-50% + 14px))}to{opacity:1;transform:translate(-50%,-50%)}}
-.no-eco:hover{border-color:rgba(239,191,78,.6);box-shadow:0 20px 40px -18px rgba(184,134,11,.6);scale:1.04}
-.no-n{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-weight:600;font-size:10.5px;color:var(--gold-deep);border:1px solid rgba(239,191,78,.5);background:var(--gold-bg)}
-.no-eco:hover .no-n{background:linear-gradient(150deg,var(--gold),var(--gold-deep));color:var(--verde-cap);border-color:transparent}
-.no-txt{min-width:0}
-.no-txt b{display:block;font-family:var(--display);font-weight:600;font-size:13.5px;line-height:1.15;color:var(--tinta)}
-.no-txt small{display:block;margin-top:3px;font-size:11px;line-height:1.35;color:var(--tinta2)}
-
-/* ---------- telas de expansão do ecossistema ---------- */
-.exp-lista{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:12px;max-width:78ch}
-.exp-lista li{display:flex;gap:14px;align-items:flex-start;padding:15px 18px;border:1px solid var(--vidro-borda);border-radius:14px;background:var(--sup);transition:transform .22s var(--mola),border-color .22s,box-shadow .22s;animation:sobe .5s var(--mola) both;animation-delay:calc(var(--j,0)*80ms + 180ms)}
-.exp-lista li:hover{transform:translateX(4px);border-color:rgba(239,191,78,.45);box-shadow:0 12px 26px -14px rgba(184,134,11,.5)}
-.exp-n{flex:none;font-family:var(--mono);font-weight:600;font-size:11px;color:var(--gold-deep);padding-top:3px}
-.exp-lista p{margin:0;font-size:15px;line-height:1.5;color:var(--tinta)}
-.voltar{display:inline-flex;align-items:center;gap:9px;align-self:flex-start;margin-top:auto;padding:11px 17px;border-radius:12px;border:1px solid var(--vidro-borda);background:var(--sup);color:var(--tinta2);font-family:var(--cta);font-weight:600;font-size:11.5px;letter-spacing:.03em;transition:.2s}
-.voltar:hover{border-color:rgba(239,191,78,.5);color:var(--gold-deep);transform:translateX(-3px)}
+/* ---------- ecossistema: a marca no centro, os produtos em volta ---------- */
+.orbita{position:relative;margin-top:18px}
+.fios{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:visible}
+.fios line{stroke:var(--gold-deep);stroke-width:1.4;opacity:.34}
+.fios circle{fill:none;stroke:var(--gold-deep);stroke-width:1;opacity:.22;stroke-dasharray:2 7}
+.eco-grade{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.eco-grade>*:nth-child(1){grid-area:1/1/2/2}
+.eco-grade>*:nth-child(2){grid-area:1/2/2/3}
+.eco-grade>*:nth-child(3){grid-area:1/3/2/4}
+.eco-grade>*:nth-child(4){grid-area:2/1/3/2}
+.eco-grade>*:nth-child(5){grid-area:2/3/3/4}
+.eco-grade>*:nth-child(6){grid-area:3/1/4/2}
+.eco-grade>*:nth-child(7){grid-area:3/2/4/4}
+.eco-grade>.nucleo{grid-area:2/2/3/3}
+.nucleo{position:relative;z-index:2;justify-self:center;align-self:center;width:clamp(110px,10vw,150px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:#101012;border:1px solid rgba(239,191,78,.45);box-shadow:0 0 0 10px var(--nucleo-halo),0 22px 46px -22px rgba(0,0,0,.55)}
+.nucleo img{width:54%;display:block}
+.eco-card{position:relative;display:flex;flex-direction:column;gap:5px;padding:15px 17px 16px;border-radius:16px;border:1px solid var(--vidro-borda);background:var(--cartao);box-shadow:0 12px 28px -20px rgba(0,0,0,.35);transition:border-color .22s,box-shadow .22s,transform .22s var(--mola);animation:sobe .5s var(--mola) both;animation-delay:calc(var(--j,0)*70ms + 140ms)}
+.eco-card:hover{transform:translateY(-3px);border-color:rgba(239,191,78,.5);box-shadow:0 18px 34px -20px rgba(184,134,11,.55)}
+.eco-n{position:absolute;top:14px;right:15px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-weight:600;font-size:10.5px;color:var(--gold-deep);border:1px solid rgba(239,191,78,.45);background:var(--gold-bg)}
+.eco-card h3{margin:0;padding-right:26px;font-family:var(--display);font-weight:600;font-size:17px;line-height:1.15;letter-spacing:-.015em;color:var(--tinta)}
+.eco-sub{margin:0;font-family:var(--cta);font-weight:600;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-deep)}
+.eco-card ul{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:7px}
+.eco-card li{position:relative;padding-left:16px;font-size:12.5px;line-height:1.42;color:var(--tinta2)}
+.eco-card li::before{content:"";position:absolute;left:2px;top:7px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
 
 /* ---------- números em destaque (Quem somos nós?) ---------- */
 .numeros{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:32px}
@@ -310,7 +309,7 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
   border:1px solid rgba(255,255,255,.16);
   box-shadow:0 12px 38px -16px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.3)}
 .num::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(125deg,rgba(255,255,255,.22),transparent 46%)}
-.num b{display:block;font-family:var(--display);font-weight:700;font-size:clamp(30px,3.4vw,46px);line-height:1;letter-spacing:-.03em;background:linear-gradient(96deg,var(--gold) 10%,#fff 55%,var(--gold-esc));-webkit-background-clip:text;background-clip:text;color:transparent}
+.num b{display:block;font-family:var(--display);font-weight:700;font-size:clamp(30px,3.4vw,46px);line-height:1;letter-spacing:-.03em;color:var(--gold)}
 .num span{display:block;margin:9px auto 0;font-family:var(--cta);font-weight:600;font-size:11.5px;line-height:1.4;letter-spacing:.02em;color:rgba(255,255,255,.84);max-width:24ch}
 
 /* cronograma de modulos */
@@ -399,11 +398,10 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
   .medalhao.capa{width:100%;min-height:0}
   h1{font-size:34px}
 }
-@media (max-width:1150px),(max-height:660px){
-  .orbita{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:12px;align-content:start;min-height:0;margin-top:26px}
-  .orbita svg,.nucleo{display:none}
-  .no-eco{position:static;transform:none;width:auto;animation-name:sobe}
-  .no-eco:hover{scale:1;transform:translateY(-3px)}
+@media (max-width:1080px){
+  .eco-grade{grid-template-columns:repeat(auto-fit,minmax(268px,1fr))}
+  .eco-grade>*:nth-child(n){grid-area:auto}
+  .fios,.nucleo{display:none}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -581,9 +579,6 @@ const NAV=[
     ['t1','Quem somos nós?','1'],
     ['t10','O Ecossistema AUVP','E']
   ]],
-  /* as telas do ecossistema saem do array ECO logo abaixo: ficam no menu
-     e na ordem da apresentação, mas fora da grade da home */
-  ['O Ecossistema',[],{semHome:true}],
   ['O Produto',[
     ['t3','A Escola','2'],
     ['t4','Dinâmica das aulas','3'],
@@ -641,7 +636,6 @@ const ECO=[
           'Governança, criação de fundos exclusivos e operações de M&A.',
           'Planejamento sucessório e gestão de domicílio fiscal para garantir a paz na família.']}
 ];
-NAV[2][1]=ECO.map(function(e){return [e.id,e.tit,null,e.n]});
 
 
 const $=function(s){return document.querySelector(s)};
@@ -703,6 +697,7 @@ function ir(id,semHash){
   if(typeof fechaVisor==='function')fechaVisor();
   if(typeof abreAjuda==='function')abreAjuda(false);
   if(typeof precarregaTela==='function')precarregaTela(id);
+  if(id==='t10'&&typeof desenhaFios==='function')requestAnimationFrame(desenhaFios);
   /* hash em vez de pushState: funciona também com o arquivo aberto localmente (file://) */
   if(!semHash&&location.hash!=='#/'+id)location.hash='/'+id;
 }
@@ -978,35 +973,38 @@ document.getElementById('ferramentas').innerHTML=FERR.map(function(f){
     +(f.url?'<span class="acesso">Acessar<svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></span>':'')
     +'<div class="rot"><b>'+esc(f.t)+'</b><small>'+esc(f.d)+'</small></div></'+tag+'>';
 }).join('');
-/* ---------- ecossistema: nós ligados ao núcleo ---------- */
+/* ---------- ecossistema: a marca no centro e os produtos em volta ---------- */
 (function(){
-  var RX=36,RY=37,total=ECO.length;
-  var svg='<svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">'
-    +'<ellipse class="anel" cx="50" cy="50" rx="'+RX+'" ry="'+RY+'" vector-effect="non-scaling-stroke"/>';
-  var nos='';
-  ECO.forEach(function(e,i){
-    var a=(-90+i*(360/total))*Math.PI/180;
-    var x=(50+RX*Math.cos(a)).toFixed(2),y=(50+RY*Math.sin(a)).toFixed(2);
-    svg+='<line class="fio" x1="50" y1="50" x2="'+x+'" y2="'+y+'" vector-effect="non-scaling-stroke" style="--d:'+(i*70+240)+'ms"/>';
-    nos+='<button class="no-eco" data-alvo="'+e.id+'" style="--x:'+x+'%;--y:'+y+'%;--d:'+(i*70+320)+'ms">'
-      +'<span class="no-n">'+esc(e.n)+'</span>'
-      +'<span class="no-txt"><b>'+esc(e.t)+'</b><small>'+esc(e.d)+'</small></span></button>';
-  });
-  document.getElementById('orbita').innerHTML=svg+'</svg>'
-    +'<div class="nucleo"><img src="olho-amarelo.svg" alt=""><span>AUVP</span></div>'+nos;
-
-  /* uma tela por produto do ecossistema */
-  var volta='<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H6M11.5 6l-6 6 6 6"/></svg>';
-  palco.insertAdjacentHTML('beforeend',ECO.map(function(e){
-    return '<section class="tela" id="'+e.id+'"><div class="galeria in">'
-      +'<div class="cab"><p class="eyebrow">'+esc(e.sub)+'</p><h1>'+esc(e.tit)+'</h1></div>'
-      +'<ul class="exp-lista">'+e.itens.map(function(it,j){
-          return '<li style="--j:'+j+'"><span class="exp-n">'+String(j+1).padStart(2,'0')+'</span><p>'+esc(it)+'</p></li>';
-        }).join('')+'</ul>'
-      +'<button type="button" class="voltar" data-alvo="t10">'+volta+'Voltar ao ecossistema</button>'
-      +'</div></section>';
-  }).join(''));
+  var cartoes=ECO.map(function(e,i){
+    return '<article class="eco-card" style="--j:'+i+'">'
+      +'<span class="eco-n">'+esc(e.n)+'</span>'
+      +'<h3>'+esc(e.tit)+'</h3>'
+      +'<p class="eco-sub">'+esc(e.sub)+'</p>'
+      +'<ul>'+e.itens.map(function(it){return '<li>'+esc(it)+'</li>'}).join('')+'</ul>'
+      +'</article>';
+  }).join('');
+  document.getElementById('orbita').innerHTML=
+    '<svg class="fios" id="eco-fios" aria-hidden="true"></svg>'
+    +'<div class="eco-grade">'+cartoes+'<div class="nucleo"><img src="olho-amarelo.svg" alt=""></div></div>';
 })();
+
+/* liga o núcleo a cada cartão; refeito quando a tela entra ou a janela muda */
+function desenhaFios(){
+  var grade=document.querySelector('.eco-grade'),svg=document.getElementById('eco-fios'),
+      nuc=document.querySelector('.nucleo');
+  if(!grade||!svg||!nuc)return;
+  var g=grade.getBoundingClientRect();
+  if(!g.width||getComputedStyle(nuc).display==='none'){svg.innerHTML='';return}
+  var n=nuc.getBoundingClientRect(),cx=n.left-g.left+n.width/2,cy=n.top-g.top+n.height/2,d='';
+  grade.querySelectorAll('.eco-card').forEach(function(c){
+    var r=c.getBoundingClientRect();
+    d+='<line x1="'+cx.toFixed(1)+'" y1="'+cy.toFixed(1)+'" x2="'+(r.left-g.left+r.width/2).toFixed(1)+'" y2="'+(r.top-g.top+r.height/2).toFixed(1)+'"/>';
+  });
+  svg.setAttribute('viewBox','0 0 '+Math.round(g.width)+' '+Math.round(g.height));
+  svg.setAttribute('width',Math.round(g.width));svg.setAttribute('height',Math.round(g.height));
+  svg.innerHTML=d+'<circle cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" r="'+(n.width/2+13).toFixed(1)+'"/>';
+}
+window.addEventListener('resize',desenhaFios);
 
 /* estado inicial (respeita link compartilhado com #/secao) */
 ir((location.hash||'').replace(/^#\/?/,'')||'home',true);
