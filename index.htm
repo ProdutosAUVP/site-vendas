@@ -20,6 +20,8 @@
   --hover:rgba(0,0,0,.04);--linha2:rgba(0,0,0,.07);--linha-f:rgba(0,0,0,.16);
   --rot-veu:rgba(255,255,255,.92);--malha:rgba(24,24,27,.05);--trilha-bg:rgba(24,24,27,.08);
   --nucleo-halo:rgba(239,191,78,.14);--cartao:#fff;--fio:#8F6A08;--fio-op:.6;--carta-borda:rgba(24,24,27,.17);
+  /* miolo do ecossistema: no claro o olho fica sobre superfície clara */
+  --nucleo-bg:#fff;--nucleo-sombra:0 14px 30px -18px rgba(24,24,27,.32);
   --aviso-bg:#FEF2F2;--aviso-borda:#FBD5D5;--aviso-forte:#DC2626;--aviso-tinta:#7F1D1D;
   --fundo:radial-gradient(ellipse at top,#f4f4f5 0%,#e4e4e7 100%);
   --grad-escuro:#17171a;
@@ -38,6 +40,7 @@ body.escuro{
   --hover:rgba(255,255,255,.07);--linha2:rgba(255,255,255,.09);--linha-f:rgba(255,255,255,.22);
   --rot-veu:rgba(12,12,14,.94);--malha:rgba(255,255,255,.05);--trilha-bg:rgba(255,255,255,.11);
   --nucleo-halo:rgba(239,191,78,.08);--cartao:#1b1c1f;--fio:#D0A83C;--fio-op:.42;--carta-borda:rgba(255,255,255,.16);
+  --nucleo-bg:#101012;--nucleo-sombra:0 20px 42px -20px rgba(0,0,0,.55);
   --aviso-bg:rgba(220,38,38,.12);--aviso-borda:rgba(248,113,113,.34);--aviso-forte:#F87171;--aviso-tinta:#FCA5A5;
   --fundo:radial-gradient(ellipse at top,#1c1c20 0%,#0e0e10 100%);
 }
@@ -280,7 +283,7 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 .fios{position:absolute;inset:0;z-index:0;pointer-events:none;width:100%;height:100%}
 .fios line{stroke:var(--fio);stroke-width:1.5;opacity:var(--fio-op)}
 .fios ellipse{fill:none;stroke:var(--fio);stroke-width:1.1;opacity:calc(var(--fio-op) * .62);stroke-dasharray:2 6}
-.nucleo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:clamp(96px,9vw,126px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:#101012;border:1px solid rgba(239,191,78,.45);box-shadow:0 0 0 9px var(--nucleo-halo),0 20px 42px -20px rgba(0,0,0,.55)}
+.nucleo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:clamp(96px,9vw,126px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:var(--nucleo-bg);border:1px solid rgba(239,191,78,.45);box-shadow:0 0 0 9px var(--nucleo-halo),var(--nucleo-sombra)}
 .nucleo img{width:54%;display:block}
 .eco-card{position:absolute;left:var(--x);top:var(--y);transform:translate(calc(-50% + var(--nx,0px)),calc(-50% + var(--ny,0px)));z-index:1;contain:layout style;width:clamp(158px,15.5vw,196px);display:flex;flex-direction:column;gap:5px;text-align:left;padding:14px 15px 15px;border-radius:16px;border:1px solid var(--carta-borda);background:var(--cartao);box-shadow:0 16px 32px -22px rgba(24,24,27,.55);cursor:pointer;transition:border-color .22s,box-shadow .22s,scale .26s var(--mola);animation:cartaoEntra .46s var(--mola) backwards;animation-delay:calc(var(--j,0)*65ms + 140ms)}
 @keyframes cartaoEntra{from{opacity:0;scale:.92}to{opacity:1;scale:1}}
@@ -1064,6 +1067,69 @@ document.addEventListener('click',function(ev){
   if(ecoSel&&ev.target.closest('#t10'))fechaEco();
 });
 window.addEventListener('resize',function(){if(ecoSel)encaixa(ecoSel)});
+
+/* o anel gira devagar em torno do olho. O cursor pousado sobre um card
+   (ou um card aberto) segura o movimento; ao sair, ele volta a andar. */
+(function(){
+  var orb=document.getElementById('orbita'); if(!orb) return;
+  var cartoes=[].slice.call(orb.querySelectorAll('.eco-card'));
+  var linhas=[].slice.call(orb.querySelectorAll('#eco-fios line'));
+  if(!cartoes.length) return;
+  var empilha=matchMedia('(max-width:1080px),(max-height:620px)');   /* sem anel: vira grade */
+  var quieto=matchMedia('(prefers-reduced-motion:reduce)');
+  var VOLTA=78000;                       /* uma volta completa, em ms */
+  var PASSO=360/VOLTA;                   /* graus por ms */
+  var giro=0,vel=0,quadro=0,ultimo=0,sobre=false;
+
+  function anda_ok(){return telaEco.classList.contains('ativa')&&!empilha.matches&&!quieto.matches}
+  function segura(){
+    if(ecoSel) return true;
+    if(sobre) return true;
+    var f=document.activeElement;
+    return !!(f&&f.closest&&f.closest('.eco-card'));
+  }
+  function coloca(){
+    var n=cartoes.length;
+    for(var i=0;i<n;i++){
+      var a=(-90+i*(360/n)+giro)*Math.PI/180;
+      var x=(50+RX*Math.cos(a)).toFixed(2),y=(50+RY*Math.sin(a)).toFixed(2);
+      cartoes[i].style.setProperty('--x',x+'%');
+      cartoes[i].style.setProperty('--y',y+'%');
+      if(linhas[i]){linhas[i].setAttribute('x2',x);linhas[i].setAttribute('y2',y)}
+    }
+  }
+  function passo(t){
+    quadro=0;
+    if(!anda_ok()){ultimo=0;vel=0;return}
+    var dt=ultimo?Math.min(t-ultimo,64):16; ultimo=t;
+    if(ecoSel) vel=0;                    /* card aberto: para na hora */
+    else vel+=((segura()?0:1)-vel)*Math.min(dt/130,1);   /* freia e retoma suave */
+    if(vel>.01){giro=(giro+PASSO*dt*vel)%360;coloca()}
+    else if(segura()){vel=0;ultimo=0;return}             /* parado: solta o rAF */
+    quadro=requestAnimationFrame(passo);
+  }
+  function liga(){
+    if(quadro||!anda_ok())return;
+    ultimo=0;quadro=requestAnimationFrame(passo);
+  }
+
+  orb.addEventListener('pointerover',function(e){
+    if(e.target.closest('.eco-card')){sobre=true}
+  });
+  orb.addEventListener('pointerout',function(e){
+    if(!e.target.closest('.eco-card'))return;
+    var p=e.relatedTarget;
+    if(p&&p.closest&&p.closest('.eco-card'))return;      /* só trocou de filho */
+    sobre=false;liga();
+  });
+  orb.addEventListener('pointerleave',function(){sobre=false;liga()});
+  orb.addEventListener('focusin',function(){liga()});
+  orb.addEventListener('focusout',function(){liga()});
+  telaEco.addEventListener('click',function(){setTimeout(liga,0)});   /* fechou o card: retoma */
+  if(empilha.addEventListener){empilha.addEventListener('change',liga);quieto.addEventListener('change',liga)}
+  new MutationObserver(liga).observe(telaEco,{attributes:true,attributeFilter:['class']});
+  liga();
+})();
 
 /* decodifica as fotos de fundo enquanto a apresentação está parada:
    sem isso a primeira entrada na tela paga a decodificação no meio da
