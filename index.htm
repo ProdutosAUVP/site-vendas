@@ -283,31 +283,36 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 .fios ellipse{fill:none;stroke:var(--gold-deep);stroke-width:1;opacity:.2;stroke-dasharray:2 7}
 .nucleo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:clamp(96px,9vw,126px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:#101012;border:1px solid rgba(239,191,78,.45);box-shadow:0 0 0 9px var(--nucleo-halo),0 20px 42px -20px rgba(0,0,0,.55)}
 .nucleo img{width:54%;display:block}
-.eco-card{position:absolute;left:var(--x);top:var(--y);z-index:1;width:clamp(158px,15.5vw,196px);display:flex;flex-direction:column;gap:5px;text-align:left;padding:14px 15px 15px;border-radius:16px;border:1px solid var(--vidro-borda);background:var(--cartao);box-shadow:0 14px 30px -20px rgba(0,0,0,.4);cursor:pointer;transition:border-color .22s,box-shadow .22s,scale .26s var(--mola);animation:cartaoEntra .5s var(--mola) both;animation-delay:calc(var(--j,0)*70ms + 160ms)}
-@keyframes cartaoEntra{from{opacity:0;transform:translate(-50%,calc(-50% + 14px))}to{opacity:1;transform:translate(-50%,-50%)}}
+.eco-card{position:absolute;left:var(--x);top:var(--y);transform:translate(calc(-50% + var(--nx,0px)),calc(-50% + var(--ny,0px)));z-index:1;width:clamp(158px,15.5vw,196px);display:flex;flex-direction:column;gap:5px;text-align:left;padding:14px 15px 15px;border-radius:16px;border:1px solid var(--vidro-borda);background:var(--cartao);box-shadow:0 14px 30px -20px rgba(0,0,0,.4);cursor:pointer;transition:border-color .22s,box-shadow .22s,scale .26s var(--mola);animation:cartaoEntra .5s var(--mola) both;animation-delay:calc(var(--j,0)*70ms + 160ms)}
+@keyframes cartaoEntra{from{opacity:0;transform:translate(calc(-50% + var(--nx,0px)),calc(-50% + var(--ny,0px) + 14px))}to{opacity:1;transform:translate(calc(-50% + var(--nx,0px)),calc(-50% + var(--ny,0px)))}}
+.eco-card.medindo,.eco-card.medindo *{transition:none!important;animation:none!important}
 .eco-card:hover{border-color:rgba(239,191,78,.6);box-shadow:0 20px 38px -20px rgba(184,134,11,.6);scale:1.05}
 .eco-n{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-weight:600;font-size:10.5px;color:var(--gold-deep);border:1px solid rgba(239,191,78,.45);background:var(--gold-bg)}
 .eco-card h3{margin:2px 0 0;font-family:var(--display);font-weight:600;font-size:15px;line-height:1.16;letter-spacing:-.015em;color:var(--tinta)}
 .eco-sub{margin:0;font-size:12px;line-height:1.35;color:var(--tinta2)}
 
-/* painel lateral: o ecossistema continua à vista, comprimido à esquerda */
-.eco-wrap{transition:padding-right .42s var(--mola)}
-#t10.com-painel .eco-wrap{padding-right:calc(var(--painel) + 34px)}
-#t10.com-painel .eco-card{width:clamp(136px,13vw,168px);padding:12px 13px 13px}
-#t10.com-painel .eco-card h3{font-size:13.5px}
-#t10.com-painel .eco-card .eco-sub{font-size:11px}
-.eco-card.sel{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-bg),0 18px 34px -20px rgba(184,134,11,.6)}
-.eco-painel{position:absolute;top:0;right:0;bottom:0;z-index:40;width:var(--painel);display:flex;flex-direction:column;padding:30px 30px 26px;background:var(--cartao);border-left:1px solid var(--vidro-borda);box-shadow:-26px 0 64px -34px rgba(0,0,0,.45);transform:translateX(101%);transition:transform .42s var(--mola);overflow-y:auto}
-#t10.com-painel .eco-painel{transform:none}
-.eco-painel .eco-n{width:26px;height:26px;font-size:11.5px;margin-bottom:14px}
-.eco-painel h3{margin:0;padding-right:40px;font-family:var(--display);font-weight:600;font-size:clamp(21px,2.1vw,27px);line-height:1.12;letter-spacing:-.02em;color:var(--tinta)}
-.eco-painel .eco-sub{margin:8px 0 0;font-size:15px;line-height:1.45;color:var(--tinta2)}
-.eco-painel ul{list-style:none;margin:22px 0 0;padding:20px 0 0;border-top:1px solid var(--linha2);display:grid;gap:14px}
-.eco-painel li{position:relative;padding-left:19px;font-size:14.5px;line-height:1.5;color:var(--tinta);animation:entraItem .42s var(--mola) both;animation-delay:calc(var(--j,0)*70ms + 180ms)}
-@keyframes entraItem{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
-.eco-painel li::before{content:"";position:absolute;left:2px;top:8px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
-.eco-x{position:absolute;top:20px;right:22px;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:19px;line-height:1;color:var(--tinta2);border:1px solid var(--vidro-borda);transition:.18s}
-.eco-x:hover{background:var(--hover);color:var(--tinta)}
+/* card que abre no lugar: os tópicos se desdobram dentro dele */
+.eco-card{width:var(--w,182px);transition:width .42s var(--mola),border-color .24s,box-shadow .24s,opacity .3s,scale .3s var(--mola)}
+.eco-card .eco-mais{position:absolute;top:13px;right:13px;width:18px;height:18px;color:var(--tinta3);transition:transform .3s var(--mola),color .2s}
+.eco-card:hover .eco-mais{color:var(--gold-deep)}
+.eco-tops{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .42s var(--mola),opacity .3s,margin .42s var(--mola);margin-top:0}
+.eco-tops-in{overflow:hidden;min-height:0}
+.eco-card ul{list-style:none;margin:0;padding:12px 0 2px;border-top:1px solid var(--linha2);display:grid;gap:10px}
+.eco-card li{position:relative;padding-left:17px;font-size:12.5px;line-height:1.45;color:var(--tinta2)}
+.eco-card li::before{content:"";position:absolute;left:2px;top:6px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+
+.eco-card.aberto{--w:min(322px,27vw);z-index:6;border-color:var(--gold);box-shadow:0 26px 56px -24px rgba(184,134,11,.5),0 0 0 3px var(--gold-bg)}
+.eco-card.aberto .eco-tops{grid-template-rows:1fr;opacity:1;margin-top:13px}
+.eco-card.aberto .eco-mais{transform:rotate(45deg);color:var(--gold-deep)}
+.eco-card.aberto h3{font-size:17px}
+.eco-card.aberto li{animation:desdobra .42s var(--mola) both;animation-delay:calc(var(--j,0)*95ms + 160ms)}
+@keyframes desdobra{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+#t10.focado .eco-card:not(.aberto){opacity:.34;scale:.9;box-shadow:none}
+#t10.focado .eco-card:not(.aberto):hover{opacity:.85;scale:.96}
+#t10.focado .fios line{opacity:.12}
+#t10.focado .fios .fio-on{opacity:.75;stroke:var(--gold)}
+#t10.focado .fios ellipse{opacity:.08}
+.fios line,.fios ellipse{transition:opacity .35s,stroke .35s}
 
 /* ---------- números em destaque (Quem somos nós?) ---------- */
 .numeros{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:32px}
@@ -408,10 +413,8 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 }
 @media (max-width:1080px),(max-height:620px){
   .orbita{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;align-content:start;min-height:0;margin-top:24px}
-  #t10.com-painel .eco-wrap{padding-right:22px}
-  #t10.com-painel .eco-card{width:auto}
-  .eco-painel{position:fixed;inset:auto 0 0 0;width:auto;max-height:min(76vh,620px);border-left:0;border-top:1px solid var(--vidro-borda);border-radius:20px 20px 0 0;transform:translateY(101%);box-shadow:0 -26px 64px -34px rgba(0,0,0,.5);padding:24px 22px 28px}
-  #t10.com-painel .eco-painel{transform:none}
+  .eco-card,.eco-card.aberto{--w:auto}
+  #t10.focado .eco-card:not(.aberto){opacity:1;scale:1}
   .fios,.nucleo{display:none}
   .eco-card{position:static;width:auto;animation-name:sobe}
   .eco-card:hover{scale:1;transform:translateY(-3px)}
@@ -526,7 +529,7 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
         <h1>Tudo começa na <span class="dourado">Escola</span>.</h1>
       </div>
       <div class="orbita" id="orbita"></div>
-    </div><aside class="eco-painel" id="eco-painel" aria-hidden="true"></aside></section>
+    </div></section>
 
     
 
@@ -996,46 +999,65 @@ const RX=33,RY=35;
     var a=(-90+i*(360/ECO.length))*Math.PI/180;
     var x=(50+RX*Math.cos(a)).toFixed(2),y=(50+RY*Math.sin(a)).toFixed(2);
     svg+='<line x1="50" y1="50" x2="'+x+'" y2="'+y+'" vector-effect="non-scaling-stroke"/>';
-    cards+='<button type="button" class="eco-card" data-eco="'+i+'" style="--x:'+x+'%;--y:'+y+'%;--j:'+i+'">'
+    cards+='<button type="button" class="eco-card" data-eco="'+i+'" aria-expanded="false" style="--x:'+x+'%;--y:'+y+'%;--j:'+i+'">'
       +'<span class="eco-n">'+esc(e.n)+'</span>'
+      +'<svg class="eco-mais" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg>'
       +'<h3>'+esc(e.tit)+'</h3>'
-      +'<p class="eco-sub">'+esc(e.sub)+'</p></button>';
+      +'<p class="eco-sub">'+esc(e.sub)+'</p>'
+      +'<span class="eco-tops"><span class="eco-tops-in"><ul>'
+      +e.itens.map(function(it,j){return '<li style="--j:'+j+'">'+esc(it)+'</li>'}).join('')
+      +'</ul></span></span></button>';
   });
   document.getElementById('orbita').innerHTML=svg+'</svg>'
     +'<div class="nucleo"><img src="olho-amarelo.svg" alt=""></div>'+cards;
 })();
 
-/* clique no card: o painel entra pela direita e o ecossistema continua
-   à vista, comprimido à esquerda. Sem sobreposição, sem desfoque. */
-const telaEco=document.getElementById('t10'),ecoPainel=$('#eco-painel');
+/* clique no card: ele se abre no próprio lugar do anel e desdobra os
+   tópicos; os outros recuam e o fio até ele acende. */
+const telaEco=document.getElementById('t10');
 let ecoSel=null;
 
+function encaixa(card){
+  /* mede o tamanho final com a transição desligada e desloca o card
+     apenas o necessário para ele não passar da área do mapa */
+  var orb=document.getElementById('orbita'); if(!orb)return;
+  card.style.setProperty('--nx','0px');card.style.setProperty('--ny','0px');
+  /* abre sem transição só para medir o tamanho final */
+  card.classList.add('medindo','aberto');
+  var o=orb.getBoundingClientRect(),r=card.getBoundingClientRect(),m=8,dx=0,dy=0;
+  if(r.left<o.left+m)dx=o.left+m-r.left; else if(r.right>o.right-m)dx=o.right-m-r.right;
+  if(r.top<o.top+m)dy=o.top+m-r.top; else if(r.bottom>o.bottom-m)dy=o.bottom-m-r.bottom;
+  card.classList.remove('aberto');void card.offsetWidth;
+  card.classList.remove('medindo');
+  /* agora deslocamento e abertura animam juntos */
+  card.style.setProperty('--nx',dx.toFixed(0)+'px');
+  card.style.setProperty('--ny',dy.toFixed(0)+'px');
+  card.classList.add('aberto');
+}
 function abreEco(card){
-  var e=ECO[+card.dataset.eco]; if(!e)return;
   if(ecoSel===card){fechaEco();return}
-  document.querySelectorAll('.eco-card.sel').forEach(function(c){c.classList.remove('sel')});
-  card.classList.add('sel');ecoSel=card;
-  ecoPainel.innerHTML='<button type="button" class="eco-x" aria-label="Fechar e voltar ao ecossistema">&times;</button>'
-    +'<span class="eco-n">'+esc(e.n)+'</span>'
-    +'<h3>'+esc(e.tit)+'</h3><p class="eco-sub">'+esc(e.sub)+'</p>'
-    +'<ul>'+e.itens.map(function(it,j){return '<li style="--j:'+j+'">'+esc(it)+'</li>'}).join('')+'</ul>';
-  ecoPainel.setAttribute('aria-hidden','false');
-  telaEco.classList.add('com-painel');
-  ecoPainel.scrollTop=0;
+  fechaEco();
+  card.setAttribute('aria-expanded','true');
+  ecoSel=card;telaEco.classList.add('focado');
+  var linhas=document.querySelectorAll('#eco-fios line');
+  var l=linhas[+card.dataset.eco];if(l)l.classList.add('fio-on');
+  encaixa(card);
 }
 function fechaEco(){
-  if(!ecoSel&&!telaEco.classList.contains('com-painel'))return;
-  telaEco.classList.remove('com-painel');
-  ecoPainel.setAttribute('aria-hidden','true');
-  document.querySelectorAll('.eco-card.sel').forEach(function(c){c.classList.remove('sel')});
+  if(!ecoSel)return;
+  ecoSel.classList.remove('aberto');
+  ecoSel.setAttribute('aria-expanded','false');
+  ecoSel.style.setProperty('--nx','0px');ecoSel.style.setProperty('--ny','0px');
+  telaEco.classList.remove('focado');
+  document.querySelectorAll('#eco-fios .fio-on').forEach(function(l){l.classList.remove('fio-on')});
   ecoSel=null;
 }
 document.addEventListener('click',function(ev){
   var c=ev.target.closest('.eco-card');
   if(c){ev.preventDefault();abreEco(c);return}
-  if(!ecoSel)return;
-  if(ev.target.closest('.eco-x')||(ev.target.closest('#t10')&&!ev.target.closest('#eco-painel')))fechaEco();
+  if(ecoSel&&ev.target.closest('#t10'))fechaEco();
 });
+window.addEventListener('resize',function(){if(ecoSel)encaixa(ecoSel)});
 
 /* estado inicial (respeita link compartilhado com #/secao) */
 ir((location.hash||'').replace(/^#\/?/,'')||'home',true);
