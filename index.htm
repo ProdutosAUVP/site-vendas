@@ -282,32 +282,32 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 .fios ellipse{fill:none;stroke:var(--fio);stroke-width:1.1;opacity:calc(var(--fio-op) * .62);stroke-dasharray:2 6}
 .nucleo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:clamp(96px,9vw,126px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:#101012;border:1px solid rgba(239,191,78,.45);box-shadow:0 0 0 9px var(--nucleo-halo),0 20px 42px -20px rgba(0,0,0,.55)}
 .nucleo img{width:54%;display:block}
-.eco-card{position:absolute;left:var(--x);top:var(--y);transform:translate(calc(-50% + var(--nx,0px)),calc(-50% + var(--ny,0px)));z-index:1;contain:layout style;width:clamp(158px,15.5vw,196px);display:flex;flex-direction:column;gap:5px;text-align:left;padding:14px 15px 15px;border-radius:16px;border:1px solid var(--carta-borda);background:var(--cartao);box-shadow:0 16px 32px -22px rgba(24,24,27,.55);cursor:pointer;transition:border-color .22s,box-shadow .22s,scale .26s var(--mola);animation:cartaoEntra .5s var(--mola) both;animation-delay:calc(var(--j,0)*70ms + 160ms)}
-@keyframes cartaoEntra{from{opacity:0;transform:translate(calc(-50% + var(--nx,0px)),calc(-50% + var(--ny,0px) + 14px))}to{opacity:1;transform:translate(calc(-50% + var(--nx,0px)),calc(-50% + var(--ny,0px)))}}
-.eco-card.medindo,.eco-card.medindo *{transition:none!important;animation:none!important}
+.eco-card{position:absolute;left:var(--x);top:var(--y);transform:translate(calc(-50% + var(--nx,0px)),calc(-50% + var(--ny,0px)));z-index:1;contain:layout style;width:clamp(158px,15.5vw,196px);display:flex;flex-direction:column;gap:5px;text-align:left;padding:14px 15px 15px;border-radius:16px;border:1px solid var(--carta-borda);background:var(--cartao);box-shadow:0 16px 32px -22px rgba(24,24,27,.55);cursor:pointer;transition:border-color .22s,box-shadow .22s,scale .26s var(--mola);animation:cartaoEntra .46s var(--mola) backwards;animation-delay:calc(var(--j,0)*65ms + 140ms)}
+@keyframes cartaoEntra{from{opacity:0;scale:.92}to{opacity:1;scale:1}}
+.eco-card.medindo,.eco-card.medindo *{transition:none!important}
 .eco-card:hover{border-color:rgba(239,191,78,.6);box-shadow:0 20px 38px -20px rgba(184,134,11,.6);scale:1.05}
 .eco-n{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-weight:600;font-size:10.5px;color:var(--gold-deep);border:1px solid rgba(239,191,78,.45);background:var(--gold-bg)}
 .eco-card h3{margin:2px 0 0;font-family:var(--display);font-weight:600;font-size:15px;line-height:1.16;letter-spacing:-.015em;color:var(--tinta)}
 .eco-sub{margin:0;font-size:12px;line-height:1.35;color:var(--tinta2)}
 
 /* card que abre no lugar: os tópicos se desdobram dentro dele */
-.eco-card{width:var(--w,182px);transition:width .4s var(--mola),transform .4s var(--mola),border-color .24s,opacity .26s,scale .26s var(--mola)}
+.eco-card{width:var(--w,182px);transition:width .34s var(--mola),transform .34s var(--mola),border-color .22s,opacity .24s,scale .24s var(--mola)}
 .eco-card .eco-mais{position:absolute;top:13px;right:13px;width:18px;height:18px;color:var(--tinta3);transition:transform .3s var(--mola),color .2s}
 .eco-card:hover .eco-mais{color:var(--gold-deep)}
-.eco-tops{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .42s var(--mola),opacity .3s,margin .42s var(--mola);margin-top:0}
+.eco-tops{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .28s var(--mola),opacity .2s,margin .28s var(--mola);margin-top:0}
 .eco-tops-in{overflow:hidden;min-height:0}
 .eco-card ul{list-style:none;margin:0;padding:12px 0 2px;border-top:1px solid var(--linha2);display:grid;gap:10px}
 .eco-card li{position:relative;padding-left:17px;font-size:12.5px;line-height:1.45;color:var(--tinta2)}
 .eco-card li::before{content:"";position:absolute;left:2px;top:6px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
 
 .eco-card.aberto{--w:min(322px,27vw);z-index:6;border-color:var(--gold);box-shadow:0 26px 56px -24px rgba(184,134,11,.5),0 0 0 3px var(--gold-bg)}
-.eco-card.aberto .eco-tops{grid-template-rows:1fr;opacity:1;margin-top:13px}
+.eco-card.aberto .eco-tops{grid-template-rows:1fr;opacity:1;margin-top:13px;transition-delay:.06s}
+.eco-card.aberto li{animation-duration:.34s}
 .eco-card.aberto .eco-mais{transform:rotate(45deg);color:var(--gold-deep)}
-.eco-card.aberto h3{font-size:17px}
-.eco-card.aberto li{animation:desdobra .42s var(--mola) both;animation-delay:calc(var(--j,0)*95ms + 160ms)}
+.eco-card.aberto li{animation:desdobra .32s var(--mola) both;animation-delay:calc(var(--j,0)*70ms + 130ms)}
 @keyframes desdobra{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
-#t10.focado .eco-card:not(.aberto){opacity:.34;scale:.9;box-shadow:none}
-#t10.focado .eco-card:not(.aberto):hover{opacity:.85;scale:.96}
+#t10.focado .eco-card:not(.aberto):not(.medindo){opacity:.34;scale:.9;box-shadow:none}
+#t10.focado .eco-card:not(.aberto):not(.medindo):hover{opacity:.85;scale:.96}
 #t10.focado .fios line{opacity:calc(var(--fio-op) * .3)}
 #t10.focado .fios .fio-on{opacity:1;stroke:var(--gold-deep);stroke-width:2}
 #t10.focado .fios ellipse{opacity:calc(var(--fio-op) * .22)}
