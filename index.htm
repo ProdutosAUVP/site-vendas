@@ -289,8 +289,8 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 @keyframes cartaoEntra{from{opacity:0;scale:.92}to{opacity:1;scale:1}}
 .eco-card.medindo,.eco-card.medindo *{transition:none!important}
 .eco-card:hover{border-color:rgba(239,191,78,.6);box-shadow:0 20px 38px -20px rgba(184,134,11,.6);scale:1.05}
-/* a capa é o card: a foto ocupa tudo e o subtítulo vem por cima dela */
-.eco-capa{position:relative;display:block;aspect-ratio:16/10;max-height:172px;background:linear-gradient(150deg,#26262b,#101012)}
+/* a foto é o fundo do card inteiro, texto e tópicos vêm por cima dela */
+.eco-capa{position:absolute;inset:0;z-index:0;background:linear-gradient(150deg,#26262b,#101012)}
 /* a foto sai do fluxo: no fluxo era ela que definia a altura da capa, e a
    aspect-ratio acima era ignorada - cada card ficava com a proporção da
    sua imagem. Fora do fluxo, a capa manda e a foto é cortada */
@@ -298,18 +298,22 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 .eco-capa.sem-foto img{display:none}
 .eco-capa.sem-foto{background:linear-gradient(150deg,#3b3320,#141416 72%)}
 .eco-capa.sem-foto::after{background:linear-gradient(0deg,rgba(9,9,11,.72) 0%,rgba(9,9,11,.3) 55%,transparent 100%)}
-.eco-capa::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(9,9,11,.94) 0%,rgba(9,9,11,.72) 34%,rgba(9,9,11,.16) 68%,rgba(9,9,11,.2) 100%)}
-.eco-sub{position:absolute;z-index:1;left:13px;right:13px;bottom:11px;margin:0;font-family:var(--display);font-weight:600;font-size:16px;line-height:1.18;letter-spacing:-.02em;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.55)}
+.eco-capa::after{content:"";position:absolute;inset:0;transition:background .3s;background:linear-gradient(0deg,rgba(9,9,11,.94) 0%,rgba(9,9,11,.72) 34%,rgba(9,9,11,.16) 68%,rgba(9,9,11,.2) 100%)}
+.eco-card.aberto .eco-capa::after{background:linear-gradient(0deg,rgba(9,9,11,.88) 0%,rgba(9,9,11,.78) 62%,rgba(9,9,11,.66) 100%)}
+/* o corpo é quem dá altura ao card: fechado, a do retrato da foto */
+.eco-corpo{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:flex-end;min-height:115px;padding:12px 15px 13px}
+.eco-sub{margin:0;font-family:var(--display);font-weight:600;font-size:16px;line-height:1.18;letter-spacing:-.02em;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.55)}
 
 /* card que abre no lugar: os tópicos se desdobram dentro dele */
 .eco-card{width:var(--w,182px);transition:width .34s var(--mola),transform .34s var(--mola),border-color .22s,opacity .24s,scale .24s var(--mola)}
 .eco-tops{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .28s var(--mola),opacity .2s;margin-top:0}
 .eco-tops-in{overflow:hidden;min-height:0}
-.eco-card ul{list-style:none;margin:0;padding:13px 15px 15px;display:grid;gap:10px}
-.eco-card li{position:relative;padding-left:17px;font-size:12.5px;line-height:1.45;color:var(--tinta2)}
-.eco-card li::before{content:"";position:absolute;left:2px;top:6px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.eco-card ul{list-style:none;margin:0;padding:11px 0 1px;display:grid;gap:9px}
+/* uma linha por tópico: o card se alarga até caber a maior frase */
+.eco-card li{position:relative;padding-left:17px;white-space:nowrap;font-size:clamp(10px,.75vw,12.5px);line-height:1.45;color:rgba(255,255,255,.92)}
+.eco-card li::before{content:"";position:absolute;left:2px;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--gold)}
 
-.eco-card.aberto{--w:min(322px,27vw);z-index:6;border-color:var(--gold);box-shadow:0 26px 56px -24px rgba(184,134,11,.5),0 0 0 3px var(--gold-bg)}
+.eco-card.aberto{--w:max-content;max-width:calc(100% - 16px);z-index:6;border-color:var(--gold);box-shadow:0 26px 56px -24px rgba(184,134,11,.5),0 0 0 3px var(--gold-bg)}
 .eco-card.aberto .eco-tops{grid-template-rows:1fr;opacity:1;transition-delay:.06s}
 .eco-card.aberto li{animation-duration:.34s}
 .eco-card.aberto li{animation:desdobra .32s var(--mola) both;animation-delay:calc(var(--j,0)*70ms + 130ms)}
@@ -426,7 +430,9 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
   /* fora do anel o card não é mais centrado no próprio ponto: sem zerar o
      transform, o translate(-50%,-50%) empurra metade dele para fora da tela */
   .eco-card{position:static;width:auto;animation-name:sobe;transform:none}
-  .eco-capa{max-height:200px}
+  .eco-card.aberto{max-width:none}
+  .eco-corpo{min-height:186px}
+  .eco-card li{white-space:normal;font-size:12.5px}
   .eco-card:hover{scale:1;transform:translateY(-3px)}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -1019,11 +1025,12 @@ const RX=33,RY=35;
     cards+='<button type="button" class="eco-card" data-eco="'+i+'" aria-expanded="false" aria-label="'+esc(e.tit)+'" style="--x:'+x+'%;--y:'+y+'%;--j:'+i+'">'
       +'<span class="eco-capa">'
       +'<img src="'+esc(e.img)+'"'+(e.img2?' data-reserva="'+esc(e.img2)+'"':'')+' alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">'
-      +'<span class="eco-sub">'+esc(e.sub)+'</span>'
       +'</span>'
+      +'<span class="eco-corpo">'
+      +'<span class="eco-sub">'+esc(e.sub)+'</span>'
       +'<span class="eco-tops"><span class="eco-tops-in"><ul>'
       +e.itens.map(function(it,j){return '<li style="--j:'+j+'">'+esc(it)+'</li>'}).join('')
-      +'</ul></span></span></button>';
+      +'</ul></span></span></span></button>';
   });
   document.getElementById('orbita').innerHTML=svg+'</svg>'
     +'<div class="nucleo"><img src="olho-amarelo.svg" alt=""></div>'+cards;
@@ -1049,9 +1056,14 @@ function encaixa(card){
      apenas o necessário para ele não passar da área do mapa */
   var orb=document.getElementById('orbita'); if(!orb)return;
   card.style.setProperty('--nx','0px');card.style.setProperty('--ny','0px');
+  card.style.removeProperty('--w');
   /* abre sem transição só para medir o tamanho final */
   card.classList.add('medindo','aberto');
-  var o=orb.getBoundingClientRect(),r=card.getBoundingClientRect(),m=8,dx=0,dy=0;
+  var o=orb.getBoundingClientRect();
+  /* aberto, o card tem a largura do conteúdo (os tópicos não quebram
+     linha). Isso é max-content, que não anima: mede e fixa em px */
+  card.style.setProperty('--w',Math.ceil(card.getBoundingClientRect().width)+'px');
+  var r=card.getBoundingClientRect(),m=8,dx=0,dy=0;
   if(r.left<o.left+m)dx=o.left+m-r.left; else if(r.right>o.right-m)dx=o.right-m-r.right;
   if(r.top<o.top+m)dy=o.top+m-r.top; else if(r.bottom>o.bottom-m)dy=o.bottom-m-r.bottom;
   card.classList.remove('aberto');void card.offsetWidth;
@@ -1074,6 +1086,7 @@ function fechaEco(){
   if(!ecoSel)return;
   ecoSel.classList.remove('aberto');
   ecoSel.setAttribute('aria-expanded','false');
+  ecoSel.style.removeProperty('--w');    /* volta à largura dos demais, animando */
   ecoSel.style.setProperty('--nx','0px');ecoSel.style.setProperty('--ny','0px');
   telaEco.classList.remove('focado');
   document.querySelectorAll('#eco-fios .fio-on').forEach(function(l){l.classList.remove('fio-on')});
@@ -1086,21 +1099,15 @@ document.addEventListener('click',function(ev){
 });
 window.addEventListener('resize',function(){if(ecoSel)encaixa(ecoSel)});
 
-/* o anel gira devagar em torno do olho. O cursor pousado sobre um card
-   (ou um card aberto) segura o movimento; ao sair, ele volta a andar.
-   Sem disco atrás da marca, os fios também precisam nascer na borda do
-   olho em vez de correrem por baixo dele. */
+/* os cards ficam parados no anel. O que sobra aqui é colocar cada um no
+   seu ponto e fazer o fio nascer na borda do olho, já que sem o disco
+   atrás da marca ele passaria por baixo dela. */
 (function(){
   var orb=document.getElementById('orbita'); if(!orb) return;
   var cartoes=[].slice.call(orb.querySelectorAll('.eco-card'));
   var linhas=[].slice.call(orb.querySelectorAll('#eco-fios line'));
   var nucleo=orb.querySelector('.nucleo');
   if(!cartoes.length) return;
-  var empilha=matchMedia('(max-width:1080px),(max-height:620px)');   /* sem anel: vira grade */
-  var quieto=matchMedia('(prefers-reduced-motion:reduce)');
-  var VOLTA=60000;                       /* uma volta completa, em ms */
-  var PASSO=360/VOLTA;                   /* graus por ms */
-  var giro=0,vel=0,quadro=0,ultimo=0,sobre=false;
   var L=0,A=0,miolo=0;                   /* medidas da órbita e do olho, em px */
 
   function mede(){
@@ -1111,17 +1118,10 @@ window.addEventListener('resize',function(){if(ecoSel)encaixa(ecoSel)});
     miolo=n&&n.width?n.width/2+9:0;      /* raio do olho + uma folga */
     return true;
   }
-  function anda_ok(){return telaEco.classList.contains('ativa')&&!empilha.matches&&!quieto.matches}
-  function segura(){
-    if(ecoSel) return true;
-    if(sobre) return true;
-    var f=document.activeElement;
-    return !!(f&&f.closest&&f.closest('.eco-card'));
-  }
   function coloca(){
     var n=cartoes.length;
     for(var i=0;i<n;i++){
-      var a=(-90+i*(360/n)+giro)*Math.PI/180;
+      var a=(-90+i*(360/n))*Math.PI/180;
       var dx=RX*Math.cos(a),dy=RY*Math.sin(a);
       var x=(50+dx).toFixed(2),y=(50+dy).toFixed(2);
       cartoes[i].style.setProperty('--x',x+'%');
@@ -1136,40 +1136,11 @@ window.addEventListener('resize',function(){if(ecoSel)encaixa(ecoSel)});
     }
   }
   function redesenha(){if(mede())coloca()}
-  function passo(t){
-    quadro=0;
-    if(!anda_ok()){ultimo=0;vel=0;return}
-    var dt=ultimo?Math.min(t-ultimo,64):16; ultimo=t;
-    if(ecoSel) vel=0;                    /* card aberto: para na hora */
-    else vel+=((segura()?0:1)-vel)*Math.min(dt/130,1);   /* freia e retoma suave */
-    if(vel>.01){giro=(giro+PASSO*dt*vel)%360;coloca()}
-    else if(segura()){vel=0;ultimo=0;return}             /* parado: solta o rAF */
-    quadro=requestAnimationFrame(passo);
-  }
-  function liga(){
-    redesenha();                         /* remede: a seção pode ter acabado de abrir */
-    if(quadro||!anda_ok())return;
-    ultimo=0;quadro=requestAnimationFrame(passo);
-  }
 
-  orb.addEventListener('pointerover',function(e){
-    if(e.target.closest('.eco-card')){sobre=true}
-  });
-  orb.addEventListener('pointerout',function(e){
-    if(!e.target.closest('.eco-card'))return;
-    var p=e.relatedTarget;
-    if(p&&p.closest&&p.closest('.eco-card'))return;      /* só trocou de filho */
-    sobre=false;liga();
-  });
-  orb.addEventListener('pointerleave',function(){sobre=false;liga()});
-  orb.addEventListener('focusin',function(){liga()});
-  orb.addEventListener('focusout',function(){liga()});
-  telaEco.addEventListener('click',function(){setTimeout(liga,0)});   /* fechou o card: retoma */
-  if(empilha.addEventListener){empilha.addEventListener('change',liga);quieto.addEventListener('change',liga)}
   window.addEventListener('resize',redesenha);
-  new MutationObserver(liga).observe(telaEco,{attributes:true,attributeFilter:['class']});
+  new MutationObserver(redesenha).observe(telaEco,{attributes:true,attributeFilter:['class']});
   addEventListener('load',redesenha);    /* a fonte/imagem pode mudar a medida */
-  liga();
+  redesenha();
 })();
 
 /* decodifica as fotos de fundo enquanto a apresentação está parada:
