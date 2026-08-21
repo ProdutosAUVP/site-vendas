@@ -292,6 +292,9 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 /* a capa é o card: a foto ocupa tudo e o subtítulo vem por cima dela */
 .eco-capa{position:relative;display:block;aspect-ratio:16/10;max-height:172px;background:linear-gradient(150deg,#26262b,#101012)}
 .eco-capa img{width:100%;height:100%;object-fit:cover;display:block}
+.eco-capa.sem-foto img{display:none}
+.eco-capa.sem-foto{background:linear-gradient(150deg,#3b3320,#141416 72%)}
+.eco-capa.sem-foto::after{background:linear-gradient(0deg,rgba(9,9,11,.72) 0%,rgba(9,9,11,.3) 55%,transparent 100%)}
 .eco-capa::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(9,9,11,.94) 0%,rgba(9,9,11,.72) 34%,rgba(9,9,11,.16) 68%,rgba(9,9,11,.2) 100%)}
 .eco-sub{position:absolute;z-index:1;left:13px;right:13px;bottom:11px;margin:0;font-family:var(--display);font-weight:600;font-size:16px;line-height:1.18;letter-spacing:-.02em;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.55)}
 
@@ -1012,7 +1015,7 @@ const RX=33,RY=35;
     svg+='<line x1="50" y1="50" x2="'+x+'" y2="'+y+'" vector-effect="non-scaling-stroke"/>';
     cards+='<button type="button" class="eco-card" data-eco="'+i+'" aria-expanded="false" aria-label="'+esc(e.tit)+'" style="--x:'+x+'%;--y:'+y+'%;--j:'+i+'">'
       +'<span class="eco-capa">'
-      +'<img src="'+esc(e.img)+'" alt="" loading="lazy" decoding="async">'
+      +'<img src="'+esc(e.img)+'" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">'
       +'<span class="eco-sub">'+esc(e.sub)+'</span>'
       +'</span>'
       +'<span class="eco-tops"><span class="eco-tops-in"><ul>'
@@ -1021,6 +1024,12 @@ const RX=33,RY=35;
   });
   document.getElementById('orbita').innerHTML=svg+'</svg>'
     +'<div class="nucleo"><img src="olho-amarelo.svg" alt=""></div>'+cards;
+  /* foto que não carrega (host fora do ar, hotlink barrado, endereço
+     trocado) sai de cena e o card fica com o fundo da capa, em vez de
+     mostrar ícone de imagem quebrada */
+  document.querySelectorAll('#orbita .eco-capa img').forEach(function(im){
+    im.addEventListener('error',function(){im.parentNode.classList.add('sem-foto')});
+  });
 })();
 
 /* clique no card: ele se abre no próprio lugar do anel e desdobra os
