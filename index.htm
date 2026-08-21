@@ -291,7 +291,10 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 .eco-card:hover{border-color:rgba(239,191,78,.6);box-shadow:0 20px 38px -20px rgba(184,134,11,.6);scale:1.05}
 /* a capa é o card: a foto ocupa tudo e o subtítulo vem por cima dela */
 .eco-capa{position:relative;display:block;aspect-ratio:16/10;max-height:172px;background:linear-gradient(150deg,#26262b,#101012)}
-.eco-capa img{width:100%;height:100%;object-fit:cover;display:block}
+/* a foto sai do fluxo: no fluxo era ela que definia a altura da capa, e a
+   aspect-ratio acima era ignorada - cada card ficava com a proporção da
+   sua imagem. Fora do fluxo, a capa manda e a foto é cortada */
+.eco-capa img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .eco-capa.sem-foto img{display:none}
 .eco-capa.sem-foto{background:linear-gradient(150deg,#3b3320,#141416 72%)}
 .eco-capa.sem-foto::after{background:linear-gradient(0deg,rgba(9,9,11,.72) 0%,rgba(9,9,11,.3) 55%,transparent 100%)}
