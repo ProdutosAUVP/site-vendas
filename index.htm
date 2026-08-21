@@ -301,13 +301,13 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 .eco-capa::after{content:"";position:absolute;inset:0;transition:background .3s;background:linear-gradient(0deg,rgba(9,9,11,.94) 0%,rgba(9,9,11,.72) 34%,rgba(9,9,11,.16) 68%,rgba(9,9,11,.2) 100%)}
 .eco-card.aberto .eco-capa::after{background:linear-gradient(0deg,rgba(9,9,11,.93) 0%,rgba(9,9,11,.8) 26%,rgba(9,9,11,.34) 54%,rgba(9,9,11,.06) 78%,rgba(9,9,11,.22) 100%)}
 /* o corpo é quem dá altura ao card: fechado, a do retrato da foto */
-.eco-corpo{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:flex-end;min-height:var(--h,115px);padding:12px 15px 13px;transition:min-height .34s var(--mola),padding .34s var(--mola)}
+.eco-corpo{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:flex-end;min-height:var(--h,115px);padding:12px 15px 13px;transition:min-height .42s var(--mola),padding .42s var(--mola)}
 .eco-card.aberto .eco-corpo{padding:26px 30px 28px}
 .eco-sub{margin:0;font-family:var(--display);font-weight:600;font-size:16px;line-height:1.18;letter-spacing:-.02em;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.55)}
 
 /* card que abre no lugar: os tópicos se desdobram dentro dele */
-.eco-card{width:var(--w,182px);transition:width .34s var(--mola),transform .34s var(--mola),border-color .22s,opacity .24s,scale .24s var(--mola)}
-.eco-tops{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .28s var(--mola),opacity .2s;margin-top:0}
+.eco-card{width:var(--w,182px);transition:width .42s var(--mola),transform .42s var(--mola),border-color .22s,opacity .24s,scale .24s var(--mola)}
+.eco-tops{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .34s var(--mola),opacity .24s;margin-top:0}
 .eco-tops-in{overflow:hidden;min-height:0}
 .eco-card ul{list-style:none;margin:0;padding:11px 0 1px;display:grid;gap:9px}
 /* uma linha por tópico: o card se alarga até caber a maior frase */
@@ -1078,14 +1078,24 @@ function encaixa(card){
      onde a área do mapa deixar. max-content não anima: fixa em px */
   var conteudo=card.offsetWidth;       /* sem o zoom do hover, que o rect traria */
   var L=Math.min(o.width-16,Math.max(conteudo,o.width*.8));
+  var A=Math.ceil(Math.min(o.height-16,L*9/16));
   card.style.setProperty('--w',Math.ceil(L)+'px');
-  card.style.setProperty('--h',Math.ceil(Math.min(o.height-16,L*9/16))+'px');
+  card.style.setProperty('--h',A+'px');
   var r=card.getBoundingClientRect(),m=8,dx=0,dy=0;
   if(r.left<o.left+m)dx=o.left+m-r.left; else if(r.right>o.right-m)dx=o.right-m-r.right;
   if(r.top<o.top+m)dy=o.top+m-r.top; else if(r.bottom>o.bottom-m)dy=o.bottom-m-r.bottom;
-  card.classList.remove('aberto');void card.offsetWidth;
+  /* devolve o card ao estado fechado, ainda sem transição: sem limpar a
+     largura e a altura medidas, o painel já nascia montado no ponto do
+     anel - metade dele fora da tela - e só depois deslizava para o lugar,
+     em vez de crescer a partir do card */
+  card.classList.remove('aberto');
+  card.style.removeProperty('--w');card.style.removeProperty('--h');
+  void card.offsetWidth;
   card.classList.remove('medindo');
-  /* agora deslocamento e abertura animam juntos */
+  /* daqui em diante tudo anima junto: o card cresce do próprio tamanho
+     até o painel e, no mesmo movimento, se desloca o necessário */
+  card.style.setProperty('--w',Math.ceil(L)+'px');
+  card.style.setProperty('--h',A+'px');
   card.style.setProperty('--nx',dx.toFixed(0)+'px');
   card.style.setProperty('--ny',dy.toFixed(0)+'px');
   card.classList.add('aberto');
