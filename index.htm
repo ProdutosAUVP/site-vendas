@@ -292,14 +292,11 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 /* a capa é o card: a foto ocupa tudo e o subtítulo vem por cima dela */
 .eco-capa{position:relative;display:block;aspect-ratio:16/10;max-height:172px;background:linear-gradient(150deg,#26262b,#101012)}
 .eco-capa img{width:100%;height:100%;object-fit:cover;display:block}
-.eco-capa::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(9,9,11,.94) 0%,rgba(9,9,11,.72) 34%,rgba(9,9,11,.22) 66%,rgba(9,9,11,.34) 100%)}
-.eco-n{position:absolute;z-index:1;top:11px;left:12px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-weight:600;font-size:10.5px;color:var(--gold);border:1px solid rgba(239,191,78,.7);background:rgba(9,9,11,.5);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.eco-capa::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(9,9,11,.94) 0%,rgba(9,9,11,.72) 34%,rgba(9,9,11,.16) 68%,rgba(9,9,11,.2) 100%)}
 .eco-sub{position:absolute;z-index:1;left:13px;right:13px;bottom:11px;margin:0;font-family:var(--display);font-weight:600;font-size:16px;line-height:1.18;letter-spacing:-.02em;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.55)}
 
 /* card que abre no lugar: os tópicos se desdobram dentro dele */
 .eco-card{width:var(--w,182px);transition:width .34s var(--mola),transform .34s var(--mola),border-color .22s,opacity .24s,scale .24s var(--mola)}
-.eco-card .eco-mais{position:absolute;z-index:1;top:12px;right:12px;width:18px;height:18px;color:rgba(255,255,255,.82);filter:drop-shadow(0 1px 4px rgba(0,0,0,.5));transition:transform .3s var(--mola),color .2s}
-.eco-card:hover .eco-mais{color:var(--gold)}
 .eco-tops{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .28s var(--mola),opacity .2s;margin-top:0}
 .eco-tops-in{overflow:hidden;min-height:0}
 .eco-card ul{list-style:none;margin:0;padding:13px 15px 15px;display:grid;gap:10px}
@@ -309,7 +306,6 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 .eco-card.aberto{--w:min(322px,27vw);z-index:6;border-color:var(--gold);box-shadow:0 26px 56px -24px rgba(184,134,11,.5),0 0 0 3px var(--gold-bg)}
 .eco-card.aberto .eco-tops{grid-template-rows:1fr;opacity:1;transition-delay:.06s}
 .eco-card.aberto li{animation-duration:.34s}
-.eco-card.aberto .eco-mais{transform:rotate(45deg);color:var(--gold-deep)}
 .eco-card.aberto li{animation:desdobra .32s var(--mola) both;animation-delay:calc(var(--j,0)*70ms + 130ms)}
 @keyframes desdobra{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
 #t10.focado .eco-card:not(.aberto):not(.medindo){opacity:.34;scale:.9;box-shadow:none}
@@ -1017,8 +1013,6 @@ const RX=33,RY=35;
     cards+='<button type="button" class="eco-card" data-eco="'+i+'" aria-expanded="false" aria-label="'+esc(e.tit)+'" style="--x:'+x+'%;--y:'+y+'%;--j:'+i+'">'
       +'<span class="eco-capa">'
       +'<img src="'+esc(e.img)+'" alt="" loading="lazy" decoding="async">'
-      +'<span class="eco-n">'+esc(e.n)+'</span>'
-      +'<svg class="eco-mais" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg>'
       +'<span class="eco-sub">'+esc(e.sub)+'</span>'
       +'</span>'
       +'<span class="eco-tops"><span class="eco-tops-in"><ul>'
