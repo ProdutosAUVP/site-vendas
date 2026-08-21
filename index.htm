@@ -299,9 +299,10 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 .eco-capa.sem-foto{background:linear-gradient(150deg,#3b3320,#141416 72%)}
 .eco-capa.sem-foto::after{background:linear-gradient(0deg,rgba(9,9,11,.72) 0%,rgba(9,9,11,.3) 55%,transparent 100%)}
 .eco-capa::after{content:"";position:absolute;inset:0;transition:background .3s;background:linear-gradient(0deg,rgba(9,9,11,.94) 0%,rgba(9,9,11,.72) 34%,rgba(9,9,11,.16) 68%,rgba(9,9,11,.2) 100%)}
-.eco-card.aberto .eco-capa::after{background:linear-gradient(0deg,rgba(9,9,11,.88) 0%,rgba(9,9,11,.78) 62%,rgba(9,9,11,.66) 100%)}
+.eco-card.aberto .eco-capa::after{background:linear-gradient(0deg,rgba(9,9,11,.93) 0%,rgba(9,9,11,.8) 26%,rgba(9,9,11,.34) 54%,rgba(9,9,11,.06) 78%,rgba(9,9,11,.22) 100%)}
 /* o corpo é quem dá altura ao card: fechado, a do retrato da foto */
-.eco-corpo{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:flex-end;min-height:115px;padding:12px 15px 13px}
+.eco-corpo{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:flex-end;min-height:var(--h,115px);padding:12px 15px 13px;transition:min-height .34s var(--mola),padding .34s var(--mola)}
+.eco-card.aberto .eco-corpo{padding:26px 30px 28px}
 .eco-sub{margin:0;font-family:var(--display);font-weight:600;font-size:16px;line-height:1.18;letter-spacing:-.02em;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.55)}
 
 /* card que abre no lugar: os tópicos se desdobram dentro dele */
@@ -313,6 +314,12 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 .eco-card li{position:relative;padding-left:17px;white-space:nowrap;font-size:clamp(10px,.75vw,12.5px);line-height:1.45;color:rgba(255,255,255,.92)}
 .eco-card li::before{content:"";position:absolute;left:2px;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--gold)}
 
+.eco-card.aberto .eco-sub{font-size:clamp(20px,2vw,30px);margin-bottom:4px}
+.eco-card.aberto ul{padding-top:14px;gap:11px}
+.eco-card.aberto li{font-size:clamp(12px,.95vw,15px)}
+/* aberto, o card é um painel: o zoom de 5% do hover não faz sentido nele
+   e ainda o faria passar da largura máxima */
+.eco-card.aberto,.eco-card.aberto:hover{scale:1}
 .eco-card.aberto{--w:max-content;max-width:calc(100% - 16px);z-index:6;border-color:var(--gold);box-shadow:0 26px 56px -24px rgba(184,134,11,.5),0 0 0 3px var(--gold-bg)}
 .eco-card.aberto .eco-tops{grid-template-rows:1fr;opacity:1;transition-delay:.06s}
 .eco-card.aberto li{animation-duration:.34s}
@@ -431,7 +438,10 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
      transform, o translate(-50%,-50%) empurra metade dele para fora da tela */
   .eco-card{position:static;width:auto;animation-name:sobe;transform:none}
   .eco-card.aberto{max-width:none}
-  .eco-corpo{min-height:186px}
+  .eco-corpo,.eco-card.aberto .eco-corpo{min-height:186px;padding:14px 16px 15px}
+  .eco-card.aberto .eco-sub{font-size:19px}
+  /* card baixo: o véu do painel deixaria o topo claro demais para o texto */
+  .eco-card.aberto .eco-capa::after{background:linear-gradient(0deg,rgba(9,9,11,.9) 0%,rgba(9,9,11,.74) 100%)}
   .eco-card li{white-space:normal;font-size:12.5px}
   .eco-card:hover{scale:1;transform:translateY(-3px)}
 }
@@ -635,38 +645,38 @@ const NAV=[
 const ECO=[
   {id:'eco1',img:'https://cdn.asupernova.com.br/lp-auvp/vite/o-que-voce-vai-aprender2.webp',n:'1',t:'Você aprende',d:'Treinamentos especializados com garantia de aprendizagem.',
    tit:'Educação com foco na Escola',sub:'Você aprende',
-   itens:['Mais de 100 aulas com garantia de aprendizado.',
-          'Formação completa do zero à autonomia.',
-          '+ Trilhas de conhecimento especializadas: AUVP Pro, AUVP Agro e AUVP Internacional.']},
+   itens:['Mais de 100 aulas com garantia de aprendizado',
+          'Formação completa do zero à autonomia',
+          '+ Trilhas de conhecimento especializadas: AUVP Pro, AUVP Agro e AUVP Internacional']},
   {id:'eco2',img:'https://www.maisnovela.com.br/wp-content/uploads/2026/03/AUVP.png',n:'2',t:'Seu patrimônio rende',d:'Com a consultoria nº1 no ranking BTG.',
    tit:'AUVP Consultoria',sub:'Seu dinheiro rende.',
-   itens:['Gestão e acompanhamento profissional do seu patrimônio.',
-          'Pelo segundo ano consecutivo, a Consultoria Nº 1 no ranking do BTG Pactual.',
+   itens:['Gestão e acompanhamento profissional do seu patrimônio',
+          'Pelo segundo ano consecutivo, a Consultoria Nº 1 no ranking do BTG Pactual',
           '3 Planos que evoluem de acordo com seu patrimônio']},
   {id:'eco3',img:'https://cdn.asupernova.com.br/lp-auvp/vite/onde%20sua%20vida%20financeira%20se%20resolve%20mobile.webp',n:'3',t:'Garante seu banco, sem enrolação',d:'Abertura de conta, cartão e atendimento próprios AUVP.',
    tit:'Banco e Plataforma AUVP',sub:'Garante seu banco, sem enrolação',
-   itens:['Abertura de conta corrente, cartões e atendimento 100% exclusivos da AUVP.',
+   itens:['Abertura de conta corrente, cartões e atendimento 100% exclusivos da AUVP',
           'Plataforma de Investimentos com Carteiras Recomendadas',
           'Previdência Privada exclusiva']},
   {id:'eco4',img:'https://www.moneytimes.com.br/uploads/2025/04/notas-de-50-reais.png',n:'4',t:'Seus projetos saem do papel',d:'Contrate crédito de forma estratégica',
    tit:'AUVP Crédito',sub:'Seus projetos saem do papel.',
-   itens:['Comparação em tempo real com mais de 20 bancos para garantir a melhor taxa.',
-          'Alcance seus objetivos sem precisar liquidar seus investimentos ou comprometer seu patrimônio.']},
+   itens:['Comparação em tempo real com mais de 20 bancos para garantir a melhor taxa',
+          'Alcance seus objetivos sem precisar liquidar seus investimentos ou comprometer seu patrimônio']},
   {id:'eco5',img:'https://blog.humberseguros.com.br/wp-content/uploads/2019/06/corretora-de-seguros.jpg',n:'5',t:'Você e sua família sempre protegidos',d:'Seguro de vida, invalidez, doenças graves.',
    tit:'AUVP Corretora de Seguros',sub:'Você e sua família protegidos.',
    itens:['Segurança para a família com planejamento feito sob medida',
           'Sem viés de interesse, cotamos em até 6 seguradoras para encontrar a melhor proteção',
-          'Evite que imprevistos comprometam seu patrimônio.']},
+          'Evite que imprevistos comprometam seu patrimônio']},
   {id:'eco6',img:'https://images.pexels.com/photos/29769669/pexels-photo-29769669.jpeg?auto=compress&cs=tinysrgb&w=1200',n:'6',t:'Seu dinheiro sem fronteiras',d:'Câmbio transparente para enviar, receber ou investir fora do Brasil.',
    tit:'AUVP Câmbio',sub:'Seu dinheiro sem fronteiras.',
-   itens:['Câmbio transparente para enviar, receber ou investir no exterior.',
-          'Acompanhamento ponta a ponta com especialistas da AUVP.',
-          'Direcionamento personalizado para a modalidade com os menores custos e prazos ideais para evitar taxas desnecessárias.']},
+   itens:['Câmbio transparente para enviar, receber ou investir no exterior',
+          'Acompanhamento ponta a ponta com especialistas da AUVP',
+          'Direcionamento personalizado para a modalidade com os menores custos e prazos ideais para evitar taxas desnecessárias']},
   {id:'eco7',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Gold_bullion_ap_001.JPG/1280px-Gold_bullion_ap_001.JPG',img2:'https://upload.wikimedia.org/wikipedia/commons/5/5e/Gold_bullion_ap_001.JPG',n:'7',t:'Seu legado, bem planejado',d:'Sucessão, holding patrimonial e estruturação offshore.',
    tit:'AUVP Wealth',sub:'Seu legado, bem planejado.',
-   itens:['Blindagem patrimonial e otimização tributária inteligente.',
-          'Governança, criação de fundos exclusivos e operações de M&A.',
-          'Planejamento sucessório e gestão de domicílio fiscal para garantir a paz na família.']}
+   itens:['Blindagem patrimonial e otimização tributária inteligente',
+          'Governança, criação de fundos exclusivos e operações de M&A',
+          'Planejamento sucessório e gestão de domicílio fiscal para garantir a paz na família']}
 ];
 
 
@@ -1049,6 +1059,7 @@ const RX=33,RY=35;
 /* clique no card: ele se abre no próprio lugar do anel e desdobra os
    tópicos; os outros recuam e o fio até ele acende. */
 const telaEco=document.getElementById('t10');
+const EMPILHA=matchMedia('(max-width:1080px),(max-height:620px)');   /* anel vira grade */
 let ecoSel=null;
 
 function encaixa(card){
@@ -1056,13 +1067,19 @@ function encaixa(card){
      apenas o necessário para ele não passar da área do mapa */
   var orb=document.getElementById('orbita'); if(!orb)return;
   card.style.setProperty('--nx','0px');card.style.setProperty('--ny','0px');
-  card.style.removeProperty('--w');
+  card.style.removeProperty('--w');card.style.removeProperty('--h');
+  /* na grade estreita não há painel nem anel: o card ocupa a coluna */
+  if(EMPILHA.matches){card.classList.add('aberto');return}
   /* abre sem transição só para medir o tamanho final */
   card.classList.add('medindo','aberto');
   var o=orb.getBoundingClientRect();
-  /* aberto, o card tem a largura do conteúdo (os tópicos não quebram
-     linha). Isso é max-content, que não anima: mede e fixa em px */
-  card.style.setProperty('--w',Math.ceil(card.getBoundingClientRect().width)+'px');
+  /* a largura mínima é a do conteúdo, porque os tópicos não quebram
+     linha; daí o painel cresce para dar destaque à foto, em 16/9, até
+     onde a área do mapa deixar. max-content não anima: fixa em px */
+  var conteudo=card.offsetWidth;       /* sem o zoom do hover, que o rect traria */
+  var L=Math.min(o.width-16,Math.max(conteudo,o.width*.8));
+  card.style.setProperty('--w',Math.ceil(L)+'px');
+  card.style.setProperty('--h',Math.ceil(Math.min(o.height-16,L*9/16))+'px');
   var r=card.getBoundingClientRect(),m=8,dx=0,dy=0;
   if(r.left<o.left+m)dx=o.left+m-r.left; else if(r.right>o.right-m)dx=o.right-m-r.right;
   if(r.top<o.top+m)dy=o.top+m-r.top; else if(r.bottom>o.bottom-m)dy=o.bottom-m-r.bottom;
@@ -1086,7 +1103,8 @@ function fechaEco(){
   if(!ecoSel)return;
   ecoSel.classList.remove('aberto');
   ecoSel.setAttribute('aria-expanded','false');
-  ecoSel.style.removeProperty('--w');    /* volta à largura dos demais, animando */
+  ecoSel.style.removeProperty('--w');    /* volta ao tamanho dos demais, animando */
+  ecoSel.style.removeProperty('--h');
   ecoSel.style.setProperty('--nx','0px');ecoSel.style.setProperty('--ny','0px');
   telaEco.classList.remove('focado');
   document.querySelectorAll('#eco-fios .fio-on').forEach(function(l){l.classList.remove('fio-on')});
