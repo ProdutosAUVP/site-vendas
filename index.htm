@@ -285,28 +285,30 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 .fios ellipse{fill:none;stroke:var(--fio);stroke-width:1.1;opacity:calc(var(--fio-op) * .62);stroke-dasharray:2 6}
 .nucleo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:clamp(96px,9vw,126px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:var(--nucleo-brilho)}
 .nucleo img{width:74%;display:block}
-.eco-card{position:absolute;left:var(--x);top:var(--y);transform:translate(calc(-50% + var(--nx,0px)),calc(-50% + var(--ny,0px)));z-index:1;contain:layout style;width:clamp(158px,15.5vw,196px);display:flex;flex-direction:column;gap:5px;text-align:left;padding:14px 15px 15px;border-radius:16px;border:1px solid var(--carta-borda);background:var(--cartao);box-shadow:0 16px 32px -22px rgba(24,24,27,.55);cursor:pointer;transition:border-color .22s,box-shadow .22s,scale .26s var(--mola);animation:cartaoEntra .46s var(--mola) backwards;animation-delay:calc(var(--j,0)*65ms + 140ms)}
+.eco-card{position:absolute;left:var(--x);top:var(--y);transform:translate(calc(-50% + var(--nx,0px)),calc(-50% + var(--ny,0px)));z-index:1;contain:layout style;width:clamp(158px,15.5vw,196px);display:flex;flex-direction:column;text-align:left;padding:0;overflow:clip;border-radius:16px;border:1px solid var(--carta-borda);background:var(--cartao);box-shadow:0 16px 32px -22px rgba(24,24,27,.55);cursor:pointer;transition:border-color .22s,box-shadow .22s,scale .26s var(--mola);animation:cartaoEntra .46s var(--mola) backwards;animation-delay:calc(var(--j,0)*65ms + 140ms)}
 @keyframes cartaoEntra{from{opacity:0;scale:.92}to{opacity:1;scale:1}}
 .eco-card.medindo,.eco-card.medindo *{transition:none!important}
 .eco-card:hover{border-color:rgba(239,191,78,.6);box-shadow:0 20px 38px -20px rgba(184,134,11,.6);scale:1.05}
-.eco-n{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-weight:600;font-size:10.5px;color:var(--gold-deep);border:1px solid rgba(239,191,78,.45);background:var(--gold-bg)}
-.eco-card h3{margin:2px 0 0;font-family:var(--display);font-weight:600;font-size:15px;line-height:1.16;letter-spacing:-.015em;color:var(--tinta)}
-.eco-sub{margin:0;font-size:12px;line-height:1.35;color:var(--tinta2)}
+/* a capa é o card: a foto ocupa tudo e o subtítulo vem por cima dela */
+.eco-capa{position:relative;display:block;aspect-ratio:16/10;max-height:172px;background:linear-gradient(150deg,#26262b,#101012)}
+.eco-capa img{width:100%;height:100%;object-fit:cover;display:block}
+.eco-capa.sem-foto img{display:none}
+.eco-capa.sem-foto{background:linear-gradient(150deg,#3b3320,#141416 72%)}
+.eco-capa.sem-foto::after{background:linear-gradient(0deg,rgba(9,9,11,.72) 0%,rgba(9,9,11,.3) 55%,transparent 100%)}
+.eco-capa::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(9,9,11,.94) 0%,rgba(9,9,11,.72) 34%,rgba(9,9,11,.16) 68%,rgba(9,9,11,.2) 100%)}
+.eco-sub{position:absolute;z-index:1;left:13px;right:13px;bottom:11px;margin:0;font-family:var(--display);font-weight:600;font-size:16px;line-height:1.18;letter-spacing:-.02em;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.55)}
 
 /* card que abre no lugar: os tópicos se desdobram dentro dele */
 .eco-card{width:var(--w,182px);transition:width .34s var(--mola),transform .34s var(--mola),border-color .22s,opacity .24s,scale .24s var(--mola)}
-.eco-card .eco-mais{position:absolute;top:13px;right:13px;width:18px;height:18px;color:var(--tinta3);transition:transform .3s var(--mola),color .2s}
-.eco-card:hover .eco-mais{color:var(--gold-deep)}
-.eco-tops{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .28s var(--mola),opacity .2s,margin .28s var(--mola);margin-top:0}
+.eco-tops{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .28s var(--mola),opacity .2s;margin-top:0}
 .eco-tops-in{overflow:hidden;min-height:0}
-.eco-card ul{list-style:none;margin:0;padding:12px 0 2px;border-top:1px solid var(--linha2);display:grid;gap:10px}
+.eco-card ul{list-style:none;margin:0;padding:13px 15px 15px;display:grid;gap:10px}
 .eco-card li{position:relative;padding-left:17px;font-size:12.5px;line-height:1.45;color:var(--tinta2)}
 .eco-card li::before{content:"";position:absolute;left:2px;top:6px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
 
 .eco-card.aberto{--w:min(322px,27vw);z-index:6;border-color:var(--gold);box-shadow:0 26px 56px -24px rgba(184,134,11,.5),0 0 0 3px var(--gold-bg)}
-.eco-card.aberto .eco-tops{grid-template-rows:1fr;opacity:1;margin-top:13px;transition-delay:.06s}
+.eco-card.aberto .eco-tops{grid-template-rows:1fr;opacity:1;transition-delay:.06s}
 .eco-card.aberto li{animation-duration:.34s}
-.eco-card.aberto .eco-mais{transform:rotate(45deg);color:var(--gold-deep)}
 .eco-card.aberto li{animation:desdobra .32s var(--mola) both;animation-delay:calc(var(--j,0)*70ms + 130ms)}
 @keyframes desdobra{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
 #t10.focado .eco-card:not(.aberto):not(.medindo){opacity:.34;scale:.9;box-shadow:none}
@@ -418,7 +420,10 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
   .eco-card,.eco-card.aberto{--w:auto}
   #t10.focado .eco-card:not(.aberto){opacity:1;scale:1}
   .fios,.nucleo{display:none}
-  .eco-card{position:static;width:auto;animation-name:sobe}
+  /* fora do anel o card não é mais centrado no próprio ponto: sem zerar o
+     transform, o translate(-50%,-50%) empurra metade dele para fora da tela */
+  .eco-card{position:static;width:auto;animation-name:sobe;transform:none}
+  .eco-capa{max-height:200px}
   .eco-card:hover{scale:1;transform:translateY(-3px)}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -619,36 +624,36 @@ const NAV=[
    Cada produto é um nó da tela principal e uma tela própria.
    ============================================================ */
 const ECO=[
-  {id:'eco1',n:'1',t:'Você aprende',d:'Treinamentos especializados com garantia de aprendizagem.',
+  {id:'eco1',img:'https://cdn.asupernova.com.br/lp-auvp/vite/o-que-voce-vai-aprender2.webp',n:'1',t:'Você aprende',d:'Treinamentos especializados com garantia de aprendizagem.',
    tit:'Educação com foco na Escola',sub:'Você aprende',
    itens:['Mais de 100 aulas com garantia de aprendizado.',
           'Formação completa do zero à autonomia.',
           '+ Trilhas de conhecimento especializadas: AUVP Pro, AUVP Agro e AUVP Internacional.']},
-  {id:'eco2',n:'2',t:'Seu patrimônio rende',d:'Com a consultoria nº1 no ranking BTG.',
+  {id:'eco2',img:'https://www.maisnovela.com.br/wp-content/uploads/2026/03/AUVP.png',n:'2',t:'Seu patrimônio rende',d:'Com a consultoria nº1 no ranking BTG.',
    tit:'AUVP Consultoria',sub:'Seu dinheiro rende.',
    itens:['Gestão e acompanhamento profissional do seu patrimônio.',
           'Pelo segundo ano consecutivo, a Consultoria Nº 1 no ranking do BTG Pactual.',
           '3 Planos que evoluem de acordo com seu patrimônio']},
-  {id:'eco3',n:'3',t:'Garante seu banco, sem enrolação',d:'Abertura de conta, cartão e atendimento próprios AUVP.',
+  {id:'eco3',img:'https://cdn.asupernova.com.br/lp-auvp/vite/onde%20sua%20vida%20financeira%20se%20resolve%20mobile.webp',n:'3',t:'Garante seu banco, sem enrolação',d:'Abertura de conta, cartão e atendimento próprios AUVP.',
    tit:'Banco e Plataforma AUVP',sub:'Garante seu banco, sem enrolação',
    itens:['Abertura de conta corrente, cartões e atendimento 100% exclusivos da AUVP.',
           'Plataforma de Investimentos com Carteiras Recomendadas',
           'Previdência Privada exclusiva']},
-  {id:'eco4',n:'4',t:'Seus projetos saem do papel',d:'Contrate crédito de forma estratégica',
+  {id:'eco4',img:'https://www.moneytimes.com.br/uploads/2025/04/notas-de-50-reais.png',n:'4',t:'Seus projetos saem do papel',d:'Contrate crédito de forma estratégica',
    tit:'AUVP Crédito',sub:'Seus projetos saem do papel.',
    itens:['Comparação em tempo real com mais de 20 bancos para garantir a melhor taxa.',
           'Alcance seus objetivos sem precisar liquidar seus investimentos ou comprometer seu patrimônio.']},
-  {id:'eco5',n:'5',t:'Você e sua família sempre protegidos',d:'Seguro de vida, invalidez, doenças graves.',
+  {id:'eco5',img:'https://blog.humberseguros.com.br/wp-content/uploads/2019/06/corretora-de-seguros.jpg',n:'5',t:'Você e sua família sempre protegidos',d:'Seguro de vida, invalidez, doenças graves.',
    tit:'AUVP Corretora de Seguros',sub:'Você e sua família protegidos.',
    itens:['Segurança para a família com planejamento feito sob medida',
           'Sem viés de interesse, cotamos em até 6 seguradoras para encontrar a melhor proteção',
           'Evite que imprevistos comprometam seu patrimônio.']},
-  {id:'eco6',n:'6',t:'Seu dinheiro sem fronteiras',d:'Câmbio transparente para enviar, receber ou investir fora do Brasil.',
+  {id:'eco6',img:'https://images.pexels.com/photos/29769669/pexels-photo-29769669.jpeg?auto=compress&cs=tinysrgb&w=1200',n:'6',t:'Seu dinheiro sem fronteiras',d:'Câmbio transparente para enviar, receber ou investir fora do Brasil.',
    tit:'AUVP Câmbio',sub:'Seu dinheiro sem fronteiras.',
    itens:['Câmbio transparente para enviar, receber ou investir no exterior.',
           'Acompanhamento ponta a ponta com especialistas da AUVP.',
           'Direcionamento personalizado para a modalidade com os menores custos e prazos ideais para evitar taxas desnecessárias.']},
-  {id:'eco7',n:'7',t:'Seu legado, bem planejado',d:'Sucessão, holding patrimonial e estruturação offshore.',
+  {id:'eco7',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Gold_bullion_ap_001.JPG/1280px-Gold_bullion_ap_001.JPG',img2:'https://upload.wikimedia.org/wikipedia/commons/5/5e/Gold_bullion_ap_001.JPG',n:'7',t:'Seu legado, bem planejado',d:'Sucessão, holding patrimonial e estruturação offshore.',
    tit:'AUVP Wealth',sub:'Seu legado, bem planejado.',
    itens:['Blindagem patrimonial e otimização tributária inteligente.',
           'Governança, criação de fundos exclusivos e operações de M&A.',
@@ -1008,17 +1013,27 @@ const RX=33,RY=35;
     var a=(-90+i*(360/ECO.length))*Math.PI/180;
     var x=(50+RX*Math.cos(a)).toFixed(2),y=(50+RY*Math.sin(a)).toFixed(2);
     svg+='<line x1="50" y1="50" x2="'+x+'" y2="'+y+'" vector-effect="non-scaling-stroke"/>';
-    cards+='<button type="button" class="eco-card" data-eco="'+i+'" aria-expanded="false" style="--x:'+x+'%;--y:'+y+'%;--j:'+i+'">'
-      +'<span class="eco-n">'+esc(e.n)+'</span>'
-      +'<svg class="eco-mais" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg>'
-      +'<h3>'+esc(e.tit)+'</h3>'
-      +'<p class="eco-sub">'+esc(e.sub)+'</p>'
+    cards+='<button type="button" class="eco-card" data-eco="'+i+'" aria-expanded="false" aria-label="'+esc(e.tit)+'" style="--x:'+x+'%;--y:'+y+'%;--j:'+i+'">'
+      +'<span class="eco-capa">'
+      +'<img src="'+esc(e.img)+'"'+(e.img2?' data-reserva="'+esc(e.img2)+'"':'')+' alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">'
+      +'<span class="eco-sub">'+esc(e.sub)+'</span>'
+      +'</span>'
       +'<span class="eco-tops"><span class="eco-tops-in"><ul>'
       +e.itens.map(function(it,j){return '<li style="--j:'+j+'">'+esc(it)+'</li>'}).join('')
       +'</ul></span></span></button>';
   });
   document.getElementById('orbita').innerHTML=svg+'</svg>'
     +'<div class="nucleo"><img src="olho-amarelo.svg" alt=""></div>'+cards;
+  /* foto que não carrega (host fora do ar, hotlink barrado, endereço
+     trocado): tenta o endereço reserva, se houver, e só então sai de cena,
+     deixando o card com o fundo da capa em vez de imagem quebrada */
+  document.querySelectorAll('#orbita .eco-capa img').forEach(function(im){
+    im.addEventListener('error',function(){
+      var r=im.dataset.reserva;
+      if(r){im.removeAttribute('data-reserva');im.src=r;return}
+      im.parentNode.classList.add('sem-foto');
+    });
+  });
 })();
 
 /* clique no card: ele se abre no próprio lugar do anel e desdobra os
