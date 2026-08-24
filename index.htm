@@ -305,8 +305,16 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 .eco-capa.sem-foto img{display:none}
 .eco-capa.sem-foto{background:linear-gradient(150deg,#3b3320,#141416 72%)}
 .eco-capa.sem-foto::after{background:linear-gradient(0deg,rgba(9,9,11,.72) 0%,rgba(9,9,11,.3) 55%,transparent 100%)}
-.eco-capa::after{content:"";position:absolute;inset:0;transition:background .3s;background:linear-gradient(0deg,rgba(9,9,11,.94) 0%,rgba(9,9,11,.72) 34%,rgba(9,9,11,.16) 68%,rgba(9,9,11,.2) 100%)}
-.eco-card.aberto .eco-capa::after{background:linear-gradient(0deg,rgba(9,9,11,.93) 0%,rgba(9,9,11,.8) 26%,rgba(9,9,11,.34) 54%,rgba(9,9,11,.06) 78%,rgba(9,9,11,.22) 100%)}
+/* o véu são duas faixas: uma no topo, atrás da logo, e outra na base,
+   atrás do texto. As duas somem antes do meio, então o miolo da foto
+   fica limpo. Mesma quantidade de camadas e mesmas paradas nos dois
+   estados, senão a troca salta em vez de animar. */
+.eco-capa::after{content:"";position:absolute;inset:0;transition:background .3s;background:
+  linear-gradient(180deg,rgba(9,9,11,.18) 0%,rgba(9,9,11,.08) 26%,rgba(9,9,11,0) 46%),
+  linear-gradient(0deg,rgba(9,9,11,.94) 0%,rgba(9,9,11,.72) 24%,rgba(9,9,11,.2) 46%,rgba(9,9,11,0) 64%)}
+.eco-card.aberto .eco-capa::after{background:
+  linear-gradient(180deg,rgba(9,9,11,.52) 0%,rgba(9,9,11,.2) 26%,rgba(9,9,11,0) 46%),
+  linear-gradient(0deg,rgba(9,9,11,.93) 0%,rgba(9,9,11,.78) 24%,rgba(9,9,11,.22) 46%,rgba(9,9,11,0) 64%)}
 /* o corpo é quem dá altura ao card: fechado, a do retrato da foto */
 .eco-corpo{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:flex-end;min-height:var(--h,115px);padding:12px 15px 13px;transition:min-height .42s var(--mola),padding .42s var(--mola)}
 .eco-card.aberto .eco-corpo{padding:26px 30px 28px}
@@ -449,7 +457,9 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
   .eco-card.aberto .eco-sub{font-size:19px}
   .eco-logo{top:14px;right:16px;width:96px}
   /* card baixo: o véu do painel deixaria o topo claro demais para o texto */
-  .eco-card.aberto .eco-capa::after{background:linear-gradient(0deg,rgba(9,9,11,.9) 0%,rgba(9,9,11,.74) 100%)}
+  .eco-card.aberto .eco-capa::after{background:
+    linear-gradient(180deg,rgba(9,9,11,.5) 0%,rgba(9,9,11,.5) 26%,rgba(9,9,11,.5) 46%),
+    linear-gradient(0deg,rgba(9,9,11,.8) 0%,rgba(9,9,11,.8) 24%,rgba(9,9,11,.8) 46%,rgba(9,9,11,.8) 64%)}
   .eco-card li{white-space:normal;font-size:12.5px}
   .eco-card:hover{scale:1;transform:translateY(-3px)}
 }
