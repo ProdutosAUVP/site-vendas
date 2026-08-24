@@ -292,6 +292,10 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 /* logo do produto: some no card fechado, entra quando ele vira painel */
 .eco-logo{position:absolute;z-index:2;top:24px;right:28px;width:clamp(104px,11vw,158px);opacity:0;transform:translateY(-8px);pointer-events:none;filter:drop-shadow(0 2px 10px rgba(0,0,0,.55));transition:opacity .26s,transform .34s var(--mola)}
 .eco-card.aberto .eco-logo{opacity:1;transform:none;transition-delay:.1s}
+/* as logos do repositório são as versões brancas da marca; a que vem de
+   fora é um PNG de cor desconhecida, então vira silhueta branca para
+   combinar com as outras e se sustentar sobre a foto */
+.eco-logo[src^="http"]{filter:brightness(0) invert(1) drop-shadow(0 2px 10px rgba(0,0,0,.55))}
 /* a foto é o fundo do card inteiro, texto e tópicos vêm por cima dela */
 .eco-capa{position:absolute;inset:0;z-index:0;background:linear-gradient(150deg,#26262b,#101012)}
 /* a foto sai do fluxo: no fluxo era ela que definia a altura da capa, e a
@@ -666,7 +670,7 @@ const ECO=[
    tit:'AUVP Crédito',sub:'Seus projetos saem do papel',
    itens:['Comparação em tempo real com mais de 20 bancos para garantir a melhor taxa',
           'Alcance seus objetivos sem precisar liquidar seus investimentos ou comprometer seu patrimônio']},
-  {id:'eco5',img:'https://blog.humberseguros.com.br/wp-content/uploads/2019/06/corretora-de-seguros.jpg',n:'5',t:'Você e sua família sempre protegidos',d:'Seguro de vida, invalidez, doenças graves.',
+  {id:'eco5',logo:'https://auvpcapital.com.br/wp-content/uploads/2026/07/Prancheta-1_1-2048x643.png',img:'https://blog.humberseguros.com.br/wp-content/uploads/2019/06/corretora-de-seguros.jpg',n:'5',t:'Você e sua família sempre protegidos',d:'Seguro de vida, invalidez, doenças graves.',
    tit:'AUVP Corretora de Seguros',sub:'Você e sua família protegidos',
    itens:['Segurança para a família com planejamento feito sob medida',
           'Sem viés de interesse, cotamos em até 6 seguradoras para encontrar a melhor proteção',
@@ -1037,7 +1041,7 @@ const RX=33,RY=35;
     var x=(50+RX*Math.cos(a)).toFixed(2),y=(50+RY*Math.sin(a)).toFixed(2);
     svg+='<line x1="50" y1="50" x2="'+x+'" y2="'+y+'" vector-effect="non-scaling-stroke"/>';
     cards+='<button type="button" class="eco-card" data-eco="'+i+'" aria-expanded="false" aria-label="'+esc(e.tit)+'" style="--x:'+x+'%;--y:'+y+'%;--j:'+i+'">'
-      +(e.logo?'<img class="eco-logo" src="'+esc(e.logo)+'" alt="" aria-hidden="true">':'')
+      +(e.logo?'<img class="eco-logo" src="'+esc(e.logo)+'" alt="" aria-hidden="true" referrerpolicy="no-referrer">':'')
       +'<span class="eco-capa">'
       +'<img src="'+esc(e.img)+'"'+(e.img2?' data-reserva="'+esc(e.img2)+'"':'')+' alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">'
       +'</span>'
@@ -1052,6 +1056,11 @@ const RX=33,RY=35;
   /* foto que não carrega (host fora do ar, hotlink barrado, endereço
      trocado): tenta o endereço reserva, se houver, e só então sai de cena,
      deixando o card com o fundo da capa em vez de imagem quebrada */
+  /* logo que não carrega sai de cena: melhor o card sem ela do que com
+     o ícone de imagem quebrada */
+  document.querySelectorAll('#orbita .eco-logo').forEach(function(im){
+    im.addEventListener('error',function(){im.remove()});
+  });
   document.querySelectorAll('#orbita .eco-capa img').forEach(function(im){
     im.addEventListener('error',function(){
       var r=im.dataset.reserva;
