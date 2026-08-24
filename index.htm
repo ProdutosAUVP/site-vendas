@@ -289,6 +289,9 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 @keyframes cartaoEntra{from{opacity:0;scale:.92}to{opacity:1;scale:1}}
 .eco-card.medindo,.eco-card.medindo *{transition:none!important}
 .eco-card:hover{border-color:rgba(239,191,78,.6);box-shadow:0 20px 38px -20px rgba(184,134,11,.6);scale:1.05}
+/* logo do produto: some no card fechado, entra quando ele vira painel */
+.eco-logo{position:absolute;z-index:2;top:24px;right:28px;width:clamp(104px,11vw,158px);opacity:0;transform:translateY(-8px);pointer-events:none;filter:drop-shadow(0 2px 10px rgba(0,0,0,.55));transition:opacity .26s,transform .34s var(--mola)}
+.eco-card.aberto .eco-logo{opacity:1;transform:none;transition-delay:.1s}
 /* a foto é o fundo do card inteiro, texto e tópicos vêm por cima dela */
 .eco-capa{position:absolute;inset:0;z-index:0;background:linear-gradient(150deg,#26262b,#101012)}
 /* a foto sai do fluxo: no fluxo era ela que definia a altura da capa, e a
@@ -440,6 +443,7 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
   .eco-card.aberto{max-width:none}
   .eco-corpo,.eco-card.aberto .eco-corpo{min-height:186px;padding:14px 16px 15px}
   .eco-card.aberto .eco-sub{font-size:19px}
+  .eco-logo{top:14px;right:16px;width:96px}
   /* card baixo: o véu do painel deixaria o topo claro demais para o texto */
   .eco-card.aberto .eco-capa::after{background:linear-gradient(0deg,rgba(9,9,11,.9) 0%,rgba(9,9,11,.74) 100%)}
   .eco-card li{white-space:normal;font-size:12.5px}
@@ -643,22 +647,22 @@ const NAV=[
    Cada produto é um nó da tela principal e uma tela própria.
    ============================================================ */
 const ECO=[
-  {id:'eco1',img:'https://cdn.asupernova.com.br/lp-auvp/vite/o-que-voce-vai-aprender2.webp',n:'1',t:'Você aprende',d:'Treinamentos especializados com garantia de aprendizagem.',
+  {id:'eco1',logo:'logos/auvp-escola.svg',img:'https://cdn.asupernova.com.br/lp-auvp/vite/o-que-voce-vai-aprender2.webp',n:'1',t:'Você aprende',d:'Treinamentos especializados com garantia de aprendizagem.',
    tit:'Educação com foco na Escola',sub:'Você aprende',
    itens:['Mais de 100 aulas com garantia de aprendizado',
           'Formação completa do zero à autonomia',
           '+ Trilhas de conhecimento especializadas: AUVP Pro, AUVP Agro e AUVP Internacional']},
-  {id:'eco2',img:'https://www.maisnovela.com.br/wp-content/uploads/2026/03/AUVP.png',n:'2',t:'Seu patrimônio rende',d:'Com a consultoria nº1 no ranking BTG.',
+  {id:'eco2',logo:'logos/auvp-consultoria.svg',img:'https://www.maisnovela.com.br/wp-content/uploads/2026/03/AUVP.png',n:'2',t:'Seu patrimônio rende',d:'Com a consultoria nº1 no ranking BTG.',
    tit:'AUVP Consultoria',sub:'Seu dinheiro rende',
    itens:['Gestão e acompanhamento profissional do seu patrimônio',
           'Pelo segundo ano consecutivo, a Consultoria Nº 1 no ranking do BTG Pactual',
           '3 Planos que evoluem de acordo com seu patrimônio']},
-  {id:'eco3',img:'https://cdn.asupernova.com.br/lp-auvp/vite/onde%20sua%20vida%20financeira%20se%20resolve%20mobile.webp',n:'3',t:'Garante seu banco, sem enrolação',d:'Abertura de conta, cartão e atendimento próprios AUVP.',
+  {id:'eco3',logo:'logos/auvp-capital.svg',img:'https://cdn.asupernova.com.br/lp-auvp/vite/onde%20sua%20vida%20financeira%20se%20resolve%20mobile.webp',n:'3',t:'Garante seu banco, sem enrolação',d:'Abertura de conta, cartão e atendimento próprios AUVP.',
    tit:'Banco e Plataforma AUVP',sub:'Garante seu banco, sem enrolação',
    itens:['Abertura de conta corrente, cartões e atendimento 100% exclusivos da AUVP',
           'Plataforma de Investimentos com Carteiras Recomendadas',
           'Previdência Privada exclusiva']},
-  {id:'eco4',img:'https://www.moneytimes.com.br/uploads/2025/04/notas-de-50-reais.png',n:'4',t:'Seus projetos saem do papel',d:'Contrate crédito de forma estratégica',
+  {id:'eco4',logo:'logos/auvp-capital.svg',img:'https://www.empiricus.com.br/uploads/2023/09/mercado-de-credito.jpg',n:'4',t:'Seus projetos saem do papel',d:'Contrate crédito de forma estratégica',
    tit:'AUVP Crédito',sub:'Seus projetos saem do papel',
    itens:['Comparação em tempo real com mais de 20 bancos para garantir a melhor taxa',
           'Alcance seus objetivos sem precisar liquidar seus investimentos ou comprometer seu patrimônio']},
@@ -667,12 +671,12 @@ const ECO=[
    itens:['Segurança para a família com planejamento feito sob medida',
           'Sem viés de interesse, cotamos em até 6 seguradoras para encontrar a melhor proteção',
           'Evite que imprevistos comprometam seu patrimônio']},
-  {id:'eco6',img:'https://images.pexels.com/photos/29769669/pexels-photo-29769669.jpeg?auto=compress&cs=tinysrgb&w=1200',n:'6',t:'Seu dinheiro sem fronteiras',d:'Câmbio transparente para enviar, receber ou investir fora do Brasil.',
+  {id:'eco6',logo:'logos/auvp-cambio.svg',img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmq7PZgnQ8A9TvJSGrPRL29UhDt7mIJhBQnVV04UWbjP0msdqQa7CpCT51&s=10',n:'6',t:'Seu dinheiro sem fronteiras',d:'Câmbio transparente para enviar, receber ou investir fora do Brasil.',
    tit:'AUVP Câmbio',sub:'Seu dinheiro sem fronteiras',
    itens:['Câmbio transparente para enviar, receber ou investir no exterior',
           'Acompanhamento ponta a ponta com especialistas da AUVP',
           'Direcionamento personalizado para a modalidade com os menores custos e prazos ideais para evitar taxas desnecessárias']},
-  {id:'eco7',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Gold_bullion_ap_001.JPG/1280px-Gold_bullion_ap_001.JPG',img2:'https://upload.wikimedia.org/wikipedia/commons/5/5e/Gold_bullion_ap_001.JPG',n:'7',t:'Seu legado, bem planejado',d:'Sucessão, holding patrimonial e estruturação offshore.',
+  {id:'eco7',logo:'logos/auvp-wealth.svg',img:'https://oespecialista.safra.com.br/wp-content/uploads/2026/05/wealth-management-nos-investimentos.jpg',n:'7',t:'Seu legado, bem planejado',d:'Sucessão, holding patrimonial e estruturação offshore.',
    tit:'AUVP Wealth',sub:'Seu legado, bem planejado',
    itens:['Blindagem patrimonial e otimização tributária inteligente',
           'Governança, criação de fundos exclusivos e operações de M&A',
@@ -1033,6 +1037,7 @@ const RX=33,RY=35;
     var x=(50+RX*Math.cos(a)).toFixed(2),y=(50+RY*Math.sin(a)).toFixed(2);
     svg+='<line x1="50" y1="50" x2="'+x+'" y2="'+y+'" vector-effect="non-scaling-stroke"/>';
     cards+='<button type="button" class="eco-card" data-eco="'+i+'" aria-expanded="false" aria-label="'+esc(e.tit)+'" style="--x:'+x+'%;--y:'+y+'%;--j:'+i+'">'
+      +(e.logo?'<img class="eco-logo" src="'+esc(e.logo)+'" alt="" aria-hidden="true">':'')
       +'<span class="eco-capa">'
       +'<img src="'+esc(e.img)+'"'+(e.img2?' data-reserva="'+esc(e.img2)+'"':'')+' alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">'
       +'</span>'
