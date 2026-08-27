@@ -603,8 +603,8 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
   <b>Como navegar</b>
   <ul>
     <li><span><kbd>&larr;</kbd><kbd>&rarr;</kbd></span>Seção anterior e próxima, na ordem da apresentação</li>
-    <li><span><kbd>H</kbd></span>Volta para a Home &middot; <kbd>Esc</kbd> também</li>
-    <li><span><kbd>1</kbd></span>Cada seção tem a tecla que aparece ao lado do nome no menu</li>
+    <li><span><kbd>0</kbd></span>Volta para a Home &middot; <kbd>Esc</kbd> também</li>
+    <li><span><kbd>1</kbd></span>Cada seção tem o número que aparece ao lado do nome no menu</li>
     <li><span><kbd>[</kbd></span>Recolhe e expande o menu lateral</li>
     <li><span class="ic"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.2"/><path d="M15.2 15.2 20 20"/></svg></span>Tags com lupa abrem uma imagem ali mesmo</li>
     <li><span class="ic"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg></span>Tags com seta levam a outra seção; cards abrem o link em nova aba</li>
@@ -627,25 +627,25 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
    ============================================================ */
 const NAV=[
   ['Início',[
-    ['home','Home','H']
+    ['home','Home','0']
   ]],
   ['Contexto',[
     ['t1','Quem somos nós?','1'],
-    ['t10','O Ecossistema AUVP','E']
+    ['t10','O Ecossistema AUVP','2']
   ]],
   ['O Produto',[
-    ['t3','A Escola','2'],
-    ['t4','Dinâmica das aulas','3'],
-    ['t5','Módulos do treinamento','4'],
-    ['tmat','Materiais de apoio','5'],
-    ['t6','Ferramentas','6'],
-    ['t7','Lives, comunidade e app','7']
+    ['t3','A Escola','3'],
+    ['t4','Dinâmica das aulas','4'],
+    ['t5','Módulos do treinamento','5'],
+    ['tmat','Materiais de apoio','6'],
+    ['t6','Ferramentas','7'],
+    ['t7','Lives, comunidade e app','8']
   ]],
   ['Expansão',[
-    ['t11','AUVP Internacional','I']
+    ['t11','AUVP Internacional','9']
   ]],
   ['Fechamento',[
-    ['t17','Boas-vindas','B']
+    ['t17','Boas-vindas','10']
   ]]
 ];
 
@@ -696,6 +696,7 @@ var medidas={};
 const esc=function(x){return String(x).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
 
 const ORDEM=[],ROTULOS={},TECLAS={};
+let digitado='',tDigito=0;   /* atalhos de dois dígitos */
 NAV.forEach(function(g){g[1].forEach(function(it){ORDEM.push(it[0]);ROTULOS[it[0]]=it[1];if(it[2])TECLAS[it[2].toLowerCase()]=it[0]})});
 
 /* ---------- menu lateral ---------- */
@@ -939,6 +940,16 @@ document.addEventListener('keydown',function(e){
   if(k==='['||k===']'){recolher(!document.body.classList.contains('recolhido'));return}
   if(k==='arrowright'){passo(1);return}
   if(k==='arrowleft'){passo(-1);return}
+  /* o sumário vai de 0 a 10: um dígito leva na hora, e um segundo logo
+     em seguida corrige para a tela de dois dígitos */
+  if(/^[0-9]$/.test(k)){
+    digitado=(e.timeStamp-tDigito<700?digitado:'')+k; tDigito=e.timeStamp;
+    var dois=TECLAS[digitado];
+    if(!dois)digitado=k;                 /* combinação que não existe: recomeça */
+    var vai=dois||TECLAS[k];
+    if(vai){e.preventDefault();ir(vai)}
+    return;
+  }
   if(TECLAS[k]){e.preventDefault();ir(TECLAS[k])}
 });
 
