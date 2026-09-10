@@ -263,8 +263,8 @@ h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,56px);lin
 .foto.capa .rot small{color:rgba(255,255,255,.78)}
 a.foto{text-decoration:none;color:inherit;cursor:pointer}
 a.foto.capa .rot{padding-right:104px}
-a.foto .acesso{display:inline-flex;align-items:center;gap:5px;z-index:3;top:auto;right:16px;bottom:16px;transition:.2s}
-a.foto:hover .acesso{background:#fff;transform:translateY(-2px)}
+a.foto .acesso,a.calc .acesso{display:inline-flex;align-items:center;gap:5px;z-index:3;top:auto;right:16px;bottom:16px;transition:.2s}
+a.foto:hover .acesso,a.calc:hover .acesso{background:#fff;transform:translateY(-2px)}
 .foto .ph{position:absolute;top:16px;left:18px;z-index:1;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta3)}
 .foto .rot{padding:18px;background:linear-gradient(0deg,var(--rot-veu),transparent)}
 .foto .rot b{font-family:var(--display);font-weight:600;font-size:18px;display:block;letter-spacing:-.01em;color:var(--tinta)}
@@ -274,13 +274,11 @@ a.foto:hover .acesso{background:#fff;transform:translateY(-2px)}
 a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 /* calculadoras: cards sem foto - o icone e a copy carregam o card */
 #calculadoras{flex:none}
-.calc{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:11px;min-height:196px;padding:22px 20px 24px;border:1px solid var(--vidro-borda);border-radius:16px;background:var(--sup);text-decoration:none;color:inherit;transition:transform .3s var(--mola),box-shadow .3s,border-color .3s}
+.calc{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:11px;min-height:196px;padding:22px 20px 46px;border:1px solid var(--vidro-borda);border-radius:16px;background:var(--sup);text-decoration:none;color:inherit;transition:transform .3s var(--mola),box-shadow .3s,border-color .3s}
 .calc:hover{transform:translateY(-4px);border-color:rgba(239,191,78,.5);box-shadow:0 22px 44px -14px rgba(239,191,78,.3)}
 .calc-ic{width:42px;height:42px;flex:none;border-radius:12px;display:grid;place-items:center;background:var(--gold-bg);border:1px solid rgba(239,191,78,.28);color:var(--gold-deep)}
 .calc b{font-family:var(--display);font-weight:600;font-size:17px;line-height:1.2;letter-spacing:-.01em;color:var(--tinta)}
 .calc small{font-size:12.5px;line-height:1.5;color:var(--tinta2)}
-.calc .acesso{margin-top:auto;padding-top:10px;display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;letter-spacing:.02em;color:var(--gold-deep);opacity:0;transform:translateY(4px);transition:opacity .28s,transform .28s}
-.calc:hover .acesso{opacity:1;transform:none}
 .calc-todas{align-self:center;margin-top:20px;display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border:1px solid rgba(239,191,78,.4);border-radius:999px;background:var(--gold-bg);font-size:13px;font-weight:600;color:var(--gold-deep);text-decoration:none;transition:border-color .25s,background .25s}
 .calc-todas:hover{border-color:var(--gold);background:rgba(239,191,78,.18)}
 .acesso{position:absolute;top:16px;right:16px;font-family:var(--cta);font-weight:700;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#09090b;background:var(--gold);padding:4px 9px;border-radius:4px}
@@ -300,15 +298,13 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 @keyframes cartaoEntra{from{opacity:0;scale:.92}to{opacity:1;scale:1}}
 .eco-card.medindo,.eco-card.medindo *{transition:none!important}
 .eco-card:hover{border-color:rgba(239,191,78,.6);box-shadow:0 20px 38px -20px rgba(184,134,11,.6);scale:1.05}
-/* card em destaque (a Escola): um pouco maior que os demais, com traçado
-   dourado fixo. No hover o zoom se mantém e o brilho surge atrás dele.
-   Vem depois de :hover de propósito - assim o scale do destaque prevalece
-   e passar o cursor não encolhe o card. */
-.eco-card.destaque{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-bg),0 16px 32px -22px rgba(24,24,27,.55);scale:1.08}
-.eco-card.destaque:not(.aberto){--w:206px}
-.eco-card.destaque:hover{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold),0 0 38px 8px rgba(239,191,78,.42),0 26px 50px -20px rgba(184,134,11,.55)}
-/* aberto o card cresce sozinho: o zoom extra o tiraria do lugar */
-.eco-card.destaque.aberto{scale:1}
+/* card em destaque (a Escola): maior que os demais no anel, com traçado
+   dourado fixo. O traçado é outline, e não box-shadow, justamente para
+   não disputar a propriedade com o hover - assim o card cresce e brilha
+   no cursor exatamente como todos os outros. */
+.eco-card.destaque{border-color:var(--gold);outline:2px solid var(--gold);outline-offset:2px}
+.eco-card.destaque:not(.aberto){--w:236px}
+.eco-card.destaque:not(.aberto) .eco-corpo{min-height:152px}
 /* logo do produto: some no card fechado, entra quando ele vira painel */
 .eco-logo{position:absolute;z-index:2;top:24px;right:28px;width:clamp(104px,11vw,158px);opacity:0;transform:translateY(-8px);pointer-events:none;filter:drop-shadow(0 2px 10px rgba(0,0,0,.55));transition:opacity .26s,transform .34s var(--mola)}
 .eco-card.aberto .eco-logo{opacity:1;transform:none;transition-delay:.1s}
@@ -482,7 +478,8 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
     linear-gradient(0deg,rgba(9,9,11,.8) 0%,rgba(9,9,11,.8) 24%,rgba(9,9,11,.8) 46%,rgba(9,9,11,.8) 64%)}
   .eco-card li{white-space:normal;font-size:12.5px}
   .eco-card:hover{scale:1;transform:translateY(-3px)}
-  .eco-card.destaque{scale:1}
+  .eco-card.destaque:not(.aberto){--w:auto}
+  .eco-card.destaque:not(.aberto) .eco-corpo{min-height:186px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -589,8 +586,7 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 
 
     <section class="tela" id="tcalc"><div class="galeria in">
-      <div class="cab"><h1>Calculadoras para decidir com número na mão</h1>
-        <p class="crono-sub">* Disponíveis no Investidor Sardinha, o portal de conteúdo do Raul Sena.</p></div>
+      <div class="cab"><h1>Calculadoras do Investidor Sardinha</h1></div>
       <div class="grade g-4" id="calculadoras"></div>
       <a class="calc-todas" href="https://investidorsardinha.r7.com/calculadoras/" target="_blank" rel="noopener noreferrer">Ver todas as calculadoras<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></a>
     </div></section>
@@ -1018,7 +1014,7 @@ document.getElementById('calculadoras').innerHTML=CALC.map(function(c){
   return '<a class="calc" href="'+esc(c.url)+'" target="_blank" rel="noopener noreferrer">'
     +'<span class="calc-ic"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+c.ic+'</svg></span>'
     +'<b>'+esc(c.t)+'</b><small>'+esc(c.d)+'</small>'
-    +'<span class="acesso">Abrir<svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></span></a>';
+    +'<span class="acesso">Acessar<svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></span></a>';
 }).join('');
 
 (function(){
