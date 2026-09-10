@@ -357,8 +357,10 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 .eco-tops{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .34s var(--mola),opacity .24s;margin-top:0}
 .eco-tops-in{overflow:hidden;min-height:0}
 .eco-card ul{list-style:none;margin:0;padding:11px 0 1px;display:grid;gap:9px}
-/* uma linha por tópico: o card se alarga até caber a maior frase */
-.eco-card li{position:relative;padding-left:17px;white-space:nowrap;font-size:clamp(10px,.75vw,12.5px);line-height:1.45;color:rgba(255,255,255,.92)}
+/* uma linha por tópico: o card se alarga até caber a maior frase, porque
+   --w:max-content mede o texto sem quebra. Sem nowrap aqui: quando o
+   max-width trava o card, a frase quebra em vez de ser cortada pelo clip. */
+.eco-card li{position:relative;padding-left:17px;font-size:clamp(10px,.75vw,12.5px);line-height:1.45;color:rgba(255,255,255,.92)}
 .eco-card li::before{content:"";position:absolute;left:2px;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--gold)}
 
 .eco-card.aberto .eco-sub{font-size:clamp(20px,2vw,30px);margin-bottom:4px}
@@ -493,7 +495,7 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
   .eco-card.aberto .eco-capa::after{background:
     linear-gradient(180deg,rgba(9,9,11,.5) 0%,rgba(9,9,11,.5) 26%,rgba(9,9,11,.5) 46%),
     linear-gradient(0deg,rgba(9,9,11,.8) 0%,rgba(9,9,11,.8) 24%,rgba(9,9,11,.8) 46%,rgba(9,9,11,.8) 64%)}
-  .eco-card li{white-space:normal;font-size:12.5px}
+  .eco-card li{font-size:12.5px}
   .eco-card:hover{scale:1;transform:translateY(-3px)}
   .eco-card.destaque:not(.aberto){--w:auto}
   .eco-card.destaque:not(.aberto) .eco-corpo{min-height:186px}
@@ -603,7 +605,7 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
 
 
     <section class="tela" id="tcalc"><div class="galeria in">
-      <div class="cab"><h1>Calculadoras do Investidor Sardinha</h1></div>
+      <div class="cab"><h1>Onde o seu dinheiro pode chegar</h1></div>
       <div class="grade g-4" id="calculadoras"></div>
       <div class="calc-grupos" id="calc-grupos"></div>
       <a class="calc-todas" href="https://investidorsardinha.r7.com/calculadoras/" target="_blank" rel="noopener noreferrer">Ver todas as calculadoras<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></a>
@@ -692,7 +694,7 @@ const ECO=[
    tit:'Educação com foco na Escola',sub:'Você aprende',
    itens:['Mais de 100 aulas com garantia de aprendizado',
           'Formação completa do zero à autonomia',
-          '+ Trilhas de conhecimento especializadas: AUVP Pro e AUVP Internacional']},
+          '+ Extensões de aprendizagem e trilhas de conhecimento: AUVP Pro, AUVP Internacional, AUVP Sempre']},
   {id:'eco2',logo:'logos/auvp-consultoria.svg',img:'https://www.maisnovela.com.br/wp-content/uploads/2026/03/AUVP.png',n:'2',t:'Seu patrimônio rende',d:'Com a consultoria nº1 no ranking BTG.',
    tit:'AUVP Consultoria',sub:'Seu dinheiro rende',
    itens:['Gestão e acompanhamento profissional do seu patrimônio',
