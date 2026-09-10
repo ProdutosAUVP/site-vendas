@@ -272,29 +272,22 @@ a.foto:hover .acesso,a.calc:hover .acesso{background:#fff;transform:translateY(-
 .foto.play::after{content:"\25B6";position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);font-size:26px;color:var(--gold);opacity:.9;z-index:2}
 .foto.capa.play::after{display:grid;place-items:center;width:64px;height:64px;transform:translate(-50%,-58%);border-radius:50%;font-size:22px;line-height:1;text-indent:4px;color:#09090b;background:var(--gold);box-shadow:0 12px 30px -8px rgba(0,0,0,.6);transition:transform .3s var(--mola)}
 a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
-/* calculadoras: cards sem foto - o icone e a copy carregam o card */
+/* calculadoras: cards de cor cheia, no dourado da marca. Como a pílula
+   .acesso e a .foto.capa, valem em tema claro e escuro sem variação: a
+   cor é a da identidade, não a do fundo da página. O dourado é claro,
+   então a tinta aqui é escura - o mesmo par que a pílula já usa. */
 #calculadoras{flex:none}
-.calc{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:11px;min-height:196px;padding:22px 20px 46px;border:1px solid var(--vidro-borda);border-radius:16px;background:var(--sup);text-decoration:none;color:inherit;transition:transform .3s var(--mola),box-shadow .3s,border-color .3s}
-.calc:hover{transform:translateY(-4px);border-color:rgba(239,191,78,.5);box-shadow:0 22px 44px -14px rgba(239,191,78,.3)}
-.calc-ic{width:42px;height:42px;flex:none;border-radius:12px;display:grid;place-items:center;background:var(--gold-bg);border:1px solid rgba(239,191,78,.28);color:var(--gold-deep)}
-.calc b{font-family:var(--display);font-weight:600;font-size:17px;line-height:1.2;letter-spacing:-.01em;color:var(--tinta)}
-.calc small{font-size:12.5px;line-height:1.5;color:var(--tinta2)}
-/* as demais calculadoras, em grupos que abrem e fecham - mesmo gesto dos
-   módulos do cronograma: a classe .aberto no bloco, a seta girando */
-.calc-grupos{display:grid;gap:11px;margin-top:24px}
-.cgrupo{border:1px solid var(--vidro-borda);border-radius:14px;background:var(--sup);overflow:hidden;overflow:clip;transition:border-color .24s,box-shadow .24s}
-.cgrupo.aberto{border-color:rgba(239,191,78,.45);box-shadow:0 14px 34px -14px rgba(239,191,78,.3)}
-.cgrupo-head{display:flex;align-items:center;gap:11px;width:100%;text-align:left;padding:14px 18px;cursor:pointer;background:none;color:inherit;font:inherit}
-.cgrupo-head:hover{background:var(--hover)}
-.cgrupo-tit{font-family:var(--display);font-weight:600;font-size:17px;letter-spacing:-.01em;color:var(--tinta)}
-.cgrupo-n{flex:none;padding:2px 9px;border-radius:999px;background:var(--gold-bg);border:1px solid rgba(239,191,78,.3);font-size:11px;font-weight:700;color:var(--gold-deep)}
-.cgrupo-head .chev{margin-left:auto}
-.cgrupo.aberto .chev{transform:rotate(180deg)}
-.cgrupo-lista{display:none;grid-template-columns:repeat(3,1fr);gap:10px;padding:4px 18px 16px;border-top:1px solid var(--linha2)}
-.cgrupo.aberto .cgrupo-lista{display:grid;animation:entra .28s ease both}
-.cmini{padding:11px 13px;border:1px solid var(--vidro-borda);border-radius:10px;background:var(--cartao)}
-.cmini b{display:block;font-family:var(--display);font-weight:600;font-size:13.5px;line-height:1.25;letter-spacing:-.01em;color:var(--tinta)}
-.cmini small{display:block;margin-top:4px;font-size:11.5px;line-height:1.45;color:var(--tinta2)}
+.calc{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-height:286px;padding:26px 24px 52px;border:0;border-radius:18px;overflow:hidden;overflow:clip;text-decoration:none;color:#09090b;background:linear-gradient(152deg,var(--gold) 0%,var(--gold-esc) 62%,#C99B2E 100%);box-shadow:0 18px 38px -22px rgba(120,86,10,.55);transition:transform .3s var(--mola),box-shadow .3s}
+/* o arco claro do canto superior direito, como no material de origem */
+.calc::before{content:"";position:absolute;z-index:0;top:-42%;right:-30%;width:88%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.16);pointer-events:none}
+.calc>*{position:relative;z-index:1}
+.calc:hover{transform:translateY(-4px);box-shadow:0 26px 50px -20px rgba(120,86,10,.7)}
+.calc-ic{width:46px;height:46px;flex:none;border-radius:13px;display:grid;place-items:center;background:rgba(9,9,11,.13);color:#09090b}
+.calc b{font-family:var(--display);font-weight:700;font-size:19px;line-height:1.2;letter-spacing:-.015em;color:#09090b}
+.calc small{font-size:13px;line-height:1.5;color:rgba(9,9,11,.74)}
+/* a pílula dourada sumiria no card dourado: aqui ela inverte */
+.calc .acesso{background:#09090b;color:var(--gold)}
+a.calc:hover .acesso{background:#fff;color:#09090b}
 .calc-todas{align-self:center;margin-top:20px;display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border:1px solid rgba(239,191,78,.4);border-radius:999px;background:var(--gold-bg);font-size:13px;font-weight:600;color:var(--gold-deep);text-decoration:none;transition:border-color .25s,background .25s}
 .calc-todas:hover{border-color:var(--gold);background:rgba(239,191,78,.18)}
 .acesso{position:absolute;top:16px;right:16px;font-family:var(--cta);font-weight:700;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#09090b;background:var(--gold);padding:4px 9px;border-radius:4px}
@@ -473,7 +466,6 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
   .galeria,.home-wrap,.eco-wrap{padding:30px 22px 50px}
   .home-wrap{justify-content:flex-start;min-height:auto}
   .grade,.g-2,.g-3,.g-4{grid-template-columns:1fr}
-  .cgrupo-lista{grid-template-columns:1fr}
   .home-grade{grid-template-columns:1fr;row-gap:26px}
   .mcard-head{flex-direction:column;gap:14px}.medalhao{width:100%;min-height:88px}
   .medalhao.capa{width:100%;min-height:0}
@@ -607,7 +599,6 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
     <section class="tela" id="tcalc"><div class="galeria in">
       <div class="cab"><h1>Onde o seu dinheiro pode chegar</h1></div>
       <div class="grade g-4" id="calculadoras"></div>
-      <div class="calc-grupos" id="calc-grupos"></div>
       <a class="calc-todas" href="https://investidorsardinha.r7.com/calculadoras/" target="_blank" rel="noopener noreferrer">Ver todas as calculadoras<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></a>
     </div></section>
 
@@ -1100,62 +1091,6 @@ document.getElementById('ferramentas').innerHTML=FERR.map(function(f){
     +(f.url?'<span class="acesso">Acessar<svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></span>':'')
     +'<div class="rot"><b>'+esc(f.t)+'</b><small>'+esc(f.d)+'</small></div></'+tag+'>';
 }).join('');
-/* ---------- as demais calculadoras, por grupo ----------
-   Os nomes e as descrições são os do site. As quatro em destaque acima
-   (Juros Compostos, Comparador de Cartões, Calculadora de Renda e
-   Primeiro Milhão) não se repetem aqui. Os itens são listagem, não link:
-   o acesso é pelo botão do fim da seção. */
-const CALC_GRUPOS=[
-  {t:"Calculadoras financeiras",itens:[
-    {t:"Aposentadoria",d:"Planeje sua aposentadoria e descubra quanto precisa poupar mensalmente para se aposentar"},
-    {t:"Aluguel x Financiamento",d:"Compare se é melhor alugar ou financiar um imóvel no seu caso específico"},
-    {t:"Poupança x Selic",d:"Compare o rendimento da poupança com investimentos atrelados à taxa Selic"},
-    {t:"Juros Simples",d:"Calcule rendimentos com juros simples para investimentos de curto prazo"},
-    {t:"Calculadora de Renda Fixa",d:"Compare diferentes investimentos de renda fixa e escolha a melhor opção"},
-    {t:"Simulador de Rentabilidade",d:"Simule a rentabilidade dos seus investimentos ao longo do tempo"},
-    {t:"Comparador de Ações",d:"Compare diferentes ações a partir de indicadores fundamentalistas"},
-    {t:"Calculadora de Reserva de Emergência",d:"Saiba quanto você precisa guardar para ter uma reserva de emergência ideal"},
-    {t:"Comparador de compra à vista ou parcelado",d:"Descubra se é mais vantajoso realizar uma compra à vista ou a prazo"},
-    {t:"Calculadora de juros no Pix Parcelado",d:"Calculadora que mostra a taxa e a tabela do parcelamento no Pix Parcelado."},
-    {t:"Calculadora de CDB",d:"Calcula o rendimento de um CDB considerando valor investido, prazo e percentual do CDI."},
-    {t:"Calculadora de Marcação a Mercado",d:"A marcação a mercado permite que você lucre com a venda antecipada de um título de renda fixa."},
-    {t:"Calculadora de Amortização",d:"Calcule a evolução das parcelas e do saldo devedor de financiamentos pelo sistema de amortização escolhido."}]},
-  {t:"Calculadoras trabalhistas",itens:[
-    {t:"Calculadora PJ",d:"Calcule sua renda, como pessoa jurídica, em diferentes regimes tributários"},
-    {t:"Salário Líquido",d:"Descubra quanto você realmente recebe após todos os descontos e benefícios"},
-    {t:"CLT vs PJ",d:"Compare quanto você ganha líquido trabalhando como CLT ou PJ e escolha o melhor regime"},
-    {t:"Décimo Terceiro",d:"Calcule o valor do seu décimo terceiro salário com precisão"},
-    {t:"Custo de Funcionário CLT",d:"Calcule o custo total de um funcionário CLT para sua empresa em diferentes cenários"},
-    {t:"Calculadora de Férias",d:"Descubra quanto você vai receber no período de férias"},
-    {t:"Férias Proporcional",d:"Calcule férias proporcionais ao tempo trabalhado na empresa"},
-    {t:"Calculadora de INSS",d:"Calcule o desconto de INSS sobre seu salário de acordo com a tabela vigente"},
-    {t:"Calculadora de FGTS",d:"Calcule o saldo do FGTS e rendimentos ao longo do tempo"},
-    {t:"Horas Extras",d:"Calcule o valor das suas horas extras trabalhadas"},
-    {t:"Seguro Desemprego",d:"Calcule o valor e parcelas do seguro desemprego"},
-    {t:"Salário na Realidade Brasileira",d:"Compare seu salário com a realidade da população brasileira"},
-    {t:"Calculadora de Isenção do Imposto de Renda 2026",d:"Saiba qual o impacto da nova tabela do imposto de renda no seu bolso"},
-    {t:"Calculadora de Rescisão Trabalhista",d:"Descubra quanto você vai receber na sua rescisão e o impacto dos descontos."}]},
-  {t:"Calculadoras utilitárias",itens:[
-    {t:"Contador de Dias",d:"Calcule a diferença em dias entre duas datas específicas para planejamento"},
-    {t:"Contador de Dias Úteis",d:"Calcule a diferença em dias entre duas datas específicas para planejamento"},
-    {t:"Veículo Combustível vs Elétrico",d:"Compare custos entre veículos a combustível e elétricos com base no consumo e quilometragem anual"},
-    {t:"Calculadora de Custos Fixos",d:"Calcule o total dos seus gastos fixos e descubra como está sua saúde financeira"}]}
-];
-document.getElementById('calc-grupos').innerHTML=CALC_GRUPOS.map(function(g){
-  return '<div class="cgrupo"><button type="button" class="cgrupo-head" aria-expanded="false">'
-    +'<span class="cgrupo-tit">'+esc(g.t)+'</span>'
-    +'<span class="cgrupo-n">'+g.itens.length+'</span>'
-    +'<span class="chev" aria-hidden="true">&#9662;</span></button>'
-    +'<div class="cgrupo-lista">'+g.itens.map(function(c){
-      return '<div class="cmini"><b>'+esc(c.t)+'</b><small>'+esc(c.d)+'</small></div>';
-    }).join('')+'</div></div>';
-}).join('');
-document.getElementById('calc-grupos').addEventListener('click',function(e){
-  var h=e.target.closest('.cgrupo-head'); if(!h) return;
-  var ab=h.parentElement.classList.toggle('aberto');
-  h.setAttribute('aria-expanded',String(ab));
-});
-
 /* ---------- ecossistema: anel de produtos em torno da marca ---------- */
 const RX=33,RY=35;
 (function(){
