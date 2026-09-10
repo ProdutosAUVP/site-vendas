@@ -272,19 +272,21 @@ a.foto:hover .acesso,a.calc:hover .acesso{background:#fff;transform:translateY(-
 .foto.play::after{content:"\25B6";position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);font-size:26px;color:var(--gold);opacity:.9;z-index:2}
 .foto.capa.play::after{display:grid;place-items:center;width:64px;height:64px;transform:translate(-50%,-58%);border-radius:50%;font-size:22px;line-height:1;text-indent:4px;color:#09090b;background:var(--gold);box-shadow:0 12px 30px -8px rgba(0,0,0,.6);transition:transform .3s var(--mola)}
 a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
-/* calculadoras: cards de cor cheia, no dourado da marca. Como a pílula
+/* calculadoras: cards de cor cheia, num dourado fosco. Como a pílula
    .acesso e a .foto.capa, valem em tema claro e escuro sem variação: a
    cor é a da identidade, não a do fundo da página. O dourado é claro,
-   então a tinta aqui é escura - o mesmo par que a pílula já usa. */
+   então a tinta aqui é escura - o mesmo par que a pílula já usa.
+   O tom é uma variação local do --gold, com menos saturação e menos
+   luz: o token da marca segue como está para o resto da apresentação. */
 #calculadoras{flex:none}
-.calc{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-height:286px;padding:26px 24px 52px;border:0;border-radius:18px;overflow:hidden;overflow:clip;text-decoration:none;color:#09090b;background:linear-gradient(152deg,var(--gold) 0%,var(--gold-esc) 62%,#C99B2E 100%);box-shadow:0 18px 38px -22px rgba(120,86,10,.55);transition:transform .3s var(--mola),box-shadow .3s}
+.calc{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-height:286px;padding:26px 24px 52px;border:0;border-radius:18px;overflow:hidden;overflow:clip;text-decoration:none;color:#09090b;background:linear-gradient(152deg,#D3AC50 0%,#BB963E 62%,#AA893C 100%);box-shadow:0 18px 38px -22px rgba(120,86,10,.55);transition:transform .3s var(--mola),box-shadow .3s}
 /* o arco claro do canto superior direito, como no material de origem */
-.calc::before{content:"";position:absolute;z-index:0;top:-42%;right:-30%;width:88%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.16);pointer-events:none}
+.calc::before{content:"";position:absolute;z-index:0;top:-42%;right:-30%;width:88%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.1);pointer-events:none}
 .calc>*{position:relative;z-index:1}
 .calc:hover{transform:translateY(-4px);box-shadow:0 26px 50px -20px rgba(120,86,10,.7)}
 .calc-ic{width:46px;height:46px;flex:none;border-radius:13px;display:grid;place-items:center;background:rgba(9,9,11,.13);color:#09090b}
 .calc b{font-family:var(--display);font-weight:700;font-size:19px;line-height:1.2;letter-spacing:-.015em;color:#09090b}
-.calc small{font-size:13px;line-height:1.5;color:rgba(9,9,11,.74)}
+.calc small{font-size:13px;line-height:1.5;color:rgba(9,9,11,.82)}
 /* a pílula dourada sumiria no card dourado: aqui ela inverte */
 .calc .acesso{background:#09090b;color:var(--gold)}
 a.calc:hover .acesso{background:#fff;color:#09090b}
