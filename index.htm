@@ -8,13 +8,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anek+Latin:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Sora:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
+/* Satoshi: a fonte de corpo da LP da Escola, servida do próprio repositório */
+@font-face{font-family:'Satoshi';src:url('fonts/Satoshi-Variable.woff2') format('woff2');font-weight:300 900;font-style:normal;font-display:swap}
+
 /* ============================================================
    1. TOKENS
    ============================================================ */
 :root{
   --gold:#EFBF4E;--gold-esc:#D4A73D;--gold-deep:#B8860B;--verde-cap:#023619;
   --tinta:#18181B;--tinta2:#52525B;--tinta3:#71717A;
-  --vidro-borda:rgba(0,0,0,.12);--gold-bg:rgba(239,191,78,.1);
+  --vidro-borda:rgba(0,0,0,.12);--chapa:#fff;--gold-bg:rgba(239,191,78,.1);
   /* superfícies e linhas: trocadas em bloco no modo escuro */
   --sup:rgba(255,255,255,.66);--sup-forte:rgba(255,255,255,.86);--trilho-bg:rgba(255,255,255,.55);
   --hover:rgba(0,0,0,.04);--linha2:rgba(0,0,0,.07);--linha-f:rgba(0,0,0,.16);
@@ -25,7 +28,7 @@
   --aviso-bg:#FEF2F2;--aviso-borda:#FBD5D5;--aviso-forte:#DC2626;--aviso-tinta:#7F1D1D;
   --fundo:radial-gradient(ellipse at top,#f4f4f5 0%,#e4e4e7 100%);
   --grad-escuro:#17171a;
-  --display:'Anek Latin',system-ui,sans-serif;--corpo:'Roboto',system-ui,-apple-system,sans-serif;
+  --display:'Anek Latin',system-ui,sans-serif;--corpo:'Satoshi','Roboto',system-ui,-apple-system,sans-serif;
   --cta:'Sora',var(--corpo);--mono:'JetBrains Mono',ui-monospace,monospace;
   --trilho:270px;--mola:cubic-bezier(.2,.7,.3,1);
 }
@@ -35,7 +38,7 @@ body.recolhido{--trilho:74px}
 body.escuro{
   --tinta:#F4F4F5;--tinta2:#A1A1AA;--tinta3:#8B8B93;
   --gold-deep:#E5AE38;
-  --vidro-borda:rgba(255,255,255,.12);--gold-bg:rgba(239,191,78,.13);
+  --vidro-borda:rgba(255,255,255,.12);--chapa:#1b1c1f;--gold-bg:rgba(239,191,78,.13);
   --sup:rgba(255,255,255,.06);--sup-forte:rgba(255,255,255,.11);--trilho-bg:rgba(24,24,27,.72);
   --hover:rgba(255,255,255,.07);--linha2:rgba(255,255,255,.09);--linha-f:rgba(255,255,255,.22);
   --rot-veu:rgba(12,12,14,.94);--malha:rgba(255,255,255,.05);--trilha-bg:rgba(255,255,255,.11);
@@ -127,7 +130,7 @@ body:not(.escuro) .ajuda{background:rgba(255,255,255,.95)}
 .visor-cena{position:fixed;inset:0;z-index:90;opacity:0;pointer-events:none;transition:opacity .24s}
 .visor-cena.ver{opacity:1}
 .visor-cena .visor{pointer-events:auto}
-.visor{position:absolute;margin:0;left:0;top:0;width:min(46vw,620px);border-radius:16px;overflow:clip;background:#09090b;border:1px solid rgba(239,191,78,.34);box-shadow:0 34px 76px -26px rgba(0,0,0,.78);cursor:default;opacity:0;transform:scale(.78) translateY(6px);transform-origin:var(--ox,50%) var(--oy,100%);transition:transform .42s var(--mola),opacity .24s}
+.visor{position:absolute;margin:0;left:0;top:0;width:min(46vw,620px);border-radius:0;overflow:clip;background:#09090b;border:1px solid rgba(239,191,78,.34);box-shadow:0 34px 76px -26px rgba(0,0,0,.78);cursor:default;opacity:0;transform:scale(.78) translateY(6px);transform-origin:var(--ox,50%) var(--oy,100%);transition:transform .42s var(--mola),opacity .24s}
 .visor-cena.ver .visor{opacity:1;transform:none}
 .visor img{display:block;width:100%;height:auto;background:#0c0c0e}
 .visor-x{position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:18px;line-height:1;color:#fff;background:rgba(9,9,11,.55);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:.18s}
@@ -157,14 +160,14 @@ body:not(.escuro) .ajuda{background:rgba(255,255,255,.95)}
 /* ============================================================
    5. HOME
    ============================================================ */
-.eyebrow{display:inline-flex;align-items:center;font-family:var(--display);font-weight:600;font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--gold-esc);background:var(--gold-bg);border:1px solid rgba(239,191,78,.2);border-radius:999px;padding:5px 13px;margin:0 0 14px}
+.eyebrow{display:inline-flex;align-items:center;font-family:var(--display);font-weight:600;font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--gold-esc);background:var(--gold-bg);border:1px solid rgba(239,191,78,.2);border-radius:0;padding:5px 13px;margin:0 0 14px}
 h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,56px);line-height:1.05;letter-spacing:-.025em;margin:0;max-width:20ch;color:var(--tinta)}
 .dourado{color:var(--gold-esc)}
 
 .coluna{display:flex;flex-direction:column;gap:8px;min-width:0}
 .coluna h4{font-family:var(--cta);font-weight:600;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep);margin:0 0 2px;padding-bottom:7px;border-bottom:1px solid var(--linha2);display:flex;justify-content:space-between;align-items:center}
 .coluna h4 i{font-family:var(--mono);font-style:normal;font-size:9px;color:var(--tinta3);letter-spacing:.02em}
-.bloco{position:relative;overflow:clip;display:flex;align-items:center;gap:11px;width:100%;min-height:50px;text-align:left;padding:11px 13px 11px 15px;border:1px solid var(--vidro-borda);border-radius:12px;background:var(--sup);color:var(--tinta);overflow:hidden;transition:transform .22s var(--mola),border-color .22s,box-shadow .22s,background .22s;animation:sobe .5s var(--mola) both;animation-delay:calc(var(--i,0)*32ms)}
+.bloco{position:relative;overflow:clip;display:flex;align-items:center;gap:11px;width:100%;min-height:50px;text-align:left;padding:11px 13px 11px 15px;border:1px solid var(--vidro-borda);border-radius:0;background:var(--sup);color:var(--tinta);overflow:hidden;transition:transform .22s var(--mola),border-color .22s,box-shadow .22s,background .22s;animation:sobe .5s var(--mola) both;animation-delay:calc(var(--i,0)*32ms)}
 @keyframes sobe{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .bloco::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold-deep);transform:scaleY(0);transform-origin:50% 0;transition:transform .26s var(--mola)}
 .bloco .bn{font-family:var(--mono);font-size:9.5px;color:var(--tinta3);flex:none;letter-spacing:.04em;transition:color .22s}
@@ -221,7 +224,7 @@ h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,56px);lin
 .legenda{font-size:16px;line-height:1.6;color:var(--tinta2);margin:14px 0 0;max-width:56ch}
 .chips{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
 /* tags em vidro líquido sobre a mídia de fundo */
-.chip{position:relative;overflow:hidden;overflow:clip;isolation:isolate;display:inline-flex;align-items:center;gap:8px;font-family:var(--cta);font-weight:600;font-size:12px;letter-spacing:.01em;border-radius:17px;padding:12px 19px;color:rgba(255,255,255,.96);
+.chip{position:relative;overflow:hidden;overflow:clip;isolation:isolate;display:inline-flex;align-items:center;gap:8px;font-family:var(--cta);font-weight:600;font-size:12px;letter-spacing:.01em;border-radius:0;padding:12px 19px;color:rgba(255,255,255,.96);
   background:linear-gradient(160deg,rgba(255,255,255,.19),rgba(255,255,255,.09) 55%,rgba(255,255,255,.13));
   backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);
   border:1px solid rgba(255,255,255,.16);
@@ -239,7 +242,7 @@ h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,56px);lin
 .galeria .cab{margin-bottom:28px}
 .grade{display:grid;gap:15px;flex:1}
 .g-2{grid-template-columns:repeat(2,1fr)}.g-3{grid-template-columns:repeat(3,1fr)}.g-4{grid-template-columns:repeat(4,1fr)}
-.foto{position:relative;border:1px solid var(--vidro-borda);border-radius:16px;overflow:hidden;overflow:clip;min-height:160px;background:var(--sup);display:flex;flex-direction:column;justify-content:flex-end;transition:transform 320ms ease,box-shadow 320ms ease,border-color 320ms ease}
+.foto{position:relative;border:1px solid var(--vidro-borda);border-radius:0;overflow:hidden;overflow:clip;min-height:160px;background:var(--sup);display:flex;flex-direction:column;justify-content:flex-end;transition:transform 320ms ease,box-shadow 320ms ease,border-color 320ms ease}
 .foto:hover{transform:scale(1.018);box-shadow:0 22px 44px -12px rgba(239,191,78,.3);border-color:rgba(239,191,78,.45)}
 /* cards com imagem de capa */
 .foto.capa{background:#09090b}
@@ -270,52 +273,54 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
    O tom é uma variação local do --gold, com menos saturação e menos
    luz: o token da marca segue como está para o resto da apresentação. */
 #calculadoras{flex:none}
-.calc{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-height:286px;padding:26px 24px 52px;border:0;border-radius:18px;overflow:hidden;overflow:clip;text-decoration:none;color:#09090b;background:linear-gradient(152deg,#D3AC50 0%,#BB963E 62%,#AA893C 100%);box-shadow:0 18px 38px -22px rgba(120,86,10,.55);transition:transform .3s var(--mola),box-shadow .3s}
+.calc{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-height:286px;padding:26px 24px 52px;border:0;border-radius:0;overflow:hidden;overflow:clip;text-decoration:none;color:#09090b;background:linear-gradient(152deg,#D3AC50 0%,#BB963E 62%,#AA893C 100%);box-shadow:0 18px 38px -22px rgba(120,86,10,.55);transition:transform .3s var(--mola),box-shadow .3s}
 /* o arco claro do canto superior direito, como no material de origem */
 .calc::before{content:"";position:absolute;z-index:0;top:-42%;right:-30%;width:88%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.1);pointer-events:none}
 .calc>*{position:relative;z-index:1}
 .calc:hover{transform:translateY(-4px);box-shadow:0 26px 50px -20px rgba(120,86,10,.7)}
-.calc-ic{width:46px;height:46px;flex:none;border-radius:13px;display:grid;place-items:center;background:rgba(9,9,11,.13);color:#09090b}
+.calc-ic{width:46px;height:46px;flex:none;border-radius:0;display:grid;place-items:center;background:rgba(9,9,11,.13);color:#09090b}
 .calc b{font-family:var(--display);font-weight:700;font-size:19px;line-height:1.2;letter-spacing:-.015em;color:#09090b}
 .calc small{font-size:13px;line-height:1.5;color:rgba(9,9,11,.82)}
 /* a pílula dourada sumiria no card dourado: aqui ela inverte */
 .calc .acesso{background:#09090b;color:var(--gold)}
 a.calc:hover .acesso{background:#fff;color:#09090b}
-.calc-todas{align-self:center;margin-top:20px;display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border:1px solid rgba(239,191,78,.4);border-radius:999px;background:var(--gold-bg);font-size:13px;font-weight:600;color:var(--gold-deep);text-decoration:none;transition:border-color .25s,background .25s}
+.calc-todas{align-self:center;margin-top:20px;display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border:1px solid rgba(239,191,78,.4);border-radius:0;background:var(--gold-bg);font-size:13px;font-weight:600;color:var(--gold-deep);text-decoration:none;transition:border-color .25s,background .25s}
 .calc-todas:hover{border-color:var(--gold);background:rgba(239,191,78,.18)}
-.acesso{position:absolute;top:16px;right:16px;font-family:var(--cta);font-weight:700;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#09090b;background:var(--gold);padding:4px 9px;border-radius:4px}
-/* ecossistema em duas frentes: uma coluna por frente */
-.eco-grupos{flex:1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:22px;align-content:start}
-.egrupo{display:flex;flex-direction:column;gap:13px;min-width:0}
-.egrupo-cab{padding-bottom:11px;border-bottom:1px solid var(--linha2)}
-.egrupo-tag{display:inline-block;font-family:var(--cta);font-weight:700;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);background:var(--gold-bg);border:1px solid rgba(239,191,78,.3);padding:3px 9px;border-radius:999px}
-.egrupo-cab h2{margin:9px 0 0;font-family:var(--display);font-weight:600;font-size:clamp(19px,1.8vw,24px);letter-spacing:-.015em;color:var(--tinta)}
-.egrupo-cab p{margin:4px 0 0;font-size:13px;line-height:1.5;color:var(--tinta2)}
-.egrupo-itens{display:grid;gap:9px}
-/* cada item é a foto com um véu por cima: o texto sempre legível */
-.eitem{position:relative;display:block;width:100%;text-align:left;padding:0;border:1px solid var(--carta-borda);border-radius:13px;overflow:hidden;overflow:clip;background:linear-gradient(150deg,#332c1c,#141416 74%);color:inherit;font:inherit;transition:border-color .22s,box-shadow .22s,transform .22s var(--mola);animation:sobe .42s var(--mola) backwards;animation-delay:calc(var(--j,0)*45ms + 90ms)}
-.eitem.tem-tops{cursor:pointer}
-.eitem.tem-tops:hover{border-color:rgba(239,191,78,.55);box-shadow:0 16px 34px -18px rgba(184,134,11,.6);transform:translateY(-2px)}
-/* a foto entra so onde existe, e sempre sob um veu forte: varias sao
-   capturas de tela, e o texto delas competiria com a copy do card */
-.eitem.com-foto{background:#09090b center/cover no-repeat var(--capa)}
-.eitem-veu{position:absolute;inset:0;z-index:0;background:linear-gradient(100deg,rgba(9,9,11,.97) 0%,rgba(9,9,11,.93) 46%,rgba(9,9,11,.74) 100%)}
-.eitem-logo{position:absolute;z-index:2;top:12px;right:14px;width:clamp(58px,6vw,84px);opacity:.92;pointer-events:none;filter:brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,.6))}
-.eitem-corpo{position:relative;z-index:1;display:block;padding:13px 15px 14px}
-.eitem-corpo b{display:block;font-family:var(--display);font-weight:600;font-size:15.5px;line-height:1.2;letter-spacing:-.012em;color:#fff}
-.eitem-corpo small{display:block;margin-top:3px;font-size:12px;line-height:1.45;color:rgba(255,255,255,.76);padding-right:46px}
-/* os tópicos se desdobram dentro do próprio card */
-.eitem-tops{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .3s var(--mola),opacity .22s}
-.eitem-tops-in{overflow:hidden;min-height:0}
-.eitem.aberto .eitem-tops{grid-template-rows:1fr;opacity:1;transition-delay:.05s}
-.eitem-tops ul{list-style:none;margin:0;padding:11px 0 2px;display:grid;gap:8px}
-.eitem-tops li{position:relative;padding-left:16px;font-size:12px;line-height:1.45;color:rgba(255,255,255,.9)}
-.eitem-tops li::before{content:"";position:absolute;left:2px;top:.52em;width:5px;height:5px;border-radius:50%;background:var(--gold)}
-.eitem.aberto li{animation:desdobra .3s var(--mola) both;animation-delay:calc(var(--j,0)*60ms + 110ms)}
-.eitem.aberto{border-color:var(--gold);box-shadow:0 20px 44px -20px rgba(184,134,11,.5)}
-.eitem .chev{position:absolute;z-index:2;right:13px;bottom:12px;color:var(--gold);font-size:15px;line-height:1;transition:transform .28s ease}
-.eitem.aberto .chev{transform:rotate(180deg)}
-@keyframes desdobra{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+.acesso{position:absolute;top:16px;right:16px;font-family:var(--cta);font-weight:700;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#09090b;background:var(--gold);padding:4px 9px;border-radius:0}
+/* ecossistema: cada frente é uma trilha, não uma lista. O fio dourado
+   corre pela coluna e os ordinais se apoiam nele como nós - o mesmo
+   parentesco visual do anel antigo, agora na vertical. Cantos retos e
+   filete no topo vêm da LP da Escola. */
+.eco-grupos{flex:1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px;margin-top:24px;align-content:start}
+.egrupo{display:flex;flex-direction:column;min-width:0;background:var(--sup);border:1px solid var(--vidro-borda);border-top:3px solid var(--gold);padding:22px 24px 14px;animation:sobe .46s var(--mola) backwards;animation-delay:calc(var(--g,0)*110ms + 90ms)}
+.egrupo-cab{padding-bottom:16px}
+.egrupo-tag{display:inline-block;font-family:var(--cta);font-weight:700;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-deep)}
+.egrupo-cab h2{margin:7px 0 0;font-family:var(--display);font-weight:700;font-size:clamp(20px,1.9vw,26px);letter-spacing:-.02em;color:var(--tinta)}
+.egrupo-cab p{margin:5px 0 0;font-size:13px;line-height:1.5;color:var(--tinta2)}
+/* a trilha: fio contínuo atrás dos ordinais */
+.egrupo-itens{position:relative;list-style:none;margin:0;padding:2px 0 2px 44px;display:grid}
+.egrupo-itens::before{content:"";position:absolute;left:14px;top:20px;bottom:20px;width:2px;background:linear-gradient(180deg,var(--gold) 0%,rgba(239,191,78,.22) 100%)}
+.eitem{position:relative;padding:12px 2px;transition:transform .22s var(--mola);animation:sobe .4s var(--mola) backwards;animation-delay:calc(var(--j,0)*45ms + 220ms)}
+.eitem+.eitem{border-top:1px solid var(--linha2)}
+.eitem-n{position:absolute;left:-44px;top:11px;width:30px;height:30px;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:11.5px;line-height:1;font-variant-numeric:tabular-nums;color:var(--gold-deep);background:var(--chapa);border:1px solid rgba(239,191,78,.55);transition:background .22s,color .22s,border-color .22s}
+.eitem-corpo b{display:block;font-family:var(--display);font-weight:600;font-size:15.5px;line-height:1.25;letter-spacing:-.012em;color:var(--tinta)}
+.eitem-corpo small{display:block;margin-top:3px;font-size:12.5px;line-height:1.5;color:var(--tinta2)}
+.eitem:hover{transform:translateX(5px)}
+.eitem:hover .eitem-n{background:var(--gold);border-color:var(--gold);color:#09090b}
+.eitem:hover .eitem-corpo b{color:var(--gold-deep)}
+
+/* divisória entre a grade fixa e os módulos avançados */
+.crono-divisa{display:flex;align-items:center;gap:16px;margin:36px 0 26px;color:var(--gold-deep)}
+.crono-divisa::before,.crono-divisa::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,rgba(239,191,78,.55),transparent)}
+.crono-divisa span{font-family:var(--cta);font-weight:700;font-size:10px;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap}
+.cab-av{margin-bottom:18px}
+.cab-av h2{margin:0;font-family:var(--display);font-weight:700;font-size:clamp(21px,2.1vw,30px);letter-spacing:-.02em;color:var(--tinta)}
+/* cartão dos avançados: o desenho da LP - reto, com filete dourado no topo */
+.avancados{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.acard{background:var(--sup);border:1px solid var(--vidro-borda);border-top:3px solid var(--gold);padding:24px 22px;display:flex;flex-direction:column;gap:10px;transition:transform .3s ease,box-shadow .3s ease;animation:sobe .44s var(--mola) backwards;animation-delay:calc(var(--j,0)*70ms + 120ms)}
+.acard:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,.08)}
+.acard h3{margin:0;font-family:var(--display);font-weight:600;font-size:18px;letter-spacing:-.015em;color:var(--tinta)}
+.acard p{margin:0;font-size:13px;line-height:1.55;color:var(--tinta2)}
 .eco-wrap{min-height:100%;padding:56px;display:flex;flex-direction:column}
 .eco-topo{text-align:center;margin-bottom:8px}
 .kicker{font-family:var(--cta);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-esc);margin:0 0 14px}
@@ -326,35 +331,12 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
    dourado fixo. O traçado é outline, e não box-shadow, justamente para
    não disputar a propriedade com o hover - assim o card cresce e brilha
    no cursor exatamente como todos os outros. */
-/* logo do produto: some no card fechado, entra quando ele vira painel */
-/* as logos do repositório são as versões brancas da marca; a que vem de
-   fora é um PNG de cor desconhecida, então vira silhueta branca para
-   combinar com as outras e se sustentar sobre a foto */
-/* a foto é o fundo do card inteiro, texto e tópicos vêm por cima dela */
-/* a foto sai do fluxo: no fluxo era ela que definia a altura da capa, e a
-   aspect-ratio acima era ignorada - cada card ficava com a proporção da
-   sua imagem. Fora do fluxo, a capa manda e a foto é cortada */
-/* o véu são duas faixas: uma no topo, atrás da logo, e outra na base,
-   atrás do texto. As duas somem antes do meio, então o miolo da foto
-   fica limpo. Mesma quantidade de camadas e mesmas paradas nos dois
-   estados, senão a troca salta em vez de animar. */
-  linear-gradient(180deg,rgba(9,9,11,.18) 0%,rgba(9,9,11,.08) 26%,rgba(9,9,11,0) 46%),
-  linear-gradient(0deg,rgba(9,9,11,.94) 0%,rgba(9,9,11,.72) 24%,rgba(9,9,11,.2) 46%,rgba(9,9,11,0) 64%)}
-  linear-gradient(180deg,rgba(9,9,11,.52) 0%,rgba(9,9,11,.2) 26%,rgba(9,9,11,0) 46%),
-  linear-gradient(0deg,rgba(9,9,11,.93) 0%,rgba(9,9,11,.78) 24%,rgba(9,9,11,.22) 46%,rgba(9,9,11,0) 64%)}
-/* o corpo é quem dá altura ao card: fechado, a do retrato da foto */
 
-/* card que abre no lugar: os tópicos se desdobram dentro dele */
-/* uma linha por tópico: o card se alarga até caber a maior frase, porque
-   --w:max-content mede o texto sem quebra. Sem nowrap aqui: quando o
-   max-width trava o card, a frase quebra em vez de ser cortada pelo clip. */
 
-/* aberto, o card é um painel: o zoom de 5% do hover não faz sentido nele
-   e ainda o faria passar da largura máxima */
 
 /* ---------- números em destaque (Quem somos nós?) ---------- */
 .numeros{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:32px}
-.num{position:relative;overflow:clip;isolation:isolate;min-width:190px;max-width:280px;padding:18px 22px 16px;border-radius:18px;text-align:center;
+.num{position:relative;overflow:clip;isolation:isolate;min-width:190px;max-width:280px;padding:18px 22px 16px;border-radius:0;text-align:center;
   background:linear-gradient(160deg,rgba(255,255,255,.19),rgba(255,255,255,.09) 55%,rgba(255,255,255,.13));
   backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);
   border:1px solid rgba(255,255,255,.16);
@@ -366,16 +348,16 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 /* cronograma de modulos */
 .crono{display:flex;flex-direction:column;gap:15px}
 .crono-sub{font-size:14px;color:var(--tinta2);font-style:italic;margin:6px 0 6px}
-.aviso{display:flex;gap:12px;align-items:flex-start;margin:0 0 18px;padding:14px 17px;border:1px solid var(--aviso-borda);background:var(--aviso-bg);border-radius:12px;font-size:13.5px;line-height:1.5;color:var(--aviso-tinta);max-width:none}
+.aviso{display:flex;gap:12px;align-items:flex-start;margin:0 0 18px;padding:14px 17px;border:1px solid var(--aviso-borda);background:var(--aviso-bg);border-radius:0;font-size:13.5px;line-height:1.5;color:var(--aviso-tinta);max-width:none}
 .aviso b{color:var(--aviso-forte);font-weight:600}
 .aviso-ic{flex:none;width:19px;height:19px;margin-top:1px;border-radius:50%;border:1.6px solid var(--aviso-forte);color:var(--aviso-forte);font-family:var(--display);font-weight:700;font-size:13px;line-height:1;display:grid;place-items:center}
 .crono-barra{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
-.crono-barra button{font-family:var(--cta);font-weight:600;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta2);border:1px solid var(--vidro-borda);background:var(--sup);border-radius:999px;padding:7px 14px;transition:.18s}
+.crono-barra button{font-family:var(--cta);font-weight:600;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta2);border:1px solid var(--vidro-borda);background:var(--sup);border-radius:0;padding:7px 14px;transition:.18s}
 .crono-barra button:hover{border-color:rgba(239,191,78,.55);color:var(--gold-deep)}
-.mcard{border:1px solid var(--vidro-borda);border-radius:16px;background:var(--sup);overflow:hidden;overflow:clip;transition:border-color .24s,box-shadow .24s}
+.mcard{border:1px solid var(--vidro-borda);border-radius:0;background:var(--sup);overflow:hidden;overflow:clip;transition:border-color .24s,box-shadow .24s}
 .mcard.aberto{border-color:rgba(239,191,78,.45);box-shadow:0 14px 34px -14px rgba(239,191,78,.3)}
 .mcard-head{display:flex;gap:22px;align-items:stretch;width:100%;text-align:left;padding:16px;cursor:pointer;background:none;color:inherit}
-.medalhao{position:relative;overflow:hidden;overflow:clip;flex:none;width:158px;border-radius:12px;background:var(--grad-escuro);border:1px solid rgba(239,191,78,.2);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:9px;padding:16px;min-height:112px}
+.medalhao{position:relative;overflow:hidden;overflow:clip;flex:none;width:158px;border-radius:0;background:var(--grad-escuro);border:1px solid rgba(239,191,78,.2);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:9px;padding:16px;min-height:112px}
 /* capa do módulo: a proporção do medalhão acompanha a da imagem
    (768x481), então nada é cortado nas laterais */
 .medalhao.capa{width:222px;min-height:0;aspect-ratio:768/481;padding:0;border-color:rgba(239,191,78,.3);background:#09090b}
@@ -390,7 +372,7 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 .mcard-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:9px;padding-right:6px;justify-content:center}
 .mcard-body h3{font-family:var(--display);font-weight:600;font-size:21px;color:var(--tinta);margin:0;letter-spacing:-.01em}
 .mtags{display:flex;flex-wrap:wrap;gap:8px}
-.mtag{font-family:var(--cta);font-weight:600;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--gold-deep);background:var(--gold-bg);border:1px solid rgba(239,191,78,.25);border-radius:5px;padding:4px 9px}
+.mtag{font-family:var(--cta);font-weight:600;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--gold-deep);background:var(--gold-bg);border:1px solid rgba(239,191,78,.25);border-radius:0;padding:4px 9px}
 .mdesc{font-size:14px;color:var(--tinta2);line-height:1.5;margin:0}
 .chev{flex:none;align-self:center;color:var(--gold-deep);font-size:18px;transition:transform .28s ease;line-height:1}
 .mcard.aberto .chev{transform:rotate(180deg)}
@@ -403,7 +385,7 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 .aula .ad{font-family:var(--mono);font-size:12px;color:var(--tinta2);flex:none}
 .aula.bonus .an{color:var(--gold)}
 .aulas-nota{font-family:var(--mono);font-size:12px;color:var(--tinta2);padding:12px 2px 4px;font-style:italic}
-.aula-obs{display:flex;gap:10px;align-items:flex-start;margin-top:14px;padding:12px 14px;border:1px solid rgba(239,191,78,.35);background:var(--gold-bg);border-radius:10px}
+.aula-obs{display:flex;gap:10px;align-items:flex-start;margin-top:14px;padding:12px 14px;border:1px solid rgba(239,191,78,.35);background:var(--gold-bg);border-radius:0}
 .aula-obs .obs-ic{flex:none;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--gold-deep);color:var(--gold-deep);font-family:var(--display);font-weight:700;font-size:12px;display:grid;place-items:center;margin-top:1px}
 .aula-obs p{margin:0;font-size:13px;line-height:1.5;color:var(--tinta)}
 .aula-obs b{color:var(--gold-deep)}
@@ -442,18 +424,12 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
   .quadro.midia .chip{font-size:11px;padding:9px 13px}
   .faixa{position:static;background:#18181b;padding:30px 22px}
   .galeria,.eco-wrap{padding:30px 22px 50px}
-  .eco-grupos{grid-template-columns:1fr;gap:26px}
+  .eco-grupos{grid-template-columns:1fr;gap:20px}
+  .avancados{grid-template-columns:1fr}
   .grade,.g-2,.g-3,.g-4{grid-template-columns:1fr}
   .mcard-head{flex-direction:column;gap:14px}.medalhao{width:100%;min-height:88px}
   .medalhao.capa{width:100%;min-height:0}
   h1{font-size:34px}
-}
-@media (max-width:1080px),(max-height:620px){
-  /* fora do anel o card não é mais centrado no próprio ponto: sem zerar o
-     transform, o translate(-50%,-50%) empurra metade dele para fora da tela */
-  /* card baixo: o véu do painel deixaria o topo claro demais para o texto */
-    linear-gradient(180deg,rgba(9,9,11,.5) 0%,rgba(9,9,11,.5) 26%,rgba(9,9,11,.5) 46%),
-    linear-gradient(0deg,rgba(9,9,11,.8) 0%,rgba(9,9,11,.8) 24%,rgba(9,9,11,.8) 46%,rgba(9,9,11,.8) 64%)}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -505,8 +481,14 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 
     <section class="tela" id="t3"><div class="quadro midia foco in">
       <img class="bg" src="DSC01389-2560.jpg" alt="" decoding="async" fetchpriority="low">
-      <div class="faixa">        <h1>O que é a AUVP Escola?</h1>
-        <div class="chips"><button type="button" class="chip leva" data-alvo="t5">+100 aulas gravadas<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg></button><button type="button" class="chip leva" data-alvo="t7">App próprio no celular<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg></button><button type="button" class="chip leva" data-alvo="tmat">E-books, mapas mentais e cadernos<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg></button></div>
+      <div class="faixa">        <p class="kicker">O produto</p>        <h1>O que é a AUVP Escola?</h1>
+        <p class="legenda">A formação completa para você sair do zero e chegar à autonomia — com material, ferramentas e gente para tirar dúvida do lado.</p>
+        <div class="numeros">
+          <div class="num"><b>29h21</b><span>de curso, somando os 8 módulos da grade</span></div>
+          <div class="num"><b>+100</b><span>aulas gravadas, para assistir no seu ritmo</span></div>
+          <div class="num"><b>1 ano</b><span>de acesso ao curso, às lives e às ferramentas</span></div>
+        </div>
+        <div class="chips"><button type="button" class="chip leva" data-alvo="t5">Ver o cronograma<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg></button><button type="button" class="chip leva" data-alvo="tmat">Materiais de apoio<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg></button><button type="button" class="chip leva" data-alvo="t6">Ferramentas<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg></button></div>
       </div></div></section>
 
     <section class="tela" id="t4"><div class="quadro midia in">
@@ -517,13 +499,17 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 
     <section class="tela" id="t5"><div class="galeria in">
       <div class="cab"><h1>Cronograma de conteúdo</h1>
-        <p class="crono-sub">* Os módulos abaixo podem ser expandidos para consultar a lista de aulas.</p></div>
+        <p class="crono-sub">* Os módulos da grade podem ser expandidos para consultar a lista de aulas.</p></div>
       <p class="aviso"><span class="aviso-ic">!</span><span><b>Observação:</b> A quantidade de aulas e módulos sofrerá ajustes regulares, pois a AUVP produz e disponibiliza novos conteúdos aos membros continuamente, como forma de preservar a qualidade e manter a evolução constante dos produtos.</span></p>
       <div class="crono-barra" id="crono-barra">
         <button type="button" data-acao="abrir">Expandir todos</button>
         <button type="button" data-acao="fechar">Recolher todos</button>
       </div>
       <div class="crono" id="crono-lista"></div>
+      <div class="crono-divisa"><span>Além da grade</span></div>
+      <div class="cab cab-av"><h2>Módulos avançados para ir mais longe</h2>
+        <p class="crono-sub">Depois da grade principal, o caminho é seu: se quiser aprofundar algum tema, os módulos extras estão à disposição.</p></div>
+      <div class="avancados" id="avancados"></div>
     </div></section>
 
     <section class="tela" id="tmat"><div class="galeria in">
@@ -600,7 +586,7 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
     <button class="visor-x" aria-label="Fechar">&times;</button>
   </figure>
 </div>
-<script type="application/json" id="crono">[{"index":1,"title":"Preparando seu cérebro","subtitle":"Mindset e fundamentos","description":"Muda sua relação com o dinheiro e prepara a mente para investir.","totalDuration":"3h 40min","lessons":[{"number":"Aula 01","title":"Preparando seu cérebro","duration":"04:49"},{"number":"Aula 02","title":"Por que os ricos ficam cada vez mais ricos?","duration":"13:37"},{"number":"Aula 03","title":"Crenças limitantes","duration":"17:09"},{"number":"Aula 04","title":"Juros Compostos","duration":"15:43"},{"number":"Aula 05","title":"O que é Liberdade Financeira?","duration":"20:07"},{"number":"Extra","title":"AUVP Crédito","duration":"02:42"},{"number":"Aula 06","title":"Como não cair em golpes","duration":"23:28"},{"number":"Aula 07","title":"Metade salada e metade droga","duration":"07:19"},{"number":"Aula 08","title":"Autoajuda é o caralho","duration":"11:09"},{"number":"Aula 09","title":"Pare de procrastinar","duration":"13:19"},{"number":"Aula 10","title":"Aula da família","duration":"1:21:33"},{"number":"Extra","title":"Onde investir sua reserva de emergência","duration":"11:16"}]},{"index":2,"title":"Organize seus gastos","subtitle":"Vida financeira no controle","description":"Orçamento, dívidas e o caminho até o primeiro milhão.","totalDuration":"1h 24min","lessons":[{"number":"Aula 01","title":"Finanças pessoais","duration":"20:30"},{"number":"Aula 02","title":"Como usar seu cartão de crédito","duration":"19:00"},{"number":"Aula 03","title":"Como resolver as dívidas","duration":"05:55"},{"number":"Aula 04","title":"Financiamento de imóvel faz sentido?","duration":"19:39"},{"number":"Aula 05","title":"Consórcios SÃO TOPS?","duration":"09:30"},{"number":"Aula 06","title":"Viver de renda e primeiro milhão","duration":"10:17"}]},{"index":3,"title":"Renda Fixa","subtitle":"Tesouro, CDBs, LCIs e mais","description":"Tesouro, CDBs, LCIs e todo o universo da renda fixa.","totalDuration":"5h 00min","lessons":[{"number":"Aula 01","title":"O que é Renda Fixa?","duration":"11:40"},{"number":"Aula 02","title":"Escolhendo uma corretora","duration":"13:20"},{"number":"Aula 03","title":"Introdução ao Tesouro Direto","duration":"17:55"},{"number":"Aula 04","title":"Tesouro Selic","duration":"15:49"},{"number":"Aula 05","title":"Tesouro pré-fixado","duration":"13:51"},{"number":"Aula 06","title":"Tesouro IPCA+","duration":"07:50"},{"number":"Aula 07","title":"Marcação a mercado","duration":"03:32"},{"number":"Aula 08","title":"Marcação a mercado - Parte 2","duration":"18:00"},{"number":"Aula 09","title":"Tesouro Prefixado e IPCA+ com Juros Semestrais","duration":"05:19"},{"number":"Extra","title":"Conhecendo nossos ETF's - AUPO11","duration":"20:36"},{"number":"Extra","title":"Conhecendo nossos ETF's - AREA11","duration":"13:38"},{"number":"Aula 10","title":"Tesouro Educa+ e Renda+","duration":"06:31"},{"number":"Aula 11","title":"CDBs, LCs e RDBs","duration":"27:00"},{"number":"Aula 12","title":"LCI e LCA","duration":"08:15"},{"number":"Aula 13","title":"CRI's e CRA's","duration":"10:53"},{"number":"Aula 14","title":"Debentures","duration":"17:21"},{"number":"Aula 15","title":"Previdência Privada","duration":"11:19"},{"number":"Aula 16","title":"Fundos de Investimento","duration":"24:38"},{"number":"Aula 17","title":"Contrafluxo","duration":"26:07"},{"number":"Aula 18","title":"Montando uma carteira de Renda Fixa","duration":"07:55"}]},{"index":4,"title":"Renda Variável","subtitle":"Ações, FIIs, ETFs","description":"Ações, FIIs e ETFs: como montar sua carteira de renda variável.","totalDuration":"9h 39min","lessons":[{"number":"Aula 01","title":"Introdução à Renda Variável","duration":"03:28"},{"number":"Aula 02","title":"Bolsa de Valores","duration":"17:26"},{"number":"Aula 03","title":"Ações: Preço x Valor","duration":"10:24"},{"number":"Aula 04","title":"Abertura de capital (IPO)","duration":"20:43"},{"number":"Aula 05","title":"Nomenclaturas e termos da bolsa","duration":"27:05"},{"number":"Aula 06","title":"As escolas de investimento","duration":"27:41"},{"number":"Aula 07","title":"Analisando ações","duration":"07:23"},{"number":"Aula 08","title":"Análise de ações - Parte 2","duration":"50:50"},{"number":"Aula 09","title":"Análise de ações - Parte 3","duration":"31:27"},{"number":"Aula 10","title":"Análise de ações - Parte 4","duration":"33:05"},{"number":"Aula 11","title":"Comprando ações, na prática","duration":"09:40"},{"number":"Aula 12","title":"Inserindo no diagrama","duration":"33:19"},{"number":"Aula 13","title":"Pra que serve o preço médio?","duration":"16:02"},{"number":"Aula 14","title":"Proventos","duration":"17:56"},{"number":"Aula 15","title":"Dividendos e Data EX","duration":"19:38"},{"number":"Aula 16","title":"Desdobramentos e Grupamentos","duration":"11:30"},{"number":"Aula 17","title":"Aluguel de Ações","duration":"10:30"},{"number":"Aula 18","title":"Índices e ETF's","duration":"13:51"},{"number":"Aula 19","title":"Fundos Imobiliários","duration":"21:38"},{"number":"Aula 20","title":"Como analisar FIIs na prática? Parte 2","duration":"10:21"},{"number":"Aula 21","title":"Analisando um FII na prática - Parte 3","duration":"21:17"},{"number":"Aula 22","title":"Como identificar FIIs de qualidade - Parte 4","duration":"16:41"},{"number":"Aula 23","title":"Fiagro e fundos de papéis","duration":"19:02"},{"number":"Aula 24","title":"Fi-Infra","duration":"09:54"},{"number":"Extra","title":"Small Caps","duration":"32:26"},{"number":"Aula 25","title":"O método burro","duration":"08:23"},{"number":"Aula 26","title":"Como montar uma carteira de investimentos","duration":"21:09"},{"number":"Extra","title":"Armadilhas do Mercado Financeiro","duration":"21:40"}]},{"index":5,"title":"Reserva de valor","subtitle":"","totalDuration":"2h 06min","tags":["7 aulas padrão","1 aula extra","2h 06min"],"description":"Ouro e Bitcoin como reserva de valor da sua carteira.","lessons":[{"number":"Aula 01","title":"O que é uma reserva de valor, e qual a sua função?","duration":"19:11"},{"number":"Aula 02","title":"Comprando ouro físico","duration":"14:03"},{"number":"Aula 03","title":"Como investir em ouro","duration":"11:49"},{"number":"Aula 04","title":"História do bitcoin","duration":"19:57"},{"number":"Aula 05","title":"Por que ter Bitcoin?","duration":"12:09"},{"number":"Aula 06","title":"Qual o momento certo de comprar Bitcoin?","duration":"07:45"},{"number":"Aula 07","title":"Armazenando e protegendo seus Bitcoins","duration":"28:11"},{"number":"Extra","title":"Os ciclos ESTRANHOS do Bitcoin","duration":"13:51"}]},{"index":6,"title":"Investindo no exterior","subtitle":"","totalDuration":"3h 13min","tags":["12 aulas padrão","3h 13min"],"description":"Como investir no exterior: ETFs, REITs, stocks e renda fixa nos EUA.","lessons":[{"number":"Aula 01","title":"Por que investir no exterior?","duration":"25:09"},{"number":"Aula 02","title":"Como funciona o mercado americano?","duration":"13:19"},{"number":"Aula 03","title":"Mercado dos EUA x Brasil","duration":"13:29"},{"number":"Aula 04","title":"ETFs Internacionais","duration":"14:36"},{"number":"Aula 05","title":"ETFs Internacionais - Parte 2","duration":"18:02"},{"number":"Aula 06","title":"ETFs Internacionais - Parte 3","duration":"12:26"},{"number":"Aula 07","title":"REITs","duration":"25:33"},{"number":"Aula 08","title":"Stocks (Ações Americanas)","duration":"13:38"},{"number":"Aula 09","title":"Stocks (Ações Americanas) - Setor de Consumo","duration":"16:09"},{"number":"Aula 10","title":"Stocks (Ações Americanas) - Setor de Energia","duration":"16:35"},{"number":"Aula 11","title":"Stocks (Ações Americanas) - Setor de Tecnologia","duration":"18:06"},{"number":"Aula 12","title":"Renda fixa nos Estados Unidos","duration":"19:07"}]},{"index":7,"title":"O começo","subtitle":"","totalDuration":"1h 6min","tags":["4 aulas padrão","1h 6min"],"description":"Coloque em prática: monte e gerencie a sua carteira.","lessons":[{"number":"Aula 01","title":"Operacionalizando sua Carteira","duration":"19:51"},{"number":"Aula 02","title":"Corrigindo os erros da sua carteira","duration":"12:39"},{"number":"Aula 03","title":"O que a AUVP ainda pode fazer por você?","duration":"16:31"},{"number":"Aula 04","title":"Planejando sua liberdade financeira","duration":"17:09"}]},{"index":null,"title":"Bônus: Imposto de Renda","subtitle":"","totalDuration":"3h 13min","tags":["12 aulas padrão","3h 13min"],"description":"Declare seus investimentos e pague os tributos corretamente.","nota":"Este módulo será regravado anualmente, de acordo com mudanças na dinâmica de IR.","lessons":[{"number":"Aula 01","title":"O que é Imposto de Renda?","duration":"17:41"},{"number":"Aula 02","title":"Preparando a declaração","duration":"09:05"},{"number":"Aula 03","title":"O que é e como funciona o IR no Brasil","duration":"24:38"},{"number":"Aula 04","title":"Declarando ações","duration":"24:12"},{"number":"Aula 05","title":"Imposto de Renda na Renda Fixa","duration":"17:00"},{"number":"Aula 06","title":"Imposto de Renda nos Fundos de Investimento","duration":"05:32"},{"number":"Aula 07","title":"Imposto de Renda nos FIIs, Fiagros e FI-Infras","duration":"14:03"},{"number":"Aula 08","title":"Declarando dividendos, JCP, rendimentos e bonificações","duration":"21:24"},{"number":"Aula 09","title":"Investimentos Internacionais","duration":"19:25"},{"number":"Aula 10","title":"Criptomoedas","duration":"24:45"},{"number":"Aula 11","title":"Como gerar um DARF?","duration":"06:41"},{"number":"Aula 12","title":"Declaração de Autônomo com Carnê-Leão","duration":"08:17"}]},{"index":null,"title":"Bônus: Criptomoedas","subtitle":"","totalDuration":"~2 horas (131 min)","tags":["15 aulas","~2 horas (131 min)"],"description":"Os fundamentos para investir em criptoativos com segurança.","lessons":[{"number":"Aula 0","title":"Introdução ao módulo de criptomoedas","duration":"03:15"},{"number":"Aula 01","title":"Por que o Bitcoin foi criado? O problema do dinheiro fiduciário e a inflação","duration":"07:34"},{"number":"Aula 02","title":"Blockchain explicada para uma criança","duration":"04:38"},{"number":"Aula 03","title":"Ethereum (ETH) e os contratos inteligentes","duration":"05:28"},{"number":"Aula 04","title":"A diferença entre \"Coin\" e \"Token\"","duration":"05:02"},{"number":"Aula 05","title":"DeFi (Finanças Descentralizadas)","duration":"09:46"},{"number":"Aula 06","title":"Stablecoins: O Dólar na Blockchain","duration":"08:41"},{"number":"Aula 07","title":"Analisando Altcoins: fundamentos reais","duration":"13:46"},{"number":"Aula 08","title":"Airdrops, ICOs e outras receitas","duration":"09:59"},{"number":"Aula 09","title":"Narrativas e Setores","duration":"08:47"},{"number":"Aula 10","title":"O perigo das Memecoins e Shitcoins","duration":"06:27"},{"number":"Aula 11","title":"Not Your Keys, Not Your Coins (Auto-custódia)","duration":"06:52"},{"number":"Aula 12","title":"Como comprar de forma 100% anônima?","duration":"14:35"},{"number":"Aula 13","title":"Como identificar um golpe no universo cripto?","duration":"06:59"},{"number":"Aula 14","title":"Qual o melhor momento para comprar? Analisando indicadores","duration":"18:56"}]},{"index":null,"title":"Bônus: AUVP Analítica","subtitle":"","totalDuration":"~1 hora (85 min)","tags":["10 aulas","~1 hora (85 min)"],"description":"Tire o máximo da AUVP Analítica para avaliar ativos.","lessons":[{"number":"Aula 01","title":"Bem-vindo à AUVP Analítica","duration":"07:27"},{"number":"Aula 02","title":"Ações, Stocks e REITs","duration":"16:59"},{"number":"Aula 03","title":"Fundos imobiliários","duration":"06:35"},{"number":"Aula 04","title":"Metodologias da AUVP Analítica","duration":"11:07"},{"number":"Aula 05","title":"Filtros e visualizações","duration":"17:12"},{"number":"Aula 06","title":"Comparador","duration":"04:10"},{"number":"Aula 07","title":"Simulador de investimentos","duration":"06:18"},{"number":"Aula 08","title":"ETF's","duration":"06:35"},{"number":"Aula 09","title":"Agenda e previsão de dividendos","duration":"04:06"},{"number":"Aula 10","title":"Outras funcionalidades","duration":"05:00"}]},{"index":null,"title":"Bônus: Indicadores","subtitle":"","totalDuration":"~52 min","tags":["8 aulas","~52 min"],"description":"","lessons":[{"number":"Aula 01","title":"ROE (Return on Equity)","duration":"02:48"},{"number":"Aula 02","title":"Cotação","duration":"12:35"},{"number":"Aula 03","title":"Dívida Líquida x Dívida Bruta","duration":"01:36"},{"number":"Aula 04","title":"Dividend Yield","duration":"10:55"},{"number":"Aula 05","title":"EBIT (Earnings Before Interest and Taxes)","duration":"03:43"},{"number":"Aula 06","title":"P/VPA - Preço sobre Valor Patrimonial por Ação","duration":"10:51"},{"number":"Aula 07","title":"P/L - Preço sobre Lucro","duration":"05:19"},{"number":"Aula 08","title":"Emissão de cotas","duration":"04:42"}]},{"index":null,"title":"Bônus: Masterclasses","subtitle":"","totalDuration":"2h 38min","tags":["4 aulas","2h 38min"],"description":"","lessons":[{"number":"Aula 01","title":"O que são os ETFs globais e por que eles são fundamentais?","duration":"53:27"},{"number":"Aula 02","title":"Marcação a mercado","duration":"14:04"},{"number":"Aula 03","title":"A leitura e interpretação de indicadores","duration":"54:33"},{"number":"Aula 04","title":"A importância de se blindar do consumismo","duration":"37:32"}]}]</script>
+<script type="application/json" id="crono">[{"index":1,"title":"Preparando seu cérebro","subtitle":"Mindset e fundamentos","description":"Muda sua relação com o dinheiro e prepara a mente para investir.","totalDuration":"3h 40min","lessons":[{"number":"Aula 01","title":"Preparando seu cérebro","duration":"04:49"},{"number":"Aula 02","title":"Por que os ricos ficam cada vez mais ricos?","duration":"13:37"},{"number":"Aula 03","title":"Crenças limitantes","duration":"17:09"},{"number":"Aula 04","title":"Juros Compostos","duration":"15:43"},{"number":"Aula 05","title":"O que é Liberdade Financeira?","duration":"20:07"},{"number":"Extra","title":"AUVP Crédito","duration":"02:42"},{"number":"Aula 06","title":"Como não cair em golpes","duration":"23:28"},{"number":"Aula 07","title":"Metade salada e metade droga","duration":"07:19"},{"number":"Aula 08","title":"Autoajuda é o caralho","duration":"11:09"},{"number":"Aula 09","title":"Pare de procrastinar","duration":"13:19"},{"number":"Aula 10","title":"Aula da família","duration":"1:21:33"},{"number":"Extra","title":"Onde investir sua reserva de emergência","duration":"11:16"}]},{"index":2,"title":"Organize seus gastos","subtitle":"Vida financeira no controle","description":"Orçamento, dívidas e o caminho até o primeiro milhão.","totalDuration":"1h 24min","lessons":[{"number":"Aula 01","title":"Finanças pessoais","duration":"20:30"},{"number":"Aula 02","title":"Como usar seu cartão de crédito","duration":"19:00"},{"number":"Aula 03","title":"Como resolver as dívidas","duration":"05:55"},{"number":"Aula 04","title":"Financiamento de imóvel faz sentido?","duration":"19:39"},{"number":"Aula 05","title":"Consórcios SÃO TOPS?","duration":"09:30"},{"number":"Aula 06","title":"Viver de renda e primeiro milhão","duration":"10:17"}]},{"index":3,"title":"Renda Fixa","subtitle":"Tesouro, CDBs, LCIs e mais","description":"Tesouro, CDBs, LCIs e todo o universo da renda fixa.","totalDuration":"5h 00min","lessons":[{"number":"Aula 01","title":"O que é Renda Fixa?","duration":"11:40"},{"number":"Aula 02","title":"Escolhendo uma corretora","duration":"13:20"},{"number":"Aula 03","title":"Introdução ao Tesouro Direto","duration":"17:55"},{"number":"Aula 04","title":"Tesouro Selic","duration":"15:49"},{"number":"Aula 05","title":"Tesouro pré-fixado","duration":"13:51"},{"number":"Aula 06","title":"Tesouro IPCA+","duration":"07:50"},{"number":"Aula 07","title":"Marcação a mercado","duration":"03:32"},{"number":"Aula 08","title":"Marcação a mercado - Parte 2","duration":"18:00"},{"number":"Aula 09","title":"Tesouro Prefixado e IPCA+ com Juros Semestrais","duration":"05:19"},{"number":"Extra","title":"Conhecendo nossos ETF's - AUPO11","duration":"20:36"},{"number":"Extra","title":"Conhecendo nossos ETF's - AREA11","duration":"13:38"},{"number":"Aula 10","title":"Tesouro Educa+ e Renda+","duration":"06:31"},{"number":"Aula 11","title":"CDBs, LCs e RDBs","duration":"27:00"},{"number":"Aula 12","title":"LCI e LCA","duration":"08:15"},{"number":"Aula 13","title":"CRI's e CRA's","duration":"10:53"},{"number":"Aula 14","title":"Debentures","duration":"17:21"},{"number":"Aula 15","title":"Previdência Privada","duration":"11:19"},{"number":"Aula 16","title":"Fundos de Investimento","duration":"24:38"},{"number":"Aula 17","title":"Contrafluxo","duration":"26:07"},{"number":"Aula 18","title":"Montando uma carteira de Renda Fixa","duration":"07:55"}]},{"index":4,"title":"Renda Variável","subtitle":"Ações, FIIs, ETFs","description":"Ações, FIIs e ETFs: como montar sua carteira de renda variável.","totalDuration":"9h 39min","lessons":[{"number":"Aula 01","title":"Introdução à Renda Variável","duration":"03:28"},{"number":"Aula 02","title":"Bolsa de Valores","duration":"17:26"},{"number":"Aula 03","title":"Ações: Preço x Valor","duration":"10:24"},{"number":"Aula 04","title":"Abertura de capital (IPO)","duration":"20:43"},{"number":"Aula 05","title":"Nomenclaturas e termos da bolsa","duration":"27:05"},{"number":"Aula 06","title":"As escolas de investimento","duration":"27:41"},{"number":"Aula 07","title":"Analisando ações","duration":"07:23"},{"number":"Aula 08","title":"Análise de ações - Parte 2","duration":"50:50"},{"number":"Aula 09","title":"Análise de ações - Parte 3","duration":"31:27"},{"number":"Aula 10","title":"Análise de ações - Parte 4","duration":"33:05"},{"number":"Aula 11","title":"Comprando ações, na prática","duration":"09:40"},{"number":"Aula 12","title":"Inserindo no diagrama","duration":"33:19"},{"number":"Aula 13","title":"Pra que serve o preço médio?","duration":"16:02"},{"number":"Aula 14","title":"Proventos","duration":"17:56"},{"number":"Aula 15","title":"Dividendos e Data EX","duration":"19:38"},{"number":"Aula 16","title":"Desdobramentos e Grupamentos","duration":"11:30"},{"number":"Aula 17","title":"Aluguel de Ações","duration":"10:30"},{"number":"Aula 18","title":"Índices e ETF's","duration":"13:51"},{"number":"Aula 19","title":"Fundos Imobiliários","duration":"21:38"},{"number":"Aula 20","title":"Como analisar FIIs na prática? Parte 2","duration":"10:21"},{"number":"Aula 21","title":"Analisando um FII na prática - Parte 3","duration":"21:17"},{"number":"Aula 22","title":"Como identificar FIIs de qualidade - Parte 4","duration":"16:41"},{"number":"Aula 23","title":"Fiagro e fundos de papéis","duration":"19:02"},{"number":"Aula 24","title":"Fi-Infra","duration":"09:54"},{"number":"Extra","title":"Small Caps","duration":"32:26"},{"number":"Aula 25","title":"O método burro","duration":"08:23"},{"number":"Aula 26","title":"Como montar uma carteira de investimentos","duration":"21:09"},{"number":"Extra","title":"Armadilhas do Mercado Financeiro","duration":"21:40"}]},{"index":5,"title":"Reserva de valor","subtitle":"","totalDuration":"2h 06min","tags":["7 aulas padrão","1 aula extra","2h 06min"],"description":"Ouro e Bitcoin como reserva de valor da sua carteira.","lessons":[{"number":"Aula 01","title":"O que é uma reserva de valor, e qual a sua função?","duration":"19:11"},{"number":"Aula 02","title":"Comprando ouro físico","duration":"14:03"},{"number":"Aula 03","title":"Como investir em ouro","duration":"11:49"},{"number":"Aula 04","title":"História do bitcoin","duration":"19:57"},{"number":"Aula 05","title":"Por que ter Bitcoin?","duration":"12:09"},{"number":"Aula 06","title":"Qual o momento certo de comprar Bitcoin?","duration":"07:45"},{"number":"Aula 07","title":"Armazenando e protegendo seus Bitcoins","duration":"28:11"},{"number":"Extra","title":"Os ciclos ESTRANHOS do Bitcoin","duration":"13:51"}]},{"index":6,"title":"Investindo no exterior","subtitle":"","totalDuration":"3h 13min","tags":["12 aulas padrão","3h 13min"],"description":"Como investir no exterior: ETFs, REITs, stocks e renda fixa nos EUA.","lessons":[{"number":"Aula 01","title":"Por que investir no exterior?","duration":"25:09"},{"number":"Aula 02","title":"Como funciona o mercado americano?","duration":"13:19"},{"number":"Aula 03","title":"Mercado dos EUA x Brasil","duration":"13:29"},{"number":"Aula 04","title":"ETFs Internacionais","duration":"14:36"},{"number":"Aula 05","title":"ETFs Internacionais - Parte 2","duration":"18:02"},{"number":"Aula 06","title":"ETFs Internacionais - Parte 3","duration":"12:26"},{"number":"Aula 07","title":"REITs","duration":"25:33"},{"number":"Aula 08","title":"Stocks (Ações Americanas)","duration":"13:38"},{"number":"Aula 09","title":"Stocks (Ações Americanas) - Setor de Consumo","duration":"16:09"},{"number":"Aula 10","title":"Stocks (Ações Americanas) - Setor de Energia","duration":"16:35"},{"number":"Aula 11","title":"Stocks (Ações Americanas) - Setor de Tecnologia","duration":"18:06"},{"number":"Aula 12","title":"Renda fixa nos Estados Unidos","duration":"19:07"}]},{"index":7,"title":"O começo","subtitle":"","totalDuration":"1h 6min","tags":["4 aulas padrão","1h 6min"],"description":"Coloque em prática: monte e gerencie a sua carteira.","lessons":[{"number":"Aula 01","title":"Operacionalizando sua Carteira","duration":"19:51"},{"number":"Aula 02","title":"Corrigindo os erros da sua carteira","duration":"12:39"},{"number":"Aula 03","title":"O que a AUVP ainda pode fazer por você?","duration":"16:31"},{"number":"Aula 04","title":"Planejando sua liberdade financeira","duration":"17:09"}]},{"index":null,"title":"Bônus: Imposto de Renda","subtitle":"","totalDuration":"3h 13min","tags":["12 aulas padrão","3h 13min"],"description":"Declare seus investimentos e pague os tributos corretamente.","nota":"Este módulo será regravado anualmente, de acordo com mudanças na dinâmica de IR.","lessons":[{"number":"Aula 01","title":"O que é Imposto de Renda?","duration":"17:41"},{"number":"Aula 02","title":"Preparando a declaração","duration":"09:05"},{"number":"Aula 03","title":"O que é e como funciona o IR no Brasil","duration":"24:38"},{"number":"Aula 04","title":"Declarando ações","duration":"24:12"},{"number":"Aula 05","title":"Imposto de Renda na Renda Fixa","duration":"17:00"},{"number":"Aula 06","title":"Imposto de Renda nos Fundos de Investimento","duration":"05:32"},{"number":"Aula 07","title":"Imposto de Renda nos FIIs, Fiagros e FI-Infras","duration":"14:03"},{"number":"Aula 08","title":"Declarando dividendos, JCP, rendimentos e bonificações","duration":"21:24"},{"number":"Aula 09","title":"Investimentos Internacionais","duration":"19:25"},{"number":"Aula 10","title":"Criptomoedas","duration":"24:45"},{"number":"Aula 11","title":"Como gerar um DARF?","duration":"06:41"},{"number":"Aula 12","title":"Declaração de Autônomo com Carnê-Leão","duration":"08:17"}]}]</script>
 <script>
 /* ============================================================
    MAPA DA APRESENTAÇÃO
@@ -636,49 +622,24 @@ const ECOS=[
   {grupo:'Educacional',mote:'A Escola',
    d:'Onde a formação acontece: o curso, os materiais e as ferramentas de estudo.',
    itens:[
-    {t:'Curso com +100 aulas gravadas',d:'Formação completa do zero à autonomia, no seu ritmo.'},
-    {t:'7 módulos com um bônus',d:'A trilha principal do treinamento, do mindset à carteira montada.'},
-    {t:'Módulos avançados',d:'Aprofundamento para quem já domina o básico.'},
-    {t:'E-books',d:'Guias completos para baixar e consultar quando quiser.'},
-    {t:'Mapas mentais',d:'O resumo visual de cada aula, tudo em uma página.'},
-    {t:'Cadernos de exercícios',d:'Pratique o que aprendeu em cada módulo para fixar o conteúdo.'},
-    {t:'5 ferramentas',d:'As ferramentas de apoio ao estudo e à carteira.'}
+    {t:'Curso com +100 aulas gravadas',d:'Do zero à autonomia, no seu ritmo.'},
+    {t:'7 módulos com um bônus',d:'A grade principal, do mindset à carteira montada.'},
+    {t:'Módulos avançados',d:'Setores, geopolítica e aulas técnicas.'},
+    {t:'E-books',d:'Guias completos para baixar e consultar.'},
+    {t:'Mapas mentais',d:'O resumo visual de cada aula, em uma página.'},
+    {t:'Cadernos de exercícios',d:'Prática a cada módulo para fixar o conteúdo.'},
+    {t:'5 ferramentas',d:'Apoio ao estudo e à gestão da carteira.'}
    ]},
   {grupo:'Banking',mote:'O ecossistema financeiro',
    d:'Onde o dinheiro se resolve: conta, investimento, crédito e proteção.',
    itens:[
-    {t:'Conta com cartão próprio',logo:'logos/auvp-capital.svg',capa:'https://pbs.twimg.com/media/GxSRuKfXMAAQPsS.jpg',
-     d:'Banco e plataforma AUVP.',
-     tops:['Abertura de conta corrente, cartões e atendimento 100% exclusivos da AUVP (sujeito à análise de crédito)',
-           'Plataforma de Investimentos com Carteiras Recomendadas',
-           'Previdência Privada exclusiva']},
-    {t:'Consultoria',logo:'logos/auvp-consultoria.svg',capa:'https://www.maisnovela.com.br/wp-content/uploads/2026/03/AUVP.png',
-     d:'Seu patrimônio acompanhado de perto.',
-     tops:['Gestão e acompanhamento profissional do seu patrimônio',
-           'Pelo segundo ano consecutivo, a Consultoria Nº 1 no ranking do BTG Pactual',
-           '3 Planos que evoluem de acordo com seu patrimônio']},
-    {t:'Crédito',logo:'logos/auvp-capital.svg',capa:'https://cdn.asupernova.com.br/lp-auvp/vite/onde%20sua%20vida%20financeira%20se%20resolve%20mobile.webp',
-     d:'Seus projetos saem do papel.',
-     tops:['Comparação em tempo real com mais de 20 bancos para garantir a melhor taxa',
-           'Alcance seus objetivos sem precisar liquidar seus investimentos ou comprometer seu patrimônio']},
-    {t:'Câmbio',logo:'logos/auvp-cambio.svg',capa:'https://www.remessaonline.com.br/blog/wp-content/uploads/2022/04/servico-de-cambio.png',
-     d:'Seu dinheiro sem fronteiras.',
-     tops:['Câmbio transparente para enviar, receber ou investir no exterior',
-           'Acompanhamento ponta a ponta com especialistas da AUVP',
-           'Direcionamento personalizado para a modalidade com os menores custos e prazos ideais para evitar taxas desnecessárias']},
-    {t:'Seguros',logo:'https://auvpcapital.com.br/wp-content/uploads/2026/07/Prancheta-1_1-2048x643.png',capa:'https://images.pexels.com/photos/20880348/pexels-photo-20880348.jpeg?auto=compress&cs=tinysrgb&w=1600',
-     d:'Você e sua família protegidos.',
-     tops:['Segurança para a família com planejamento feito sob medida',
-           'Sem viés de interesse, cotamos em até 6 seguradoras para encontrar a melhor proteção',
-           'Evite que imprevistos comprometam seu patrimônio']},
-    {t:'Wealth',logo:'logos/auvp-wealth.svg',capa:'https://oespecialista.safra.com.br/wp-content/uploads/2026/05/wealth-management-nos-investimentos.jpg',
-     d:'Seu legado, bem planejado.',
-     tops:['Blindagem patrimonial e otimização tributária inteligente',
-           'Governança, criação de fundos exclusivos e operações de M&A',
-           'Planejamento sucessório e gestão de domicílio fiscal para garantir a paz na família']},
-    {t:"ETF's próprios",logo:'logos/auvp-capital.svg',
-     d:'AUPO11 e AREA11, geridos pela AUVP.',
-     tops:['AUPO11 e AREA11, com aula própria no módulo de Renda Fixa']}
+    {t:'Conta com cartão próprio',d:'Conta, cartão e atendimento 100% AUVP, sujeito à análise de crédito.'},
+    {t:'Consultoria',d:'Nº 1 no ranking do BTG Pactual, pelo segundo ano seguido.'},
+    {t:'Crédito',d:'Comparação com mais de 20 bancos, sem liquidar seus investimentos.'},
+    {t:'Câmbio',d:'Enviar, receber ou investir no exterior com custo transparente.'},
+    {t:'Seguros',d:'Cotação em até 6 seguradoras, sem viés de interesse.'},
+    {t:'Wealth',d:'Blindagem patrimonial, governança e planejamento sucessório.'},
+    {t:"ETF's próprios",d:'AUPO11 e AREA11, geridos pela AUVP.'}
    ]}
 ];
 
@@ -940,11 +901,7 @@ const CAPAS={
   5:'https://cdn.asupernova.com.br/lp-auvp/vite/MODULO-5-768x481.png',
   6:'https://cdn.asupernova.com.br/lp-auvp/vite/MODULO-6-768x481.png',
   7:'https://cdn.asupernova.com.br/lp-auvp/vite/MODULO-7-768x481.jpg',
-  ir:'https://cdn.asupernova.com.br/lp-auvp/vite/MODULO-BONUS-768x481.jpg',
-  analitica:'analitica.jpg',
-  cripto:'cripto.jpg',
-  indicadores:'thumb INDICADORES.jpg',
-  master:'masterclasses.jpg'
+  ir:'https://cdn.asupernova.com.br/lp-auvp/vite/MODULO-BONUS-768x481.jpg'
 };
 const FERR=[
   {t:"Plataforma PIAR",d:"compreenda e mapeie seu perfil de investidor",url:"https://piar.auvp.com.br/dashboard",capa:"Captura de tela 2026-08-10 133635.png"},
@@ -997,11 +954,7 @@ document.getElementById('calculadoras').innerHTML=CALC.map(function(c){
     var label=isBonus?'Módulo Bônus':'Módulo '+m.index;
     var capa=CAPAS[m.index];
     if(isBonus){
-      capa=/imposto de renda/i.test(m.title)?CAPAS.ir
-          :/cripto/i.test(m.title)?CAPAS.cripto
-          :/anal[íi]tica/i.test(m.title)?CAPAS.analitica
-          :/indicadores/i.test(m.title)?CAPAS.indicadores
-          :/masterclass/i.test(m.title)?CAPAS.master:null;
+      capa=/imposto de renda/i.test(m.title)?CAPAS.ir:null;
     }
     var medal=capa?' capa" style="--capa:url(\''+encodeURI(capa)+'\')':'"';
     return '<div class="mcard'+(isBonus?' bonus':'')+'"><button class="mcard-head" aria-expanded="false">'
@@ -1028,6 +981,20 @@ document.getElementById('calculadoras').innerHTML=CALC.map(function(c){
     });
   });
 })();
+/* ---------- módulos avançados ----------
+   Vêm da LP da Escola (ProdutosAUVP/lp-auvp-escola-prod, dobra
+   "modulos-avancados"), com o texto de lá. Não têm lista de aulas: são a
+   continuação da grade, não parte dela, e por isso ficam abaixo da
+   divisória e com um cartão de desenho próprio. */
+const AVANCADOS=[
+  {t:'Análise de setores',d:'Destrincha os pontos mais importantes para entender cada setor da economia. Ensina como funciona o ciclo de crescimento de empresas em diferentes áreas e quais indicadores realmente importam para investir com estratégia.'},
+  {t:'Geopolítica',d:'Mostra como decisões políticas, guerras, políticas econômicas e relações internacionais afetam diretamente os investimentos, desenvolvendo uma visão estratégica para antecipar movimentos do mercado e proteger a carteira.'},
+  {t:'Aulas técnicas',d:'Auxilia na compreensão da saúde financeira de empresas e na tomada de decisões fundamentadas. Ensina a interpretar balanços, DRE, fluxo de caixa e estrutura de capital, além de relembrar todos os indicadores.'}
+];
+document.getElementById('avancados').innerHTML=AVANCADOS.map(function(a,i){
+  return '<article class="acard" style="--j:'+i+'"><h3>'+esc(a.t)+'</h3><p>'+esc(a.d)+'</p></article>';
+}).join('');
+
 document.getElementById('ferramentas').innerHTML=FERR.map(function(f){
   var tag=f.url?'a':'div';
   var atr=f.url?' href="'+esc(f.url)+'" target="_blank" rel="noopener noreferrer"':'';
@@ -1039,41 +1006,19 @@ document.getElementById('ferramentas').innerHTML=FERR.map(function(f){
     +'<div class="rot"><b>'+esc(f.t)+'</b><small>'+esc(f.d)+'</small></div></'+tag+'>';
 }).join('');
 /* ---------- ecossistema: duas frentes, Educacional e Banking ----------
-   O anel comportava 7 nós; com 14 os cards se sobreporiam. Viraram duas
-   colunas, uma por frente, e cada card abre no lugar quando tem tópicos
-   para mostrar - o mesmo gesto dos módulos do cronograma. */
-document.getElementById('eco-grupos').innerHTML=ECOS.map(function(g){
-  return '<section class="egrupo">'
+   Sem foto e sem dropdown: cada frente vira uma trilha vertical, com o
+   ordinal de cada item apoiado sobre um fio dourado contínuo. O que
+   estava escondido no dropdown foi dobrado na própria descrição. */
+document.getElementById('eco-grupos').innerHTML=ECOS.map(function(g,gi){
+  return '<section class="egrupo" style="--g:'+gi+'">'
     +'<header class="egrupo-cab"><span class="egrupo-tag">'+esc(g.grupo)+'</span>'
     +'<h2>'+esc(g.mote)+'</h2><p>'+esc(g.d)+'</p></header>'
-    +'<div class="egrupo-itens">'+g.itens.map(function(it,k){
-      var tops=it.tops||[];
-      var cls='eitem'+(tops.length?' tem-tops':'')+(it.capa?' com-foto':'');
-      var est=' style="--j:'+k+(it.capa?';--capa:url(\''+encodeURI(it.capa)+'\')':'')+'"';
-      return '<'+(tops.length?'button type="button" class="'+cls+'" aria-expanded="false"':'div class="'+cls+'"')+est+'>'
-        +'<span class="eitem-veu"></span>'
-        +(it.logo?'<img class="eitem-logo" src="'+esc(it.logo)+'" alt="" aria-hidden="true" referrerpolicy="no-referrer">':'')
-        +'<span class="eitem-corpo"><b>'+esc(it.t)+'</b><small>'+esc(it.d)+'</small>'
-        +(tops.length?'<span class="eitem-tops"><span class="eitem-tops-in"><ul>'
-            +tops.map(function(t,z){return '<li style="--j:'+z+'">'+esc(t)+'</li>'}).join('')
-          +'</ul></span></span>':'')
-        +'</span>'
-        +(tops.length?'<span class="chev" aria-hidden="true">&#9662;</span>':'')
-        +'</'+(tops.length?'button':'div')+'>';
-    }).join('')+'</div></section>';
+    +'<ol class="egrupo-itens">'+g.itens.map(function(it,k){
+      return '<li class="eitem" style="--j:'+k+'">'
+        +'<span class="eitem-n" aria-hidden="true">'+String(k+1).padStart(2,'0')+'</span>'
+        +'<span class="eitem-corpo"><b>'+esc(it.t)+'</b><small>'+esc(it.d)+'</small></span></li>';
+    }).join('')+'</ol></section>';
 }).join('');
-
-document.getElementById('eco-grupos').addEventListener('click',function(ev){
-  var c=ev.target.closest('.eitem.tem-tops'); if(!c)return;
-  var ab=c.classList.toggle('aberto');
-  c.setAttribute('aria-expanded',String(ab));
-});
-
-/* logo que não carrega (host fora do ar, hotlink barrado, endereço trocado)
-   sai de cena em vez de virar imagem quebrada sobre a foto */
-document.querySelectorAll('#eco-grupos .eitem-logo').forEach(function(im){
-  im.addEventListener('error',function(){im.remove()});
-});
 
 /* decodifica as fotos de fundo enquanto a apresentação está parada:
    sem isso a primeira entrada na tela paga a decodificação no meio da
