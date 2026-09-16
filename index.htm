@@ -19,9 +19,9 @@
   --sup:rgba(255,255,255,.66);--sup-forte:rgba(255,255,255,.86);--trilho-bg:rgba(255,255,255,.55);
   --hover:rgba(0,0,0,.04);--linha2:rgba(0,0,0,.07);--linha-f:rgba(0,0,0,.16);
   --rot-veu:rgba(255,255,255,.92);--malha:rgba(24,24,27,.05);--trilha-bg:rgba(24,24,27,.08);
-  --nucleo-halo:rgba(239,191,78,.14);--cartao:#fff;--fio:#8F6A08;--fio-op:.6;--carta-borda:rgba(24,24,27,.17);
+  --carta-borda:rgba(24,24,27,.17);
   /* miolo do ecossistema: o olho fica solto, sem disco atrás - só um halo dourado */
-  --nucleo-brilho:radial-gradient(circle,rgba(239,191,78,.20) 0%,rgba(239,191,78,.08) 48%,transparent 72%);
+  
   --aviso-bg:#FEF2F2;--aviso-borda:#FBD5D5;--aviso-forte:#DC2626;--aviso-tinta:#7F1D1D;
   --fundo:radial-gradient(ellipse at top,#f4f4f5 0%,#e4e4e7 100%);
   --grad-escuro:#17171a;
@@ -39,14 +39,13 @@ body.escuro{
   --sup:rgba(255,255,255,.06);--sup-forte:rgba(255,255,255,.11);--trilho-bg:rgba(24,24,27,.72);
   --hover:rgba(255,255,255,.07);--linha2:rgba(255,255,255,.09);--linha-f:rgba(255,255,255,.22);
   --rot-veu:rgba(12,12,14,.94);--malha:rgba(255,255,255,.05);--trilha-bg:rgba(255,255,255,.11);
-  --nucleo-halo:rgba(239,191,78,.08);--cartao:#1b1c1f;--fio:#D0A83C;--fio-op:.42;--carta-borda:rgba(255,255,255,.16);
-  --nucleo-brilho:radial-gradient(circle,rgba(239,191,78,.16) 0%,rgba(239,191,78,.06) 48%,transparent 72%);
+  --carta-borda:rgba(255,255,255,.16);
+  
   --aviso-bg:rgba(220,38,38,.12);--aviso-borda:rgba(248,113,113,.34);--aviso-forte:#F87171;--aviso-tinta:#FCA5A5;
   --fundo:radial-gradient(ellipse at top,#1c1c20 0%,#0e0e10 100%);
 }
 body.escuro .selo{filter:none}
 body.escuro .medalhao:not(.capa),body.escuro .quadro:not(.midia){background:#111113}
-body.escuro .estagio .no{border-color:rgba(239,191,78,.55)}
 
 /* ============================================================
    2. BASE
@@ -158,18 +157,10 @@ body:not(.escuro) .ajuda{background:rgba(255,255,255,.95)}
 /* ============================================================
    5. HOME
    ============================================================ */
-.home-wrap{position:relative;min-height:100%;padding:clamp(24px,3.4vw,50px);display:flex;flex-direction:column;justify-content:safe center;gap:clamp(18px,2.4vw,32px);overflow:hidden}
-.home-wrap::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(680px 380px at 6% -12%,rgba(239,191,78,.38),transparent 68%),radial-gradient(760px 480px at 108% 116%,rgba(2,54,25,.14),transparent 70%)}
-.home-wrap::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(var(--malha) 1px,transparent 1px),linear-gradient(90deg,var(--malha) 1px,transparent 1px);background-size:46px 46px;opacity:.65}
-.home-hero{position:relative;z-index:1}
 .eyebrow{display:inline-flex;align-items:center;font-family:var(--display);font-weight:600;font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--gold-esc);background:var(--gold-bg);border:1px solid rgba(239,191,78,.2);border-radius:999px;padding:5px 13px;margin:0 0 14px}
 h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,56px);line-height:1.05;letter-spacing:-.025em;margin:0;max-width:20ch;color:var(--tinta)}
-.home-hero h1{font-size:clamp(34px,4.4vw,62px);max-width:none;display:flex;align-items:baseline;gap:.28em;flex-wrap:wrap}
 .dourado{color:var(--gold-esc)}
-.home-hero .dourado{color:var(--gold-esc)}
-.home-regua{margin-top:16px;height:1px;max-width:min(100%,1280px);background:linear-gradient(90deg,var(--gold) 0 96px,var(--linha2) 96px)}
 
-.home-grade{position:relative;z-index:1;display:grid;grid-template-columns:repeat(auto-fit,minmax(208px,1fr));gap:14px;max-width:min(100%,1280px);align-items:start}
 .coluna{display:flex;flex-direction:column;gap:8px;min-width:0}
 .coluna h4{font-family:var(--cta);font-weight:600;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep);margin:0 0 2px;padding-bottom:7px;border-bottom:1px solid var(--linha2);display:flex;justify-content:space-between;align-items:center}
 .coluna h4 i{font-family:var(--mono);font-style:normal;font-size:9px;color:var(--tinta3);letter-spacing:.02em}
@@ -293,88 +284,73 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 .calc-todas{align-self:center;margin-top:20px;display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border:1px solid rgba(239,191,78,.4);border-radius:999px;background:var(--gold-bg);font-size:13px;font-weight:600;color:var(--gold-deep);text-decoration:none;transition:border-color .25s,background .25s}
 .calc-todas:hover{border-color:var(--gold);background:rgba(239,191,78,.18)}
 .acesso{position:absolute;top:16px;right:16px;font-family:var(--cta);font-weight:700;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#09090b;background:var(--gold);padding:4px 9px;border-radius:4px}
+/* ecossistema em duas frentes: uma coluna por frente */
+.eco-grupos{flex:1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:22px;align-content:start}
+.egrupo{display:flex;flex-direction:column;gap:13px;min-width:0}
+.egrupo-cab{padding-bottom:11px;border-bottom:1px solid var(--linha2)}
+.egrupo-tag{display:inline-block;font-family:var(--cta);font-weight:700;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);background:var(--gold-bg);border:1px solid rgba(239,191,78,.3);padding:3px 9px;border-radius:999px}
+.egrupo-cab h2{margin:9px 0 0;font-family:var(--display);font-weight:600;font-size:clamp(19px,1.8vw,24px);letter-spacing:-.015em;color:var(--tinta)}
+.egrupo-cab p{margin:4px 0 0;font-size:13px;line-height:1.5;color:var(--tinta2)}
+.egrupo-itens{display:grid;gap:9px}
+/* cada item é a foto com um véu por cima: o texto sempre legível */
+.eitem{position:relative;display:block;width:100%;text-align:left;padding:0;border:1px solid var(--carta-borda);border-radius:13px;overflow:hidden;overflow:clip;background:linear-gradient(150deg,#332c1c,#141416 74%);color:inherit;font:inherit;transition:border-color .22s,box-shadow .22s,transform .22s var(--mola);animation:sobe .42s var(--mola) backwards;animation-delay:calc(var(--j,0)*45ms + 90ms)}
+.eitem.tem-tops{cursor:pointer}
+.eitem.tem-tops:hover{border-color:rgba(239,191,78,.55);box-shadow:0 16px 34px -18px rgba(184,134,11,.6);transform:translateY(-2px)}
+/* a foto entra so onde existe, e sempre sob um veu forte: varias sao
+   capturas de tela, e o texto delas competiria com a copy do card */
+.eitem.com-foto{background:#09090b center/cover no-repeat var(--capa)}
+.eitem-veu{position:absolute;inset:0;z-index:0;background:linear-gradient(100deg,rgba(9,9,11,.97) 0%,rgba(9,9,11,.93) 46%,rgba(9,9,11,.74) 100%)}
+.eitem-logo{position:absolute;z-index:2;top:12px;right:14px;width:clamp(58px,6vw,84px);opacity:.92;pointer-events:none;filter:brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,.6))}
+.eitem-corpo{position:relative;z-index:1;display:block;padding:13px 15px 14px}
+.eitem-corpo b{display:block;font-family:var(--display);font-weight:600;font-size:15.5px;line-height:1.2;letter-spacing:-.012em;color:#fff}
+.eitem-corpo small{display:block;margin-top:3px;font-size:12px;line-height:1.45;color:rgba(255,255,255,.76);padding-right:46px}
+/* os tópicos se desdobram dentro do próprio card */
+.eitem-tops{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .3s var(--mola),opacity .22s}
+.eitem-tops-in{overflow:hidden;min-height:0}
+.eitem.aberto .eitem-tops{grid-template-rows:1fr;opacity:1;transition-delay:.05s}
+.eitem-tops ul{list-style:none;margin:0;padding:11px 0 2px;display:grid;gap:8px}
+.eitem-tops li{position:relative;padding-left:16px;font-size:12px;line-height:1.45;color:rgba(255,255,255,.9)}
+.eitem-tops li::before{content:"";position:absolute;left:2px;top:.52em;width:5px;height:5px;border-radius:50%;background:var(--gold)}
+.eitem.aberto li{animation:desdobra .3s var(--mola) both;animation-delay:calc(var(--j,0)*60ms + 110ms)}
+.eitem.aberto{border-color:var(--gold);box-shadow:0 20px 44px -20px rgba(184,134,11,.5)}
+.eitem .chev{position:absolute;z-index:2;right:13px;bottom:12px;color:var(--gold);font-size:15px;line-height:1;transition:transform .28s ease}
+.eitem.aberto .chev{transform:rotate(180deg)}
+@keyframes desdobra{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
 .eco-wrap{min-height:100%;padding:56px;display:flex;flex-direction:column}
 .eco-topo{text-align:center;margin-bottom:8px}
 .kicker{font-family:var(--cta);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-esc);margin:0 0 14px}
 .eco-topo .mote{font-family:var(--display);font-weight:700;font-size:clamp(26px,3vw,42px);letter-spacing:-.025em;margin:0;color:var(--tinta)}
 .eco-topo h1{margin:8px auto 0;font-family:var(--display);font-weight:600;font-size:clamp(20px,2vw,26px);color:var(--tinta2);max-width:none}
 /* ---------- ecossistema: a marca no centro, os produtos em volta ---------- */
-.orbita{position:relative;min-height:min(520px,60vh);margin-top:16px;flex:1}
-.fios{position:absolute;inset:0;z-index:0;pointer-events:none;width:100%;height:100%}
-.fios line{stroke:var(--fio);stroke-width:1.5;opacity:var(--fio-op)}
-.fios ellipse{fill:none;stroke:var(--fio);stroke-width:1.1;opacity:calc(var(--fio-op) * .62);stroke-dasharray:2 6}
-.nucleo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:clamp(96px,9vw,126px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:var(--nucleo-brilho)}
-.nucleo img{width:74%;display:block}
-.eco-card{position:absolute;left:var(--x);top:var(--y);transform:translate(calc(-50% + var(--nx,0px)),calc(-50% + var(--ny,0px)));z-index:1;contain:layout style;width:clamp(158px,15.5vw,196px);display:flex;flex-direction:column;text-align:left;padding:0;overflow:clip;border-radius:16px;border:1px solid var(--carta-borda);background:var(--cartao);box-shadow:0 16px 32px -22px rgba(24,24,27,.55);cursor:pointer;transition:border-color .22s,box-shadow .22s,scale .26s var(--mola);animation:cartaoEntra .46s var(--mola) backwards;animation-delay:calc(var(--j,0)*65ms + 140ms)}
-@keyframes cartaoEntra{from{opacity:0;scale:.92}to{opacity:1;scale:1}}
-.eco-card.medindo,.eco-card.medindo *{transition:none!important}
-.eco-card:hover{border-color:rgba(239,191,78,.6);box-shadow:0 20px 38px -20px rgba(184,134,11,.6);scale:1.05}
 /* card em destaque (a Escola): maior que os demais no anel, com traçado
    dourado fixo. O traçado é outline, e não box-shadow, justamente para
    não disputar a propriedade com o hover - assim o card cresce e brilha
    no cursor exatamente como todos os outros. */
-.eco-card.destaque{border-color:var(--gold);outline:2px solid var(--gold);outline-offset:2px}
-.eco-card.destaque:not(.aberto){--w:236px}
-.eco-card.destaque:not(.aberto) .eco-corpo{min-height:152px}
 /* logo do produto: some no card fechado, entra quando ele vira painel */
-.eco-logo{position:absolute;z-index:2;top:24px;right:28px;width:clamp(104px,11vw,158px);opacity:0;transform:translateY(-8px);pointer-events:none;filter:drop-shadow(0 2px 10px rgba(0,0,0,.55));transition:opacity .26s,transform .34s var(--mola)}
-.eco-card.aberto .eco-logo{opacity:1;transform:none;transition-delay:.1s}
 /* as logos do repositório são as versões brancas da marca; a que vem de
    fora é um PNG de cor desconhecida, então vira silhueta branca para
    combinar com as outras e se sustentar sobre a foto */
-.eco-logo[src^="http"]{filter:brightness(0) invert(1) drop-shadow(0 2px 10px rgba(0,0,0,.55))}
 /* a foto é o fundo do card inteiro, texto e tópicos vêm por cima dela */
-.eco-capa{position:absolute;inset:0;z-index:0;background:linear-gradient(150deg,#26262b,#101012)}
 /* a foto sai do fluxo: no fluxo era ela que definia a altura da capa, e a
    aspect-ratio acima era ignorada - cada card ficava com a proporção da
    sua imagem. Fora do fluxo, a capa manda e a foto é cortada */
-.eco-capa img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.eco-capa.sem-foto img{display:none}
-.eco-capa.sem-foto{background:linear-gradient(150deg,#3b3320,#141416 72%)}
-.eco-capa.sem-foto::after{background:linear-gradient(0deg,rgba(9,9,11,.72) 0%,rgba(9,9,11,.3) 55%,transparent 100%)}
 /* o véu são duas faixas: uma no topo, atrás da logo, e outra na base,
    atrás do texto. As duas somem antes do meio, então o miolo da foto
    fica limpo. Mesma quantidade de camadas e mesmas paradas nos dois
    estados, senão a troca salta em vez de animar. */
-.eco-capa::after{content:"";position:absolute;inset:0;transition:background .3s;background:
   linear-gradient(180deg,rgba(9,9,11,.18) 0%,rgba(9,9,11,.08) 26%,rgba(9,9,11,0) 46%),
   linear-gradient(0deg,rgba(9,9,11,.94) 0%,rgba(9,9,11,.72) 24%,rgba(9,9,11,.2) 46%,rgba(9,9,11,0) 64%)}
-.eco-card.aberto .eco-capa::after{background:
   linear-gradient(180deg,rgba(9,9,11,.52) 0%,rgba(9,9,11,.2) 26%,rgba(9,9,11,0) 46%),
   linear-gradient(0deg,rgba(9,9,11,.93) 0%,rgba(9,9,11,.78) 24%,rgba(9,9,11,.22) 46%,rgba(9,9,11,0) 64%)}
 /* o corpo é quem dá altura ao card: fechado, a do retrato da foto */
-.eco-corpo{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:flex-end;min-height:var(--h,115px);padding:12px 15px 13px;transition:min-height .42s var(--mola),padding .42s var(--mola)}
-.eco-card.aberto .eco-corpo{padding:26px 30px 28px}
-.eco-sub{margin:0;font-family:var(--display);font-weight:600;font-size:16px;line-height:1.18;letter-spacing:-.02em;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.55)}
 
 /* card que abre no lugar: os tópicos se desdobram dentro dele */
-.eco-card{width:var(--w,182px);transition:width .42s var(--mola),transform .42s var(--mola),border-color .22s,opacity .24s,scale .24s var(--mola)}
-.eco-tops{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .34s var(--mola),opacity .24s;margin-top:0}
-.eco-tops-in{overflow:hidden;min-height:0}
-.eco-card ul{list-style:none;margin:0;padding:11px 0 1px;display:grid;gap:9px}
 /* uma linha por tópico: o card se alarga até caber a maior frase, porque
    --w:max-content mede o texto sem quebra. Sem nowrap aqui: quando o
    max-width trava o card, a frase quebra em vez de ser cortada pelo clip. */
-.eco-card li{position:relative;padding-left:17px;font-size:clamp(10px,.75vw,12.5px);line-height:1.45;color:rgba(255,255,255,.92)}
-.eco-card li::before{content:"";position:absolute;left:2px;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--gold)}
 
-.eco-card.aberto .eco-sub{font-size:clamp(20px,2vw,30px);margin-bottom:4px}
-.eco-card.aberto ul{padding-top:14px;gap:11px}
-.eco-card.aberto li{font-size:clamp(12px,.95vw,15px)}
 /* aberto, o card é um painel: o zoom de 5% do hover não faz sentido nele
    e ainda o faria passar da largura máxima */
-.eco-card.aberto,.eco-card.aberto:hover{scale:1}
-.eco-card.aberto{--w:max-content;max-width:calc(100% - 16px);z-index:6;border-color:var(--gold);box-shadow:0 26px 56px -24px rgba(184,134,11,.5),0 0 0 3px var(--gold-bg)}
-.eco-card.aberto .eco-tops{grid-template-rows:1fr;opacity:1;transition-delay:.06s}
-.eco-card.aberto li{animation-duration:.34s}
-.eco-card.aberto li{animation:desdobra .32s var(--mola) both;animation-delay:calc(var(--j,0)*70ms + 130ms)}
-@keyframes desdobra{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
-#t10.focado .eco-card:not(.aberto):not(.medindo){opacity:.34;scale:.9;box-shadow:none}
-#t10.focado .eco-card:not(.aberto):not(.medindo):hover{opacity:.85;scale:.96}
-#t10.focado .fios line{opacity:calc(var(--fio-op) * .3)}
-#t10.focado .fios .fio-on{opacity:1;stroke:var(--gold-deep);stroke-width:2}
-#t10.focado .fios ellipse{opacity:calc(var(--fio-op) * .22)}
-.fios line,.fios ellipse{transition:opacity .35s,stroke .35s}
 
 /* ---------- números em destaque (Quem somos nós?) ---------- */
 .numeros{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:32px}
@@ -465,34 +441,19 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
   .quadro.midia .chips{gap:9px}
   .quadro.midia .chip{font-size:11px;padding:9px 13px}
   .faixa{position:static;background:#18181b;padding:30px 22px}
-  .galeria,.home-wrap,.eco-wrap{padding:30px 22px 50px}
-  .home-wrap{justify-content:flex-start;min-height:auto}
+  .galeria,.eco-wrap{padding:30px 22px 50px}
+  .eco-grupos{grid-template-columns:1fr;gap:26px}
   .grade,.g-2,.g-3,.g-4{grid-template-columns:1fr}
-  .home-grade{grid-template-columns:1fr;row-gap:26px}
   .mcard-head{flex-direction:column;gap:14px}.medalhao{width:100%;min-height:88px}
   .medalhao.capa{width:100%;min-height:0}
   h1{font-size:34px}
 }
 @media (max-width:1080px),(max-height:620px){
-  .orbita{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;align-content:start;min-height:0;margin-top:24px}
-  .eco-card,.eco-card.aberto{--w:auto}
-  #t10.focado .eco-card:not(.aberto){opacity:1;scale:1}
-  .fios,.nucleo{display:none}
   /* fora do anel o card não é mais centrado no próprio ponto: sem zerar o
      transform, o translate(-50%,-50%) empurra metade dele para fora da tela */
-  .eco-card{position:static;width:auto;animation-name:sobe;transform:none}
-  .eco-card.aberto{max-width:none}
-  .eco-corpo,.eco-card.aberto .eco-corpo{min-height:186px;padding:14px 16px 15px}
-  .eco-card.aberto .eco-sub{font-size:19px}
-  .eco-logo{top:14px;right:16px;width:96px}
   /* card baixo: o véu do painel deixaria o topo claro demais para o texto */
-  .eco-card.aberto .eco-capa::after{background:
     linear-gradient(180deg,rgba(9,9,11,.5) 0%,rgba(9,9,11,.5) 26%,rgba(9,9,11,.5) 46%),
     linear-gradient(0deg,rgba(9,9,11,.8) 0%,rgba(9,9,11,.8) 24%,rgba(9,9,11,.8) 46%,rgba(9,9,11,.8) 64%)}
-  .eco-card li{font-size:12.5px}
-  .eco-card:hover{scale:1;transform:translateY(-3px)}
-  .eco-card.destaque:not(.aberto){--w:auto}
-  .eco-card.destaque:not(.aberto) .eco-corpo{min-height:186px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -526,19 +487,11 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
       <button class="hamb" id="hamb" aria-label="Abrir menu" aria-expanded="false">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
-      <b id="topo-tit">Home</b>
+      <b id="topo-tit"></b>
     </header>
 
-    <section class="tela ativa" id="home"><div class="home-wrap in">
-      <div class="home-hero">
-        <p class="eyebrow">Apresentação geral</p>
-        <h1>AUVP <span class="dourado">Escola</span></h1>
-        <div class="home-regua"></div>
-      </div>
-      <div class="home-grade" id="home-grade"></div>
-    </div></section>
 
-<section class="tela" id="t1"><div class="quadro midia centro in">
+<section class="tela ativa" id="t1"><div class="quadro midia centro in">
       <img class="bg" src="foto%20alunos-2560.jpg" alt="" decoding="async" fetchpriority="low">
       <div class="faixa">        <h1>Mais do que um treinamento, somos uma comunidade.</h1>
         <p class="legenda">Nascemos da educação financeira e hoje acompanhamos você em cada momento da sua relação com o dinheiro.</p>
@@ -609,7 +562,7 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
         <p class="mote copy" data-slot="mote">Pensou em dinheiro, pensou na AUVP.</p>
         <h1>Tudo começa na <span class="dourado">Escola</span>.</h1>
       </div>
-      <div class="orbita" id="orbita"></div>
+      <div class="eco-grupos" id="eco-grupos"></div>
     </div></section>
 
     
@@ -634,8 +587,8 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
   <b>Como navegar</b>
   <ul>
     <li><span><kbd>&larr;</kbd><kbd>&rarr;</kbd></span>Seção anterior e próxima, na ordem da apresentação</li>
-    <li><span><kbd>0</kbd></span>Volta para a Home &middot; <kbd>Esc</kbd> também</li>
     <li><span><kbd>1</kbd></span>Cada seção tem o número que aparece ao lado do nome no menu</li>
+    <li><span><kbd>Esc</kbd></span>Fecha o que estiver aberto: card, imagem ou menu</li>
     <li><span><kbd>[</kbd></span>Recolhe e expande o menu lateral</li>
     <li><span class="ic"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.2"/><path d="M15.2 15.2 20 20"/></svg></span>Tags com lupa abrem uma imagem ali mesmo</li>
     <li><span class="ic"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg></span>Tags com seta levam a outra seção; cards abrem o link em nova aba</li>
@@ -657,9 +610,6 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
    (e no <section class="tela"> correspondente).
    ============================================================ */
 const NAV=[
-  ['Início',[
-    ['home','Home','0']
-  ]],
   ['Contexto',[
     ['t1','Quem somos nós?','1'],
     ['t10','O Ecossistema AUVP','2']
@@ -682,41 +632,54 @@ const NAV=[
    ECOSSISTEMA
    Cada produto é um nó da tela principal e uma tela própria.
    ============================================================ */
-const ECO=[
-  {id:'eco1',destaque:true,logo:'logos/auvp-escola.svg',img:'raul%20explicativo.png',n:'1',t:'Você aprende',d:'Treinamentos especializados com garantia de aprendizagem.',
-   tit:'Educação com foco na Escola',sub:'Você aprende',
-   itens:['Mais de 100 aulas com garantia de aprendizado',
-          'Formação completa do zero à autonomia',
-          '+ Extensões de aprendizagem e trilhas de conhecimento: AUVP Pro, AUVP Internacional, AUVP Sempre']},
-  {id:'eco2',logo:'logos/auvp-consultoria.svg',img:'https://www.maisnovela.com.br/wp-content/uploads/2026/03/AUVP.png',n:'2',t:'Seu patrimônio rende',d:'Com a consultoria nº1 no ranking BTG.',
-   tit:'AUVP Consultoria',sub:'Seu dinheiro rende',
-   itens:['Gestão e acompanhamento profissional do seu patrimônio',
-          'Pelo segundo ano consecutivo, a Consultoria Nº 1 no ranking do BTG Pactual',
-          '3 Planos que evoluem de acordo com seu patrimônio']},
-  {id:'eco3',logo:'logos/auvp-capital.svg',img:'https://pbs.twimg.com/media/GxSRuKfXMAAQPsS.jpg',n:'3',t:'Garante seu banco, sem enrolação',d:'Abertura de conta, cartão e atendimento próprios AUVP.',
-   tit:'Banco e Plataforma AUVP',sub:'Garante seu banco, sem enrolação',
-   itens:['Abertura de conta corrente, cartões e atendimento 100% exclusivos da AUVP (sujeito à análise de crédito)',
-          'Plataforma de Investimentos com Carteiras Recomendadas',
-          'Previdência Privada exclusiva']},
-  {id:'eco4',logo:'logos/auvp-capital.svg',img:'https://cdn.asupernova.com.br/lp-auvp/vite/onde%20sua%20vida%20financeira%20se%20resolve%20mobile.webp',n:'4',t:'Seus projetos saem do papel',d:'Contrate crédito de forma estratégica',
-   tit:'AUVP Crédito',sub:'Seus projetos saem do papel',
-   itens:['Comparação em tempo real com mais de 20 bancos para garantir a melhor taxa',
-          'Alcance seus objetivos sem precisar liquidar seus investimentos ou comprometer seu patrimônio']},
-  {id:'eco5',logo:'https://auvpcapital.com.br/wp-content/uploads/2026/07/Prancheta-1_1-2048x643.png',img:'https://images.pexels.com/photos/20880348/pexels-photo-20880348.jpeg?auto=compress&cs=tinysrgb&w=1600',img2:'https://images.pexels.com/photos/20880348/pexels-photo-20880348.jpeg',n:'5',t:'Você e sua família sempre protegidos',d:'Seguro de vida, invalidez, doenças graves.',
-   tit:'AUVP Corretora de Seguros',sub:'Você e sua família protegidos',
-   itens:['Segurança para a família com planejamento feito sob medida',
-          'Sem viés de interesse, cotamos em até 6 seguradoras para encontrar a melhor proteção',
-          'Evite que imprevistos comprometam seu patrimônio']},
-  {id:'eco6',logo:'logos/auvp-cambio.svg',img:'https://www.remessaonline.com.br/blog/wp-content/uploads/2022/04/servico-de-cambio.png',n:'6',t:'Seu dinheiro sem fronteiras',d:'Câmbio transparente para enviar, receber ou investir fora do Brasil.',
-   tit:'AUVP Câmbio',sub:'Seu dinheiro sem fronteiras',
-   itens:['Câmbio transparente para enviar, receber ou investir no exterior',
-          'Acompanhamento ponta a ponta com especialistas da AUVP',
-          'Direcionamento personalizado para a modalidade com os menores custos e prazos ideais para evitar taxas desnecessárias']},
-  {id:'eco7',logo:'logos/auvp-wealth.svg',img:'https://oespecialista.safra.com.br/wp-content/uploads/2026/05/wealth-management-nos-investimentos.jpg',n:'7',t:'Seu legado, bem planejado',d:'Sucessão, holding patrimonial e estruturação offshore.',
-   tit:'AUVP Wealth',sub:'Seu legado, bem planejado',
-   itens:['Blindagem patrimonial e otimização tributária inteligente',
-          'Governança, criação de fundos exclusivos e operações de M&A',
-          'Planejamento sucessório e gestão de domicílio fiscal para garantir a paz na família']}
+const ECOS=[
+  {grupo:'Educacional',mote:'A Escola',
+   d:'Onde a formação acontece: o curso, os materiais e as ferramentas de estudo.',
+   itens:[
+    {t:'Curso com +100 aulas gravadas',d:'Formação completa do zero à autonomia, no seu ritmo.'},
+    {t:'7 módulos com um bônus',d:'A trilha principal do treinamento, do mindset à carteira montada.'},
+    {t:'Módulos avançados',d:'Aprofundamento para quem já domina o básico.'},
+    {t:'E-books',d:'Guias completos para baixar e consultar quando quiser.'},
+    {t:'Mapas mentais',d:'O resumo visual de cada aula, tudo em uma página.'},
+    {t:'Cadernos de exercícios',d:'Pratique o que aprendeu em cada módulo para fixar o conteúdo.'},
+    {t:'5 ferramentas',d:'As ferramentas de apoio ao estudo e à carteira.'}
+   ]},
+  {grupo:'Banking',mote:'O ecossistema financeiro',
+   d:'Onde o dinheiro se resolve: conta, investimento, crédito e proteção.',
+   itens:[
+    {t:'Conta com cartão próprio',logo:'logos/auvp-capital.svg',capa:'https://pbs.twimg.com/media/GxSRuKfXMAAQPsS.jpg',
+     d:'Banco e plataforma AUVP.',
+     tops:['Abertura de conta corrente, cartões e atendimento 100% exclusivos da AUVP (sujeito à análise de crédito)',
+           'Plataforma de Investimentos com Carteiras Recomendadas',
+           'Previdência Privada exclusiva']},
+    {t:'Consultoria',logo:'logos/auvp-consultoria.svg',capa:'https://www.maisnovela.com.br/wp-content/uploads/2026/03/AUVP.png',
+     d:'Seu patrimônio acompanhado de perto.',
+     tops:['Gestão e acompanhamento profissional do seu patrimônio',
+           'Pelo segundo ano consecutivo, a Consultoria Nº 1 no ranking do BTG Pactual',
+           '3 Planos que evoluem de acordo com seu patrimônio']},
+    {t:'Crédito',logo:'logos/auvp-capital.svg',capa:'https://cdn.asupernova.com.br/lp-auvp/vite/onde%20sua%20vida%20financeira%20se%20resolve%20mobile.webp',
+     d:'Seus projetos saem do papel.',
+     tops:['Comparação em tempo real com mais de 20 bancos para garantir a melhor taxa',
+           'Alcance seus objetivos sem precisar liquidar seus investimentos ou comprometer seu patrimônio']},
+    {t:'Câmbio',logo:'logos/auvp-cambio.svg',capa:'https://www.remessaonline.com.br/blog/wp-content/uploads/2022/04/servico-de-cambio.png',
+     d:'Seu dinheiro sem fronteiras.',
+     tops:['Câmbio transparente para enviar, receber ou investir no exterior',
+           'Acompanhamento ponta a ponta com especialistas da AUVP',
+           'Direcionamento personalizado para a modalidade com os menores custos e prazos ideais para evitar taxas desnecessárias']},
+    {t:'Seguros',logo:'https://auvpcapital.com.br/wp-content/uploads/2026/07/Prancheta-1_1-2048x643.png',capa:'https://images.pexels.com/photos/20880348/pexels-photo-20880348.jpeg?auto=compress&cs=tinysrgb&w=1600',
+     d:'Você e sua família protegidos.',
+     tops:['Segurança para a família com planejamento feito sob medida',
+           'Sem viés de interesse, cotamos em até 6 seguradoras para encontrar a melhor proteção',
+           'Evite que imprevistos comprometam seu patrimônio']},
+    {t:'Wealth',logo:'logos/auvp-wealth.svg',capa:'https://oespecialista.safra.com.br/wp-content/uploads/2026/05/wealth-management-nos-investimentos.jpg',
+     d:'Seu legado, bem planejado.',
+     tops:['Blindagem patrimonial e otimização tributária inteligente',
+           'Governança, criação de fundos exclusivos e operações de M&A',
+           'Planejamento sucessório e gestão de domicílio fiscal para garantir a paz na família']},
+    {t:"ETF's próprios",logo:'logos/auvp-capital.svg',
+     d:'AUPO11 e AREA11, geridos pela AUVP.',
+     tops:['AUPO11 e AREA11, com aula própria no módulo de Renda Fixa']}
+   ]}
 ];
 
 
@@ -736,32 +699,15 @@ $('#nav').innerHTML=NAV.map(function(g){
   }).join('');
 }).join('');
 
-/* ---------- grade da home (todas as seções, menos a própria home) ---------- */
-var n=0;
-$('#home-grade').innerHTML=NAV.map(function(g){
-  if(g[2]&&g[2].semHome)return '';
-  var itens=g[1].filter(function(it){return it[0]!=='home'});
-  if(!itens.length) return '';
-  return '<div class="coluna"><h4>'+esc(g[0])+'<i>'+itens.length+'</i></h4>'+itens.map(function(it){
-    n++;
-    return '<button class="bloco" data-alvo="'+it[0]+'" style="--i:'+n+'">'
-      +'<span class="bn">'+String(n).padStart(2,'0')+'</span>'
-      +'<span class="bt">'+esc(it[1])+'</span>'
-      +'<i class="tecla">'+esc(it[2]||it[3]||'')+'</i>'
-      +'<span class="seta" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg></span>'
-      +'</button>';
-  }).join('')+'</div>';
-}).join('');
-
 /* ============================================================
    NAVEGAÇÃO
    ============================================================ */
 const palco=$('#palco');
 let depois=0;
-let atual='home';
+let atual=ORDEM[0];
 
 function ir(id,semHash){
-  if(!document.getElementById(id)) id='home';
+  if(!document.getElementById(id)) id=ORDEM[0];
   atual=id;
   document.querySelectorAll('.tela').forEach(function(t){t.classList.toggle('ativa',t.id===id)});
   document.querySelectorAll('.item').forEach(function(b){
@@ -773,13 +719,12 @@ function ir(id,semHash){
   var i=ORDEM.indexOf(id);
   $('#progresso').style.width=((i+1)/ORDEM.length*100).toFixed(2)+'%';
   $('#topo-tit').textContent=ROTULOS[id]||'';
-  document.title=(id==='home'?'AUVP Escola':ROTULOS[id]+' · AUVP Escola')+' - apresentação';
+  document.title=ROTULOS[id]+' · AUVP Escola - apresentação';
   palco.scrollTop=0;window.scrollTo(0,0);
   var a=document.getElementById(id);if(a)a.scrollTop=0;
   gaveta(false);
   if(typeof fechaVisor==='function')fechaVisor();
   if(typeof abreAjuda==='function')abreAjuda(false);
-  if(typeof fechaEco==='function')fechaEco();
   /* vídeo e pré-carga de imagens só depois da animação de entrada: se
      começarem junto, a decodificação disputa o mesmo quadro e a
      transição engasga */
@@ -810,7 +755,7 @@ document.addEventListener('click',function(e){
 });
 
 window.addEventListener('hashchange',function(){
-  var id=(location.hash||'').replace(/^#\/?/,'')||'home';
+  var id=(location.hash||'').replace(/^#\/?/,'')||ORDEM[0];
   if(id!==atual)ir(id,true);
 });
 
@@ -965,11 +910,11 @@ document.addEventListener('keydown',function(e){
   var alvo=e.target;
   if(alvo&&(alvo.isContentEditable||/^(input|textarea|select)$/i.test(alvo.tagName)))return;
   var k=e.key.toLowerCase();
-  if(k==='escape'){escondeDica();if(ecoSel){fechaEco();return}if(ajuda.classList.contains('ver')){abreAjuda(false);return}if(cena.classList.contains('ver')){fechaVisor();return}if(document.body.classList.contains('gaveta')){gaveta(false)}else{ir('home')}return}
+  if(k==='escape'){escondeDica();if(ajuda.classList.contains('ver')){abreAjuda(false);return}if(cena.classList.contains('ver')){fechaVisor();return}if(document.body.classList.contains('gaveta')){gaveta(false)}return}
   if(k==='['||k===']'){recolher(!document.body.classList.contains('recolhido'));return}
   if(k==='arrowright'){passo(1);return}
   if(k==='arrowleft'){passo(-1);return}
-  /* o sumário vai de 0 a 10: um dígito leva na hora, e um segundo logo
+  /* o sumário vai de 1 a 10: um dígito leva na hora, e um segundo logo
      em seguida corrige para a tela de dois dígitos */
   if(/^[0-9]$/.test(k)){
     digitado=(e.timeStamp-tDigito<700?digitado:'')+k; tDigito=e.timeStamp;
@@ -1093,160 +1038,42 @@ document.getElementById('ferramentas').innerHTML=FERR.map(function(f){
     +(f.url?'<span class="acesso">Acessar<svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></span>':'')
     +'<div class="rot"><b>'+esc(f.t)+'</b><small>'+esc(f.d)+'</small></div></'+tag+'>';
 }).join('');
-/* ---------- ecossistema: anel de produtos em torno da marca ---------- */
-const RX=33,RY=35;
-(function(){
-  var svg='<svg class="fios" id="eco-fios" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">'
-    +'<ellipse cx="50" cy="50" rx="'+RX+'" ry="'+RY+'" vector-effect="non-scaling-stroke"/>';
-  var cards='';
-  ECO.forEach(function(e,i){
-    var a=(-90+i*(360/ECO.length))*Math.PI/180;
-    var x=(50+RX*Math.cos(a)).toFixed(2),y=(50+RY*Math.sin(a)).toFixed(2);
-    svg+='<line x1="50" y1="50" x2="'+x+'" y2="'+y+'" vector-effect="non-scaling-stroke"/>';
-    cards+='<button type="button" class="eco-card'+(e.destaque?' destaque':'')+'" data-eco="'+i+'" aria-expanded="false" aria-label="'+esc(e.tit)+'" style="--x:'+x+'%;--y:'+y+'%;--j:'+i+'">'
-      +(e.logo?'<img class="eco-logo" src="'+esc(e.logo)+'" alt="" aria-hidden="true" referrerpolicy="no-referrer">':'')
-      +'<span class="eco-capa">'
-      +'<img src="'+esc(e.img)+'"'+(e.img2?' data-reserva="'+esc(e.img2)+'"':'')+' alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">'
-      +'</span>'
-      +'<span class="eco-corpo">'
-      +'<span class="eco-sub">'+esc(e.sub)+'</span>'
-      +'<span class="eco-tops"><span class="eco-tops-in"><ul>'
-      +e.itens.map(function(it,j){return '<li style="--j:'+j+'">'+esc(it)+'</li>'}).join('')
-      +'</ul></span></span></span></button>';
-  });
-  document.getElementById('orbita').innerHTML=svg+'</svg>'
-    +'<div class="nucleo"><img src="olho-amarelo.svg" alt=""></div>'+cards;
-  /* foto que não carrega (host fora do ar, hotlink barrado, endereço
-     trocado): tenta o endereço reserva, se houver, e só então sai de cena,
-     deixando o card com o fundo da capa em vez de imagem quebrada */
-  /* logo que não carrega sai de cena: melhor o card sem ela do que com
-     o ícone de imagem quebrada */
-  document.querySelectorAll('#orbita .eco-logo').forEach(function(im){
-    im.addEventListener('error',function(){im.remove()});
-  });
-  document.querySelectorAll('#orbita .eco-capa img').forEach(function(im){
-    im.addEventListener('error',function(){
-      var r=im.dataset.reserva;
-      if(r){im.removeAttribute('data-reserva');im.src=r;return}
-      im.parentNode.classList.add('sem-foto');
-    });
-  });
-})();
+/* ---------- ecossistema: duas frentes, Educacional e Banking ----------
+   O anel comportava 7 nós; com 14 os cards se sobreporiam. Viraram duas
+   colunas, uma por frente, e cada card abre no lugar quando tem tópicos
+   para mostrar - o mesmo gesto dos módulos do cronograma. */
+document.getElementById('eco-grupos').innerHTML=ECOS.map(function(g){
+  return '<section class="egrupo">'
+    +'<header class="egrupo-cab"><span class="egrupo-tag">'+esc(g.grupo)+'</span>'
+    +'<h2>'+esc(g.mote)+'</h2><p>'+esc(g.d)+'</p></header>'
+    +'<div class="egrupo-itens">'+g.itens.map(function(it,k){
+      var tops=it.tops||[];
+      var cls='eitem'+(tops.length?' tem-tops':'')+(it.capa?' com-foto':'');
+      var est=' style="--j:'+k+(it.capa?';--capa:url(\''+encodeURI(it.capa)+'\')':'')+'"';
+      return '<'+(tops.length?'button type="button" class="'+cls+'" aria-expanded="false"':'div class="'+cls+'"')+est+'>'
+        +'<span class="eitem-veu"></span>'
+        +(it.logo?'<img class="eitem-logo" src="'+esc(it.logo)+'" alt="" aria-hidden="true" referrerpolicy="no-referrer">':'')
+        +'<span class="eitem-corpo"><b>'+esc(it.t)+'</b><small>'+esc(it.d)+'</small>'
+        +(tops.length?'<span class="eitem-tops"><span class="eitem-tops-in"><ul>'
+            +tops.map(function(t,z){return '<li style="--j:'+z+'">'+esc(t)+'</li>'}).join('')
+          +'</ul></span></span>':'')
+        +'</span>'
+        +(tops.length?'<span class="chev" aria-hidden="true">&#9662;</span>':'')
+        +'</'+(tops.length?'button':'div')+'>';
+    }).join('')+'</div></section>';
+}).join('');
 
-/* clique no card: ele se abre no próprio lugar do anel e desdobra os
-   tópicos; os outros recuam e o fio até ele acende. */
-const telaEco=document.getElementById('t10');
-const EMPILHA=matchMedia('(max-width:1080px),(max-height:620px)');   /* anel vira grade */
-let ecoSel=null;
-
-function encaixa(card){
-  /* mede o tamanho final com a transição desligada e desloca o card
-     apenas o necessário para ele não passar da área do mapa */
-  var orb=document.getElementById('orbita'); if(!orb)return;
-  card.style.setProperty('--nx','0px');card.style.setProperty('--ny','0px');
-  card.style.removeProperty('--w');card.style.removeProperty('--h');
-  /* na grade estreita não há painel nem anel: o card ocupa a coluna */
-  if(EMPILHA.matches){card.classList.add('aberto');return}
-  /* abre sem transição só para medir o tamanho final */
-  card.classList.add('medindo','aberto');
-  var o=orb.getBoundingClientRect();
-  /* a largura mínima é a do conteúdo, porque os tópicos não quebram
-     linha; daí o painel cresce para dar destaque à foto, em 16/9, até
-     onde a área do mapa deixar. max-content não anima: fixa em px */
-  var conteudo=card.offsetWidth;       /* sem o zoom do hover, que o rect traria */
-  var L=Math.min(o.width-16,Math.max(conteudo,o.width*.8));
-  var A=Math.ceil(Math.min(o.height-16,L*9/16));
-  card.style.setProperty('--w',Math.ceil(L)+'px');
-  card.style.setProperty('--h',A+'px');
-  var r=card.getBoundingClientRect(),m=8,dx=0,dy=0;
-  if(r.left<o.left+m)dx=o.left+m-r.left; else if(r.right>o.right-m)dx=o.right-m-r.right;
-  if(r.top<o.top+m)dy=o.top+m-r.top; else if(r.bottom>o.bottom-m)dy=o.bottom-m-r.bottom;
-  /* devolve o card ao estado fechado, ainda sem transição: sem limpar a
-     largura e a altura medidas, o painel já nascia montado no ponto do
-     anel - metade dele fora da tela - e só depois deslizava para o lugar,
-     em vez de crescer a partir do card */
-  card.classList.remove('aberto');
-  card.style.removeProperty('--w');card.style.removeProperty('--h');
-  void card.offsetWidth;
-  card.classList.remove('medindo');
-  /* daqui em diante tudo anima junto: o card cresce do próprio tamanho
-     até o painel e, no mesmo movimento, se desloca o necessário */
-  card.style.setProperty('--w',Math.ceil(L)+'px');
-  card.style.setProperty('--h',A+'px');
-  card.style.setProperty('--nx',dx.toFixed(0)+'px');
-  card.style.setProperty('--ny',dy.toFixed(0)+'px');
-  card.classList.add('aberto');
-}
-function abreEco(card){
-  if(ecoSel===card){fechaEco();return}
-  fechaEco();
-  card.setAttribute('aria-expanded','true');
-  ecoSel=card;telaEco.classList.add('focado');
-  var linhas=document.querySelectorAll('#eco-fios line');
-  var l=linhas[+card.dataset.eco];if(l)l.classList.add('fio-on');
-  encaixa(card);
-}
-function fechaEco(){
-  if(!ecoSel)return;
-  ecoSel.classList.remove('aberto');
-  ecoSel.setAttribute('aria-expanded','false');
-  ecoSel.style.removeProperty('--w');    /* volta ao tamanho dos demais, animando */
-  ecoSel.style.removeProperty('--h');
-  ecoSel.style.setProperty('--nx','0px');ecoSel.style.setProperty('--ny','0px');
-  telaEco.classList.remove('focado');
-  document.querySelectorAll('#eco-fios .fio-on').forEach(function(l){l.classList.remove('fio-on')});
-  ecoSel=null;
-}
-document.addEventListener('click',function(ev){
-  var c=ev.target.closest('.eco-card');
-  if(c){ev.preventDefault();abreEco(c);return}
-  if(ecoSel&&ev.target.closest('#t10'))fechaEco();
+document.getElementById('eco-grupos').addEventListener('click',function(ev){
+  var c=ev.target.closest('.eitem.tem-tops'); if(!c)return;
+  var ab=c.classList.toggle('aberto');
+  c.setAttribute('aria-expanded',String(ab));
 });
-window.addEventListener('resize',function(){if(ecoSel)encaixa(ecoSel)});
 
-/* os cards ficam parados no anel. O que sobra aqui é colocar cada um no
-   seu ponto e fazer o fio nascer na borda do olho, já que sem o disco
-   atrás da marca ele passaria por baixo dela. */
-(function(){
-  var orb=document.getElementById('orbita'); if(!orb) return;
-  var cartoes=[].slice.call(orb.querySelectorAll('.eco-card'));
-  var linhas=[].slice.call(orb.querySelectorAll('#eco-fios line'));
-  var nucleo=orb.querySelector('.nucleo');
-  if(!cartoes.length) return;
-  var L=0,A=0,miolo=0;                   /* medidas da órbita e do olho, em px */
-
-  function mede(){
-    var o=orb.getBoundingClientRect();
-    if(!o.width||!o.height)return false;
-    L=o.width;A=o.height;
-    var n=nucleo?nucleo.getBoundingClientRect():null;
-    miolo=n&&n.width?n.width/2+9:0;      /* raio do olho + uma folga */
-    return true;
-  }
-  function coloca(){
-    var n=cartoes.length;
-    for(var i=0;i<n;i++){
-      var a=(-90+i*(360/n))*Math.PI/180;
-      var dx=RX*Math.cos(a),dy=RY*Math.sin(a);
-      var x=(50+dx).toFixed(2),y=(50+dy).toFixed(2);
-      cartoes[i].style.setProperty('--x',x+'%');
-      cartoes[i].style.setProperty('--y',y+'%');
-      var l=linhas[i]; if(!l)continue;
-      l.setAttribute('x2',x);l.setAttribute('y2',y);
-      /* o viewBox é esticado, então o recuo vira px antes de virar unidade */
-      var comp=miolo?Math.hypot(dx*L/100,dy*A/100):0;
-      var t=comp>miolo?miolo/comp:0;
-      l.setAttribute('x1',(50+dx*t).toFixed(2));
-      l.setAttribute('y1',(50+dy*t).toFixed(2));
-    }
-  }
-  function redesenha(){if(mede())coloca()}
-
-  window.addEventListener('resize',redesenha);
-  new MutationObserver(redesenha).observe(telaEco,{attributes:true,attributeFilter:['class']});
-  addEventListener('load',redesenha);    /* a fonte/imagem pode mudar a medida */
-  redesenha();
-})();
+/* logo que não carrega (host fora do ar, hotlink barrado, endereço trocado)
+   sai de cena em vez de virar imagem quebrada sobre a foto */
+document.querySelectorAll('#eco-grupos .eitem-logo').forEach(function(im){
+  im.addEventListener('error',function(){im.remove()});
+});
 
 /* decodifica as fotos de fundo enquanto a apresentação está parada:
    sem isso a primeira entrada na tela paga a decodificação no meio da
@@ -1260,7 +1087,7 @@ if('requestIdleCallback' in window)requestIdleCallback(preparaFotos,{timeout:250
 else setTimeout(preparaFotos,1400);
 
 /* estado inicial (respeita link compartilhado com #/secao) */
-ir((location.hash||'').replace(/^#\/?/,'')||'home',true);
+ir((location.hash||'').replace(/^#\/?/,'')||ORDEM[0],true);
 </script>
 </body>
 </html>
