@@ -69,7 +69,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .marca-txt{flex:1;min-width:0;overflow:hidden}
 .marca-txt b{font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:-.02em;display:block;color:var(--tinta);white-space:nowrap}
 .marca-txt span{font-family:var(--cta);font-weight:700;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);white-space:nowrap}
-.dobra{flex:none;width:28px;height:28px;display:grid;place-items:center;border-radius:7px;color:var(--tinta3);transition:.18s}
+.dobra{flex:none;width:28px;height:28px;display:grid;place-items:center;border-radius:3px;color:var(--tinta3);transition:.18s}
 .dobra:hover{background:var(--hover);color:var(--tinta)}
 .dobra svg{transition:transform .28s var(--mola)}
 body.recolhido .marca{flex-direction:column;gap:10px;padding:14px 8px}
@@ -78,20 +78,20 @@ body.recolhido .dobra svg{transform:rotate(180deg)}
 
 .nav{flex:1;overflow-y:auto;overflow-x:hidden;padding:10px 11px 8px;scrollbar-width:thin}
 .nav::-webkit-scrollbar{width:6px}
-.nav::-webkit-scrollbar-thumb{background:var(--linha-f);border-radius:6px}
+.nav::-webkit-scrollbar-thumb{background:var(--linha-f);border-radius:3px}
 .grupo{font-family:var(--cta);font-weight:700;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--tinta3);padding:14px 8px 6px}
 body.recolhido .grupo{padding:11px 10px 9px;font-size:0}
 body.recolhido .grupo::before{content:"";display:block;height:1px;background:var(--vidro-borda)}
 body.recolhido .nav>.grupo:first-child{padding:4px 0 0}
 body.recolhido .nav>.grupo:first-child::before{display:none}
-.item{display:flex;gap:10px;align-items:center;width:100%;text-align:left;padding:8px 9px;border-radius:9px;font-family:var(--display);font-weight:500;font-size:13.5px;line-height:1.2;color:var(--tinta2);transition:background .16s,color .16s;position:relative}
+.item{display:flex;gap:10px;align-items:center;width:100%;text-align:left;padding:8px 9px;border-radius:3px;font-family:var(--display);font-weight:500;font-size:13.5px;line-height:1.2;color:var(--tinta2);transition:background .16s,color .16s;position:relative}
 .item+.item{margin-top:2px}
 .item:hover{background:var(--hover);color:var(--tinta)}
 .item.on{background:var(--gold-bg);color:var(--tinta)}
 .item.on::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:18px;border-radius:0 3px 3px 0;background:var(--gold-deep)}
 .item.on .tecla{border-color:var(--gold);color:var(--gold-deep);background:rgba(239,191,78,.14)}
 .item .rot{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.tecla{font-family:var(--mono);font-size:10px;min-width:20px;height:20px;flex:none;display:grid;place-items:center;border:1px solid var(--linha-f);border-radius:5px;color:var(--tinta3)}
+.tecla{font-family:var(--mono);font-size:10px;min-width:20px;height:20px;flex:none;display:grid;place-items:center;border:1px solid var(--linha-f);border-radius:3px;color:var(--tinta3)}
 body.recolhido .item{justify-content:center;padding:9px 0}
 body.recolhido .item .rot{display:none}
 .tecla.sem{border-color:transparent;background:none;color:var(--tinta3);font-size:9.5px}
@@ -99,7 +99,7 @@ body.recolhido .item .rot{display:none}
 body.recolhido .item .tecla{min-width:26px;height:26px;font-size:11px}
 
 .rodape{border-top:1px solid var(--vidro-borda);padding:9px 11px;display:flex;flex-direction:column;gap:2px}
-.fbtn{display:flex;align-items:center;gap:10px;width:100%;padding:8px 9px;border-radius:9px;color:var(--tinta2);font-family:var(--display);font-weight:500;font-size:12.5px;transition:background .16s,color .16s}
+.fbtn{display:flex;align-items:center;gap:10px;width:100%;padding:8px 9px;border-radius:3px;color:var(--tinta2);font-family:var(--display);font-weight:500;font-size:12.5px;transition:background .16s,color .16s}
 .fbtn:hover{background:var(--hover);color:var(--tinta)}
 .fbtn svg{flex:none}
 .fbtn-rot{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -112,7 +112,7 @@ body.recolhido .fbtn{justify-content:center;padding:9px 0}
 body.recolhido .fbtn-rot{display:none}
 
 /* painel de instruções */
-.ajuda{position:fixed;z-index:85;width:302px;padding:16px 17px 14px;border-radius:14px;background:var(--sup-forte);border:1px solid var(--vidro-borda);box-shadow:0 26px 60px -24px rgba(0,0,0,.55);backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);opacity:0;pointer-events:none;transform:translateY(8px) scale(.97);transform-origin:0 100%;transition:opacity .22s,transform .3s var(--mola)}
+.ajuda{position:fixed;z-index:85;width:302px;padding:16px 17px 14px;border-radius:3px;background:var(--sup-forte);border:1px solid var(--vidro-borda);box-shadow:0 26px 60px -24px rgba(0,0,0,.55);backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);opacity:0;pointer-events:none;transform:translateY(8px) scale(.97);transform-origin:0 100%;transition:opacity .22s,transform .3s var(--mola)}
 body.escuro .ajuda{background:rgba(30,30,34,.95)}
 body:not(.escuro) .ajuda{background:rgba(255,255,255,.95)}
 .ajuda.ver{opacity:1;pointer-events:auto;transform:none}
@@ -120,8 +120,8 @@ body:not(.escuro) .ajuda{background:rgba(255,255,255,.95)}
 .ajuda ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
 .ajuda li{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;line-height:1.4;color:var(--tinta2)}
 .ajuda li span{flex:none;display:flex;gap:3px;padding-top:1px}
-.ajuda kbd{font-family:var(--mono);font-size:9.5px;min-width:19px;height:19px;display:grid;place-items:center;padding:0 5px;border:1px solid var(--linha-f);border-radius:5px;color:var(--tinta);background:var(--sup)}
-.ajuda .ic{width:19px;height:19px;display:grid;place-items:center;border:1px solid var(--linha-f);border-radius:5px;color:var(--gold-deep)}
+.ajuda kbd{font-family:var(--mono);font-size:9.5px;min-width:19px;height:19px;display:grid;place-items:center;padding:0 5px;border:1px solid var(--linha-f);border-radius:3px;color:var(--tinta);background:var(--sup)}
+.ajuda .ic{width:19px;height:19px;display:grid;place-items:center;border:1px solid var(--linha-f);border-radius:3px;color:var(--gold-deep)}
 
 /* visor: a imagem abre num painel ancorado no elemento clicado,
    crescendo a partir dele, em vez de tomar a tela inteira */
@@ -130,7 +130,7 @@ body:not(.escuro) .ajuda{background:rgba(255,255,255,.95)}
 .visor-cena{position:fixed;inset:0;z-index:90;opacity:0;pointer-events:none;transition:opacity .24s}
 .visor-cena.ver{opacity:1}
 .visor-cena .visor{pointer-events:auto}
-.visor{position:absolute;margin:0;left:0;top:0;width:min(46vw,620px);border-radius:0;overflow:clip;background:#09090b;border:1px solid rgba(239,191,78,.34);box-shadow:0 34px 76px -26px rgba(0,0,0,.78);cursor:default;opacity:0;transform:scale(.78) translateY(6px);transform-origin:var(--ox,50%) var(--oy,100%);transition:transform .42s var(--mola),opacity .24s}
+.visor{position:absolute;margin:0;left:0;top:0;width:min(46vw,620px);border-radius:3px;overflow:clip;background:#09090b;border:1px solid rgba(239,191,78,.34);box-shadow:0 34px 76px -26px rgba(0,0,0,.78);cursor:default;opacity:0;transform:scale(.78) translateY(6px);transform-origin:var(--ox,50%) var(--oy,100%);transition:transform .42s var(--mola),opacity .24s}
 .visor-cena.ver .visor{opacity:1;transform:none}
 .visor img{display:block;width:100%;height:auto;background:#0c0c0e}
 .visor-x{position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:18px;line-height:1;color:#fff;background:rgba(9,9,11,.55);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:.18s}
@@ -139,7 +139,7 @@ body:not(.escuro) .ajuda{background:rgba(255,255,255,.95)}
 @media (max-width:860px){.visor{width:min(92vw,620px)}}
 
 /* dica flutuante (tooltip) do trilho recolhido */
-.dica{position:fixed;z-index:80;pointer-events:none;opacity:0;transform:translateX(-6px);transition:opacity .14s,transform .14s;background:rgba(24,24,27,.95);color:#fff;font-family:var(--display);font-weight:500;font-size:12.5px;padding:6px 11px;border-radius:7px;white-space:nowrap;box-shadow:0 8px 22px -8px rgba(0,0,0,.5)}
+.dica{position:fixed;z-index:80;pointer-events:none;opacity:0;transform:translateX(-6px);transition:opacity .14s,transform .14s;background:rgba(24,24,27,.95);color:#fff;font-family:var(--display);font-weight:500;font-size:12.5px;padding:6px 11px;border-radius:3px;white-space:nowrap;box-shadow:0 8px 22px -8px rgba(0,0,0,.5)}
 .dica.ver{opacity:1;transform:none}
 
 /* ============================================================
@@ -149,7 +149,7 @@ body:not(.escuro) .ajuda{background:rgba(255,255,255,.95)}
 .progresso{position:absolute;top:0;left:0;height:2px;width:0;z-index:25;background:var(--gold);box-shadow:0 0 10px rgba(239,191,78,.5);transition:width .38s var(--mola)}
 .topo{display:none;align-items:center;gap:12px;padding:10px 14px;background:var(--sup-forte);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--vidro-borda)}
 .topo b{font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:-.01em}
-.hamb{width:34px;height:34px;display:grid;place-items:center;border-radius:8px;color:var(--tinta2)}
+.hamb{width:34px;height:34px;display:grid;place-items:center;border-radius:3px;color:var(--tinta2)}
 .tela{display:none;position:absolute;inset:0;overflow-y:auto}
 .tela.ativa{display:block}
 .tela.ativa .in{animation:entra .32s var(--mola) both}
@@ -160,7 +160,7 @@ body:not(.escuro) .ajuda{background:rgba(255,255,255,.95)}
 /* ============================================================
    5. HOME
    ============================================================ */
-.eyebrow{display:inline-flex;align-items:center;font-family:var(--display);font-weight:600;font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--gold-esc);background:var(--gold-bg);border:1px solid rgba(239,191,78,.2);border-radius:0;padding:5px 13px;margin:0 0 14px}
+.eyebrow{display:inline-flex;align-items:center;font-family:var(--display);font-weight:600;font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--gold-esc);background:var(--gold-bg);border:1px solid rgba(239,191,78,.2);border-radius:3px;padding:5px 13px;margin:0 0 14px}
 h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,56px);line-height:1.05;letter-spacing:-.025em;margin:0;max-width:20ch;color:var(--tinta)}
 .dourado{color:var(--gold-esc)}
 
@@ -224,7 +224,7 @@ h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,56px);lin
 .legenda{font-size:16px;line-height:1.6;color:var(--tinta2);margin:14px 0 0;max-width:56ch}
 .chips{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
 /* tags em vidro líquido sobre a mídia de fundo */
-.chip{position:relative;overflow:hidden;overflow:clip;isolation:isolate;display:inline-flex;align-items:center;gap:8px;font-family:var(--cta);font-weight:600;font-size:12px;letter-spacing:.01em;border-radius:0;padding:12px 19px;color:rgba(255,255,255,.96);
+.chip{position:relative;overflow:hidden;overflow:clip;isolation:isolate;display:inline-flex;align-items:center;gap:8px;font-family:var(--cta);font-weight:600;font-size:12px;letter-spacing:.01em;border-radius:3px;padding:12px 19px;color:rgba(255,255,255,.96);
   background:linear-gradient(160deg,rgba(255,255,255,.19),rgba(255,255,255,.09) 55%,rgba(255,255,255,.13));
   backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);
   border:1px solid rgba(255,255,255,.16);
@@ -242,7 +242,7 @@ h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,56px);lin
 .galeria .cab{margin-bottom:28px}
 .grade{display:grid;gap:15px;flex:1}
 .g-2{grid-template-columns:repeat(2,1fr)}.g-3{grid-template-columns:repeat(3,1fr)}.g-4{grid-template-columns:repeat(4,1fr)}
-.foto{position:relative;border:1px solid var(--vidro-borda);border-radius:0;overflow:hidden;overflow:clip;min-height:160px;background:var(--sup);display:flex;flex-direction:column;justify-content:flex-end;transition:transform 320ms ease,box-shadow 320ms ease,border-color 320ms ease}
+.foto{position:relative;border:1px solid var(--vidro-borda);border-radius:3px;overflow:hidden;overflow:clip;min-height:160px;background:var(--sup);display:flex;flex-direction:column;justify-content:flex-end;transition:transform 320ms ease,box-shadow 320ms ease,border-color 320ms ease}
 .foto:hover{transform:scale(1.018);box-shadow:0 22px 44px -12px rgba(239,191,78,.3);border-color:rgba(239,191,78,.45)}
 /* cards com imagem de capa */
 .foto.capa{background:#09090b}
@@ -273,54 +273,77 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
    O tom é uma variação local do --gold, com menos saturação e menos
    luz: o token da marca segue como está para o resto da apresentação. */
 #ferramentas,#calculadoras{flex:none}
-.calc{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-height:286px;padding:26px 24px 52px;border:0;border-radius:0;overflow:hidden;overflow:clip;text-decoration:none;color:#09090b;background:linear-gradient(152deg,#D3AC50 0%,#BB963E 62%,#AA893C 100%);box-shadow:0 18px 38px -22px rgba(120,86,10,.55);transition:transform .3s var(--mola),box-shadow .3s}
+/* as ferramentas ganham corpo, as calculadoras encolhem */
+#ferramentas .foto{min-height:310px}
+#calculadoras .calc{min-height:170px;padding:16px 16px 40px;gap:8px}
+#calculadoras .calc-ic{width:36px;height:36px}
+#calculadoras .calc-ic svg{width:17px;height:17px}
+#calculadoras .calc b{font-size:16px}
+#calculadoras .calc small{font-size:12px;line-height:1.45}
+.calc{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-height:286px;padding:26px 24px 52px;border:0;border-radius:3px;overflow:hidden;overflow:clip;text-decoration:none;color:#09090b;background:linear-gradient(152deg,#D3AC50 0%,#BB963E 62%,#AA893C 100%);box-shadow:0 18px 38px -22px rgba(120,86,10,.55);transition:transform .3s var(--mola),box-shadow .3s}
 /* o arco claro do canto superior direito, como no material de origem */
 .calc::before{content:"";position:absolute;z-index:0;top:-42%;right:-30%;width:88%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.1);pointer-events:none}
 .calc>*{position:relative;z-index:1}
 .calc:hover{transform:translateY(-4px);box-shadow:0 26px 50px -20px rgba(120,86,10,.7)}
-.calc-ic{width:46px;height:46px;flex:none;border-radius:0;display:grid;place-items:center;background:rgba(9,9,11,.13);color:#09090b}
+.calc-ic{width:46px;height:46px;flex:none;border-radius:3px;display:grid;place-items:center;background:rgba(9,9,11,.13);color:#09090b}
 .calc b{font-family:var(--display);font-weight:700;font-size:19px;line-height:1.2;letter-spacing:-.015em;color:#09090b}
 .calc small{font-size:13px;line-height:1.5;color:rgba(9,9,11,.82)}
 /* a pílula dourada sumiria no card dourado: aqui ela inverte */
 .calc .acesso{background:#09090b;color:var(--gold)}
 a.calc:hover .acesso{background:#fff;color:#09090b}
-.calc-todas{align-self:center;margin-top:20px;display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border:1px solid rgba(239,191,78,.4);border-radius:0;background:var(--gold-bg);font-size:13px;font-weight:600;color:var(--gold-deep);text-decoration:none;transition:border-color .25s,background .25s}
+.calc-todas{align-self:center;margin-top:20px;display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border:1px solid rgba(239,191,78,.4);border-radius:3px;background:var(--gold-bg);font-size:13px;font-weight:600;color:var(--gold-deep);text-decoration:none;transition:border-color .25s,background .25s}
 .calc-todas:hover{border-color:var(--gold);background:rgba(239,191,78,.18)}
-.acesso{position:absolute;top:16px;right:16px;font-family:var(--cta);font-weight:700;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#09090b;background:var(--gold);padding:4px 9px;border-radius:0}
+.acesso{position:absolute;top:16px;right:16px;font-family:var(--cta);font-weight:700;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#09090b;background:var(--gold);padding:4px 9px;border-radius:3px}
 /* novidades: régua de números e grade de entregas, no mesmo desenho
    reto e com filete dourado do resto da apresentação */
-.nov-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:26px}
-.nov-stat{background:var(--sup);border:1px solid var(--vidro-borda);border-top:3px solid var(--gold);padding:18px 20px;animation:sobe .44s var(--mola) backwards;animation-delay:calc(var(--j,0)*70ms + 90ms)}
-.nov-stat b{display:block;font-family:var(--display);font-weight:700;font-size:clamp(26px,3vw,38px);line-height:1;letter-spacing:-.03em;color:var(--tinta)}
-.nov-stat span{display:block;margin-top:7px;font-size:12.5px;line-height:1.4;color:var(--tinta2)}
+.nov-stats{display:flex;flex-wrap:wrap;align-items:baseline;gap:0;margin-bottom:30px;border-top:1px solid var(--linha2);border-bottom:1px solid var(--linha2);padding:18px 0}
+.nov-stat{flex:1;min-width:190px;padding:2px 26px;display:flex;align-items:baseline;gap:12px;animation:sobe .44s var(--mola) backwards;animation-delay:calc(var(--j,0)*70ms + 90ms)}
+.nov-stat+.nov-stat{border-left:1px solid var(--linha2)}
+.nov-stat:first-child{padding-left:0}
+.nov-stat b{flex:none;font-family:var(--display);font-weight:700;font-size:clamp(28px,3.1vw,40px);line-height:1;letter-spacing:-.03em;color:var(--gold-deep)}
+.nov-stat span{font-size:12.5px;line-height:1.35;color:var(--tinta2)}
 .nov-grade{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.ncard{position:relative;display:flex;flex-direction:column;gap:8px;background:var(--sup);border:1px solid var(--vidro-borda);padding:20px 20px 22px;text-decoration:none;color:inherit;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;animation:sobe .44s var(--mola) backwards;animation-delay:calc(var(--j,0)*60ms + 180ms)}
+.ncard{position:relative;border-radius:3px;display:flex;flex-direction:column;background:var(--sup);border:1px solid var(--vidro-borda);overflow:hidden;overflow:clip;text-decoration:none;color:inherit;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;animation:sobe .44s var(--mola) backwards;animation-delay:calc(var(--j,0)*60ms + 180ms)}
 .ncard.tem-link:hover{transform:translateY(-4px);border-color:rgba(239,191,78,.5);box-shadow:0 12px 28px rgba(0,0,0,.08)}
+.ncard-img{width:100%;aspect-ratio:960/476;object-fit:cover;display:block;background:#09090b}
+.ncard-corpo{display:flex;flex-direction:column;gap:8px;padding:16px 18px 18px;flex:1}
 .ncard-q{font-family:var(--cta);font-weight:700;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep)}
 .ncard h3{margin:0;font-family:var(--display);font-weight:600;font-size:17px;line-height:1.2;letter-spacing:-.015em;color:var(--tinta)}
 .ncard p{margin:0;font-size:12.5px;line-height:1.55;color:var(--tinta2)}
 .ncard-link{margin-top:auto;padding-top:8px;display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;letter-spacing:.02em;color:var(--gold-deep)}
-/* ecossistema: cada frente é uma trilha, não uma lista. O fio dourado
-   corre pela coluna e os ordinais se apoiam nele como nós - o mesmo
-   parentesco visual do anel antigo, agora na vertical. Cantos retos e
-   filete no topo vêm da LP da Escola. */
-.eco-grupos{flex:1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px;margin-top:24px;align-content:start}
-.egrupo{display:flex;flex-direction:column;min-width:0;background:var(--sup);border:1px solid var(--vidro-borda);border-top:3px solid var(--gold);padding:22px 24px 14px;animation:sobe .46s var(--mola) backwards;animation-delay:calc(var(--g,0)*110ms + 90ms)}
-.egrupo-cab{padding-bottom:16px}
-.egrupo-tag{display:inline-block;font-family:var(--cta);font-weight:700;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-deep)}
-.egrupo-cab h2{margin:7px 0 0;font-family:var(--display);font-weight:700;font-size:clamp(20px,1.9vw,26px);letter-spacing:-.02em;color:var(--tinta)}
-.egrupo-cab p{margin:5px 0 0;font-size:13px;line-height:1.5;color:var(--tinta2)}
-/* a trilha: fio contínuo atrás dos ordinais */
-.egrupo-itens{position:relative;list-style:none;margin:0;padding:2px 0 2px 44px;display:grid}
-.egrupo-itens::before{content:"";position:absolute;left:14px;top:20px;bottom:20px;width:2px;background:linear-gradient(180deg,var(--gold) 0%,rgba(239,191,78,.22) 100%)}
-.eitem{position:relative;padding:12px 2px;transition:transform .22s var(--mola);animation:sobe .4s var(--mola) backwards;animation-delay:calc(var(--j,0)*45ms + 220ms)}
-.eitem+.eitem{border-top:1px solid var(--linha2)}
-.eitem-n{position:absolute;left:-44px;top:11px;width:30px;height:30px;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:11.5px;line-height:1;font-variant-numeric:tabular-nums;color:var(--gold-deep);background:var(--chapa);border:1px solid rgba(239,191,78,.55);transition:background .22s,color .22s,border-color .22s}
-.eitem-corpo b{display:block;font-family:var(--display);font-weight:600;font-size:15.5px;line-height:1.25;letter-spacing:-.012em;color:var(--tinta)}
-.eitem-corpo small{display:block;margin-top:3px;font-size:12.5px;line-height:1.5;color:var(--tinta2)}
-.eitem:hover{transform:translateX(5px)}
-.eitem:hover .eitem-n{background:var(--gold);border-color:var(--gold);color:#09090b}
-.eitem:hover .eitem-corpo b{color:var(--gold-deep)}
+/* ecossistema: um sistema, não duas listas. O fio vertical atravessa a
+   tela inteira, o olho fica no meio dele e cada item se liga ao fio por
+   um ramo horizontal com um nó na ponta - a leitura de fora para dentro
+   mostra tudo convergindo para o mesmo centro. */
+.eco-grupos{flex:1;position:relative;display:grid;grid-template-columns:1fr var(--miolo,168px) 1fr;align-items:center;margin-top:18px}
+.eco-grupos::before{content:"";position:absolute;left:50%;top:2%;bottom:2%;width:2px;transform:translateX(-1px);background:linear-gradient(180deg,transparent 0%,var(--gold) 10%,var(--gold) 90%,transparent 100%);opacity:.75}
+.eco-lado{display:flex;flex-direction:column;gap:9px;min-width:0}
+.eco-lado.esq{text-align:right;padding-right:6px}
+.eco-lado.dir{padding-left:6px}
+.eco-cab{padding-bottom:6px}
+.eco-tag{display:inline-block;border-radius:3px;font-family:var(--cta);font-weight:700;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-deep)}
+.eco-cab h2{margin:5px 0 0;font-family:var(--display);font-weight:700;font-size:clamp(19px,1.8vw,25px);letter-spacing:-.02em;color:var(--tinta)}
+.eco-cab p{margin:4px 0 0;font-size:12.5px;line-height:1.45;color:var(--tinta2)}
+.eco-ramos{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+/* cada item é um ramo: o traço sai da borda interna e o nó pousa no fio */
+.eitem{position:relative;border-radius:3px;background:var(--sup);border:1px solid var(--vidro-borda);padding:9px 13px;transition:border-color .22s,background .22s,transform .22s var(--mola);animation:sobe .42s var(--mola) backwards;animation-delay:calc(var(--j,0)*42ms + 160ms)}
+.eitem b{display:block;font-family:var(--display);font-weight:600;font-size:14px;line-height:1.2;letter-spacing:-.012em;color:var(--tinta)}
+.eitem small{display:block;margin-top:2px;font-size:11.5px;line-height:1.4;color:var(--tinta2)}
+.eitem::after,.eitem::before{content:"";position:absolute;top:50%;pointer-events:none}
+.eitem::after{height:1px;width:calc(var(--miolo,168px)/2 + 7px);background:linear-gradient(90deg,var(--gold),rgba(239,191,78,.28));opacity:.8}
+.eitem::before{width:7px;height:7px;margin-top:-3.5px;border-radius:50%;background:var(--chapa);border:2px solid var(--gold);z-index:1}
+.esq .eitem::after{right:calc(-1 * (var(--miolo,168px)/2 + 7px));background:linear-gradient(270deg,var(--gold),rgba(239,191,78,.28))}
+.esq .eitem::before{right:calc(-1 * (var(--miolo,168px)/2 + 12px))}
+.dir .eitem::after{left:calc(-1 * (var(--miolo,168px)/2 + 7px))}
+.dir .eitem::before{left:calc(-1 * (var(--miolo,168px)/2 + 12px))}
+.eitem:hover{border-color:rgba(239,191,78,.6);background:var(--gold-bg)}
+.esq .eitem:hover{transform:translateX(-4px)}
+.dir .eitem:hover{transform:translateX(4px)}
+/* o núcleo cobre o fio: sem chapa opaca o traço passaria por dentro do olho */
+.eco-nucleo{position:relative;z-index:2;justify-self:center;display:grid;place-items:center;gap:6px}
+.eco-halo{position:absolute;inset:-26px;border-radius:50%;background:radial-gradient(circle,rgba(239,191,78,.24) 0%,rgba(239,191,78,.07) 52%,transparent 74%)}
+.eco-nucleo img{position:relative;width:clamp(74px,7.4vw,104px);display:block;padding:14px;border-radius:50%;background:var(--chapa);box-shadow:0 0 0 1px rgba(239,191,78,.45)}
+.eco-nucleo-rot{position:relative;font-family:var(--cta);font-weight:700;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep);white-space:nowrap}
 
 /* divisória entre a grade fixa e os módulos avançados */
 .crono-divisa{display:flex;align-items:center;gap:16px;margin:36px 0 26px;color:var(--gold-deep)}
@@ -330,9 +353,10 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 .cab-av h2{margin:0;font-family:var(--display);font-weight:700;font-size:clamp(21px,2.1vw,30px);letter-spacing:-.02em;color:var(--tinta)}
 /* cartão dos avançados: o desenho da LP - reto, com filete dourado no topo */
 .avancados{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.acard{background:var(--sup);border:1px solid var(--vidro-borda);border-top:3px solid var(--gold);padding:24px 22px;display:flex;flex-direction:column;gap:10px;transition:transform .3s ease,box-shadow .3s ease;animation:sobe .44s var(--mola) backwards;animation-delay:calc(var(--j,0)*70ms + 120ms)}
+.avancados.um-so{grid-template-columns:minmax(0,520px)}
+.acard{background:var(--sup);border-radius:3px;border:1px solid var(--vidro-borda);border-top:3px solid var(--gold);padding:24px 22px;display:flex;flex-direction:column;gap:10px;transition:transform .3s ease,box-shadow .3s ease;animation:sobe .44s var(--mola) backwards;animation-delay:calc(var(--j,0)*70ms + 120ms)}
 .acard:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,.08)}
-.acard-nota{align-self:flex-start;font-family:var(--cta);font-weight:700;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-deep);background:var(--gold-bg);border:1px solid rgba(239,191,78,.3);padding:3px 8px}
+.acard-nota{align-self:flex-start;border-radius:3px;font-family:var(--cta);font-weight:700;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-deep);background:var(--gold-bg);border:1px solid rgba(239,191,78,.3);padding:3px 8px}
 .acard h3{margin:0;font-family:var(--display);font-weight:600;font-size:18px;letter-spacing:-.015em;color:var(--tinta)}
 .acard p{margin:0;font-size:13px;line-height:1.55;color:var(--tinta2)}
 .eco-wrap{min-height:100%;padding:56px;display:flex;flex-direction:column}
@@ -352,7 +376,7 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 .numeros{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:32px}
 /* na Escola a régua acompanha o texto, que é alinhado à esquerda */
 #t3 .numeros{justify-content:flex-start}
-.num{position:relative;overflow:clip;isolation:isolate;min-width:190px;max-width:280px;padding:18px 22px 16px;border-radius:0;text-align:center;
+.num{position:relative;overflow:clip;isolation:isolate;min-width:190px;max-width:280px;padding:18px 22px 16px;border-radius:3px;text-align:center;
   background:linear-gradient(160deg,rgba(255,255,255,.19),rgba(255,255,255,.09) 55%,rgba(255,255,255,.13));
   backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);
   border:1px solid rgba(255,255,255,.16);
@@ -364,16 +388,16 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 /* cronograma de modulos */
 .crono{display:flex;flex-direction:column;gap:15px}
 .crono-sub{font-size:14px;color:var(--tinta2);font-style:italic;margin:6px 0 6px}
-.aviso{display:flex;gap:12px;align-items:flex-start;margin:0 0 18px;padding:14px 17px;border:1px solid var(--aviso-borda);background:var(--aviso-bg);border-radius:0;font-size:13.5px;line-height:1.5;color:var(--aviso-tinta);max-width:none}
+.aviso{display:flex;gap:12px;align-items:flex-start;margin:0 0 18px;padding:14px 17px;border:1px solid var(--aviso-borda);background:var(--aviso-bg);border-radius:3px;font-size:13.5px;line-height:1.5;color:var(--aviso-tinta);max-width:none}
 .aviso b{color:var(--aviso-forte);font-weight:600}
 .aviso-ic{flex:none;width:19px;height:19px;margin-top:1px;border-radius:50%;border:1.6px solid var(--aviso-forte);color:var(--aviso-forte);font-family:var(--display);font-weight:700;font-size:13px;line-height:1;display:grid;place-items:center}
 .crono-barra{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
-.crono-barra button{font-family:var(--cta);font-weight:600;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta2);border:1px solid var(--vidro-borda);background:var(--sup);border-radius:0;padding:7px 14px;transition:.18s}
+.crono-barra button{font-family:var(--cta);font-weight:600;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta2);border:1px solid var(--vidro-borda);background:var(--sup);border-radius:3px;padding:7px 14px;transition:.18s}
 .crono-barra button:hover{border-color:rgba(239,191,78,.55);color:var(--gold-deep)}
-.mcard{border:1px solid var(--vidro-borda);border-radius:0;background:var(--sup);overflow:hidden;overflow:clip;transition:border-color .24s,box-shadow .24s}
+.mcard{border:1px solid var(--vidro-borda);border-radius:3px;background:var(--sup);overflow:hidden;overflow:clip;transition:border-color .24s,box-shadow .24s}
 .mcard.aberto{border-color:rgba(239,191,78,.45);box-shadow:0 14px 34px -14px rgba(239,191,78,.3)}
 .mcard-head{display:flex;gap:22px;align-items:stretch;width:100%;text-align:left;padding:16px;cursor:pointer;background:none;color:inherit}
-.medalhao{position:relative;overflow:hidden;overflow:clip;flex:none;width:158px;border-radius:0;background:var(--grad-escuro);border:1px solid rgba(239,191,78,.2);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:9px;padding:16px;min-height:112px}
+.medalhao{position:relative;overflow:hidden;overflow:clip;flex:none;width:158px;border-radius:3px;background:var(--grad-escuro);border:1px solid rgba(239,191,78,.2);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:9px;padding:16px;min-height:112px}
 /* capa do módulo: a proporção do medalhão acompanha a da imagem
    (768x481), então nada é cortado nas laterais */
 .medalhao.capa{width:222px;min-height:0;aspect-ratio:768/481;padding:0;border-color:rgba(239,191,78,.3);background:#09090b}
@@ -388,7 +412,7 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 .mcard-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:9px;padding-right:6px;justify-content:center}
 .mcard-body h3{font-family:var(--display);font-weight:600;font-size:21px;color:var(--tinta);margin:0;letter-spacing:-.01em}
 .mtags{display:flex;flex-wrap:wrap;gap:8px}
-.mtag{font-family:var(--cta);font-weight:600;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--gold-deep);background:var(--gold-bg);border:1px solid rgba(239,191,78,.25);border-radius:0;padding:4px 9px}
+.mtag{font-family:var(--cta);font-weight:600;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--gold-deep);background:var(--gold-bg);border:1px solid rgba(239,191,78,.25);border-radius:3px;padding:4px 9px}
 .mdesc{font-size:14px;color:var(--tinta2);line-height:1.5;margin:0}
 .chev{flex:none;align-self:center;color:var(--gold-deep);font-size:18px;transition:transform .28s ease;line-height:1}
 .mcard.aberto .chev{transform:rotate(180deg)}
@@ -401,7 +425,7 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 .aula .ad{font-family:var(--mono);font-size:12px;color:var(--tinta2);flex:none}
 .aula.bonus .an{color:var(--gold)}
 .aulas-nota{font-family:var(--mono);font-size:12px;color:var(--tinta2);padding:12px 2px 4px;font-style:italic}
-.aula-obs{display:flex;gap:10px;align-items:flex-start;margin-top:14px;padding:12px 14px;border:1px solid rgba(239,191,78,.35);background:var(--gold-bg);border-radius:0}
+.aula-obs{display:flex;gap:10px;align-items:flex-start;margin-top:14px;padding:12px 14px;border:1px solid rgba(239,191,78,.35);background:var(--gold-bg);border-radius:3px}
 .aula-obs .obs-ic{flex:none;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--gold-deep);color:var(--gold-deep);font-family:var(--display);font-weight:700;font-size:12px;display:grid;place-items:center;margin-top:1px}
 .aula-obs p{margin:0;font-size:13px;line-height:1.5;color:var(--tinta)}
 .aula-obs b{color:var(--gold-deep)}
@@ -440,7 +464,12 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
   .quadro.midia .chip{font-size:11px;padding:9px 13px}
   .faixa{position:static;background:#18181b;padding:30px 22px}
   .galeria,.eco-wrap{padding:30px 22px 50px}
-  .eco-grupos{grid-template-columns:1fr;gap:20px}
+  .eco-grupos{grid-template-columns:1fr;gap:22px;align-items:stretch}
+  .eco-grupos::before{display:none}
+  .eco-lado.esq{text-align:left;padding-right:0}
+  .eco-lado.dir{padding-left:0}
+  .eitem::after,.eitem::before{display:none}
+  .eco-nucleo{display:none}
   .avancados{grid-template-columns:1fr}
   .nov-stats,.nov-grade{grid-template-columns:1fr}
   .grade,.g-2,.g-3,.g-4{grid-template-columns:1fr}
@@ -499,9 +528,8 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
     <section class="tela" id="t3"><div class="quadro midia foco in">
       <img class="bg" src="DSC01389-2560.jpg" alt="" decoding="async" fetchpriority="low">
       <div class="faixa">        <p class="kicker">O produto</p>        <h1>O que é a AUVP Escola?</h1>
-        <p class="legenda">A formação completa para você sair do zero e chegar à autonomia — com material, ferramentas e gente para tirar dúvida do lado.</p>
+        <p class="legenda">A formação completa para você sair do zero e chegar à autonomia, com material, ferramentas e gente para tirar dúvida do lado.</p>
         <div class="numeros">
-          <div class="num"><b>29h21</b><span>de curso, somando os 8 módulos da grade</span></div>
           <div class="num"><b>+100</b><span>aulas gravadas, para assistir no seu ritmo</span></div>
           <div class="num"><b>1 ano</b><span>de acesso ao curso, às lives e às ferramentas</span></div>
         </div>
@@ -527,6 +555,10 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
       <div class="cab cab-av"><h2>Módulos avançados para ir mais longe</h2>
         <p class="crono-sub">Depois da grade principal, o caminho é seu: se quiser aprofundar algum tema, os módulos extras estão à disposição.</p></div>
       <div class="avancados" id="avancados"></div>
+      <div class="crono-divisa"><span>E além da Escola</span></div>
+      <div class="cab cab-av"><h2>AUVP Internacional</h2>
+        <p class="crono-sub">Outro produto, com trilha própria: quem entra na Escola já leva os dois primeiros módulos como bônus.</p></div>
+      <div class="avancados um-so" id="internacional"></div>
     </div></section>
 
     <section class="tela" id="tmat"><div class="galeria in">
@@ -1016,19 +1048,25 @@ document.getElementById('calculadoras').innerHTML=CALC.map(function(c){
    "modulos-avancados"), com o texto de lá. Não têm lista de aulas: são a
    continuação da grade, não parte dela, e por isso ficam abaixo da
    divisória e com um cartão de desenho próprio. */
+/* três degraus na tela: a grade da Escola, os módulos avançados e, à
+   parte, a AUVP Internacional - que é outro produto, não um módulo. */
+const INTERNACIONAL=[
+  {t:'AUVP Internacional',nota:'bônus com 2 primeiros módulos',d:'Mergulha na Renda Fixa Internacional, ensina sobre stocks, REITs e Private Equity, e explica como o ciclo econômico impacta os investimentos. Assim, ajuda a expandir oportunidades no mercado global.'}
+];
 const AVANCADOS=[
   {t:'Análise de setores',d:'Destrincha os pontos mais importantes para entender cada setor da economia. Ensina como funciona o ciclo de crescimento de empresas em diferentes áreas e quais indicadores realmente importam para investir com estratégia.'},
   {t:'Geopolítica',d:'Mostra como decisões políticas, guerras, políticas econômicas e relações internacionais afetam diretamente os investimentos, desenvolvendo uma visão estratégica para antecipar movimentos do mercado e proteger a carteira.'},
   {t:'Aulas técnicas',d:'Auxilia na compreensão da saúde financeira de empresas e na tomada de decisões fundamentadas. Ensina a interpretar balanços, DRE, fluxo de caixa e estrutura de capital, além de relembrar todos os indicadores.'},
   {t:'Criptomoedas',d:'Apresenta o universo das criptomoedas para iniciantes de forma extremamente didática e acessível, alinhando conceitos fundamentais, como Bitcoin, Ethereum, blockchain, ciclos de mercado e análise de ativos, à filosofia de investimentos Buy and Hold para quem busca clareza antes de aportar no longo prazo.'},
-  {t:'AUVP Internacional',nota:'bônus com 2 primeiros módulos',d:'Mergulha na Renda Fixa Internacional, ensina sobre stocks, REITs e Private Equity, e explica como o ciclo econômico impacta os investimentos. Assim, ajuda a expandir oportunidades no mercado global.'},
   {t:'Guia de plataformas',d:'Um guia 100% prático focado em ensinar nossos membros a navegar e utilizar todo o ecossistema AUVP, incluindo a conta banking, a AUVP Analítica, o Minhas Finanças e outras ferramentas para investir e organizar sua vida financeira com total autonomia.'}
 ];
-document.getElementById('avancados').innerHTML=AVANCADOS.map(function(a,i){
+function cardsAv(lista){return lista.map(function(a,i){
   return '<article class="acard" style="--j:'+i+'"><h3>'+esc(a.t)+'</h3>'
     +(a.nota?'<span class="acard-nota">'+esc(a.nota)+'</span>':'')
     +'<p>'+esc(a.d)+'</p></article>';
-}).join('');
+}).join('')}
+document.getElementById('avancados').innerHTML=cardsAv(AVANCADOS);
+document.getElementById('internacional').innerHTML=cardsAv(INTERNACIONAL);
 
 document.getElementById('ferramentas').innerHTML=FERR.map(function(f){
   var tag=f.url?'a':'div';
@@ -1049,12 +1087,12 @@ const NOV_STATS=[
   {n:'Todo mês',t:'uma nova leva de atualizações'}
 ];
 const NOV=[
-  {q:'Julho · 2026',t:'Minha AUVP',d:'A sua nova casa com tudo sobre nosso ecossistema. Um ambiente moderno que concentra o seu treinamento e todas as soluções da AUVP a um clique de distância.',url:'https://minha.auvp.com.br/'},
-  {q:'Julho · 2026',t:'ETFs AUVP',d:'Lançamos o ABTC11, o primeiro ETF do mercado a unir Bitcoin e Renda Fixa, além de um site com a metodologia e composição de todos os nossos fundos abertas para você.',url:'https://www.auvpetfs.com.br/'},
-  {q:'Julho · 2026',t:'Módulo da AUVP Analítica',d:'Compartilhamos um novo módulo inteiro na Escola, totalmente dedicado a ensinar como você pode extrair o potencial máximo da nossa ferramenta de análise fundamentalista.'},
-  {q:'Julho · 2026',t:'Carteiras recomendadas',d:'Nosso app exclusivo para membros agora possui 4 carteiras recomendadas com nossa metodologia, pensadas para atender cada fase da sua vida financeira.'},
-  {q:'Junho · 2026',t:'Escola 100% regravada',d:'Revisamos a estrutura do treinamento e regravamos todas as aulas, garantindo conteúdo alinhado com o mercado para facilitar seus estudos.'},
-  {q:'Abril · 2026',t:'Módulo bônus de criptomoedas',d:'Para além do treinamento com 7 módulos, liberamos um módulo completo explicando tudo sobre o mercado cripto do zero.'}
+  {q:'Julho · 2026',t:'Minha AUVP',img:'https://cdn.asupernova.com.br/LP%20AUVP%20ESCOLA/minha-auvp.webp',d:'A sua nova casa com tudo sobre nosso ecossistema. Um ambiente moderno que concentra o seu treinamento e todas as soluções da AUVP a um clique de distância.',url:'https://minha.auvp.com.br/'},
+  {q:'Julho · 2026',t:'ETFs AUVP',img:'https://cdn.asupernova.com.br/LP%20AUVP%20ESCOLA/etfs.webp',d:'Lançamos o ABTC11, o primeiro ETF do mercado a unir Bitcoin e Renda Fixa, além de um site com a metodologia e composição de todos os nossos fundos abertas para você.',url:'https://www.auvpetfs.com.br/'},
+  {q:'Julho · 2026',t:'Módulo da AUVP Analítica',img:'https://cdn.asupernova.com.br/LP%20AUVP%20ESCOLA/modulo-analitica.webp',d:'Compartilhamos um novo módulo inteiro na Escola, totalmente dedicado a ensinar como você pode extrair o potencial máximo da nossa ferramenta de análise fundamentalista.'},
+  {q:'Julho · 2026',t:'Carteiras recomendadas',img:'https://cdn.asupernova.com.br/LP%20AUVP%20ESCOLA/carteiras.webp',d:'Nosso app exclusivo para membros agora possui 4 carteiras recomendadas com nossa metodologia, pensadas para atender cada fase da sua vida financeira.'},
+  {q:'Junho · 2026',t:'Escola 100% regravada',img:'https://cdn.asupernova.com.br/LP%20AUVP%20ESCOLA/escola-regravada.webp',d:'Revisamos a estrutura do treinamento e regravamos todas as aulas, garantindo conteúdo alinhado com o mercado para facilitar seus estudos.'},
+  {q:'Abril · 2026',t:'Módulo bônus de criptomoedas',img:'https://cdn.asupernova.com.br/LP%20AUVP%20ESCOLA/cripto.webp',d:'Para além do treinamento com 7 módulos, liberamos um módulo completo explicando tudo sobre o mercado cripto do zero.'}
 ];
 document.getElementById('nov-stats').innerHTML=NOV_STATS.map(function(x,i){
   return '<div class="nov-stat" style="--j:'+i+'"><b>'+esc(x.n)+'</b><span>'+esc(x.t)+'</span></div>';
@@ -1063,26 +1101,34 @@ document.getElementById('nov-grade').innerHTML=NOV.map(function(c,i){
   var tag=c.url?'a':'article';
   var atr=c.url?' href="'+esc(c.url)+'" target="_blank" rel="noopener noreferrer"':'';
   return '<'+tag+' class="ncard'+(c.url?' tem-link':'')+'"'+atr+' style="--j:'+i+'">'
-    +'<span class="ncard-q">'+esc(c.q)+'</span>'
+    +'<img class="ncard-img" src="'+esc(c.img)+'" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">'
+    +'<span class="ncard-corpo"><span class="ncard-q">'+esc(c.q)+'</span>'
     +'<h3>'+esc(c.t)+'</h3><p>'+esc(c.d)+'</p>'
     +(c.url?'<span class="ncard-link">Conhecer<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></span>':'')
-    +'</'+tag+'>';
+    +'</span></'+tag+'>';
 }).join('');
 
-/* ---------- ecossistema: duas frentes, Educacional e Banking ----------
-   Sem foto e sem dropdown: cada frente vira uma trilha vertical, com o
-   ordinal de cada item apoiado sobre um fio dourado contínuo. O que
-   estava escondido no dropdown foi dobrado na própria descrição. */
-document.getElementById('eco-grupos').innerHTML=ECOS.map(function(g,gi){
-  return '<section class="egrupo" style="--g:'+gi+'">'
-    +'<header class="egrupo-cab"><span class="egrupo-tag">'+esc(g.grupo)+'</span>'
-    +'<h2>'+esc(g.mote)+'</h2><p>'+esc(g.d)+'</p></header>'
-    +'<ol class="egrupo-itens">'+g.itens.map(function(it,k){
-      return '<li class="eitem" style="--j:'+k+'">'
-        +'<span class="eitem-n" aria-hidden="true">'+String(k+1).padStart(2,'0')+'</span>'
-        +'<span class="eitem-corpo"><b>'+esc(it.t)+'</b><small>'+esc(it.d)+'</small></span></li>';
-    }).join('')+'</ol></section>';
-}).join('');
+/* ---------- ecossistema: um hub com duas frentes ----------
+   Não é uma lista de produtos, é um sistema: o olho no meio, um fio
+   vertical atravessando a tela e cada item ligado a ele por um ramo
+   próprio, com o nó pousado no fio. Ler de fora para dentro mostra que
+   tudo converge para o mesmo lugar. */
+document.getElementById('eco-grupos').innerHTML=
+  '<section class="eco-lado esq">'
+  +'<header class="eco-cab"><span class="eco-tag">'+esc(ECOS[0].grupo)+'</span>'
+  +'<h2>'+esc(ECOS[0].mote)+'</h2><p>'+esc(ECOS[0].d)+'</p></header>'
+  +'<ol class="eco-ramos">'+ECOS[0].itens.map(function(it,k){
+    return '<li class="eitem" style="--j:'+k+'"><b>'+esc(it.t)+'</b><small>'+esc(it.d)+'</small></li>';
+  }).join('')+'</ol></section>'
+  +'<div class="eco-nucleo"><span class="eco-halo"></span>'
+  +'<img src="olho-amarelo.svg" alt="" aria-hidden="true">'
+  +'<span class="eco-nucleo-rot">um ecossistema</span></div>'
+  +'<section class="eco-lado dir">'
+  +'<header class="eco-cab"><span class="eco-tag">'+esc(ECOS[1].grupo)+'</span>'
+  +'<h2>'+esc(ECOS[1].mote)+'</h2><p>'+esc(ECOS[1].d)+'</p></header>'
+  +'<ol class="eco-ramos">'+ECOS[1].itens.map(function(it,k){
+    return '<li class="eitem" style="--j:'+k+'"><b>'+esc(it.t)+'</b><small>'+esc(it.d)+'</small></li>';
+  }).join('')+'</ol></section>';
 
 /* decodifica as fotos de fundo enquanto a apresentação está parada:
    sem isso a primeira entrada na tela paga a decodificação no meio da
