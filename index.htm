@@ -24,7 +24,6 @@
   --rot-veu:rgba(255,255,255,.92);--malha:rgba(24,24,27,.05);--trilha-bg:rgba(24,24,27,.08);
   --carta-borda:rgba(24,24,27,.17);
   /* miolo do ecossistema: o olho fica solto, sem disco atrás - só um halo dourado */
-  
   --aviso-bg:#FEF2F2;--aviso-borda:#FBD5D5;--aviso-forte:#DC2626;--aviso-tinta:#7F1D1D;
   --fundo:radial-gradient(ellipse at top,#f4f4f5 0%,#e4e4e7 100%);
   --grad-escuro:#17171a;
@@ -345,8 +344,8 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 /* o núcleo cobre os anéis no meio */
 .eco-nucleo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;display:grid;place-items:center}
 .eco-halo{position:absolute;top:50%;left:50%;width:230px;height:230px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(239,191,78,.24) 0%,rgba(239,191,78,.07) 52%,transparent 74%);pointer-events:none}
-.eco-disco{position:relative;display:grid;place-items:center;width:clamp(92px,9vw,124px);aspect-ratio:1;border-radius:50%;background:var(--chapa);box-shadow:0 0 0 1px rgba(239,191,78,.5),0 18px 40px -22px rgba(184,134,11,.65)}
-.eco-disco img{width:58%;display:block}
+.eco-disco{position:relative;display:grid;place-items:center;width:clamp(92px,9vw,124px);aspect-ratio:1}
+.eco-disco img{width:58%;display:block;filter:drop-shadow(0 10px 22px rgba(184,134,11,.45))}
 
 /* divisória entre a grade fixa e os módulos avançados */
 .crono-divisa{display:flex;align-items:center;gap:16px;margin:36px 0 26px;color:var(--gold-deep)}
@@ -668,7 +667,7 @@ const NAV=[
     ['t5','Módulos do treinamento','5'],
     ['tmat','Materiais de apoio','6'],
     ['t6','Ferramentas','7'],
-    ['t6','Calculadoras','',{sub:1,ancora:'calculadoras'}],
+    ['t6','Calculadoras','',{dup:1,ancora:'calculadoras'}],
     ['t7','Lives, comunidade e app','8']
   ]],
   ['Novidades',[
@@ -716,7 +715,7 @@ const esc=function(x){return String(x).replace(/[&<>"]/g,function(c){return {'&'
 const ORDEM=[],ROTULOS={},TECLAS={};
 let digitado='',tDigito=0;   /* atalhos de dois dígitos */
 NAV.forEach(function(g){g[1].forEach(function(it){
-  if(it[3]&&it[3].sub)return;      /* subitem aponta para uma tela que já está na ordem */
+  if(it[3]&&(it[3].sub||it[3].dup))return;      /* subitem ou item duplicado aponta para uma tela que já está na ordem */
   ORDEM.push(it[0]);ROTULOS[it[0]]=it[1];if(it[2])TECLAS[it[2].toLowerCase()]=it[0];
 })});
 
