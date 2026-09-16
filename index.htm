@@ -343,9 +343,8 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 .eorb:hover small{color:var(--tinta2)}
 /* o núcleo cobre os anéis no meio */
 .eco-nucleo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;display:grid;place-items:center}
-.eco-halo{position:absolute;top:50%;left:50%;width:230px;height:230px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(239,191,78,.24) 0%,rgba(239,191,78,.07) 52%,transparent 74%);pointer-events:none}
 .eco-disco{position:relative;display:grid;place-items:center;width:clamp(92px,9vw,124px);aspect-ratio:1}
-.eco-disco img{width:58%;display:block;filter:drop-shadow(0 10px 22px rgba(184,134,11,.45))}
+.eco-disco img{width:58%;display:block}
 
 /* divisória entre a grade fixa e os módulos avançados */
 .crono-divisa{display:flex;align-items:center;gap:16px;margin:36px 0 26px;color:var(--gold-deep)}
@@ -667,7 +666,6 @@ const NAV=[
     ['t5','Módulos do treinamento','5'],
     ['tmat','Materiais de apoio','6'],
     ['t6','Ferramentas','7'],
-    ['t6','Calculadoras','',{dup:1,ancora:'calculadoras'}],
     ['t7','Lives, comunidade e app','8']
   ]],
   ['Novidades',[
@@ -715,7 +713,7 @@ const esc=function(x){return String(x).replace(/[&<>"]/g,function(c){return {'&'
 const ORDEM=[],ROTULOS={},TECLAS={};
 let digitado='',tDigito=0;   /* atalhos de dois dígitos */
 NAV.forEach(function(g){g[1].forEach(function(it){
-  if(it[3]&&(it[3].sub||it[3].dup))return;      /* subitem ou item duplicado aponta para uma tela que já está na ordem */
+  if(it[3]&&it[3].sub)return;      /* subitem aponta para uma tela que já está na ordem */
   ORDEM.push(it[0]);ROTULOS[it[0]]=it[1];if(it[2])TECLAS[it[2].toLowerCase()]=it[0];
 })});
 
@@ -1136,7 +1134,7 @@ document.getElementById('nov-grade').innerHTML=NOV.map(function(c,i){
    e os raios alternam entre dois anéis para os rótulos não colidirem. */
 document.getElementById('eco-grupos').innerHTML=
   '<svg class="eco-aneis" id="eco-aneis" aria-hidden="true"></svg>'
-  +'<div class="eco-nucleo"><span class="eco-halo"></span>'
+  +'<div class="eco-nucleo">'
   +'<span class="eco-disco"><img src="olho-amarelo.svg" alt="" aria-hidden="true"></span></div>'
   +ECOS.map(function(g,gi){
     return '<p class="eco-rot '+(gi?'dir':'esq')+'"><span>'+esc(g.grupo)+'</span><b>'+esc(g.mote)+'</b></p>'
