@@ -272,7 +272,7 @@ a.foto.capa.play:hover::after{transform:translate(-50%,-58%) scale(1.08)}
    então a tinta aqui é escura - o mesmo par que a pílula já usa.
    O tom é uma variação local do --gold, com menos saturação e menos
    luz: o token da marca segue como está para o resto da apresentação. */
-#calculadoras{flex:none}
+#ferramentas,#calculadoras{flex:none}
 .calc{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-height:286px;padding:26px 24px 52px;border:0;border-radius:0;overflow:hidden;overflow:clip;text-decoration:none;color:#09090b;background:linear-gradient(152deg,#D3AC50 0%,#BB963E 62%,#AA893C 100%);box-shadow:0 18px 38px -22px rgba(120,86,10,.55);transition:transform .3s var(--mola),box-shadow .3s}
 /* o arco claro do canto superior direito, como no material de origem */
 .calc::before{content:"";position:absolute;z-index:0;top:-42%;right:-30%;width:88%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.1);pointer-events:none}
@@ -287,6 +287,19 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 .calc-todas{align-self:center;margin-top:20px;display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border:1px solid rgba(239,191,78,.4);border-radius:0;background:var(--gold-bg);font-size:13px;font-weight:600;color:var(--gold-deep);text-decoration:none;transition:border-color .25s,background .25s}
 .calc-todas:hover{border-color:var(--gold);background:rgba(239,191,78,.18)}
 .acesso{position:absolute;top:16px;right:16px;font-family:var(--cta);font-weight:700;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#09090b;background:var(--gold);padding:4px 9px;border-radius:0}
+/* novidades: régua de números e grade de entregas, no mesmo desenho
+   reto e com filete dourado do resto da apresentação */
+.nov-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:26px}
+.nov-stat{background:var(--sup);border:1px solid var(--vidro-borda);border-top:3px solid var(--gold);padding:18px 20px;animation:sobe .44s var(--mola) backwards;animation-delay:calc(var(--j,0)*70ms + 90ms)}
+.nov-stat b{display:block;font-family:var(--display);font-weight:700;font-size:clamp(26px,3vw,38px);line-height:1;letter-spacing:-.03em;color:var(--tinta)}
+.nov-stat span{display:block;margin-top:7px;font-size:12.5px;line-height:1.4;color:var(--tinta2)}
+.nov-grade{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.ncard{position:relative;display:flex;flex-direction:column;gap:8px;background:var(--sup);border:1px solid var(--vidro-borda);padding:20px 20px 22px;text-decoration:none;color:inherit;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;animation:sobe .44s var(--mola) backwards;animation-delay:calc(var(--j,0)*60ms + 180ms)}
+.ncard.tem-link:hover{transform:translateY(-4px);border-color:rgba(239,191,78,.5);box-shadow:0 12px 28px rgba(0,0,0,.08)}
+.ncard-q{font-family:var(--cta);font-weight:700;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep)}
+.ncard h3{margin:0;font-family:var(--display);font-weight:600;font-size:17px;line-height:1.2;letter-spacing:-.015em;color:var(--tinta)}
+.ncard p{margin:0;font-size:12.5px;line-height:1.55;color:var(--tinta2)}
+.ncard-link{margin-top:auto;padding-top:8px;display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;letter-spacing:.02em;color:var(--gold-deep)}
 /* ecossistema: cada frente é uma trilha, não uma lista. O fio dourado
    corre pela coluna e os ordinais se apoiam nele como nós - o mesmo
    parentesco visual do anel antigo, agora na vertical. Cantos retos e
@@ -319,6 +332,7 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 .avancados{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .acard{background:var(--sup);border:1px solid var(--vidro-borda);border-top:3px solid var(--gold);padding:24px 22px;display:flex;flex-direction:column;gap:10px;transition:transform .3s ease,box-shadow .3s ease;animation:sobe .44s var(--mola) backwards;animation-delay:calc(var(--j,0)*70ms + 120ms)}
 .acard:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,.08)}
+.acard-nota{align-self:flex-start;font-family:var(--cta);font-weight:700;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-deep);background:var(--gold-bg);border:1px solid rgba(239,191,78,.3);padding:3px 8px}
 .acard h3{margin:0;font-family:var(--display);font-weight:600;font-size:18px;letter-spacing:-.015em;color:var(--tinta)}
 .acard p{margin:0;font-size:13px;line-height:1.55;color:var(--tinta2)}
 .eco-wrap{min-height:100%;padding:56px;display:flex;flex-direction:column}
@@ -336,6 +350,8 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 
 /* ---------- números em destaque (Quem somos nós?) ---------- */
 .numeros{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:32px}
+/* na Escola a régua acompanha o texto, que é alinhado à esquerda */
+#t3 .numeros{justify-content:flex-start}
 .num{position:relative;overflow:clip;isolation:isolate;min-width:190px;max-width:280px;padding:18px 22px 16px;border-radius:0;text-align:center;
   background:linear-gradient(160deg,rgba(255,255,255,.19),rgba(255,255,255,.09) 55%,rgba(255,255,255,.13));
   backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);
@@ -426,6 +442,7 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
   .galeria,.eco-wrap{padding:30px 22px 50px}
   .eco-grupos{grid-template-columns:1fr;gap:20px}
   .avancados{grid-template-columns:1fr}
+  .nov-stats,.nov-grade{grid-template-columns:1fr}
   .grade,.g-2,.g-3,.g-4{grid-template-columns:1fr}
   .mcard-head{flex-direction:column;gap:14px}.medalhao{width:100%;min-height:88px}
   .medalhao.capa{width:100%;min-height:0}
@@ -488,7 +505,6 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
           <div class="num"><b>+100</b><span>aulas gravadas, para assistir no seu ritmo</span></div>
           <div class="num"><b>1 ano</b><span>de acesso ao curso, às lives e às ferramentas</span></div>
         </div>
-        <div class="chips"><button type="button" class="chip leva" data-alvo="t5">Ver o cronograma<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg></button><button type="button" class="chip leva" data-alvo="tmat">Materiais de apoio<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg></button><button type="button" class="chip leva" data-alvo="t6">Ferramentas<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg></button></div>
       </div></div></section>
 
     <section class="tela" id="t4"><div class="quadro midia in">
@@ -504,6 +520,7 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
       <div class="crono-barra" id="crono-barra">
         <button type="button" data-acao="abrir">Expandir todos</button>
         <button type="button" data-acao="fechar">Recolher todos</button>
+        <button type="button" data-acao="avancados">Módulos avançados</button>
       </div>
       <div class="crono" id="crono-lista"></div>
       <div class="crono-divisa"><span>Além da grade</span></div>
@@ -524,12 +541,16 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
     <section class="tela" id="t6"><div class="galeria in">
       <div class="cab"><h1>Ferramentas exclusivas para facilitar sua vida</h1></div>
       <div class="grade g-2" id="ferramentas"></div>
+      <div class="crono-divisa"><span>E para fazer as contas</span></div>
+      <div class="cab cab-av"><h2>Onde o seu dinheiro pode chegar</h2></div>
+      <div class="grade g-4" id="calculadoras"></div>
+      <a class="calc-todas" href="https://investidorsardinha.r7.com/calculadoras/" target="_blank" rel="noopener noreferrer">Ver todas as calculadoras<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></a>
     </div></section>
 
     <section class="tela" id="t7"><div class="galeria in">
       <div class="cab"><h1 class="copy" data-slot="titulo">Bateu a dúvida? Estamos sempre por aqui.</h1></div>
       <div class="grade g-3">
-        <a class="foto capa play" href="https://comunidade.auvp.com.br/lives/" target="_blank" rel="noopener noreferrer" style="--capa:url('https://cdn.asupernova.com.br/lp-auvp/vite/o-que-voce-vai-aprender2.webp')"><span class="cimg"></span><span class="veu"></span><div class="rot"><b>Plantões ao vivo com Raul Sena</b><small>Toda segunda, às 19h.</small></div></a>
+        <a class="foto capa play" href="https://comunidade.auvp.com.br/lives/" target="_blank" rel="noopener noreferrer" style="--capa:url('https://cdn.asupernova.com.br/lp-auvp/vite/o-que-voce-vai-aprender2.webp')"><span class="cimg"></span><span class="veu"></span><div class="rot"><b>Atualizações de mercado com Raul Sena</b><small>Toda segunda, às 19h.</small></div></a>
         <a class="foto capa" href="https://comunidade.auvp.com.br/" target="_blank" rel="noopener noreferrer" style="--capa:url('Captura%20de%20tela%202026-08-10%20135133.png')"><span class="cimg"></span><span class="veu"></span><div class="rot"><b>Comunidade de alunos e especialistas</b><small>Todos de prontidão para tirar dúvida e trocar ideia a qualquer momento.</small></div></a>
         <a class="foto capa" href="https://apps.apple.com/br/app/escola-auvp/id6502692783" target="_blank" rel="noopener noreferrer" style="--capa:url('https://play-lh.googleusercontent.com/1x1FPGCuxeruPcVXC25UTPzm6ZjOHajnlWQi39HwVUUyLaODgBj6JHjaUPcf82cssDDgbSmy3lNpbmz8ezGk=w5120-h2880-rw')"><span class="cimg"></span><span class="veu"></span><div class="rot"><b>App próprio e aulas gravadas</b><small>Estude do celular, onde estiver.</small></div></a>
       </div>
@@ -537,11 +558,6 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 
 
 
-    <section class="tela" id="tcalc"><div class="galeria in">
-      <div class="cab"><h1>Onde o seu dinheiro pode chegar</h1></div>
-      <div class="grade g-4" id="calculadoras"></div>
-      <a class="calc-todas" href="https://investidorsardinha.r7.com/calculadoras/" target="_blank" rel="noopener noreferrer">Ver todas as calculadoras<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></a>
-    </div></section>
 
     <section class="tela" id="t10"><div class="eco-wrap in">
       <div class="eco-topo">
@@ -560,6 +576,13 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 
 
 
+
+    <section class="tela" id="tnov"><div class="galeria in">
+      <div class="cab"><h1>O que mudou na AUVP em 2026?</h1>
+        <p class="crono-sub">A Escola se atualiza mês a mês com conteúdos novos, ferramentas novas e melhorias pedidas pela comunidade. Estas são as entregas mais recentes.</p></div>
+      <div class="nov-stats" id="nov-stats"></div>
+      <div class="nov-grade" id="nov-grade"></div>
+    </div></section>
 
     <section class="tela" id="t17"><div class="quadro midia foco in">
       <img class="bg" src="DSC01355-2560.webp" alt="" decoding="async" fetchpriority="low">
@@ -606,8 +629,10 @@ const NAV=[
     ['t5','Módulos do treinamento','5'],
     ['tmat','Materiais de apoio','6'],
     ['t6','Ferramentas','7'],
-    ['t7','Lives, comunidade e app','8'],
-    ['tcalc','Calculadoras','9']
+    ['t7','Lives, comunidade e app','8']
+  ]],
+  ['Novidades',[
+    ['tnov','O que mudou em 2026','9']
   ]],
   ['Fechamento',[
     ['t17','Boas-vindas','10']
@@ -628,7 +653,7 @@ const ECOS=[
     {t:'E-books',d:'Guias completos para baixar e consultar.'},
     {t:'Mapas mentais',d:'O resumo visual de cada aula, em uma página.'},
     {t:'Cadernos de exercícios',d:'Prática a cada módulo para fixar o conteúdo.'},
-    {t:'5 ferramentas',d:'Apoio ao estudo e à gestão da carteira.'}
+    {t:'4 ferramentas',d:'Apoio ao estudo e à gestão da carteira.'}
    ]},
   {grupo:'Banking',mote:'O ecossistema financeiro',
    d:'Onde o dinheiro se resolve: conta, investimento, crédito e proteção.',
@@ -974,6 +999,11 @@ document.getElementById('calculadoras').innerHTML=CALC.map(function(c){
   /* abrir/fechar todos os módulos de uma vez */
   document.getElementById('crono-barra').addEventListener('click',function(e){
     var b=e.target.closest('button'); if(!b) return;
+    if(b.dataset.acao==='avancados'){
+      var alvo=document.getElementById('avancados');
+      if(alvo)alvo.scrollIntoView({behavior:'smooth',block:'start'});
+      return;
+    }
     var abrir=b.dataset.acao==='abrir';
     cl.querySelectorAll('.mcard').forEach(function(c){
       c.classList.toggle('aberto',abrir);
@@ -989,10 +1019,15 @@ document.getElementById('calculadoras').innerHTML=CALC.map(function(c){
 const AVANCADOS=[
   {t:'Análise de setores',d:'Destrincha os pontos mais importantes para entender cada setor da economia. Ensina como funciona o ciclo de crescimento de empresas em diferentes áreas e quais indicadores realmente importam para investir com estratégia.'},
   {t:'Geopolítica',d:'Mostra como decisões políticas, guerras, políticas econômicas e relações internacionais afetam diretamente os investimentos, desenvolvendo uma visão estratégica para antecipar movimentos do mercado e proteger a carteira.'},
-  {t:'Aulas técnicas',d:'Auxilia na compreensão da saúde financeira de empresas e na tomada de decisões fundamentadas. Ensina a interpretar balanços, DRE, fluxo de caixa e estrutura de capital, além de relembrar todos os indicadores.'}
+  {t:'Aulas técnicas',d:'Auxilia na compreensão da saúde financeira de empresas e na tomada de decisões fundamentadas. Ensina a interpretar balanços, DRE, fluxo de caixa e estrutura de capital, além de relembrar todos os indicadores.'},
+  {t:'Criptomoedas',d:'Apresenta o universo das criptomoedas para iniciantes de forma extremamente didática e acessível, alinhando conceitos fundamentais, como Bitcoin, Ethereum, blockchain, ciclos de mercado e análise de ativos, à filosofia de investimentos Buy and Hold para quem busca clareza antes de aportar no longo prazo.'},
+  {t:'AUVP Internacional',nota:'bônus com 2 primeiros módulos',d:'Mergulha na Renda Fixa Internacional, ensina sobre stocks, REITs e Private Equity, e explica como o ciclo econômico impacta os investimentos. Assim, ajuda a expandir oportunidades no mercado global.'},
+  {t:'Guia de plataformas',d:'Um guia 100% prático focado em ensinar nossos membros a navegar e utilizar todo o ecossistema AUVP, incluindo a conta banking, a AUVP Analítica, o Minhas Finanças e outras ferramentas para investir e organizar sua vida financeira com total autonomia.'}
 ];
 document.getElementById('avancados').innerHTML=AVANCADOS.map(function(a,i){
-  return '<article class="acard" style="--j:'+i+'"><h3>'+esc(a.t)+'</h3><p>'+esc(a.d)+'</p></article>';
+  return '<article class="acard" style="--j:'+i+'"><h3>'+esc(a.t)+'</h3>'
+    +(a.nota?'<span class="acard-nota">'+esc(a.nota)+'</span>':'')
+    +'<p>'+esc(a.d)+'</p></article>';
 }).join('');
 
 document.getElementById('ferramentas').innerHTML=FERR.map(function(f){
@@ -1005,6 +1040,35 @@ document.getElementById('ferramentas').innerHTML=FERR.map(function(f){
     +(f.url?'<span class="acesso">Acessar<svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></span>':'')
     +'<div class="rot"><b>'+esc(f.t)+'</b><small>'+esc(f.d)+'</small></div></'+tag+'>';
 }).join('');
+/* ---------- novidades ----------
+   Vem da LP da Escola (ProdutosAUVP/lp-auvp-escola-prod, dobra
+   "novidades"), com os números e os cards de lá. */
+const NOV_STATS=[
+  {n:'+40',t:'novidades liberadas em 2026'},
+  {n:'100%',t:'das aulas do treinamento regravadas'},
+  {n:'Todo mês',t:'uma nova leva de atualizações'}
+];
+const NOV=[
+  {q:'Julho · 2026',t:'Minha AUVP',d:'A sua nova casa com tudo sobre nosso ecossistema. Um ambiente moderno que concentra o seu treinamento e todas as soluções da AUVP a um clique de distância.',url:'https://minha.auvp.com.br/'},
+  {q:'Julho · 2026',t:'ETFs AUVP',d:'Lançamos o ABTC11, o primeiro ETF do mercado a unir Bitcoin e Renda Fixa, além de um site com a metodologia e composição de todos os nossos fundos abertas para você.',url:'https://www.auvpetfs.com.br/'},
+  {q:'Julho · 2026',t:'Módulo da AUVP Analítica',d:'Compartilhamos um novo módulo inteiro na Escola, totalmente dedicado a ensinar como você pode extrair o potencial máximo da nossa ferramenta de análise fundamentalista.'},
+  {q:'Julho · 2026',t:'Carteiras recomendadas',d:'Nosso app exclusivo para membros agora possui 4 carteiras recomendadas com nossa metodologia, pensadas para atender cada fase da sua vida financeira.'},
+  {q:'Junho · 2026',t:'Escola 100% regravada',d:'Revisamos a estrutura do treinamento e regravamos todas as aulas, garantindo conteúdo alinhado com o mercado para facilitar seus estudos.'},
+  {q:'Abril · 2026',t:'Módulo bônus de criptomoedas',d:'Para além do treinamento com 7 módulos, liberamos um módulo completo explicando tudo sobre o mercado cripto do zero.'}
+];
+document.getElementById('nov-stats').innerHTML=NOV_STATS.map(function(x,i){
+  return '<div class="nov-stat" style="--j:'+i+'"><b>'+esc(x.n)+'</b><span>'+esc(x.t)+'</span></div>';
+}).join('');
+document.getElementById('nov-grade').innerHTML=NOV.map(function(c,i){
+  var tag=c.url?'a':'article';
+  var atr=c.url?' href="'+esc(c.url)+'" target="_blank" rel="noopener noreferrer"':'';
+  return '<'+tag+' class="ncard'+(c.url?' tem-link':'')+'"'+atr+' style="--j:'+i+'">'
+    +'<span class="ncard-q">'+esc(c.q)+'</span>'
+    +'<h3>'+esc(c.t)+'</h3><p>'+esc(c.d)+'</p>'
+    +(c.url?'<span class="ncard-link">Conhecer<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></span>':'')
+    +'</'+tag+'>';
+}).join('');
+
 /* ---------- ecossistema: duas frentes, Educacional e Banking ----------
    Sem foto e sem dropdown: cada frente vira uma trilha vertical, com o
    ordinal de cada item apoiado sobre um fio dourado contínuo. O que
