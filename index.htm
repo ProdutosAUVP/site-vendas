@@ -327,11 +327,16 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 .eco-rot span{display:block;font-family:var(--cta);font-weight:700;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep)}
 .eco-rot b{display:block;margin-top:5px;font-family:var(--display);font-weight:700;font-size:clamp(17px,1.6vw,22px);letter-spacing:-.02em;color:var(--tinta)}
 /* cada item pousa no anel pelo seu ponto de ancoragem, sem caixa */
-.eorb{position:absolute;z-index:2;width:max-content;max-width:min(28ch,214px);animation:surge .5s var(--mola) backwards;animation-delay:calc(var(--j,0)*40ms + 180ms)}
+.eorb{position:absolute;z-index:2;width:max-content;max-width:min(24ch,188px);animation:surge .5s var(--mola) backwards;animation-delay:calc(var(--j,0)*40ms + 180ms)}
 .eorb.esq{transform:translate(-100%,-50%);text-align:right;padding-right:14px}
 .eorb.dir{transform:translate(0,-50%);text-align:left;padding-left:14px}
-.eorb b{display:block;font-family:var(--display);font-weight:600;font-size:15px;line-height:1.2;letter-spacing:-.015em;color:var(--tinta)}
-.eorb small{display:block;margin-top:3px;font-size:11.5px;line-height:1.4;color:var(--tinta3)}
+.eorb b{display:block;font-family:var(--display);font-weight:600;font-size:15.5px;line-height:1.2;letter-spacing:-.015em;color:var(--tinta)}
+/* só o título fica aparente. A descrição vem no hover, fora do fluxo,
+   para não deslocar o rótulo que está centrado no seu ponto do anel */
+.eorb small{position:absolute;top:100%;margin-top:5px;width:max-content;max-width:210px;font-size:11.5px;line-height:1.4;color:var(--tinta3);opacity:0;pointer-events:none;transition:opacity .22s}
+.eorb.esq small{right:14px;text-align:right}
+.eorb.dir small{left:14px;text-align:left}
+.eorb:hover small{opacity:1}
 .eorb::before{content:"";position:absolute;top:50%;width:5px;height:5px;margin-top:-2.5px;border-radius:50%;background:var(--gold)}
 .eorb.esq::before{right:0}
 .eorb.dir::before{left:0}
@@ -469,6 +474,7 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
   .eco-rot{position:static;margin-top:14px}
   .eco-rot.dir{text-align:left}
   .eorb{position:static!important;transform:none!important;width:auto;max-width:none;text-align:left!important;padding:0 0 0 15px}
+  .eorb small{position:static;opacity:1;max-width:none;margin-top:2px;text-align:left!important}
   .eorb.esq::before,.eorb.dir::before{left:0;right:auto;top:8px;margin-top:0}
   .avancados{grid-template-columns:1fr}
   .nov-stats,.nov-grade{grid-template-columns:1fr}
@@ -1157,18 +1163,22 @@ function orbita(){
     return '<ellipse cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" rx="'+(rxMax*f).toFixed(1)+'" ry="'+(ryMax*f).toFixed(1)+'"/>';
   }).join('');
 
-  /* passos angulares iguais amontoam os rótulos perto da horizontal, onde
-     o seno quase não muda. A distribuição é por altura: y em passos
-     iguais e x tirado da equação da elipse, o que garante folga vertical
-     constante e ainda desenha a curva. */
+  /* os itens ocupam o campo entre os anéis, não só a borda de fora: cada
+     um pousa num dos três raios. A altura segue passos iguais, que é o
+     que garante folga vertical - passos angulares iguais amontoariam os
+     rótulos perto da horizontal, onde o seno quase não muda. */
+  var trilhos=[1,.72,1,.46,1,.72,1];
   ['esq','dir'].forEach(function(lado){
     var itens=mapa.querySelectorAll('.eorb.'+lado);
     var n=itens.length; if(!n)return;
-    var lim=.88;
+    var lim=.9;
     itens.forEach(function(el,k){
       var t=n===1?0:(-1+2*k/(n-1))*lim;
+      var f=trilhos[k%trilhos.length];
       var y=cy+ryMax*t;
-      var x=cx+(lado==='esq'?-1:1)*rxMax*Math.sqrt(Math.max(0,1-t*t));
+      /* o x sai do anel escolhido, na altura já definida */
+      var dentro=Math.max(0,1-(t/f)*(t/f));
+      var x=cx+(lado==='esq'?-1:1)*rxMax*f*Math.sqrt(dentro);
       el.style.left=x.toFixed(1)+'px';
       el.style.top=y.toFixed(1)+'px';
     });
