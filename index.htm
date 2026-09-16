@@ -325,22 +325,24 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 .eco-rot.dir{right:0;text-align:right}
 .eco-rot span{display:block;font-family:var(--cta);font-weight:700;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep)}
 .eco-rot b{display:block;margin-top:5px;font-family:var(--display);font-weight:700;font-size:clamp(17px,1.6vw,22px);letter-spacing:-.02em;color:var(--tinta)}
-/* cada item pousa no anel pelo seu ponto de ancoragem, sem caixa */
-.eorb{position:absolute;z-index:2;width:max-content;max-width:min(24ch,188px);animation:surge .5s var(--mola) backwards;animation-delay:calc(var(--j,0)*40ms + 180ms)}
-.eorb.esq{transform:translate(-100%,-50%);text-align:right;padding-right:14px}
-.eorb.dir{transform:translate(0,-50%);text-align:left;padding-left:14px}
-.eorb b{display:block;font-family:var(--display);font-weight:600;font-size:15.5px;line-height:1.2;letter-spacing:-.015em;color:var(--tinta)}
-/* só o título fica aparente. A descrição vem no hover, fora do fluxo,
-   para não deslocar o rótulo que está centrado no seu ponto do anel */
-.eorb small{position:absolute;top:100%;margin-top:5px;width:max-content;max-width:210px;font-size:11.5px;line-height:1.4;color:var(--tinta3);opacity:0;pointer-events:none;transition:opacity .22s}
-.eorb.esq small{right:14px;text-align:right}
-.eorb.dir small{left:14px;text-align:left}
-.eorb:hover small{opacity:1}
-.eorb::before{content:"";position:absolute;top:50%;width:5px;height:5px;margin-top:-2.5px;border-radius:50%;background:var(--gold)}
-.eorb.esq::before{right:0}
-.eorb.dir::before{left:0}
-.eorb:hover b{color:var(--gold-deep)}
-.eorb:hover small{color:var(--tinta2)}
+/* cada item pousa no anel pelo seu ponto de ancoragem, como um card com
+   foto: a miniatura fica exatamente sobre o ponto, o título ao lado, e um
+   clique expande a descrição, fora do fluxo, para não deslocar os vizinhos */
+.eorb{position:absolute;z-index:2;display:flex;align-items:center;width:max-content;max-width:min(24ch,188px);background:none;border:none;padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;animation:surge .5s var(--mola) backwards;animation-delay:calc(var(--j,0)*40ms + 180ms)}
+.eorb.esq{transform:translate(-100%,-50%);flex-direction:row-reverse;text-align:right;padding-right:44px}
+.eorb.dir{transform:translate(0,-50%);text-align:left;padding-left:44px}
+.eorb b{display:block;font-family:var(--display);font-weight:600;font-size:15.5px;line-height:1.2;letter-spacing:-.015em;color:var(--tinta);transition:color .2s}
+.eorb-img{position:absolute;top:50%;width:34px;height:34px;margin-top:-17px;border-radius:9px;object-fit:cover;border:1.5px solid var(--gold);box-shadow:0 6px 16px -8px rgba(184,134,11,.55);background:var(--chapa);transition:transform .22s var(--mola),box-shadow .22s}
+.eorb.esq .eorb-img{right:0}
+.eorb.dir .eorb-img{left:0}
+.eorb:hover .eorb-img,.eorb.aberto .eorb-img{transform:scale(1.08);box-shadow:0 8px 20px -8px rgba(184,134,11,.7)}
+/* só o título fica aparente. A descrição vem no clique, fora do fluxo,
+   como um card elevado, para não deslocar o rótulo centrado no seu ponto */
+.eorb small{position:absolute;top:100%;margin-top:8px;width:max-content;max-width:210px;font-size:11.5px;line-height:1.4;color:var(--tinta3);background:var(--sup-forte);border:1px solid var(--vidro-borda);border-radius:8px;padding:10px 12px;box-shadow:0 14px 30px -14px rgba(0,0,0,.35);opacity:0;transform:translateY(-4px);pointer-events:none;transition:opacity .2s,transform .2s;z-index:1}
+.eorb.esq small{right:0;text-align:right}
+.eorb.dir small{left:0;text-align:left}
+.eorb.aberto small{opacity:1;transform:translateY(0);pointer-events:auto;z-index:5}
+.eorb:hover b,.eorb.aberto b{color:var(--gold-deep)}
 /* o núcleo cobre os anéis no meio */
 .eco-nucleo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;display:grid;place-items:center}
 .eco-disco{position:relative;display:grid;place-items:center;width:clamp(150px,14vw,210px);aspect-ratio:1}
@@ -471,9 +473,10 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
   .eco-aneis,.eco-nucleo{display:none}
   .eco-rot{position:static;margin-top:14px}
   .eco-rot.dir{text-align:left}
-  .eorb{position:static!important;transform:none!important;width:auto;max-width:none;text-align:left!important;padding:0 0 0 15px}
-  .eorb small{position:static;opacity:1;max-width:none;margin-top:2px;text-align:left!important}
-  .eorb.esq::before,.eorb.dir::before{left:0;right:auto;top:8px;margin-top:0}
+  .eorb{position:static!important;transform:none!important;flex-direction:row!important;align-items:flex-start!important;width:auto;max-width:none;text-align:left!important;padding:0!important;gap:12px}
+  .eorb-img{position:static!important;flex:none;margin-top:1px}
+  .eorb-txt{display:block}
+  .eorb small{position:static;opacity:1!important;transform:none!important;pointer-events:auto;max-width:none;margin-top:4px;text-align:left!important;background:none;border:none;box-shadow:none;padding:0}
   .avancados{grid-template-columns:1fr}
   .nov-stats,.nov-grade{grid-template-columns:1fr}
   .grade,.g-2,.g-3,.g-4{grid-template-columns:1fr}
@@ -684,24 +687,24 @@ const ECOS=[
   {grupo:'Educacional',mote:'A Escola',
    d:'Onde a formação acontece: o curso, os materiais e as ferramentas de estudo.',
    itens:[
-    {t:'Curso com +100 aulas gravadas',d:'Do zero à autonomia, no seu ritmo.'},
-    {t:'7 módulos com um bônus',d:'A grade principal, do mindset à carteira montada.'},
-    {t:'Módulos avançados',d:'Setores, geopolítica e aulas técnicas.'},
-    {t:'E-books',d:'Guias completos para baixar e consultar.'},
-    {t:'Mapas mentais',d:'O resumo visual de cada aula, em uma página.'},
-    {t:'Cadernos de exercícios',d:'Prática a cada módulo para fixar o conteúdo.'},
-    {t:'4 ferramentas',d:'Apoio ao estudo e à gestão da carteira.'}
+    {t:'+100 aulas gravadas',d:'Do zero à autonomia, no seu ritmo.',img:'aulas att.png'},
+    {t:'7 módulos + 1 bônus',d:'A grade principal, do mindset à carteira montada.',img:'capa modulo 3.jpg'},
+    {t:'Módulos avançados',d:'Setores, geopolítica e aulas técnicas.',img:'modulos avançados.png'},
+    {t:'E-books',d:'Guias completos para baixar e consultar.',img:'inteligencia de mercado.png'},
+    {t:'Mapas mentais',d:'O resumo visual de cada aula, em uma página.',img:'thumb INDICADORES.jpg'},
+    {t:'Cadernos de exercícios',d:'Prática a cada módulo para fixar o conteúdo.',img:'capa caderno ex 2.jpg'},
+    {t:'4 ferramentas',d:'Apoio ao estudo e à gestão da carteira.',img:'trilha pro.png'}
    ]},
   {grupo:'Banking',mote:'O ecossistema financeiro',
    d:'Onde o dinheiro se resolve: conta, investimento, crédito e proteção.',
    itens:[
-    {t:'Conta com cartão próprio',d:'Conta, cartão e atendimento 100% AUVP, sujeito à análise de crédito.'},
-    {t:'Consultoria',d:'Nº 1 no ranking do BTG Pactual, pelo segundo ano seguido.'},
-    {t:'Crédito',d:'Comparação com mais de 20 bancos, sem liquidar seus investimentos.'},
-    {t:'Câmbio',d:'Enviar, receber ou investir no exterior com custo transparente.'},
-    {t:'Seguros',d:'Cotação em até 6 seguradoras, sem viés de interesse.'},
-    {t:'Wealth',d:'Blindagem patrimonial, governança e planejamento sucessório.'},
-    {t:"ETF's próprios",d:'AUPO11 e AREA11, geridos pela AUVP.'}
+    {t:'Conta com cartão próprio',d:'Conta, cartão e atendimento 100% AUVP, sujeito à análise de crédito.',img:'comunidade pro.png'},
+    {t:'Consultoria',d:'Nº 1 no ranking do BTG Pactual, pelo segundo ano seguido.',img:'masterclasses.jpg'},
+    {t:'Crédito',d:'Comparação com mais de 20 bancos, sem liquidar seus investimentos.',img:'simulados pro.png'},
+    {t:'Câmbio',d:'Enviar, receber ou investir no exterior com custo transparente.',img:'internacional.jpg'},
+    {t:'Seguros',d:'Cotação em até 6 seguradoras, sem viés de interesse.',img:'cripto.jpg'},
+    {t:'Wealth',d:'Blindagem patrimonial, governança e planejamento sucessório.',img:'analitica.jpg'},
+    {t:"ETF's próprios",d:'AUPO11 e AREA11, geridos pela AUVP.',img:'cotações.png'}
    ]}
 ];
 
@@ -1142,10 +1145,28 @@ document.getElementById('eco-grupos').innerHTML=
   +ECOS.map(function(g,gi){
     return '<p class="eco-rot '+(gi?'dir':'esq')+'"><span>'+esc(g.grupo)+'</span><b>'+esc(g.mote)+'</b></p>'
       +g.itens.map(function(it,k){
-        return '<div class="eorb '+(gi?'dir':'esq')+'" style="--j:'+(gi*7+k)+'">'
-          +'<b>'+esc(it.t)+'</b><small>'+esc(it.d)+'</small></div>';
+        return '<button type="button" class="eorb '+(gi?'dir':'esq')+'" style="--j:'+(gi*7+k)+'" aria-expanded="false">'
+          +'<img class="eorb-img" src="'+encodeURI(it.img)+'" alt="" loading="lazy">'
+          +'<span class="eorb-txt"><b>'+esc(it.t)+'</b><small>'+esc(it.d)+'</small></span></button>';
       }).join('');
   }).join('');
+
+/* clique abre o card do item (descrição), fecha os outros; clique fora
+   ou Esc fecha o que estiver aberto */
+function fechaOrbitas(){
+  document.querySelectorAll('.eorb.aberto').forEach(function(o){o.classList.remove('aberto');o.setAttribute('aria-expanded','false')});
+}
+document.addEventListener('click',function(e){
+  var b=e.target.closest('.eorb');
+  if(!b){fechaOrbitas();return}
+  var ja=b.classList.contains('aberto');
+  fechaOrbitas();
+  b.classList.toggle('aberto',!ja);
+  b.setAttribute('aria-expanded',String(!ja));
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape')fechaOrbitas();
+});
 
 /* as posições saem de trigonometria sobre a caixa real da seção, medida
    depois do layout: nada é chutado a partir da largura da janela */
