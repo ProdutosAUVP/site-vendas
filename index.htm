@@ -321,7 +321,8 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
    largura do próprio texto, então a mancha desenha a informação. */
 .eco-grupos{flex:1;position:relative;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:clamp(38px,5.8vw,104px);margin-top:26px}
 .eco-fios{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:visible}
-.eco-fios line{stroke:var(--gold);stroke-width:1;opacity:.42}
+.eco-fios line{stroke:var(--gold);stroke-width:1;opacity:.4}
+.eco-fios .ramo{fill:none;stroke:var(--gold);stroke-width:1.6;opacity:.5;stroke-linecap:round}
 .eco-fios circle{fill:var(--gold)}
 .eco-fios .no-card{opacity:.85}
 .eco-fios .no-meio{opacity:.5}
@@ -338,18 +339,17 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 .eco-ramos{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
 .esq .eco-ramos{align-items:flex-end}
 .dir .eco-ramos{align-items:flex-start}
-.eitem{width:max-content;max-width:100%;border-radius:3px;background:var(--sup);border:1px solid var(--vidro-borda);padding:12px 18px;transition:border-color .22s,background .22s,transform .22s var(--mola),box-shadow .22s;animation:sobe .42s var(--mola) backwards;animation-delay:calc(var(--j,0)*42ms + 160ms)}
+.eitem{position:relative;width:max-content;max-width:100%;border-radius:3px;background:var(--sup-forte);border:1px solid var(--vidro-borda);padding:12px 18px;transition:border-color .22s,background .22s,transform .22s var(--mola),box-shadow .22s;animation:sobe .42s var(--mola) backwards;animation-delay:calc(var(--j,0)*42ms + 160ms)}
 .eitem b{display:block;font-family:var(--display);font-weight:600;font-size:14px;line-height:1.2;letter-spacing:-.012em;color:var(--tinta)}
 .eitem small{display:block;margin-top:4px;font-size:11.5px;line-height:1.45;color:var(--tinta2)}
 .eitem:hover{border-color:rgba(239,191,78,.6);background:var(--gold-bg);box-shadow:0 12px 26px -16px rgba(184,134,11,.6)}
 .esq .eitem:hover{transform:translateX(-4px)}
 .dir .eitem:hover{transform:translateX(4px)}
 /* o núcleo: disco opaco para os fios nascerem na borda, não atrás dele */
-.eco-nucleo{position:relative;z-index:2;justify-self:center;display:grid;place-items:center;gap:9px}
+.eco-nucleo{position:relative;z-index:2;justify-self:center;display:grid;place-items:center}
 .eco-halo{position:absolute;top:50%;left:50%;width:220px;height:220px;transform:translate(-50%,-58%);border-radius:50%;background:radial-gradient(circle,rgba(239,191,78,.22) 0%,rgba(239,191,78,.06) 54%,transparent 74%);pointer-events:none}
 .eco-disco{position:relative;display:grid;place-items:center;width:clamp(96px,9.6vw,132px);aspect-ratio:1;border-radius:50%;background:var(--chapa);box-shadow:0 0 0 1px rgba(239,191,78,.5),0 18px 40px -22px rgba(184,134,11,.65)}
 .eco-disco img{width:58%;display:block}
-.eco-nucleo-rot{position:relative;font-family:var(--cta);font-weight:700;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep);white-space:nowrap}
 
 /* divisória entre a grade fixa e os módulos avançados */
 .crono-divisa{display:flex;align-items:center;gap:16px;margin:36px 0 26px;color:var(--gold-deep)}
@@ -475,7 +475,7 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
   .eco-lado.esq{text-align:left}
   .esq .eco-ramos,.dir .eco-ramos{align-items:stretch}
   .esq .eco-cab,.dir .eco-cab{padding:0}
-  .eitem{width:auto}
+  .eitem{width:auto;margin-left:0!important;margin-right:0!important}
   .eco-nucleo{display:none}
   .avancados{grid-template-columns:1fr}
   .nov-stats,.nov-grade{grid-template-columns:1fr}
@@ -602,7 +602,7 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
     <section class="tela" id="t10"><div class="eco-wrap in">
       <div class="eco-topo">
         <p class="mote copy" data-slot="mote">Pensou em dinheiro, pensou na AUVP.</p>
-        <h1>Tudo começa na <span class="dourado">Escola</span>.</h1>
+        <h1>Um <span class="dourado">ecossistema</span>.</h1>
       </div>
       <div class="eco-grupos" id="eco-grupos"></div>
     </div></section>
@@ -1149,33 +1149,63 @@ document.getElementById('eco-grupos').innerHTML=
   '<svg class="eco-fios" id="eco-fios" aria-hidden="true" preserveAspectRatio="none"></svg>'
   +ladoHTML(ECOS[0],'esq')
   +'<div class="eco-nucleo"><span class="eco-halo"></span>'
-  +'<span class="eco-disco"><img src="olho-amarelo.svg" alt="" aria-hidden="true"></span>'
-  +'<span class="eco-nucleo-rot">um ecossistema</span></div>'
+  +'<span class="eco-disco"><img src="olho-amarelo.svg" alt="" aria-hidden="true"></span></div>'
   +ladoHTML(ECOS[1],'dir');
 
 /* os fios só podem ser desenhados depois que o layout existe: as posições
    vêm do próprio DOM, não de contas sobre a largura da tela */
+/* os nós não ficam empilhados em coluna: cada um recua conforme a sua
+   posição no arco, então a borda interna da frente desenha uma curva em
+   volta do núcleo em vez de uma linha reta. É o que separa um sistema
+   de uma lista. */
+function arqueia(){
+  var mapa=document.getElementById('eco-grupos'); if(!mapa)return;
+  ['esq','dir'].forEach(function(lado){
+    var itens=mapa.querySelectorAll('.'+lado+' .eitem');
+    var n=itens.length; if(!n)return;
+    var R=Math.min(150,mapa.getBoundingClientRect().width*0.11);
+    itens.forEach(function(it,i){
+      var a=(n===1?0:(-1+2*i/(n-1)))*58*Math.PI/180;
+      var recuo=(R*(1-Math.cos(a))).toFixed(1)+'px';
+      it.style.setProperty(lado==='esq'?'margin-right':'margin-left',recuo);
+    });
+  });
+}
+
 function desenhaFios(){
   var mapa=document.getElementById('eco-grupos');
   var svg=document.getElementById('eco-fios');
   var nuc=mapa&&mapa.querySelector('.eco-disco');
   if(!mapa||!svg||!nuc)return;
+  arqueia();
   var m=mapa.getBoundingClientRect(); if(!m.width||!m.height)return;
   var n=nuc.getBoundingClientRect();
   var cx=n.left-m.left+n.width/2, cy=n.top-m.top+n.height/2, raio=n.width/2+8;
-  var partes='';
-  mapa.querySelectorAll('.eitem').forEach(function(it){
-    var r=it.getBoundingClientRect();
-    var dir=!!it.closest('.dir');
-    var x=(dir?r.left:r.right)-m.left, y=r.top-m.top+r.height/2;
-    var dx=x-cx, dy=y-cy, d=Math.hypot(dx,dy)||1;
-    var x1=cx+dx/d*raio, y1=cy+dy/d*raio;
-    partes+='<line x1="'+x1.toFixed(1)+'" y1="'+y1.toFixed(1)+'" x2="'+x.toFixed(1)+'" y2="'+y.toFixed(1)+'"/>'
-      +'<circle class="no-card" cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="3.4"/>'
-      +'<circle class="no-meio" cx="'+(x1+(x-x1)*.4).toFixed(1)+'" cy="'+(y1+(y-y1)*.4).toFixed(1)+'" r="2.2"/>';
+  var fios='',nos='',ramos='';
+  ['esq','dir'].forEach(function(lado){
+    var pontos=[];
+    mapa.querySelectorAll('.'+lado+' .eitem').forEach(function(it){
+      var r=it.getBoundingClientRect();
+      var x=(lado==='dir'?r.left:r.right)-m.left, y=r.top-m.top+r.height/2;
+      pontos.push([x+(lado==='dir'?-16:16),y]);   /* a curva corre no vão, não sob o card */
+      var dx=x-cx, dy=y-cy, d=Math.hypot(dx,dy)||1;
+      var x1=cx+dx/d*raio, y1=cy+dy/d*raio;
+      fios+='<line x1="'+x1.toFixed(1)+'" y1="'+y1.toFixed(1)+'" x2="'+x.toFixed(1)+'" y2="'+y.toFixed(1)+'"/>';
+      nos+='<circle class="no-card" cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="3.6"/>';
+    });
+    /* o ramo: uma curva suave passando por todos os nós da frente, que
+       mostra que eles pertencem ao mesmo braço do sistema */
+    if(pontos.length>1){
+      var d='M'+pontos[0][0].toFixed(1)+' '+pontos[0][1].toFixed(1);
+      for(var i=1;i<pontos.length;i++){
+        var a=pontos[i-1], b=pontos[i], my=(a[1]+b[1])/2;
+        d+=' C'+a[0].toFixed(1)+' '+my.toFixed(1)+' '+b[0].toFixed(1)+' '+my.toFixed(1)+' '+b[0].toFixed(1)+' '+b[1].toFixed(1);
+      }
+      ramos+='<path class="ramo" d="'+d+'"/>';
+    }
   });
   svg.setAttribute('viewBox','0 0 '+m.width.toFixed(1)+' '+m.height.toFixed(1));
-  svg.innerHTML=partes;
+  svg.innerHTML=ramos+fios+nos;
 }
 /* os cards entram animados: medir no primeiro quadro daria a posição do
    meio da animação, não a final. Desenha uma vez para não ficar vazio e
