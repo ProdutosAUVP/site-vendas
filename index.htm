@@ -347,10 +347,12 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 
 /* popup do item do ecossistema: cresce a partir do card clicado, com a
    foto grande no topo e o texto de apoio embaixo */
-.eco-modal-cena{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:24px;background:rgba(9,9,11,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .28s}
+.eco-modal-cena{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:24px;background:rgba(9,9,11,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .46s}
 .eco-modal-cena.ver{opacity:1;pointer-events:auto}
-.eco-modal{position:relative;width:min(92vw,420px);max-height:86vh;overflow:auto;border-radius:12px;background:var(--chapa);border:1px solid var(--vidro-borda);box-shadow:0 40px 80px -28px rgba(0,0,0,.6);opacity:0;transform:scale(.12);transition:transform .46s var(--mola),opacity .3s}
-.eco-modal-cena.ver .eco-modal{opacity:1;transform:scale(1)}
+/* o tamanho/posição de partida vêm do próprio card clicado (calculado
+   em JS): o popup não aparece do nada, ele estica a partir do card até
+   o tamanho final - só o transform anima, a caixa em si nunca some */
+.eco-modal{position:relative;width:min(92vw,420px);max-height:86vh;overflow:auto;border-radius:12px;background:var(--chapa);border:1px solid var(--vidro-borda);box-shadow:0 40px 80px -28px rgba(0,0,0,.6);transition:transform .5s cubic-bezier(.4,0,.2,1)}
 .eco-modal-img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;background:#0c0c0e}
 .eco-modal-corpo{padding:20px 22px 24px}
 .eco-modal-corpo b{display:block;font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:-.015em;color:var(--tinta);margin-bottom:8px}
@@ -1164,24 +1166,38 @@ document.getElementById('eco-grupos').innerHTML=
   }).join('')
   +cardEco(ECO_CENTRO,0,'centro');
 
-/* clique num item abre a foto e a descrição num popup que cresce a
-   partir do próprio card clicado */
+/* clique num item abre a foto e a descrição num popup que estica a
+   partir do próprio card clicado (a caixa nunca fica invisível: ela
+   já nasce do tamanho e na posição do card e anima até o tamanho
+   final, como um FLIP) */
 var ecoCena=$('#eco-modal-cena'),ecoModal=$('#eco-modal'),ecoImg=$('#eco-modal-img'),ecoTit=$('#eco-modal-tit'),ecoDesc=$('#eco-modal-desc');
+var ecoOrigem=null;
+function transformDe(r){
+  var fr=ecoModal.getBoundingClientRect();
+  if(!fr.width||!fr.height)return'';
+  var sx=r.width/fr.width,sy=r.height/fr.height;
+  var tx=r.left+r.width/2-(fr.left+fr.width/2),ty=r.top+r.height/2-(fr.top+fr.height/2);
+  return 'translate('+tx.toFixed(1)+'px,'+ty.toFixed(1)+'px) scale('+sx.toFixed(3)+','+sy.toFixed(3)+')';
+}
 function abreEcoModal(btn){
   ecoImg.src=btn.querySelector('.eorb-img').src;
   ecoTit.textContent=btn.querySelector('b').textContent;
   ecoDesc.textContent=btn.querySelector('small').textContent;
-  var r=btn.getBoundingClientRect(),mr=ecoModal.getBoundingClientRect();
-  if(mr.width&&mr.height){
-    var ox=(r.left+r.width/2-mr.left)/mr.width*100,oy=(r.top+r.height/2-mr.top)/mr.height*100;
-    ecoModal.style.transformOrigin=ox+'% '+oy+'%';
-  }
+  ecoOrigem=btn;
   ecoCena.classList.add('ver');ecoCena.setAttribute('aria-hidden','false');
   btn.setAttribute('aria-expanded','true');
+  var partida=transformDe(btn.getBoundingClientRect());
+  ecoModal.style.transition='none';
+  ecoModal.style.transform=partida;
+  ecoModal.offsetWidth;
+  ecoModal.style.transition='';
+  ecoModal.style.transform='translate(0,0) scale(1)';
 }
 function fechaEcoModal(){
   ecoCena.classList.remove('ver');ecoCena.setAttribute('aria-hidden','true');
   document.querySelectorAll('.eorb[aria-expanded="true"]').forEach(function(b){b.setAttribute('aria-expanded','false')});
+  if(ecoOrigem)ecoModal.style.transform=transformDe(ecoOrigem.getBoundingClientRect())||'';
+  ecoOrigem=null;
 }
 document.addEventListener('click',function(e){
   var b=e.target.closest('.eorb');
