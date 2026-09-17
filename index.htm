@@ -217,6 +217,7 @@ h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,56px);lin
 .quadro.centro .chip:nth-child(3),.quadro.centro .num:nth-child(3){animation-delay:1.14s}
 .quadro.centro .chip:nth-child(4),.quadro.centro .num:nth-child(4){animation-delay:1.4s}
 @keyframes surge{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes aparece{from{opacity:0}to{opacity:1}}
 .tela.ativa .quadro.midia img.bg{animation:respira 22s ease-out both;will-change:transform;backface-visibility:hidden}
 @keyframes respira{from{transform:scale(1.005)}to{transform:scale(1.075)}}
 .quadro .brief{font-family:var(--mono);font-size:11px;line-height:1.7;color:rgba(255,255,255,.5);max-width:38ch;text-align:center;padding:22px}
@@ -330,14 +331,17 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
    retangular com o título acima da foto, grande o bastante para ser
    reconhecida. Um clique abre a descrição num popup (ver .eco-modal) */
 .eorb{position:absolute;z-index:2;width:136px;background:none;border:none;padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;text-align:center;-webkit-tap-highlight-color:transparent}
-.eorb.esq{transform:translate(-100%,-50%)}
-.eorb.dir{transform:translate(0,-50%)}
-.eorb.centro{transform:translate(-50%,-50%)}
+/* o card fica centrado no ponto do anel, não pendurado por uma borda:
+   assim o anel pontilhado passa por baixo dele, visivelmente "sobre"
+   a linha, em vez do card flutuar ao lado sem tocar o traço */
+.eorb{transform:translate(-50%,-50%)}
 /* a animação de entrada mexe no transform, então fica num filho à
    parte: o transform do botão em si é só o de ancoragem no anel, e
    não pode ser pisado pela animação (senão o card nasce fora do
    lugar e só encaixa no ponto certo quando ela termina) */
-.eorb-in{display:flex;flex-direction:column;width:100%;animation:surge .5s var(--mola) backwards;animation-delay:calc(var(--j,0)*40ms + 180ms)}
+/* só a opacidade anima: nada de mover ou escalar, pra não parecer
+   que o card vem de outro lugar - ele só aparece onde já está */
+.eorb-in{display:flex;flex-direction:column;width:100%;animation:aparece .4s linear backwards;animation-delay:calc(var(--j,0)*40ms + 180ms)}
 .eorb b{display:block;margin-bottom:8px;font-family:var(--display);font-weight:600;font-size:14px;line-height:1.25;letter-spacing:-.01em;color:var(--tinta);transition:color .2s}
 .eorb-img{display:block;width:100%;aspect-ratio:16/10;border-radius:12px;object-fit:cover;border:1.5px solid var(--gold);box-shadow:0 10px 22px -10px rgba(184,134,11,.55);background:var(--chapa);transition:transform .22s var(--mola),box-shadow .22s}
 .eorb:hover .eorb-img{transform:scale(1.04);box-shadow:0 12px 26px -10px rgba(184,134,11,.7)}
@@ -1221,8 +1225,9 @@ function orbita(){
   if(!mapa||!svg)return;
   var m=mapa.getBoundingClientRect(); if(!m.width||!m.height)return;
   var cx=m.width/2, cy=m.height/2;
-  /* a folga lateral tem de caber o card inteiro, senão ele sai da caixa */
-  var rxMax=Math.max(170,cx-230), ryMax=Math.max(140,cy-140);
+  /* o card fica centrado no ponto do anel, então a folga lateral só
+     precisa caber metade da largura dele, não o card inteiro */
+  var rxMax=Math.max(170,cx-100), ryMax=Math.max(140,cy-140);
   var aneis=[.46,.74,1];
   svg.setAttribute('viewBox','0 0 '+m.width.toFixed(1)+' '+m.height.toFixed(1));
   svg.innerHTML=aneis.map(function(f){
