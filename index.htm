@@ -322,7 +322,7 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 .eco-grupos{flex:1;display:flex;align-items:center;justify-content:center;margin-top:6px;
   /* o satélite também não passa do que o arco comporta: com o raio
      limitado pela largura, dois nomes vizinhos se encostariam */
-  --sat:min(clamp(56px,min(11.5vh,6vw),132px),calc(.30*var(--cabe) - 38px));
+  --sat:min(clamp(56px,min(13vh,6.6vw),148px),calc(.30*var(--cabe) - 38px));
   --disco:clamp(86px,min(17vh,9vw),196px);
   --olho:clamp(76px,min(15.5vh,8.4vw),186px);
   --rotulo:clamp(30px,4.4vh,54px);
@@ -336,10 +336,10 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
              calc(var(--cabe)/2 - var(--sat)/2 - 20px));
   --lado:calc(2*var(--raio) + var(--sat) + 2*var(--rotulo))}
 .eco-frente{position:relative;flex:0 0 var(--lado);width:var(--lado);height:var(--lado);
-  --raio:min(calc((var(--disco)/2 + var(--sat)/2 + clamp(12px,1.8vh,26px))*var(--fator,1)),
+  --raio:min(calc((var(--disco)/2 + var(--sat)/2 + clamp(30px,5vh,64px))*var(--fator,1)),
              calc(var(--cabe)/2 - var(--sat)/2 - 16px))}
 /* o fio que liga o núcleo à frente */
-.eco-fio{flex:0 1 clamp(30px,4vw,86px);min-width:26px;height:1.5px;background:linear-gradient(90deg,rgba(239,191,78,.15),rgba(239,191,78,.7),rgba(239,191,78,.15))}
+.eco-fio{flex:0 1 clamp(30px,4vw,86px);min-width:26px;height:1.5px;background:linear-gradient(90deg,rgba(239,191,78,.35),rgba(239,191,78,.9),rgba(239,191,78,.35))}
 .eco-olho{flex:none;display:grid;place-items:center;width:var(--olho);height:var(--olho);border-radius:50%;
   background:radial-gradient(circle,var(--gold-bg) 0%,transparent 72%)}
 .eco-olho img{width:82%;display:block}
@@ -354,11 +354,17 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
   background:none;border:none;padding:0;font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;
   transform:rotate(var(--a)) translate(var(--raio)) rotate(calc(-1*var(--a)))}
 .eorb-in{display:block;width:100%;height:100%;animation:aparece .4s linear backwards;animation-delay:calc(var(--j,0)*45ms + 160ms)}
-.eorb-img{display:block;width:100%;height:100%;border-radius:50%;object-fit:cover;background:var(--chapa);
+.eorb-img{display:block;width:100%;height:100%;border-radius:clamp(9px,1.4vh,16px);object-fit:cover;background:var(--chapa);
   border:1.5px solid var(--gold);box-shadow:0 8px 18px -8px rgba(184,134,11,.6);transition:transform .22s var(--mola),box-shadow .22s}
 .eorb:hover .eorb-img{transform:scale(1.07);box-shadow:0 12px 24px -8px rgba(184,134,11,.85)}
 /* o nome fica fora do círculo, então não aperta a foto nem empurra o
    satélite para fora da borda do disco */
+/* cada satélite se liga ao disco por um fio: nasce na borda do card e
+   corre de volta para o centro da frente, na direção do próprio ângulo */
+.eorb::before{content:"";position:absolute;left:50%;top:50%;height:1.5px;
+  width:max(0px,calc(var(--raio) - var(--disco)/2 - var(--sat)/2));
+  transform-origin:0 50%;transform:rotate(calc(var(--a) + 180deg)) translateX(calc(var(--sat)/2));
+  background:linear-gradient(90deg,rgba(239,191,78,.8),rgba(239,191,78,.25));pointer-events:none}
 /* o nome sobe nos satélites de cima e desce nos de baixo: sempre se
    afastando do disco, e gastando altura (que sobra) em vez de largura
    (que é o que aperta para as duas frentes caberem lado a lado) */
