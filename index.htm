@@ -318,7 +318,7 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 /* ecossistema: sistema solar. O palco é posicionado e os itens são
    colocados nele por trigonometria; os anéis são um SVG pontilhado ao
    fundo. Cada item é um card retangular (título acima da foto). */
-.eco-grupos{flex:1;position:relative;min-height:clamp(760px,90vh,1040px);margin-top:10px}
+.eco-grupos{flex:1;position:relative;min-height:clamp(760px,90vh,1040px);margin-top:10px}/* a altura real é calculada em orbita(), a partir da altura dos cards */
 .eco-aneis{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:visible}
 .eco-aneis ellipse{fill:none;stroke:var(--gold-deep);stroke-width:1.4;stroke-dasharray:1.5 8;stroke-linecap:round;opacity:.55}
 /* o rótulo de cada frente fica fora das órbitas, no alto de cada lado */
@@ -351,7 +351,7 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 .eorb small{display:none}
 /* o núcleo cobre os anéis no meio */
 .eco-nucleo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;display:grid;place-items:center}
-.eco-disco{position:relative;display:grid;place-items:center;width:clamp(96px,9vw,130px);aspect-ratio:1}
+.eco-disco{position:relative;display:grid;place-items:center;width:clamp(150px,16vw,250px);aspect-ratio:1}
 .eco-disco img{width:74%;display:block}
 
 /* popup do item do ecossistema: cresce a partir do card clicado, com a
@@ -1219,44 +1219,74 @@ document.addEventListener('click',function(e){
 
 /* as posições saem de trigonometria sobre a caixa real da seção, medida
    depois do layout: nada é chutado a partir da largura da janela */
+var ANEIS=[.46,.74,1];
 function orbita(){
   var mapa=document.getElementById('eco-grupos');
   var svg=document.getElementById('eco-aneis');
   if(!mapa||!svg)return;
   var m=mapa.getBoundingClientRect(); if(!m.width||!m.height)return;
-  var cx=m.width/2, cy=m.height/2;
-  /* o card fica centrado no ponto do anel, então a folga lateral só
-     precisa caber metade da largura dele, não o card inteiro */
-  var rxMax=Math.max(170,cx-100), ryMax=Math.max(140,cy-140);
-  var aneis=[.46,.74,1];
+  /* no mobile a órbita vira lista: a altura calculada aqui só deixaria
+     um vão vazio embaixo, porque o inline ganha da media query */
+  if(window.matchMedia('(max-width:860px)').matches){mapa.style.minHeight='';return}
+
+  var lados=[{cls:'esq',sinal:-1},{cls:'dir',sinal:1}];
+  var folga=28, margem=120, vao=0;
+  var cx=m.width/2, rx=Math.max(170,cx-90);
+  var sozinho=mapa.querySelector('.eorb.centro');
+  /* o último card de cada lado desce até perto do card solitário lá
+     embaixo: quanto mais estreita a tela, mais cedo o arco tem de parar
+     para os dois não se encostarem */
+  var meiaLargura=(sozinho?sozinho.offsetWidth:136)/2+68+10;
+  var lim=Math.min(.88,Math.sqrt(Math.max(.1,1-Math.pow(meiaLargura/rx,2))));
+  lados.forEach(function(l){
+    l.itens=[].slice.call(mapa.querySelectorAll('.eorb.'+l.cls));
+    l.alt=l.itens.reduce(function(a,el){return Math.max(a,el.offsetHeight)},0);
+    if(l.itens.length>1)vao=Math.max(vao,(l.itens.length-1)*(l.alt+folga)/(2*lim));
+  });
+  /* a altura da caixa sai do card mais alto: o passo vertical entre dois
+     cards do mesmo lado tem de caber um card inteiro, senão o título de
+     um encosta na foto do outro */
+  mapa.style.minHeight=Math.ceil(2*(vao+margem))+'px';
+  m=mapa.getBoundingClientRect();
+
+  var cy=m.height/2, ry=Math.max(140,cy-margem);
   svg.setAttribute('viewBox','0 0 '+m.width.toFixed(1)+' '+m.height.toFixed(1));
-  svg.innerHTML=aneis.map(function(f){
-    return '<ellipse cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" rx="'+(rxMax*f).toFixed(1)+'" ry="'+(ryMax*f).toFixed(1)+'"/>';
+  svg.innerHTML=ANEIS.map(function(f){
+    return '<ellipse cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" rx="'+(rx*f).toFixed(1)+'" ry="'+(ry*f).toFixed(1)+'"/>';
   }).join('');
 
-  /* os itens ocupam o campo entre os anéis, não só a borda de fora: cada
-     um pousa num dos três raios. A altura segue passos iguais, que é o
-     que garante folga vertical - passos angulares iguais amontoariam os
-     cards perto da horizontal, onde o seno quase não muda. */
-  ['esq','dir'].forEach(function(lado){
-    var itens=mapa.querySelectorAll('.eorb.'+lado);
-    var n=itens.length; if(!n)return;
-    var trilhos=[1,.74,1,.46,1,.74,1];
-    var lim=.82;
-    itens.forEach(function(el,k){
+  /* o x sai da equação da elipse na altura já escolhida, então o centro
+     do card cai exatamente sobre o anel. Um anel só alcança alturas até
+     o seu próprio raio: pedir mais que isso jogaria o card no meio da
+     tela, fora de qualquer linha - daí a troca pelo anel de fora. */
+  function naElipse(t,f,sinal){
+    if(f<=Math.abs(t))f=1;
+    return cx+sinal*rx*f*Math.sqrt(Math.max(0,1-(t/f)*(t/f)));
+  }
+  var olho=mapa.querySelector('.eco-disco');
+  var meioOlho=(olho?olho.offsetWidth:120)/2;
+  /* o anel tem de passar pelo meio da foto, não pelo meio da caixa: o
+     título mora acima e jogaria a foto toda para baixo da linha */
+  function pousa(el,x,y){
+    var img=el.querySelector('.eorb-img');
+    el.style.left=x.toFixed(1)+'px';
+    el.style.top=(y+(img?el.offsetHeight/2-(img.offsetTop+img.offsetHeight/2):0)).toFixed(1)+'px';
+  }
+  /* altura em passos iguais: é o que garante a folga vertical. Os cards
+     mais perto da linha do meio pousam no anel do meio e o resto no de
+     fora - é esse desencontro que desenha a órbita em vez de uma fila. */
+  lados.forEach(function(l){
+    var n=l.itens.length; if(!n)return;
+    var centro=(n-1)/2;
+    l.itens.forEach(function(el,k){
       var t=n===1?0:(-1+2*k/(n-1))*lim;
-      var f=trilhos[k%trilhos.length];
-      var y=cy+ryMax*t;
-      /* o x sai do anel escolhido, na altura já definida */
-      var dentro=Math.max(0,1-(t/f)*(t/f));
-      var x=cx+(lado==='esq'?-1:1)*rxMax*f*Math.sqrt(dentro);
-      el.style.left=x.toFixed(1)+'px';
-      el.style.top=y.toFixed(1)+'px';
+      var x=naElipse(t,Math.abs(k-centro)<1?.74:1,l.sinal);
+      if(Math.abs(x-cx)<meioOlho+el.offsetWidth/2+10)x=naElipse(t,1,l.sinal);
+      pousa(el,x,cy+ry*t);
     });
   });
-  /* o item sozinho fica no centro, embaixo do olho */
-  var centro=mapa.querySelector('.eorb.centro');
-  if(centro){centro.style.left=cx.toFixed(1)+'px';centro.style.top=(cy+ryMax+92).toFixed(1)+'px'}
+  /* o item sozinho fecha o arco no ponto mais baixo do anel de fora */
+  if(sozinho)pousa(sozinho,cx,cy+ry);
 }
 window.addEventListener('resize',orbita);
 function agendaOrbita(){
