@@ -323,7 +323,7 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
   /* o satélite também não passa do que o arco comporta: com o raio
      limitado pela largura, dois nomes vizinhos se encostariam */
   --sat:min(clamp(56px,min(13vh,6.6vw),148px),calc(.30*var(--cabe) - 38px));
-  --disco:clamp(96px,min(19vh,10vw),210px);
+  --disco:clamp(112px,min(23vh,12vw),250px);
   --olho:clamp(76px,min(15.5vh,8.4vw),186px);
   --rotulo:clamp(30px,4.4vh,54px);
   /* o que cabe de frente: metade do que sobra da largura útil (a dobra
@@ -347,7 +347,7 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 /* o disco de cada frente */
 .eco-disco{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;pointer-events:none;
   display:grid;place-items:center;width:var(--disco);height:var(--disco);text-align:center}
-.eco-disco b{display:block;padding:0 6px;font-family:var(--display);font-weight:700;font-size:clamp(18px,3.1vh,36px);line-height:1.06;letter-spacing:-.03em;color:var(--tinta)}
+.eco-disco b{display:block;padding:0 6px;font-family:var(--display);font-weight:700;font-size:clamp(21px,3.8vh,44px);line-height:1.06;letter-spacing:-.03em;color:var(--tinta)}
 /* cada produto é um satélite na borda do disco: o ângulo posiciona e o
    giro contrário devolve o card à horizontal */
 .eorb{position:absolute;left:50%;top:50%;z-index:3;width:var(--sat);height:var(--sat);margin:calc(var(--sat)/-2);
@@ -437,12 +437,15 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 /* o popup fica opaco já no primeiro quadro (a opacidade troca sem
    transição) e só some depois que o encolher termina: o que anima é o
    transform, que sai do tamanho e da posição do card */
-.eco-modal{position:relative;width:min(92vw,420px);max-height:86vh;overflow:auto;border-radius:12px;background:var(--chapa);border:1px solid var(--vidro-borda);box-shadow:0 40px 80px -28px rgba(0,0,0,.6);opacity:0;visibility:hidden;transition:transform .5s cubic-bezier(.4,0,.2,1),opacity 0s .5s,visibility 0s .5s}
+.eco-modal{position:relative;width:min(92vw,max(420px,50vw));max-height:86vh;overflow:hidden;overflow:clip;border-radius:12px;background:#0c0c0e;border:1px solid var(--vidro-borda);box-shadow:0 40px 80px -28px rgba(0,0,0,.6);opacity:0;visibility:hidden;transition:transform .5s cubic-bezier(.4,0,.2,1),opacity 0s .5s,visibility 0s .5s}
 .eco-modal-cena.ver .eco-modal{opacity:1;visibility:visible;transition:transform .5s cubic-bezier(.4,0,.2,1),opacity 0s,visibility 0s}
 .eco-modal-img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;background:#0c0c0e}
-.eco-modal-corpo{padding:20px 22px 24px}
-.eco-modal-corpo b{display:block;font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:-.015em;color:var(--tinta);margin-bottom:8px}
-.eco-modal-corpo p{margin:0;font-size:13.5px;line-height:1.55;color:var(--tinta2)}
+/* o texto não tem caixa própria: ele deita sobre a foto, num véu que
+   nasce do pé da imagem e sobe até sumir */
+.eco-modal-corpo{position:absolute;left:0;right:0;bottom:0;padding:clamp(48px,9vh,96px) clamp(20px,2.2vw,34px) clamp(18px,2.4vh,28px);
+  background:linear-gradient(0deg,rgba(9,9,11,.95) 0%,rgba(9,9,11,.86) 34%,rgba(9,9,11,.45) 68%,rgba(9,9,11,0) 100%)}
+.eco-modal-corpo b{display:block;font-family:var(--display);font-weight:700;font-size:clamp(19px,2.6vw,30px);line-height:1.12;letter-spacing:-.02em;color:#fff;margin-bottom:8px}
+.eco-modal-corpo p{margin:0;font-size:clamp(13px,1.05vw,16px);line-height:1.5;color:rgba(255,255,255,.82);max-width:62ch}
 .eco-modal-x{position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:18px;line-height:1;color:#fff;background:rgba(9,9,11,.55);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:.18s;cursor:pointer}
 .eco-modal-x:hover{background:rgba(9,9,11,.8)}
 
@@ -565,6 +568,7 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
   .quadro.midia .chip{font-size:11px;padding:9px 13px}
   .faixa{position:static;background:#18181b;padding:30px 22px}
   .galeria,.eco-wrap{padding:30px 22px 50px}
+  .eco-modal-corpo{padding-top:clamp(26px,5vh,48px)}
   .org-frentes{grid-template-columns:1fr;gap:calc(var(--fio)*1.6)}
   .obraco-drop-in{flex-direction:column}
   .obraco-drop-in img{width:100%}
@@ -806,7 +810,7 @@ const NAV=[
    Cada produto é um nó da tela principal e uma tela própria.
    ============================================================ */
 const ECOS=[
-  {grupo:'Educacional',mote:'A Escola',
+  {grupo:'Educacional',mote:'A Escola',curto:'Escola',
    itens:[
     {t:'A Escola',d:'O curso completo da AUVP: mais de 100 aulas, sete módulos e um bônus, do zero à liberdade financeira.',img:'aulas att.png'},
     {t:'Ferramentas',d:'Quatro ferramentas próprias para apoiar seus estudos e a gestão da carteira.',img:'trilha pro.png'},
@@ -1285,7 +1289,7 @@ document.getElementById('org').innerHTML=
   '<div class="org-marca"><img src="logos/auvp.svg" alt="AUVP"></div>'
   +'<div class="org-frentes">'+ECOS.map(function(g){
     return '<div class="org-frente">'
-      +'<div class="org-frente-cab"><b>'+esc(g.mote)+'</b></div>'
+      +'<div class="org-frente-cab"><b>'+esc(g.curto||g.mote)+'</b></div>'
       +'<div class="org-bracos">'+g.itens.map(function(it,k){
         var id='br'+k+'-'+esc(g.grupo).replace(/\W/g,'');
         return '<div class="obraco-cx" style="--j:'+k+'">'
