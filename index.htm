@@ -358,12 +358,20 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 
 /* popup do item do ecossistema: cresce a partir do card clicado, com a
    foto grande no topo e o texto de apoio embaixo */
-.eco-modal-cena{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:24px;background:rgba(9,9,11,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .46s}
-.eco-modal-cena.ver{opacity:1;pointer-events:auto}
+/* o véu escurece sozinho, pela cor de fundo: se ele usasse opacity, o
+   popup (que é filho) desbotaria junto e todo o começo do crescimento
+   aconteceria invisível - o popup só apareceria já grande, no meio da
+   tela, parecendo vir do nada */
+.eco-modal-cena{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:24px;background:rgba(9,9,11,0);backdrop-filter:blur(0);-webkit-backdrop-filter:blur(0);pointer-events:none;transition:background-color .42s,backdrop-filter .42s,-webkit-backdrop-filter .42s}
+.eco-modal-cena.ver{background:rgba(9,9,11,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);pointer-events:auto}
 /* o tamanho/posição de partida vêm do próprio card clicado (calculado
    em JS): o popup não aparece do nada, ele estica a partir do card até
    o tamanho final - só o transform anima, a caixa em si nunca some */
-.eco-modal{position:relative;width:min(92vw,420px);max-height:86vh;overflow:auto;border-radius:12px;background:var(--chapa);border:1px solid var(--vidro-borda);box-shadow:0 40px 80px -28px rgba(0,0,0,.6);transition:transform .5s cubic-bezier(.4,0,.2,1)}
+/* o popup fica opaco já no primeiro quadro (a opacidade troca sem
+   transição) e só some depois que o encolher termina: o que anima é o
+   transform, que sai do tamanho e da posição do card */
+.eco-modal{position:relative;width:min(92vw,420px);max-height:86vh;overflow:auto;border-radius:12px;background:var(--chapa);border:1px solid var(--vidro-borda);box-shadow:0 40px 80px -28px rgba(0,0,0,.6);opacity:0;visibility:hidden;transition:transform .5s cubic-bezier(.4,0,.2,1),opacity 0s .5s,visibility 0s .5s}
+.eco-modal-cena.ver .eco-modal{opacity:1;visibility:visible;transition:transform .5s cubic-bezier(.4,0,.2,1),opacity 0s,visibility 0s}
 .eco-modal-img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;background:#0c0c0e}
 .eco-modal-corpo{padding:20px 22px 24px}
 .eco-modal-corpo b{display:block;font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:-.015em;color:var(--tinta);margin-bottom:8px}
@@ -1199,9 +1207,13 @@ function abreEcoModal(btn){
   ecoOrigem=btn;
   ecoCena.classList.add('ver');ecoCena.setAttribute('aria-hidden','false');
   btn.setAttribute('aria-expanded','true');
-  var partida=transformDe(btn.getBoundingClientRect());
+  /* o fechamento anterior deixou o popup encolhido no card de antes;
+     desfazer isso antes de medir é o que faz a conta valer para o card
+     de agora - medindo por cima do encolhido, o segundo card em diante
+     abriria de qualquer lugar da tela */
   ecoModal.style.transition='none';
-  ecoModal.style.transform=partida;
+  ecoModal.style.transform='none';
+  ecoModal.style.transform=transformDe(btn.getBoundingClientRect());
   ecoModal.offsetWidth;
   ecoModal.style.transition='';
   ecoModal.style.transform='translate(0,0) scale(1)';
