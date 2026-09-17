@@ -814,7 +814,7 @@ const NAV=[
 const ECOS=[
   {grupo:'Educacional',mote:'A Escola',curto:'Escola',
    itens:[
-    {t:'A Escola',d:'O curso completo da AUVP: mais de 100 aulas, sete módulos e um bônus, do zero à liberdade financeira.',img:'aulas att.png'},
+    {t:'A Escola',d:'O curso completo da AUVP: mais de 100 aulas, sete módulos e um bônus, do zero à liberdade financeira.',img:'raul explicativo.png',alt:'aulas att.png'},
     {t:'Ferramentas',d:'Quatro ferramentas próprias para apoiar seus estudos e a gestão da carteira.',img:'trilha pro.png'},
     {t:'Atualização de Mercado - Semanais',d:'Toda segunda-feira, às 19h, ao vivo com o Raul Sena comentando o que mexeu com o mercado.',img:'masterclasses.jpg'},
     {t:'Módulos Avançados',d:'Setores, geopolítica e aulas técnicas para quem quer ir além da grade principal.',img:'modulos avançados.png'},
@@ -822,16 +822,27 @@ const ECOS=[
    ]},
   {grupo:'Banking',mote:'Banking',
    itens:[
-    {t:'Consultoria',d:'Nº 1 no ranking do BTG Pactual, pelo segundo ano seguido.',img:'comunidade pro.png'},
-    {t:'Conta com cartão próprio',d:'Conta, cartão e atendimento 100% AUVP, sujeito à análise de crédito.',img:'capa modulo 3.jpg'},
-    {t:'Crédito',d:'Comparação com mais de 20 bancos, sem liquidar seus investimentos.',img:'simulados pro.png'},
-    {t:'Câmbio',d:'Enviar, receber ou investir no exterior com custo transparente.',img:'cripto.jpg'},
-    {t:'Seguros',d:'Cotação em até 6 seguradoras, sem viés de interesse.',img:'thumb INDICADORES.jpg'},
-    {t:'Wealth',d:'Blindagem patrimonial, governança e planejamento sucessório.',img:'analitica.jpg'},
+    {t:'Consultoria',d:'Nº 1 no ranking do BTG Pactual, pelo segundo ano seguido.',img:'https://www.maisnovela.com.br/wp-content/uploads/2026/03/AUVP.png',alt:'comunidade pro.png'},
+    {t:'Conta com cartão próprio',d:'Conta, cartão e atendimento 100% AUVP, sujeito à análise de crédito.',img:'https://pbs.twimg.com/media/GxSRuKfXMAAQPsS.jpg',alt:'capa modulo 3.jpg'},
+    {t:'Crédito',d:'Comparação com mais de 20 bancos, sem liquidar seus investimentos.',img:'https://cdn.asupernova.com.br/lp-auvp/vite/onde sua vida financeira se resolve mobile.webp',alt:'simulados pro.png'},
+    {t:'Câmbio',d:'Enviar, receber ou investir no exterior com custo transparente.',img:'https://www.remessaonline.com.br/blog/wp-content/uploads/2022/04/servico-de-cambio.png',alt:'cripto.jpg'},
+    {t:'Seguros',d:'Cotação em até 6 seguradoras, sem viés de interesse.',img:'https://images.pexels.com/photos/20880348/pexels-photo-20880348.jpeg',alt:'thumb INDICADORES.jpg'},
+    {t:'Wealth',d:'Blindagem patrimonial, governança e planejamento sucessório.',img:'https://oespecialista.safra.com.br/wp-content/uploads/2026/05/wealth-management-nos-investimentos.jpg',alt:'analitica.jpg'},
     {t:"ETF's próprios",d:'AUPO11 e AREA11, geridos pela AUVP.',img:'cotações.png'}
    ]}
 ];
 
+
+/* a foto de cada item: parte vem da V1 e mora fora do repositório, então
+   cada uma leva uma reserva local que entra sozinha se a remota falhar */
+const foto=function(it){
+  return 'src="'+encodeURI(it.img)+'"'+(it.alt?' data-reserva="'+encodeURI(it.alt)+'"':'');
+};
+document.addEventListener('error',function(e){
+  var im=e.target;
+  if(im.tagName!=='IMG'||!im.dataset.reserva)return;
+  im.src=im.dataset.reserva;delete im.dataset.reserva;
+},true);
 
 const $=function(s){return document.querySelector(s)};
 var medidas={};
@@ -1270,7 +1281,7 @@ function frenteEco(g,gi){
       var a=inicio+(n>1?280*k/(n-1):140);
       /* metade de cima do disco: o nome sobe em vez de descer */
       return '<button type="button" class="eorb'+(Math.sin(a*Math.PI/180)<0?' cima':'')+'" aria-expanded="false" style="--a:'+a.toFixed(1)+'deg;--j:'+(gi*6+k)+'">'
-        +'<span class="eorb-in"><img class="eorb-img" src="'+encodeURI(it.img)+'" alt="" loading="lazy"></span>'
+        +'<span class="eorb-in"><img class="eorb-img" '+foto(it)+' alt="" loading="lazy"></span>'
         +'<b>'+esc(it.t)+'</b><small>'+esc(it.d)+'</small></button>';
     }).join('')
     +'</div>';
@@ -1296,10 +1307,10 @@ document.getElementById('org').innerHTML=
         var id='br'+k+'-'+esc(g.grupo).replace(/\W/g,'');
         return '<div class="obraco-cx" style="--j:'+k+'">'
           +'<button type="button" class="obraco" aria-expanded="false" aria-controls="'+id+'">'
-          +'<img src="'+encodeURI(it.img)+'" alt="" loading="lazy">'
+          +'<img '+foto(it)+' alt="" loading="lazy">'
           +'<b>'+esc(it.t)+'</b>'+CHEV+'</button>'
           +'<div class="obraco-drop" id="'+id+'"><div><div class="obraco-drop-in">'
-          +'<img src="'+encodeURI(it.img)+'" alt="" loading="lazy">'
+          +'<img '+foto(it)+' alt="" loading="lazy">'
           +'<p>'+esc(it.d)+'</p></div></div></div></div>';
       }).join('')+'</div></div>';
   }).join('')+'</div>';
