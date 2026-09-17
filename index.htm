@@ -323,7 +323,7 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
   /* o satélite também não passa do que o arco comporta: com o raio
      limitado pela largura, dois nomes vizinhos se encostariam */
   --sat:min(clamp(56px,min(13vh,6.6vw),148px),calc(.30*var(--cabe) - 38px));
-  --disco:clamp(86px,min(17vh,9vw),196px);
+  --disco:clamp(96px,min(19vh,10vw),210px);
   --olho:clamp(76px,min(15.5vh,8.4vw),186px);
   --rotulo:clamp(30px,4.4vh,54px);
   /* o que cabe de frente: metade do que sobra da largura útil (a dobra
@@ -347,7 +347,7 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 /* o disco de cada frente */
 .eco-disco{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;pointer-events:none;
   display:grid;place-items:center;width:var(--disco);height:var(--disco);text-align:center}
-.eco-disco b{display:block;padding:0 10px;font-family:var(--display);font-weight:700;font-size:clamp(16px,2.6vh,30px);line-height:1.08;letter-spacing:-.025em;color:var(--tinta)}
+.eco-disco b{display:block;padding:0 6px;font-family:var(--display);font-weight:700;font-size:clamp(18px,3.1vh,36px);line-height:1.06;letter-spacing:-.03em;color:var(--tinta)}
 /* cada produto é um satélite na borda do disco: o ângulo posiciona e o
    giro contrário devolve o card à horizontal */
 .eorb{position:absolute;left:50%;top:50%;z-index:3;width:var(--sat);height:var(--sat);margin:calc(var(--sat)/-2);
@@ -383,45 +383,45 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
    marca: a AUVP no topo, as duas frentes logo abaixo e, embaixo de cada
    frente, os seus braços empilhados. Os fios são pseudo-elementos - não
    há SVG nem posicionamento calculado em JS. */
-.org{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:clamp(8px,2vh,26px) 0 clamp(4px,1vh,16px);
-  --gap:clamp(26px,4.5vw,84px);--fio:clamp(15px,2.4vh,28px)}
-.org-marca{position:relative;display:flex;align-items:center;gap:13px;padding:13px 30px;border-radius:4px;
-  background:var(--grad-escuro);border:1.5px solid var(--gold);box-shadow:0 18px 40px -22px rgba(184,134,11,.9);
-  animation:sobe .44s var(--mola) backwards}
-.org-marca img{flex:none;width:clamp(28px,3.8vh,42px);display:block}
-.org-marca-txt{display:flex;flex-direction:column;align-items:flex-start;gap:2px}
-.org-marca-txt b{font-family:var(--display);font-weight:700;font-size:clamp(20px,3.1vh,34px);line-height:1;letter-spacing:-.025em;color:#fff}
-.org-marca-txt span{font-family:var(--cta);font-weight:700;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
-/* o fio que desce da marca até a barra que abre nas duas frentes */
-.org-marca::after{content:"";position:absolute;top:100%;left:50%;width:1.5px;height:var(--fio);
-  background:linear-gradient(180deg,var(--gold),rgba(239,191,78,.55))}
-.org-frentes{display:flex;align-items:flex-start;justify-content:center;gap:var(--gap);width:100%;margin-top:var(--fio)}
-.org-frente{position:relative;flex:1 1 0;min-width:0;max-width:430px;padding-top:var(--fio)}
-/* a barra horizontal que abre da marca para as duas frentes: cada frente
-   desenha a sua metade e elas se encontram no meio do vão */
-.org-frente::after{content:"";position:absolute;top:0;height:1.5px;background:rgba(239,191,78,.6)}
-.org-frente:first-child::after{left:50%;right:calc(var(--gap)/-2)}
-.org-frente:last-child::after{right:50%;left:calc(var(--gap)/-2)}
-/* e o pé que desce da barra até o cabeçalho da frente */
-.org-frente::before{content:"";position:absolute;top:0;left:50%;width:1.5px;height:var(--fio);background:rgba(239,191,78,.6)}
-.org-frente-cab{display:flex;align-items:baseline;justify-content:center;gap:10px;padding:11px 16px;border-radius:3px;
+.org{flex:1;display:flex;flex-direction:column;width:min(100%,1020px);margin:0 auto;
+  padding:clamp(14px,4vh,48px) 0 clamp(4px,1vh,16px);
+  --gap:clamp(20px,3.4vw,54px);--fio:clamp(14px,2.2vh,26px)}
+/* a faixa da marca-mãe: atravessa as duas frentes de ponta a ponta */
+.org-marca{display:grid;place-items:center;padding:clamp(10px,1.7vh,17px) 24px;border-radius:3px;background:var(--gold);
+  box-shadow:0 16px 36px -20px rgba(184,134,11,.95);animation:sobe .44s var(--mola) backwards}
+/* a marca é servida em branco; na faixa dourada ela vira preta */
+.org-marca img{height:clamp(26px,3.7vh,44px);width:auto;display:block;filter:brightness(0)}
+.org-frentes{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);margin-top:var(--fio)}
+.org-frente{position:relative;min-width:0}
+/* o fio que desce da faixa da marca até o cabeçalho da frente */
+.org-frente::before{content:"";position:absolute;bottom:100%;left:50%;width:1.5px;height:var(--fio);background:rgba(239,191,78,.6)}
+.org-frente-cab{display:grid;place-items:center;padding:clamp(9px,1.6vh,14px) 16px;border-radius:3px;
   background:var(--gold);box-shadow:0 14px 30px -18px rgba(184,134,11,.95);
   animation:sobe .44s var(--mola) backwards;animation-delay:110ms}
 .org-frente-cab b{font-family:var(--display);font-weight:700;font-size:clamp(15px,2.3vh,23px);line-height:1.1;letter-spacing:-.02em;color:#09090b}
-.org-frente-cab i{font-family:var(--cta);font-style:normal;font-weight:700;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(9,9,11,.6)}
 /* os braços da frente, empilhados logo abaixo do cabeçalho */
 .org-bracos{position:relative;display:flex;flex-direction:column;gap:clamp(5px,.9vh,10px);margin-top:var(--fio)}
 .org-bracos::before{content:"";position:absolute;bottom:100%;left:50%;width:1.5px;height:var(--fio);
   background:linear-gradient(180deg,rgba(239,191,78,.75),rgba(239,191,78,.3))}
-.obraco{display:flex;align-items:center;gap:11px;width:100%;text-align:left;padding:6px 12px 6px 9px;border-radius:3px;
-  background:var(--sup);border:1px solid var(--vidro-borda);border-left:3px solid var(--gold);
-  transition:transform .22s var(--mola),border-color .2s,box-shadow .22s;
+/* cada braço é uma sanfona: a linha é o gatilho e a foto com o texto
+   abre logo abaixo dela, sem tirar ninguém da tela */
+.obraco-cx{border-radius:3px;background:var(--sup);border:1px solid var(--vidro-borda);border-left:3px solid var(--gold);
+  overflow:hidden;overflow:clip;transition:border-color .2s,box-shadow .22s;
   animation:sobe .4s var(--mola) backwards;animation-delay:calc(var(--j,0)*40ms + 190ms)}
-.obraco:hover{transform:translateX(3px);border-color:rgba(239,191,78,.5);box-shadow:0 10px 22px -14px rgba(0,0,0,.55)}
+.obraco-cx:hover,.obraco-cx.aberto{border-color:rgba(239,191,78,.5);box-shadow:0 10px 22px -14px rgba(0,0,0,.55)}
+.obraco{display:flex;align-items:center;gap:11px;width:100%;text-align:left;padding:6px 12px 6px 9px}
 .obraco img{flex:none;width:clamp(40px,4.6vw,56px);aspect-ratio:16/10;object-fit:cover;border-radius:2px;background:#09090b;display:block}
 .obraco b{flex:1;min-width:0;font-family:var(--display);font-weight:600;font-size:clamp(11.5px,1.5vh,14.5px);line-height:1.2;letter-spacing:-.01em;color:var(--tinta)}
-.obraco .seta{flex:none;line-height:1;font-size:13px;color:var(--gold-deep);opacity:.5;transition:opacity .2s,transform .2s}
-.obraco:hover .seta{opacity:1;transform:translateX(2px)}
+.obraco .chev{flex:none;line-height:1;color:var(--gold-deep);opacity:.6;transition:transform .28s ease,opacity .2s}
+.obraco-cx:hover .chev{opacity:1}
+.obraco[aria-expanded="true"] .chev{transform:rotate(180deg);opacity:1}
+/* a gaveta: de 0fr a 1fr anima a altura sem número mágico */
+.obraco-drop{display:grid;grid-template-rows:0fr;transition:grid-template-rows .34s var(--mola)}
+.obraco-cx.aberto .obraco-drop{grid-template-rows:1fr}
+.obraco-drop>div{overflow:hidden;min-height:0}
+.obraco-drop-in{display:flex;gap:13px;align-items:center;padding:11px 12px 12px;border-top:1px solid var(--linha2);margin-top:2px}
+.obraco-drop-in img{flex:none;width:clamp(96px,13vw,150px);aspect-ratio:16/10;object-fit:cover;border-radius:2px;background:#09090b;display:block}
+.obraco-drop-in p{margin:0;font-size:12.5px;line-height:1.5;color:var(--tinta2)}
 
 /* popup do item do ecossistema: cresce a partir do card clicado, com a
    foto grande no topo e o texto de apoio embaixo */
@@ -565,9 +565,9 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
   .quadro.midia .chip{font-size:11px;padding:9px 13px}
   .faixa{position:static;background:#18181b;padding:30px 22px}
   .galeria,.eco-wrap{padding:30px 22px 50px}
-  .org-frentes{flex-direction:column;align-items:stretch;gap:var(--fio)}
-  .org-frente{max-width:none}
-  .org-frente::after{display:none}
+  .org-frentes{grid-template-columns:1fr;gap:calc(var(--fio)*1.6)}
+  .obraco-drop-in{flex-direction:column}
+  .obraco-drop-in img{width:100%}
   /* o mapa não cabe numa coluna: cada frente vira um bloco em lista,
      com o disco virando cabeçalho e os satélites virando linhas */
   .eco-grupos{display:block;margin-top:18px}
@@ -873,6 +873,7 @@ function ir(id,semHash){
   var a=document.getElementById(id);if(a)a.scrollTop=0;
   gaveta(false);
   if(typeof fechaVisor==='function')fechaVisor();
+  if(typeof fechaBracos==='function')fechaBracos();
   if(typeof abreAjuda==='function')abreAjuda(false);
   /* vídeo e pré-carga de imagens só depois da animação de entrada: se
      começarem junto, a decodificação disputa o mesmo quadro e a
@@ -1066,7 +1067,7 @@ document.addEventListener('keydown',function(e){
   var alvo=e.target;
   if(alvo&&(alvo.isContentEditable||/^(input|textarea|select)$/i.test(alvo.tagName)))return;
   var k=e.key.toLowerCase();
-  if(k==='escape'){escondeDica();if(ajuda.classList.contains('ver')){abreAjuda(false);return}if(cena.classList.contains('ver')){fechaVisor();return}if(ecoCena.classList.contains('ver')){fechaEcoModal();return}if(document.body.classList.contains('gaveta')){gaveta(false)}return}
+  if(k==='escape'){escondeDica();if(ajuda.classList.contains('ver')){abreAjuda(false);return}if(cena.classList.contains('ver')){fechaVisor();return}if(ecoCena.classList.contains('ver')){fechaEcoModal();return}if(document.querySelector('.obraco-cx.aberto')){fechaBracos();return}if(document.body.classList.contains('gaveta')){gaveta(false)}return}
   if(k==='['||k===']'){recolher(!document.body.classList.contains('recolhido'));return}
   if(k==='arrowright'){passo(1);return}
   if(k==='arrowleft'){passo(-1);return}
@@ -1279,24 +1280,47 @@ document.getElementById('eco-grupos').innerHTML=
    A mesma lista do mapa de órbitas, agora como árvore: a marca no topo,
    as duas frentes lado a lado e, embaixo de cada uma, os seus braços.
    Os fios e o alinhamento são CSS; aqui só sai o HTML. */
+var CHEV='<svg class="chev" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
 document.getElementById('org').innerHTML=
-  '<div class="org-marca"><img src="olho-amarelo.svg" alt="" aria-hidden="true">'
-  +'<span class="org-marca-txt"><b>AUVP</b><span>Ecossistema</span></span></div>'
-  +'<div class="org-frentes">'+ECOS.map(function(g,gi){
+  '<div class="org-marca"><img src="logos/auvp.svg" alt="AUVP"></div>'
+  +'<div class="org-frentes">'+ECOS.map(function(g){
     return '<div class="org-frente">'
-      +'<div class="org-frente-cab"><b>'+esc(g.mote)+'</b>'
-      +'<i>'+g.itens.length+' '+(g.itens.length>1?'braços':'braço')+'</i></div>'
+      +'<div class="org-frente-cab"><b>'+esc(g.mote)+'</b></div>'
       +'<div class="org-bracos">'+g.itens.map(function(it,k){
-        return '<button type="button" class="obraco" aria-expanded="false" style="--j:'+k+'"'
-          +' data-t="'+esc(it.t)+'" data-d="'+esc(it.d)+'">'
+        var id='br'+k+'-'+esc(g.grupo).replace(/\W/g,'');
+        return '<div class="obraco-cx" style="--j:'+k+'">'
+          +'<button type="button" class="obraco" aria-expanded="false" aria-controls="'+id+'">'
           +'<img src="'+encodeURI(it.img)+'" alt="" loading="lazy">'
-          +'<b>'+esc(it.t)+'</b><span class="seta" aria-hidden="true">&rarr;</span></button>';
+          +'<b>'+esc(it.t)+'</b>'+CHEV+'</button>'
+          +'<div class="obraco-drop" id="'+id+'"><div><div class="obraco-drop-in">'
+          +'<img src="'+encodeURI(it.img)+'" alt="" loading="lazy">'
+          +'<p>'+esc(it.d)+'</p></div></div></div></div>';
       }).join('')+'</div></div>';
   }).join('')+'</div>';
 
-/* clique num item (no mapa de órbitas ou na árvore) abre a foto e a
-   descrição num popup que estica a
-   partir do próprio card clicado (a caixa nunca fica invisível: ela
+/* a sanfona dos braços: um aberto por vez, para a coluna não crescer
+   além do que cabe na tela */
+function abreBraco(btn){
+  var cx=btn.parentNode,vai=btn.getAttribute('aria-expanded')!=='true';
+  fechaBracos();
+  if(!vai)return;
+  cx.classList.add('aberto');btn.setAttribute('aria-expanded','true');
+}
+function fechaBracos(){
+  document.querySelectorAll('.obraco-cx.aberto').forEach(function(c){
+    c.classList.remove('aberto');
+    c.querySelector('.obraco').setAttribute('aria-expanded','false');
+  });
+}
+document.addEventListener('click',function(e){
+  var b=e.target.closest('.obraco');
+  if(b){e.preventDefault();abreBraco(b);return}
+  if(e.target.closest('.org'))return;   /* clique no vão da árvore não fecha */
+  fechaBracos();
+});
+
+/* no mapa de órbitas, clique num item abre a foto e a descrição num
+   popup que estica a partir do próprio card clicado (a caixa nunca fica invisível: ela
    já nasce do tamanho e na posição do card e anima até o tamanho
    final, como um FLIP) */
 var ecoCena=$('#eco-modal-cena'),ecoModal=$('#eco-modal'),ecoImg=$('#eco-modal-img'),ecoTit=$('#eco-modal-tit'),ecoDesc=$('#eco-modal-desc');
@@ -1309,9 +1333,9 @@ function transformDe(r){
   return 'translate('+tx.toFixed(1)+'px,'+ty.toFixed(1)+'px) scale('+sx.toFixed(3)+','+sy.toFixed(3)+')';
 }
 function abreEcoModal(btn){
-  ecoImg.src=btn.querySelector('img').src;
-  ecoTit.textContent=btn.dataset.t||btn.querySelector('b').textContent;
-  ecoDesc.textContent=btn.dataset.d||btn.querySelector('small').textContent;
+  ecoImg.src=btn.querySelector('.eorb-img').src;
+  ecoTit.textContent=btn.querySelector('b').textContent;
+  ecoDesc.textContent=btn.querySelector('small').textContent;
   ecoOrigem=btn;
   ecoCena.classList.add('ver');ecoCena.setAttribute('aria-hidden','false');
   btn.setAttribute('aria-expanded','true');
@@ -1328,12 +1352,12 @@ function abreEcoModal(btn){
 }
 function fechaEcoModal(){
   ecoCena.classList.remove('ver');ecoCena.setAttribute('aria-hidden','true');
-  document.querySelectorAll('.eorb[aria-expanded="true"],.obraco[aria-expanded="true"]').forEach(function(b){b.setAttribute('aria-expanded','false')});
+  document.querySelectorAll('.eorb[aria-expanded="true"]').forEach(function(b){b.setAttribute('aria-expanded','false')});
   if(ecoOrigem)ecoModal.style.transform=transformDe(ecoOrigem.getBoundingClientRect())||'';
   ecoOrigem=null;
 }
 document.addEventListener('click',function(e){
-  var b=e.target.closest('.eorb,.obraco');
+  var b=e.target.closest('.eorb');
   if(b){e.preventDefault();abreEcoModal(b);return}
   if(!ecoCena.classList.contains('ver'))return;
   if(e.target.closest('.eco-modal-x')||!e.target.closest('#eco-modal'))fechaEcoModal();
