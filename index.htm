@@ -315,46 +315,60 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 .ncard h3{margin:0;font-family:var(--display);font-weight:600;font-size:17px;line-height:1.2;letter-spacing:-.015em;color:var(--tinta)}
 .ncard p{margin:0;font-size:12.5px;line-height:1.55;color:var(--tinta2)}
 .ncard-link{margin-top:auto;padding-top:8px;display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;letter-spacing:.02em;color:var(--gold-deep)}
-/* ecossistema: sistema solar. O palco é posicionado e os itens são
-   colocados nele por trigonometria; os anéis são um SVG pontilhado ao
-   fundo. Cada item é um card retangular (título acima da foto). */
-.eco-grupos{flex:1;position:relative;min-height:340px;margin-top:6px}/* ocupa o que sobra da dobra: os raios saem daí, sem rolagem */
-.eco-aneis{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:visible}
-.eco-aneis ellipse{fill:none;stroke:var(--gold-deep);stroke-width:1.4;stroke-dasharray:1.5 8;stroke-linecap:round;opacity:.55}
-/* o rótulo de cada frente fica fora das órbitas, no alto de cada lado */
-.eco-rot{position:absolute;top:0;margin:0;line-height:1.2;z-index:2}
-.eco-rot.esq{left:0;text-align:left}
-.eco-rot.dir{right:0;text-align:right}
-.eco-rot span{display:block;font-family:var(--cta);font-weight:700;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep)}
-.eco-rot b{display:block;margin-top:5px;font-family:var(--display);font-weight:700;font-size:clamp(17px,1.6vw,22px);letter-spacing:-.02em;color:var(--tinta)}
-/* cada item pousa no anel pelo seu ponto de ancoragem: um card
-   retangular com o título acima da foto, grande o bastante para ser
-   reconhecida. Um clique abre a descrição num popup (ver .eco-modal) */
-/* a largura do card sai da altura da janela: é a altura que aperta, já
-   que os cards de um lado se empilham - e a dobra não pode rolar */
-.eorb{position:absolute;z-index:2;width:var(--eco-card,120px);background:none;border:none;padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;text-align:center;-webkit-tap-highlight-color:transparent}
-/* o card fica centrado no ponto do anel, não pendurado por uma borda:
-   assim o anel pontilhado passa por baixo dele, visivelmente "sobre"
-   a linha, em vez do card flutuar ao lado sem tocar o traço */
-.eorb{transform:translate(-50%,-50%)}
-/* a animação de entrada mexe no transform, então fica num filho à
-   parte: o transform do botão em si é só o de ancoragem no anel, e
-   não pode ser pisado pela animação (senão o card nasce fora do
-   lugar e só encaixa no ponto certo quando ela termina) */
-/* só a opacidade anima: nada de mover ou escalar, pra não parecer
-   que o card vem de outro lugar - ele só aparece onde já está */
-.eorb-in{display:flex;flex-direction:column;width:100%;animation:aparece .4s linear backwards;animation-delay:calc(var(--j,0)*40ms + 180ms)}
-.eorb b{display:block;margin-bottom:6px;font-family:var(--display);font-weight:600;font-size:clamp(11.5px,1.3vh,14px);line-height:1.2;letter-spacing:-.01em;color:var(--tinta);transition:color .2s}
-.eorb-img{display:block;width:100%;aspect-ratio:16/10;border-radius:10px;object-fit:cover;border:1.5px solid var(--gold);box-shadow:0 10px 22px -10px rgba(184,134,11,.55);background:var(--chapa);transition:transform .22s var(--mola),box-shadow .22s}
-.eorb:hover .eorb-img{transform:scale(1.04);box-shadow:0 12px 26px -10px rgba(184,134,11,.7)}
+/* ecossistema: um núcleo e duas frentes. O olho no meio, ligado por um
+   fio a cada frente; cada frente é um disco com os seus produtos em
+   volta, como satélites. O ângulo de cada satélite vem inline (--a) e
+   o raio do CSS, então não há posicionamento calculado em JS. */
+.eco-grupos{flex:1;display:flex;align-items:center;justify-content:center;margin-top:6px;
+  /* o satélite também não passa do que o arco comporta: com o raio
+     limitado pela largura, dois nomes vizinhos se encostariam */
+  --sat:min(clamp(56px,min(11.5vh,6vw),132px),calc(.30*var(--cabe) - 38px));
+  --disco:clamp(86px,min(17vh,9vw),196px);
+  --olho:clamp(76px,min(15.5vh,8.4vw),186px);
+  --rotulo:clamp(30px,4.4vh,54px);
+  /* o que cabe de frente: metade do que sobra da largura útil (a dobra
+     menos o trilho e o respiro das laterais) depois do olho e dos fios.
+     O raio nunca passa disso, senão o nome sai da tela em janela
+     estreita. Em px de verdade, não em %: este valor também é usado
+     dentro de transform, onde % valeria o tamanho do próprio satélite */
+  --cabe:calc((100vw - var(--trilho) - 112px - var(--olho) - 96px)/2);
+  --raio:min(calc(var(--disco)/2 + var(--sat)/2 + clamp(12px,1.8vh,26px)),
+             calc(var(--cabe)/2 - var(--sat)/2 - 20px));
+  --lado:calc(2*var(--raio) + var(--sat) + 2*var(--rotulo))}
+.eco-frente{position:relative;flex:0 0 var(--lado);width:var(--lado);height:var(--lado);
+  --raio:min(calc((var(--disco)/2 + var(--sat)/2 + clamp(12px,1.8vh,26px))*var(--fator,1)),
+             calc(var(--cabe)/2 - var(--sat)/2 - 16px))}
+/* o fio que liga o núcleo à frente */
+.eco-fio{flex:0 1 clamp(30px,4vw,86px);min-width:26px;height:1.5px;background:linear-gradient(90deg,rgba(239,191,78,.15),rgba(239,191,78,.7),rgba(239,191,78,.15))}
+.eco-olho{flex:none;display:grid;place-items:center;width:var(--olho);height:var(--olho);border-radius:50%;
+  background:radial-gradient(circle,var(--gold-bg) 0%,transparent 72%)}
+.eco-olho img{width:82%;display:block}
+/* o disco de cada frente */
+.eco-disco{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;
+  display:grid;place-items:center;width:var(--disco);height:var(--disco);border-radius:50%;text-align:center;
+  background:var(--chapa);border:1.5px solid var(--gold);box-shadow:0 14px 34px -16px rgba(184,134,11,.7)}
+.eco-disco b{display:block;padding:0 10px;font-family:var(--display);font-weight:700;font-size:clamp(14px,2.1vh,24px);line-height:1.1;letter-spacing:-.02em;color:var(--tinta)}
+/* cada produto é um satélite na borda do disco: o ângulo posiciona e o
+   giro contrário devolve o card à horizontal */
+.eorb{position:absolute;left:50%;top:50%;z-index:3;width:var(--sat);height:var(--sat);margin:calc(var(--sat)/-2);
+  background:none;border:none;padding:0;font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;
+  transform:rotate(var(--a)) translate(var(--raio)) rotate(calc(-1*var(--a)))}
+.eorb-in{display:block;width:100%;height:100%;animation:aparece .4s linear backwards;animation-delay:calc(var(--j,0)*45ms + 160ms)}
+.eorb-img{display:block;width:100%;height:100%;border-radius:50%;object-fit:cover;background:var(--chapa);
+  border:1.5px solid var(--gold);box-shadow:0 8px 18px -8px rgba(184,134,11,.6);transition:transform .22s var(--mola),box-shadow .22s}
+.eorb:hover .eorb-img{transform:scale(1.07);box-shadow:0 12px 24px -8px rgba(184,134,11,.85)}
+/* o nome fica fora do círculo, então não aperta a foto nem empurra o
+   satélite para fora da borda do disco */
+/* o nome sobe nos satélites de cima e desce nos de baixo: sempre se
+   afastando do disco, e gastando altura (que sobra) em vez de largura
+   (que é o que aperta para as duas frentes caberem lado a lado) */
+.eorb b{position:absolute;left:50%;top:calc(100% + 6px);transform:translateX(-50%);display:block;
+  width:calc(var(--sat) + 34px);font-family:var(--display);font-weight:600;
+  font-size:clamp(9px,1.05vh,11.5px);line-height:1.15;letter-spacing:-.01em;color:var(--tinta);
+  text-align:center;transition:color .2s}
+.eorb.cima b{top:auto;bottom:calc(100% + 6px)}
 .eorb:hover b{color:var(--gold-deep)}
-/* no desktop a descrição só aparece dentro do popup; no mobile (ver
-   media query) ela volta a ficar sempre visível, junto ao card */
 .eorb small{display:none}
-/* o núcleo cobre os anéis no meio */
-.eco-nucleo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;display:grid;place-items:center}
-.eco-disco{position:relative;display:grid;place-items:center;width:clamp(96px,13vh,170px);aspect-ratio:1}
-.eco-disco img{width:74%;display:block}
 
 /* popup do item do ecossistema: cresce a partir do card clicado, com a
    foto grande no topo e o texto de apoio embaixo */
@@ -498,17 +512,21 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
   .quadro.midia .chip{font-size:11px;padding:9px 13px}
   .faixa{position:static;background:#18181b;padding:30px 22px}
   .galeria,.eco-wrap{padding:30px 22px 50px}
-  /* a órbita não cabe numa coluna: vira lista, com o rótulo de cada
-     frente abrindo o seu bloco */
-  .eco-grupos{min-height:0;display:flex;flex-direction:column;gap:11px;margin-top:18px}
-  .eco-aneis,.eco-nucleo{display:none}
-  .eco-rot{position:static;margin-top:14px}
-  .eco-rot.dir{text-align:left}
-  .eorb{position:static!important;transform:none!important;display:grid!important;grid-template-columns:64px 1fr;column-gap:12px;row-gap:2px;width:auto;text-align:left!important;padding:0!important}
+  /* o mapa não cabe numa coluna: cada frente vira um bloco em lista,
+     com o disco virando cabeçalho e os satélites virando linhas */
+  .eco-grupos{display:block;margin-top:18px}
+  .eco-fio,.eco-olho{display:none}
+  .eco-frente{position:static;width:auto;height:auto;flex:none;margin-top:26px}
+  .eco-frente:first-child{margin-top:0}
+  .eco-disco{position:static;transform:none;display:block;width:auto;height:auto;border:none;border-radius:0;
+    background:none;box-shadow:none;text-align:left;margin-bottom:12px}
+  .eco-disco b{width:100%;margin-top:4px;padding:0;text-align:left;font-size:clamp(17px,1.6vw,22px)}
+  .eorb{position:static;transform:none!important;display:grid;grid-template-columns:64px 1fr;
+    column-gap:12px;row-gap:2px;width:auto;height:auto;margin:0 0 14px;text-align:left}
   .eorb-in{display:contents}
-  .eorb b{grid-column:2;grid-row:1;margin-bottom:0}
-  .eorb-img{grid-column:1;grid-row:1/3;width:64px;height:64px;aspect-ratio:auto}
-  .eorb small{display:block;grid-column:2;grid-row:2;max-width:none;color:var(--tinta3)}
+  .eorb b{position:static;transform:none;grid-column:2;grid-row:1;width:auto;text-align:left;font-size:15px}
+  .eorb-img{grid-column:1;grid-row:1/3;width:64px;height:64px}
+  .eorb small{display:block;grid-column:2;grid-row:2;font-size:12.5px;line-height:1.4;color:var(--tinta3)}
   .avancados{grid-template-columns:1fr}
   .nov-stats,.nov-grade{grid-template-columns:1fr}
   .grade,.g-2,.g-3,.g-4{grid-template-columns:1fr}
@@ -731,17 +749,17 @@ const ECOS=[
     {t:'Módulos Avançados',d:'Setores, geopolítica e aulas técnicas para quem quer ir além da grade principal.',img:'modulos avançados.png'},
     {t:'Módulo Internacional',d:'Renda Fixa Internacional, stocks, REITs e Private Equity: como investir fora do Brasil.',img:'internacional.jpg'}
    ]},
-  {grupo:'Banking',mote:'O ecossistema financeiro',
+  {grupo:'Banking',mote:'Banking',
    itens:[
     {t:'Consultoria',d:'Nº 1 no ranking do BTG Pactual, pelo segundo ano seguido.',img:'comunidade pro.png'},
     {t:'Conta com cartão próprio',d:'Conta, cartão e atendimento 100% AUVP, sujeito à análise de crédito.',img:'capa modulo 3.jpg'},
     {t:'Crédito',d:'Comparação com mais de 20 bancos, sem liquidar seus investimentos.',img:'simulados pro.png'},
     {t:'Câmbio',d:'Enviar, receber ou investir no exterior com custo transparente.',img:'cripto.jpg'},
     {t:'Seguros',d:'Cotação em até 6 seguradoras, sem viés de interesse.',img:'thumb INDICADORES.jpg'},
-    {t:'Wealth',d:'Blindagem patrimonial, governança e planejamento sucessório.',img:'analitica.jpg'}
+    {t:'Wealth',d:'Blindagem patrimonial, governança e planejamento sucessório.',img:'analitica.jpg'},
+    {t:"ETF's próprios",d:'AUPO11 e AREA11, geridos pela AUVP.',img:'cotações.png'}
    ]}
 ];
-const ECO_CENTRO={t:"ETF's próprios",d:'AUPO11 e AREA11, geridos pela AUVP.',img:'cotações.png'};
 
 
 const $=function(s){return document.querySelector(s)};
@@ -849,9 +867,6 @@ function recolher(v){
   d.title=(v?'Expandir menu':'Recolher menu')+' ( [ )';
   guarda(CHAVE,v?'1':'0');
   if(!v)escondeDica();
-  /* a largura do trilho muda por transição, então a órbita do
-     ecossistema só pode ser recalculada depois que ela terminar */
-  if(typeof agendaOrbita==='function')setTimeout(agendaOrbita,300);
 }
 recolher(le(CHAVE)==='1');
 $('#dobra').addEventListener('click',function(){recolher(!document.body.classList.contains('recolhido'))});
@@ -1169,23 +1184,31 @@ document.getElementById('nov-grade').innerHTML=NOV.map(function(c,i){
    Anéis pontilhados concêntricos com o olho no centro e os itens
    pousados neles: a frente Educacional ocupa o arco da esquerda, a
    Banking o da direita, e um item fica sozinho embaixo, no centro. */
-function cardEco(it,k,lado){
-  return '<button type="button" class="eorb '+lado+'" style="--j:'+k+'" aria-expanded="false">'
-    +'<span class="eorb-in">'
-    +'<b>'+esc(it.t)+'</b>'
-    +'<img class="eorb-img" src="'+encodeURI(it.img)+'" alt="" loading="lazy">'
-    +'<small>'+esc(it.d)+'</small></span></button>';
+function frenteEco(g,gi){
+  var n=g.itens.length;
+  /* os satélites ocupam um arco de 280 graus e deixam livre o setor
+     virado para o núcleo (0 grau aponta para a direita): é por ali que
+     entra o fio, e é o que evita um nome escrito por cima do olho */
+  var inicio=(gi?180:0)+40;
+  /* com muitos satélites o arco fica apertado: o raio abre um pouco
+     mais para os nomes de dois vizinhos não se encostarem */
+  return '<div class="eco-frente" style="--fator:'+(n>5?1.32:1)+'">'
+    +'<div class="eco-disco"><b>'+esc(g.mote)+'</b></div>'
+    +g.itens.map(function(it,k){
+      var a=inicio+(n>1?280*k/(n-1):140);
+      /* metade de cima do disco: o nome sobe em vez de descer */
+      return '<button type="button" class="eorb'+(Math.sin(a*Math.PI/180)<0?' cima':'')+'" aria-expanded="false" style="--a:'+a.toFixed(1)+'deg;--j:'+(gi*6+k)+'">'
+        +'<span class="eorb-in"><img class="eorb-img" src="'+encodeURI(it.img)+'" alt="" loading="lazy"></span>'
+        +'<b>'+esc(it.t)+'</b><small>'+esc(it.d)+'</small></button>';
+    }).join('')
+    +'</div>';
 }
 document.getElementById('eco-grupos').innerHTML=
-  '<svg class="eco-aneis" id="eco-aneis" aria-hidden="true"></svg>'
-  +'<div class="eco-nucleo">'
-  +'<span class="eco-disco"><img src="olho-amarelo.svg" alt="" aria-hidden="true"></span></div>'
-  +ECOS.map(function(g,gi){
-    var lado=gi?'dir':'esq';
-    return '<p class="eco-rot '+lado+'"><span>'+esc(g.grupo)+'</span><b>'+esc(g.mote)+'</b></p>'
-      +g.itens.map(function(it,k){return cardEco(it,k,lado)}).join('');
-  }).join('')
-  +cardEco(ECO_CENTRO,0,'centro');
+  frenteEco(ECOS[0],0)
+  +'<span class="eco-fio"></span>'
+  +'<div class="eco-olho"><img src="olho-amarelo.svg" alt="" aria-hidden="true"></div>'
+  +'<span class="eco-fio"></span>'
+  +frenteEco(ECOS[1],1);
 
 /* clique num item abre a foto e a descrição num popup que estica a
    partir do próprio card clicado (a caixa nunca fica invisível: ela
@@ -1230,121 +1253,6 @@ document.addEventListener('click',function(e){
   if(!ecoCena.classList.contains('ver'))return;
   if(e.target.closest('.eco-modal-x')||!e.target.closest('#eco-modal'))fechaEcoModal();
 });
-
-/* as posições saem de trigonometria sobre a caixa real da seção, medida
-   depois do layout: nada é chutado a partir da largura da janela */
-var ANEIS=[.46,.74,1];
-function orbita(){
-  var mapa=document.getElementById('eco-grupos');
-  var svg=document.getElementById('eco-aneis');
-  if(!mapa||!svg)return;
-  var m=mapa.getBoundingClientRect(); if(!m.width||!m.height)return;
-  /* no mobile a órbita vira lista: a altura calculada aqui só deixaria
-     um vão vazio embaixo, porque o inline ganha da media query */
-  if(window.matchMedia('(max-width:860px)').matches){mapa.style.minHeight='';return}
-
-  mapa.style.minHeight='';
-  var cx=m.width/2;
-
-  /* Cada card ganha um ângulo no arco do seu lado e uma órbita: quanto
-     mais perto da linha do meio, mais interna. Vizinhos nunca disputam o
-     mesmo ponto - um está mais alto, o outro mais para dentro - e as três
-     órbitas ficam ocupadas. Aqui só o ponto normalizado (raio 1): os
-     raios saem depois, do que sobrar da dobra. */
-  var lim=.92, postos=[];
-  /* a altura vai em passos iguais - é o que mantém os dois arcos
-     legíveis, um de cada lado - e o x sai da equação da elipse naquela
-     altura, então o card cai exatamente sobre a linha. Os mais perto do
-     meio pousam na órbita do meio: esse desencontro é o que lê como
-     órbita, sem quebrar a leitura de coluna. */
-  [{cls:'esq',sinal:-1},{cls:'dir',sinal:1}].forEach(function(l){
-    var itens=[].slice.call(mapa.querySelectorAll('.eorb.'+l.cls)), n=itens.length;
-    itens.forEach(function(el,k){
-      var t=n===1?0:(-1+2*k/(n-1))*lim;
-      /* uma órbita só alcança alturas até o próprio raio; pedir mais
-         jogaria o card para o meio da tela, fora de qualquer linha */
-      var anel=Math.abs(k-(n-1)/2)<1?ANEIS[1]:ANEIS[2];
-      if(anel<=Math.abs(t))anel=ANEIS[2];
-      postos.push({el:el,ux:l.sinal*anel*Math.sqrt(Math.max(0,1-(t/anel)*(t/anel))),uy:t});
-    });
-  });
-  var sozinho=mapa.querySelector('.eorb.centro');
-  /* o produto que é dos dois lados fica no pé da órbita de dentro,
-     encostado no núcleo - e longe dos cards que fecham os arcos */
-  if(sozinho)postos.push({el:sozinho,ux:0,uy:ANEIS[0]});
-  if(!postos.length)return;
-
-  /* o rótulo de cada frente é território reservado no alto da caixa: a
-     órbita começa abaixo dele, senão o primeiro card sobe por cima */
-  var teto=8;
-  [].forEach.call(mapa.querySelectorAll('.eco-rot'),function(el){teto=Math.max(teto,el.offsetHeight+12)});
-  var cy=teto+(m.height-teto)/2;
-
-  function maior(f){return postos.reduce(function(a,p){return Math.max(a,f(p))},0)}
-  var largo=maior(function(p){return Math.abs(p.ux)})||1;
-  var alto=maior(function(p){return Math.abs(p.uy)})||1;
-  /* o olho é o núcleo: acompanha o centro das órbitas, que desceu junto */
-  var nucleo=mapa.querySelector('.eco-nucleo'), olho=mapa.querySelector('.eco-disco');
-  if(nucleo)nucleo.style.top=cy.toFixed(1)+'px';
-  var fixos=olho?[{l:cx-olho.offsetWidth/2,t:cy-olho.offsetHeight/2,
-                   w:olho.offsetWidth,h:olho.offsetHeight}]:[];
-  function caixas(rx,ry){
-    return postos.map(function(p){
-      return {l:cx+rx*p.ux-p.el.offsetWidth/2,t:cy+ry*p.uy-p.el.offsetHeight/2,
-              w:p.el.offsetWidth,h:p.el.offsetHeight};
-    }).concat(fixos);
-  }
-  function seEncostam(cs){
-    for(var i=0;i<cs.length;i++)for(var j=i+1;j<cs.length;j++){
-      var a=cs[i],b=cs[j];
-      if(Math.min(a.l+a.w,b.l+b.w)-Math.max(a.l,b.l)>-6&&
-         Math.min(a.t+a.h,b.t+b.h)-Math.max(a.t,b.t)>-6)return true;
-    }
-    return false;
-  }
-  /* o card é o maior que ainda deixa todo mundo com folga: o raio vem do
-     espaço livre e o espaço livre vem do tamanho do card, então em vez de
-     resolver a equação basta ir apertando até parar de encostar */
-  var rx,ry;
-  for(var larg=160;larg>=72;larg-=4){
-    mapa.style.setProperty('--eco-card',larg+'px');
-    var meia=maior(function(p){return p.el.offsetHeight})/2;
-    rx=Math.max(120,Math.min((cx-larg/2-8)/largo,cx-14));
-    ry=Math.max(90,Math.min((cy-teto-meia)/alto,(m.height-cy-meia)/alto));
-    if(!seEncostam(caixas(rx,ry)))break;
-  }
-
-  svg.setAttribute('viewBox','0 0 '+m.width.toFixed(1)+' '+m.height.toFixed(1));
-  svg.innerHTML=ANEIS.map(function(f){
-    return '<ellipse cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" rx="'+(rx*f).toFixed(1)+'" ry="'+(ry*f).toFixed(1)+'"/>';
-  }).join('');
-
-  /* a órbita tem de passar pelo meio da foto, não pelo meio da caixa: o
-     título mora acima e jogaria a foto toda para baixo da linha */
-  postos.forEach(function(p){
-    var img=p.el.querySelector('.eorb-img');
-    p.el.style.left=(cx+rx*p.ux).toFixed(1)+'px';
-    p.el.style.top=(cy+ry*p.uy+(img?p.el.offsetHeight/2-(img.offsetTop+img.offsetHeight/2):0)).toFixed(1)+'px';
-  });
-}
-window.addEventListener('resize',orbita);
-function agendaOrbita(){
-  orbita();
-  var mapa=document.getElementById('eco-grupos');
-  if(mapa&&mapa.getAnimations){
-    Promise.all(mapa.getAnimations({subtree:true}).map(function(a){
-      return a.finished.catch(function(){});
-    })).then(orbita);
-  }else{ setTimeout(orbita,900); }
-}
-addEventListener('load',agendaOrbita);
-if(document.fonts&&document.fonts.ready)document.fonts.ready.then(agendaOrbita);
-(function(){
-  var t=document.getElementById('t10'); if(!t)return;
-  new MutationObserver(function(){if(t.classList.contains('ativa'))agendaOrbita()})
-    .observe(t,{attributes:true,attributeFilter:['class']});
-})();
-agendaOrbita();
 
 /* decodifica as fotos de fundo enquanto a apresentação está parada:
    sem isso a primeira entrada na tela paga a decodificação no meio da
