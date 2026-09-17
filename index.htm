@@ -314,39 +314,43 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 .ncard h3{margin:0;font-family:var(--display);font-weight:600;font-size:17px;line-height:1.2;letter-spacing:-.015em;color:var(--tinta)}
 .ncard p{margin:0;font-size:12.5px;line-height:1.55;color:var(--tinta2)}
 .ncard-link{margin-top:auto;padding-top:8px;display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;letter-spacing:.02em;color:var(--gold-deep)}
-/* ecossistema: duas colunas de cards (Educacional / Banking) com o olho
-   como eixo central. Grid simples, sem posicionamento calculado: os
-   cards são grandes e retangulares, então precisam de espaço garantido
-   em vez de disputar posição numa órbita. */
-.eco-grupos{display:grid;grid-template-columns:1fr auto 1fr;align-items:start;gap:28px;margin-top:22px}
-.eco-eixo{align-self:center;padding-top:34px}
-/* o rótulo de cada frente fica no alto da sua coluna */
-.eco-rot{margin:0 0 18px;line-height:1.2}
-.eco-coluna.dir .eco-rot{text-align:right}
+/* ecossistema: sistema solar. O palco é posicionado e os itens são
+   colocados nele por trigonometria; os anéis são um SVG pontilhado ao
+   fundo. Cada item é um card retangular (título acima da foto). */
+.eco-grupos{flex:1;position:relative;min-height:clamp(760px,90vh,1040px);margin-top:10px}
+.eco-aneis{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:visible}
+.eco-aneis ellipse{fill:none;stroke:var(--gold-deep);stroke-width:1.4;stroke-dasharray:1.5 8;stroke-linecap:round;opacity:.55}
+/* o rótulo de cada frente fica fora das órbitas, no alto de cada lado */
+.eco-rot{position:absolute;top:0;margin:0;line-height:1.2;z-index:2}
+.eco-rot.esq{left:0;text-align:left}
+.eco-rot.dir{right:0;text-align:right}
 .eco-rot span{display:block;font-family:var(--cta);font-weight:700;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep)}
 .eco-rot b{display:block;margin-top:5px;font-family:var(--display);font-weight:700;font-size:clamp(17px,1.6vw,22px);letter-spacing:-.02em;color:var(--tinta)}
-/* cada item é um card retangular: o título fica acima da foto, grande o
-   bastante para ser reconhecida, e um clique abre a descrição num
-   popup (ver .eco-modal) */
-.eco-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:22px 16px}
-.eorb{display:flex;flex-direction:column;background:none;border:none;padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;text-align:center;-webkit-tap-highlight-color:transparent;animation:sobe .44s var(--mola) backwards;animation-delay:calc(var(--j,0)*45ms + 120ms)}
-.eco-coluna.dir .eorb{text-align:right;align-items:flex-end}
-.eorb b{display:block;margin-bottom:8px;font-family:var(--display);font-weight:600;font-size:14.5px;line-height:1.25;letter-spacing:-.01em;color:var(--tinta);transition:color .2s}
+/* cada item pousa no anel pelo seu ponto de ancoragem: um card
+   retangular com o título acima da foto, grande o bastante para ser
+   reconhecida. Um clique abre a descrição num popup (ver .eco-modal) */
+.eorb{position:absolute;z-index:2;display:flex;flex-direction:column;width:136px;background:none;border:none;padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;text-align:center;-webkit-tap-highlight-color:transparent;animation:surge .5s var(--mola) backwards;animation-delay:calc(var(--j,0)*40ms + 180ms)}
+.eorb.esq{transform:translate(-100%,-50%)}
+.eorb.dir{transform:translate(0,-50%)}
+.eorb.centro{transform:translate(-50%,-50%)}
+.eorb b{display:block;margin-bottom:8px;font-family:var(--display);font-weight:600;font-size:14px;line-height:1.25;letter-spacing:-.01em;color:var(--tinta);transition:color .2s}
 .eorb-img{display:block;width:100%;aspect-ratio:16/10;border-radius:12px;object-fit:cover;border:1.5px solid var(--gold);box-shadow:0 10px 22px -10px rgba(184,134,11,.55);background:var(--chapa);transition:transform .22s var(--mola),box-shadow .22s}
-.eorb:hover .eorb-img{transform:scale(1.03);box-shadow:0 12px 26px -10px rgba(184,134,11,.7)}
+.eorb:hover .eorb-img{transform:scale(1.04);box-shadow:0 12px 26px -10px rgba(184,134,11,.7)}
 .eorb:hover b{color:var(--gold-deep)}
 /* no desktop a descrição só aparece dentro do popup; no mobile (ver
    media query) ela volta a ficar sempre visível, junto ao card */
 .eorb small{display:none}
+/* o núcleo cobre os anéis no meio */
+.eco-nucleo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;display:grid;place-items:center}
 .eco-disco{position:relative;display:grid;place-items:center;width:clamp(96px,9vw,130px);aspect-ratio:1}
 .eco-disco img{width:74%;display:block}
 
-/* popup do item do ecossistema: abre centralizado, com a foto grande
-   no topo e o texto de apoio embaixo - mesmo padrão em desktop e mobile */
-.eco-modal-cena{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:24px;background:rgba(9,9,11,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .24s}
+/* popup do item do ecossistema: cresce a partir do card clicado, com a
+   foto grande no topo e o texto de apoio embaixo */
+.eco-modal-cena{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:24px;background:rgba(9,9,11,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .28s}
 .eco-modal-cena.ver{opacity:1;pointer-events:auto}
-.eco-modal{position:relative;width:min(92vw,420px);max-height:86vh;overflow:auto;border-radius:12px;background:var(--chapa);border:1px solid var(--vidro-borda);box-shadow:0 40px 80px -28px rgba(0,0,0,.6);opacity:0;transform:scale(.9) translateY(10px);transition:transform .32s var(--mola),opacity .22s}
-.eco-modal-cena.ver .eco-modal{opacity:1;transform:none}
+.eco-modal{position:relative;width:min(92vw,420px);max-height:86vh;overflow:auto;border-radius:12px;background:var(--chapa);border:1px solid var(--vidro-borda);box-shadow:0 40px 80px -28px rgba(0,0,0,.6);opacity:0;transform:scale(.12);transition:transform .46s var(--mola),opacity .3s}
+.eco-modal-cena.ver .eco-modal{opacity:1;transform:scale(1)}
 .eco-modal-img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;background:#0c0c0e}
 .eco-modal-corpo{padding:20px 22px 24px}
 .eco-modal-corpo b{display:block;font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:-.015em;color:var(--tinta);margin-bottom:8px}
@@ -473,15 +477,13 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
   .quadro.midia .chip{font-size:11px;padding:9px 13px}
   .faixa{position:static;background:#18181b;padding:30px 22px}
   .galeria,.eco-wrap{padding:30px 22px 50px}
-  /* uma coluna só: vira lista, com o rótulo de cada frente abrindo o
-     seu bloco */
-  .eco-grupos{grid-template-columns:1fr;gap:0;margin-top:18px}
-  .eco-eixo{display:none}
-  .eco-coluna{margin-top:28px}
-  .eco-coluna:first-child{margin-top:0}
-  .eco-coluna.dir .eco-rot,.eco-coluna.dir .eorb{text-align:left!important;align-items:flex-start!important}
-  .eco-cards{display:flex;flex-direction:column;gap:14px}
-  .eorb{display:grid!important;grid-template-columns:64px 1fr;column-gap:12px;row-gap:2px;text-align:left!important;align-items:start!important}
+  /* a órbita não cabe numa coluna: vira lista, com o rótulo de cada
+     frente abrindo o seu bloco */
+  .eco-grupos{min-height:0;display:flex;flex-direction:column;gap:11px;margin-top:18px}
+  .eco-aneis,.eco-nucleo{display:none}
+  .eco-rot{position:static;margin-top:14px}
+  .eco-rot.dir{text-align:left}
+  .eorb{position:static!important;transform:none!important;display:grid!important;grid-template-columns:64px 1fr;column-gap:12px;row-gap:2px;width:auto;text-align:left!important;padding:0!important}
   .eorb b{grid-column:2;grid-row:1;margin-bottom:0}
   .eorb-img{grid-column:1;grid-row:1/3;width:64px;height:64px;aspect-ratio:auto}
   .eorb small{display:block;grid-column:2;grid-row:2;max-width:none;color:var(--tinta3)}
@@ -700,28 +702,24 @@ const NAV=[
    ============================================================ */
 const ECOS=[
   {grupo:'Educacional',mote:'A Escola',
-   d:'Onde a formação acontece: o curso, os materiais e as ferramentas de estudo.',
    itens:[
-    {t:'+100 aulas gravadas',d:'Do zero à autonomia, no seu ritmo.',img:'aulas att.png'},
-    {t:'7 módulos + 1 bônus',d:'A grade principal, do mindset à carteira montada.',img:'capa modulo 3.jpg'},
-    {t:'Módulos avançados',d:'Setores, geopolítica e aulas técnicas.',img:'modulos avançados.png'},
-    {t:'E-books',d:'Guias completos para baixar e consultar.',img:'inteligencia de mercado.png'},
-    {t:'Mapas mentais',d:'O resumo visual de cada aula, em uma página.',img:'thumb INDICADORES.jpg'},
-    {t:'Cadernos de exercícios',d:'Prática a cada módulo para fixar o conteúdo.',img:'capa caderno ex 2.jpg'},
-    {t:'4 ferramentas',d:'Apoio ao estudo e à gestão da carteira.',img:'trilha pro.png'}
+    {t:'A Escola',d:'O curso completo da AUVP: mais de 100 aulas, sete módulos e um bônus, do zero à liberdade financeira.',img:'aulas att.png'},
+    {t:'Ferramentas',d:'Quatro ferramentas próprias para apoiar seus estudos e a gestão da carteira.',img:'trilha pro.png'},
+    {t:'Atualização de Mercado - Semanais',d:'Toda segunda-feira, às 19h, ao vivo com o Raul Sena comentando o que mexeu com o mercado.',img:'masterclasses.jpg'},
+    {t:'Módulos Avançados',d:'Setores, geopolítica e aulas técnicas para quem quer ir além da grade principal.',img:'modulos avançados.png'},
+    {t:'Módulo Internacional',d:'Renda Fixa Internacional, stocks, REITs e Private Equity: como investir fora do Brasil.',img:'internacional.jpg'}
    ]},
   {grupo:'Banking',mote:'O ecossistema financeiro',
-   d:'Onde o dinheiro se resolve: conta, investimento, crédito e proteção.',
    itens:[
-    {t:'Conta com cartão próprio',d:'Conta, cartão e atendimento 100% AUVP, sujeito à análise de crédito.',img:'comunidade pro.png'},
-    {t:'Consultoria',d:'Nº 1 no ranking do BTG Pactual, pelo segundo ano seguido.',img:'masterclasses.jpg'},
+    {t:'Consultoria',d:'Nº 1 no ranking do BTG Pactual, pelo segundo ano seguido.',img:'comunidade pro.png'},
+    {t:'Conta com cartão próprio',d:'Conta, cartão e atendimento 100% AUVP, sujeito à análise de crédito.',img:'capa modulo 3.jpg'},
     {t:'Crédito',d:'Comparação com mais de 20 bancos, sem liquidar seus investimentos.',img:'simulados pro.png'},
-    {t:'Câmbio',d:'Enviar, receber ou investir no exterior com custo transparente.',img:'internacional.jpg'},
-    {t:'Seguros',d:'Cotação em até 6 seguradoras, sem viés de interesse.',img:'cripto.jpg'},
-    {t:'Wealth',d:'Blindagem patrimonial, governança e planejamento sucessório.',img:'analitica.jpg'},
-    {t:"ETF's próprios",d:'AUPO11 e AREA11, geridos pela AUVP.',img:'cotações.png'}
+    {t:'Câmbio',d:'Enviar, receber ou investir no exterior com custo transparente.',img:'cripto.jpg'},
+    {t:'Seguros',d:'Cotação em até 6 seguradoras, sem viés de interesse.',img:'thumb INDICADORES.jpg'},
+    {t:'Wealth',d:'Blindagem patrimonial, governança e planejamento sucessório.',img:'analitica.jpg'}
    ]}
 ];
+const ECO_CENTRO={t:"ETF's próprios",d:'AUPO11 e AREA11, geridos pela AUVP.',img:'cotações.png'};
 
 
 const $=function(s){return document.querySelector(s)};
@@ -829,6 +827,9 @@ function recolher(v){
   d.title=(v?'Expandir menu':'Recolher menu')+' ( [ )';
   guarda(CHAVE,v?'1':'0');
   if(!v)escondeDica();
+  /* a largura do trilho muda por transição, então a órbita do
+     ecossistema só pode ser recalculada depois que ela terminar */
+  if(typeof agendaOrbita==='function')setTimeout(agendaOrbita,300);
 }
 recolher(le(CHAVE)==='1');
 $('#dobra').addEventListener('click',function(){recolher(!document.body.classList.contains('recolhido'))});
@@ -1142,28 +1143,39 @@ document.getElementById('nov-grade').innerHTML=NOV.map(function(c,i){
     +'</span></'+tag+'>';
 }).join('');
 
-/* ---------- ecossistema: duas colunas de cards ----------
-   Educacional à esquerda, Banking à direita, com o olho como eixo
-   central. Cada item é um card retangular (título acima da foto). */
+/* ---------- ecossistema: sistema solar ----------
+   Anéis pontilhados concêntricos com o olho no centro e os itens
+   pousados neles: a frente Educacional ocupa o arco da esquerda, a
+   Banking o da direita, e um item fica sozinho embaixo, no centro. */
+function cardEco(it,k,lado){
+  return '<button type="button" class="eorb '+lado+'" style="--j:'+k+'" aria-expanded="false">'
+    +'<b>'+esc(it.t)+'</b>'
+    +'<img class="eorb-img" src="'+encodeURI(it.img)+'" alt="" loading="lazy">'
+    +'<small>'+esc(it.d)+'</small></button>';
+}
 document.getElementById('eco-grupos').innerHTML=
-  ECOS.map(function(g,gi){
-    return '<div class="eco-coluna '+(gi?'dir':'esq')+'">'
-      +'<p class="eco-rot"><span>'+esc(g.grupo)+'</span><b>'+esc(g.mote)+'</b></p>'
-      +'<div class="eco-cards">'+g.itens.map(function(it,k){
-        return '<button type="button" class="eorb" style="--j:'+k+'" aria-expanded="false">'
-          +'<b>'+esc(it.t)+'</b>'
-          +'<img class="eorb-img" src="'+encodeURI(it.img)+'" alt="" loading="lazy">'
-          +'<small>'+esc(it.d)+'</small></button>';
-      }).join('')+'</div></div>'
-      +(gi===0?'<div class="eco-eixo"><span class="eco-disco"><img src="olho-amarelo.svg" alt="" aria-hidden="true"></span></div>':'');
-  }).join('');
+  '<svg class="eco-aneis" id="eco-aneis" aria-hidden="true"></svg>'
+  +'<div class="eco-nucleo">'
+  +'<span class="eco-disco"><img src="olho-amarelo.svg" alt="" aria-hidden="true"></span></div>'
+  +ECOS.map(function(g,gi){
+    var lado=gi?'dir':'esq';
+    return '<p class="eco-rot '+lado+'"><span>'+esc(g.grupo)+'</span><b>'+esc(g.mote)+'</b></p>'
+      +g.itens.map(function(it,k){return cardEco(it,k,lado)}).join('');
+  }).join('')
+  +cardEco(ECO_CENTRO,0,'centro');
 
-/* clique num item abre a foto e a descrição num popup centralizado */
-var ecoCena=$('#eco-modal-cena'),ecoImg=$('#eco-modal-img'),ecoTit=$('#eco-modal-tit'),ecoDesc=$('#eco-modal-desc');
+/* clique num item abre a foto e a descrição num popup que cresce a
+   partir do próprio card clicado */
+var ecoCena=$('#eco-modal-cena'),ecoModal=$('#eco-modal'),ecoImg=$('#eco-modal-img'),ecoTit=$('#eco-modal-tit'),ecoDesc=$('#eco-modal-desc');
 function abreEcoModal(btn){
   ecoImg.src=btn.querySelector('.eorb-img').src;
   ecoTit.textContent=btn.querySelector('b').textContent;
   ecoDesc.textContent=btn.querySelector('small').textContent;
+  var r=btn.getBoundingClientRect(),mr=ecoModal.getBoundingClientRect();
+  if(mr.width&&mr.height){
+    var ox=(r.left+r.width/2-mr.left)/mr.width*100,oy=(r.top+r.height/2-mr.top)/mr.height*100;
+    ecoModal.style.transformOrigin=ox+'% '+oy+'%';
+  }
   ecoCena.classList.add('ver');ecoCena.setAttribute('aria-hidden','false');
   btn.setAttribute('aria-expanded','true');
 }
@@ -1177,6 +1189,65 @@ document.addEventListener('click',function(e){
   if(!ecoCena.classList.contains('ver'))return;
   if(e.target.closest('.eco-modal-x')||!e.target.closest('#eco-modal'))fechaEcoModal();
 });
+
+/* as posições saem de trigonometria sobre a caixa real da seção, medida
+   depois do layout: nada é chutado a partir da largura da janela */
+function orbita(){
+  var mapa=document.getElementById('eco-grupos');
+  var svg=document.getElementById('eco-aneis');
+  if(!mapa||!svg)return;
+  var m=mapa.getBoundingClientRect(); if(!m.width||!m.height)return;
+  var cx=m.width/2, cy=m.height/2;
+  /* a folga lateral tem de caber o card inteiro, senão ele sai da caixa */
+  var rxMax=Math.max(170,cx-230), ryMax=Math.max(140,cy-140);
+  var aneis=[.46,.74,1];
+  svg.setAttribute('viewBox','0 0 '+m.width.toFixed(1)+' '+m.height.toFixed(1));
+  svg.innerHTML=aneis.map(function(f){
+    return '<ellipse cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" rx="'+(rxMax*f).toFixed(1)+'" ry="'+(ryMax*f).toFixed(1)+'"/>';
+  }).join('');
+
+  /* os itens ocupam o campo entre os anéis, não só a borda de fora: cada
+     um pousa num dos três raios. A altura segue passos iguais, que é o
+     que garante folga vertical - passos angulares iguais amontoariam os
+     cards perto da horizontal, onde o seno quase não muda. */
+  ['esq','dir'].forEach(function(lado){
+    var itens=mapa.querySelectorAll('.eorb.'+lado);
+    var n=itens.length; if(!n)return;
+    var trilhos=[1,.74,1,.46,1,.74,1];
+    var lim=.82;
+    itens.forEach(function(el,k){
+      var t=n===1?0:(-1+2*k/(n-1))*lim;
+      var f=trilhos[k%trilhos.length];
+      var y=cy+ryMax*t;
+      /* o x sai do anel escolhido, na altura já definida */
+      var dentro=Math.max(0,1-(t/f)*(t/f));
+      var x=cx+(lado==='esq'?-1:1)*rxMax*f*Math.sqrt(dentro);
+      el.style.left=x.toFixed(1)+'px';
+      el.style.top=y.toFixed(1)+'px';
+    });
+  });
+  /* o item sozinho fica no centro, embaixo do olho */
+  var centro=mapa.querySelector('.eorb.centro');
+  if(centro){centro.style.left=cx.toFixed(1)+'px';centro.style.top=(cy+ryMax+92).toFixed(1)+'px'}
+}
+window.addEventListener('resize',orbita);
+function agendaOrbita(){
+  orbita();
+  var mapa=document.getElementById('eco-grupos');
+  if(mapa&&mapa.getAnimations){
+    Promise.all(mapa.getAnimations({subtree:true}).map(function(a){
+      return a.finished.catch(function(){});
+    })).then(orbita);
+  }else{ setTimeout(orbita,900); }
+}
+addEventListener('load',agendaOrbita);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(agendaOrbita);
+(function(){
+  var t=document.getElementById('t10'); if(!t)return;
+  new MutationObserver(function(){if(t.classList.contains('ativa'))agendaOrbita()})
+    .observe(t,{attributes:true,attributeFilter:['class']});
+})();
+agendaOrbita();
 
 /* decodifica as fotos de fundo enquanto a apresentação está parada:
    sem isso a primeira entrada na tela paga a decodificação no meio da
