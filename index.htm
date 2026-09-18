@@ -468,8 +468,7 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 .cab-av{margin-bottom:18px}
 .cab-av h2{margin:0;font-family:var(--display);font-weight:700;font-size:clamp(21px,2.1vw,30px);letter-spacing:-.02em;color:var(--tinta)}
 /* cartão dos avançados: o desenho da LP - reto, com filete dourado no topo */
-.avancados{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.avancados.um-so{grid-template-columns:minmax(0,520px)}
+.avancados{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
 .acard{background:var(--sup);border-radius:3px;border:1px solid var(--vidro-borda);border-top:3px solid var(--gold);padding:24px 22px;display:flex;flex-direction:column;gap:10px;transition:transform .3s ease,box-shadow .3s ease;animation:sobe .44s var(--mola) backwards;animation-delay:calc(var(--j,0)*70ms + 120ms)}
 .acard:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,.08)}
 .acard-nota{align-self:flex-start;border-radius:3px;font-family:var(--cta);font-weight:700;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-deep);background:var(--gold-bg);border:1px solid rgba(239,191,78,.3);padding:3px 8px}
@@ -671,23 +670,18 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 
     <section class="tela" id="t5"><div class="galeria in">
       <div class="cab"><h1>Cronograma de conteúdo</h1>
-        <p class="crono-sub">* Os módulos da grade podem ser expandidos para consultar a lista de aulas.</p></div>
-      <p class="aviso"><span class="aviso-ic">!</span><span><b>Observação:</b> A quantidade de aulas e módulos sofrerá ajustes regulares, pois a AUVP produz e disponibiliza novos conteúdos aos membros continuamente, como forma de preservar a qualidade e manter a evolução constante dos produtos.</span></p>
+        <p class="crono-sub">* Expanda os módulos da grade para consultar a lista de aulas.</p></div>
+      <p class="aviso"><span class="aviso-ic">!</span><span><b>Observação:</b> A quantidade de aulas e módulos sofrerá ajustes regulares, pois a AUVP produz e disponibiliza continuamente novos conteúdos aos membros, como forma de preservar a qualidade e manter a evolução constante dos produtos.</span></p>
       <div class="crono-barra" id="crono-barra">
         <button type="button" data-acao="abrir">Expandir todos</button>
         <button type="button" data-acao="fechar">Recolher todos</button>
         <button type="button" data-acao="avancados">Módulos avançados</button>
-        <button type="button" data-acao="internacional">AUVP Internacional</button>
       </div>
       <div class="crono" id="crono-lista"></div>
       <div class="crono-divisa"><span>Além da grade</span></div>
-      <div class="cab cab-av"><h2>Módulos avançados para ir mais longe</h2>
-        <p class="crono-sub">Depois da grade principal, o caminho é seu: se quiser aprofundar algum tema, os módulos extras estão à disposição.</p></div>
+      <div class="cab cab-av"><h2>Módulos avançados para ir além</h2>
+        <p class="crono-sub">Depois da grade principal, o caminho é seu: se quiser aprofundar algum tema, os módulos extras estão à sua disposição.</p></div>
       <div class="avancados" id="avancados"></div>
-      <div class="crono-divisa"><span>E além da Escola</span></div>
-      <div class="cab cab-av"><h2>AUVP Internacional</h2>
-        <p class="crono-sub">Outro produto, com trilha própria: quem entra na Escola já leva os dois primeiros módulos como bônus.</p></div>
-      <div class="avancados um-so" id="internacional"></div>
     </div></section>
 
     <section class="tela" id="tmat"><div class="galeria in">
@@ -1200,9 +1194,8 @@ document.getElementById('calculadoras').innerHTML=CALC.map(function(c){
   /* abrir/fechar todos os módulos de uma vez */
   document.getElementById('crono-barra').addEventListener('click',function(e){
     var b=e.target.closest('button'); if(!b) return;
-    var ir=b.dataset.acao==='avancados'?'avancados':b.dataset.acao==='internacional'?'internacional':null;
-    if(ir){
-      var alvo=document.getElementById(ir);
+    if(b.dataset.acao==='avancados'){
+      var alvo=document.getElementById('avancados');
       if(alvo)alvo.scrollIntoView({behavior:'smooth',block:'center'});
       return;
     }
@@ -1218,15 +1211,14 @@ document.getElementById('calculadoras').innerHTML=CALC.map(function(c){
    "modulos-avancados"), com o texto de lá. Não têm lista de aulas: são a
    continuação da grade, não parte dela, e por isso ficam abaixo da
    divisória e com um cartão de desenho próprio. */
-/* três degraus na tela: a grade da Escola, os módulos avançados e, à
-   parte, a AUVP Internacional - que é outro produto, não um módulo. */
-const INTERNACIONAL=[
-  {t:'AUVP Internacional',nota:'bônus com 2 primeiros módulos',d:'Mergulha na Renda Fixa Internacional, ensina sobre stocks, REITs e Private Equity, e explica como o ciclo econômico impacta os investimentos. Assim, ajuda a expandir oportunidades no mercado global.'}
-];
+/* dois degraus na tela: a grade da Escola e, abaixo da divisória, tudo o
+   que vem depois dela - os módulos avançados e a AUVP Internacional, que
+   é outro produto e por isso leva a tarja de bônus. */
 const AVANCADOS=[
-  {t:'Análise de setores',d:'Destrincha os pontos mais importantes para entender cada setor da economia. Ensina como funciona o ciclo de crescimento de empresas em diferentes áreas e quais indicadores realmente importam para investir com estratégia.'},
-  {t:'Geopolítica',d:'Mostra como decisões políticas, guerras, políticas econômicas e relações internacionais afetam diretamente os investimentos, desenvolvendo uma visão estratégica para antecipar movimentos do mercado e proteger a carteira.'},
-  {t:'Aulas técnicas',d:'Auxilia na compreensão da saúde financeira de empresas e na tomada de decisões fundamentadas. Ensina a interpretar balanços, DRE, fluxo de caixa e estrutura de capital, além de relembrar todos os indicadores.'}
+  {t:'Análise de setores',d:'Destrinça os pontos mais importantes para entender cada setor da economia. Ensina como funciona o ciclo de crescimento das empresas em diferentes áreas e quais indicadores realmente importam para investir com estratégia.'},
+  {t:'Geopolítica',d:'Mostra como decisões políticas, guerras, medidas econômicas e relações internacionais afetam diretamente os investimentos e desenvolve uma visão estratégica para antecipar movimentos do mercado e proteger a carteira.'},
+  {t:'Aulas técnicas',d:'Auxilia na compreensão da saúde financeira das empresas e na tomada de decisões fundamentadas. Ensina a interpretar balanços, DRE, fluxo de caixa e estrutura de capital, além de relembrar todos os indicadores.'},
+  {t:'AUVP Internacional',nota:'incluso como bônus',d:'Mergulha na Renda Fixa Internacional, ensina stocks, REITs e Private Equity e explica como o ciclo econômico afeta os investimentos. Assim, amplia as suas oportunidades no mercado global.'}
 ];
 function cardsAv(lista){return lista.map(function(a,i){
   return '<article class="acard" style="--j:'+i+'"><h3>'+esc(a.t)+'</h3>'
@@ -1234,7 +1226,6 @@ function cardsAv(lista){return lista.map(function(a,i){
     +'<p>'+esc(a.d)+'</p></article>';
 }).join('')}
 document.getElementById('avancados').innerHTML=cardsAv(AVANCADOS);
-document.getElementById('internacional').innerHTML=cardsAv(INTERNACIONAL);
 
 document.getElementById('ferramentas').innerHTML=FERR.map(function(f){
   var tag=f.url?'a':'div';
