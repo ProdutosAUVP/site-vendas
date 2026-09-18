@@ -349,14 +349,12 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
   display:grid;place-items:center;width:var(--disco);height:var(--disco);text-align:center}
 .eco-disco b{display:block;padding:0 6px;font-family:var(--display);font-weight:700;font-size:clamp(21px,3.8vh,44px);line-height:1.06;letter-spacing:-.03em;color:var(--tinta)}
 /* mote de frase inteira: o corte das linhas vem do \n do dado, não da
-   largura, então a caixa acompanha o texto e não quebra de novo. O que
-   aperta de lado é o satélite do eixo horizontal, e o setor livre de cada
-   frente é justamente o que aponta para o olho: deslocar o mote para lá
-   abre a largura que as duas linhas precisam para crescer. */
-.eco-disco.longo{width:max-content;height:auto;--desvio:calc(var(--disco)*.16)}
-.eco-frente:first-child .eco-disco.longo{transform:translate(calc(-50% + var(--desvio)),-50%)}
-.eco-frente:last-child .eco-disco.longo{transform:translate(calc(-50% - var(--desvio)),-50%)}
-.eco-disco.longo b{width:auto;padding:0;font-size:clamp(16px,calc(var(--cabe)*.048),38px);line-height:1.1;letter-spacing:-.025em}
+   largura, então a caixa acompanha o texto e não quebra de novo - e fica
+   centrada no anel, como o mote curto. O que aperta de lado é o satélite
+   do eixo horizontal, então o corpo sai da folga real da dobra (--cabe),
+   e não do vh: assim acompanha a largura que sobra em cada tela. */
+.eco-disco.longo{width:max-content;height:auto}
+.eco-disco.longo b{width:auto;padding:0;font-size:clamp(13px,calc(var(--cabe)*.037),34px);line-height:1.1;letter-spacing:-.025em}
 /* cada produto é um satélite na borda do disco: o ângulo posiciona e o
    giro contrário devolve o card à horizontal */
 .eorb{position:absolute;left:50%;top:50%;z-index:3;width:var(--sat);height:var(--sat);margin:calc(var(--sat)/-2);
@@ -597,10 +595,9 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
   .eco-disco{position:static;transform:none;display:block;width:auto;height:auto;border:none;border-radius:0;
     background:none;box-shadow:none;text-align:left;margin-bottom:12px}
   .eco-disco b,.eco-disco.longo b{width:100%;margin-top:4px;padding:0;text-align:left;font-size:clamp(17px,1.6vw,22px);line-height:1.1}
-  /* empilhado: o mote volta ao fluxo, sem a caixa justa nem o desvio para
-     o setor livre - a quebra do dado continua valendo */
+  /* empilhado: o mote volta ao fluxo, sem a caixa justa - a quebra do
+     dado continua valendo */
   .eco-disco.longo{width:auto;height:auto}
-  .eco-frente:first-child .eco-disco.longo,.eco-frente:last-child .eco-disco.longo{transform:none}
   .eorb{position:static;transform:none!important;display:grid;grid-template-columns:64px 1fr;
     column-gap:12px;row-gap:2px;width:auto;height:auto;margin:0 0 14px;text-align:left}
   .eorb-in{display:contents}
