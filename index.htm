@@ -149,7 +149,7 @@ body:not(.escuro) .ajuda{background:rgba(255,255,255,.95)}
    4. PALCO, PROGRESSO, TOPO MOBILE E PAGINADOR
    ============================================================ */
 .palco{position:relative;overflow:hidden;background:var(--fundo)}
-.progresso{position:absolute;top:0;left:0;height:2px;width:0;z-index:25;background:var(--gold);box-shadow:0 0 10px rgba(239,191,78,.5);transition:width .38s var(--mola)}
+.progresso{position:absolute;top:0;left:0;height:2px;width:100%;z-index:25;background:var(--gold);box-shadow:0 0 10px rgba(239,191,78,.5);transform:scaleX(0);transform-origin:0 50%;transition:transform .38s var(--mola)}
 .topo{display:none;align-items:center;gap:12px;padding:10px 14px;background:var(--sup-forte);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--vidro-borda)}
 .topo b{font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:-.01em}
 .hamb{width:34px;height:34px;display:grid;place-items:center;border-radius:3px;color:var(--tinta2)}
@@ -416,9 +416,8 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 .obraco-cx:hover .chev{opacity:1}
 .obraco[aria-expanded="true"] .chev{transform:rotate(180deg);opacity:1}
 /* a gaveta: de 0fr a 1fr anima a altura sem número mágico */
-.obraco-drop{display:grid;grid-template-rows:0fr;transition:grid-template-rows .34s var(--mola)}
-.obraco-cx.aberto .obraco-drop{grid-template-rows:1fr}
-.obraco-drop>div{overflow:hidden;min-height:0}
+.obraco-drop{height:0;overflow:hidden;transition:height .34s var(--mola)}
+.obraco-drop>div{min-height:0}
 .obraco-drop-in{position:relative}
 .obraco-drop-in img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#09090b}
 .obraco-drop-in p{position:absolute;left:0;right:0;bottom:0;margin:0;
@@ -432,8 +431,15 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
    popup (que é filho) desbotaria junto e todo o começo do crescimento
    aconteceria invisível - o popup só apareceria já grande, no meio da
    tela, parecendo vir do nada */
-.eco-modal-cena{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:24px;background:rgba(9,9,11,0);backdrop-filter:blur(0);-webkit-backdrop-filter:blur(0);pointer-events:none;transition:background-color .42s,backdrop-filter .42s,-webkit-backdrop-filter .42s}
-.eco-modal-cena.ver{background:rgba(9,9,11,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);pointer-events:auto}
+.eco-modal-cena{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:24px;pointer-events:none}
+.eco-modal-cena.ver{pointer-events:auto}
+/* o véu é um pseudo-elemento com o borrão já pronto, e o que anima é a
+   opacidade dele: animar o próprio backdrop-filter refaz o borrão da
+   tela inteira a cada quadro. Como é pseudo, o popup (filho da cena)
+   não desbota junto - que era o motivo de a cena não usar opacity */
+.eco-modal-cena::before{content:"";position:absolute;inset:0;background:rgba(9,9,11,.6);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;transition:opacity .42s}
+.eco-modal-cena.ver::before{opacity:1}
 /* o tamanho/posição de partida vêm do próprio card clicado (calculado
    em JS): o popup não aparece do nada, ele estica a partir do card até
    o tamanho final - só o transform anima, a caixa em si nunca some */
@@ -836,7 +842,7 @@ const ECOS=[
 /* a foto de cada item: parte vem da V1 e mora fora do repositório, então
    cada uma leva uma reserva local que entra sozinha se a remota falhar */
 const foto=function(it){
-  return 'src="'+encodeURI(it.img)+'"'
+  return 'decoding="async" src="'+encodeURI(it.img)+'"'
     +(it.alt?' data-reserva="'+encodeURI(it.alt)+'"':'')
     /* captura de página inteira: o corte pelo centro pegaria o meio do
        rolamento, então esta é enquadrada pelo topo */
@@ -887,7 +893,7 @@ function ir(id,semHash){
   });
   document.querySelectorAll('.bloco').forEach(function(b){b.classList.toggle('on',b.dataset.alvo===id)});
   var i=ORDEM.indexOf(id);
-  $('#progresso').style.width=((i+1)/ORDEM.length*100).toFixed(2)+'%';
+  $('#progresso').style.transform='scaleX('+((i+1)/ORDEM.length).toFixed(4)+')';
   $('#topo-tit').textContent=ROTULOS[id]||'';
   document.title=ROTULOS[id]+' · AUVP Escola - apresentação';
   palco.scrollTop=0;window.scrollTo(0,0);
@@ -1314,26 +1320,51 @@ document.getElementById('org').innerHTML=
           +'<img '+foto(it)+' alt="" loading="lazy">'
           +'<b>'+esc(it.t)+'</b>'+CHEV+'</button>'
           +'<div class="obraco-drop" id="'+id+'"><div><div class="obraco-drop-in">'
-          +'<img '+foto(it)+' alt="" loading="lazy">'
+          +'<img '+foto(it)+' alt="">'
           +'<p>'+esc(it.d)+'</p></div></div></div></div>';
       }).join('')+'</div></div>';
   }).join('')+'</div>';
 
 /* a sanfona dos braços: um aberto por vez, para a coluna não crescer
    além do que cabe na tela */
+var tRolar=0;
 function abreBraco(btn){
-  var cx=btn.parentNode,vai=btn.getAttribute('aria-expanded')!=='true';
+  var cx=btn.parentNode,gaveta=cx.querySelector('.obraco-drop');
+  var fechar=btn.getAttribute('aria-expanded')==='true';
   fechaBracos();
-  if(!vai)return;
-  cx.classList.add('aberto');btn.setAttribute('aria-expanded','true');
-  if(cx.scrollIntoView)setTimeout(function(){cx.scrollIntoView({block:'nearest',behavior:'smooth'})},360);
+  if(fechar)return;
+  var abre=function(){
+    /* a altura é medida uma vez e vira um número: animando em pixels o
+       navegador não precisa remedir o conteúdo a cada quadro, que é o
+       que o grid-template-rows:0fr->1fr obrigava */
+    gaveta.style.height=gaveta.firstElementChild.offsetHeight+'px';
+    cx.classList.add('aberto');btn.setAttribute('aria-expanded','true');
+    if(cx.scrollIntoView)tRolar=setTimeout(function(){
+      cx.scrollIntoView({block:'nearest',behavior:'smooth'});
+    },360);
+  };
+  /* decodificar a foto no meio da animação era o engasgo da primeira
+     abertura: resolve antes e só então anima. Já decodificada, o
+     decode() volta na mesma tarefa e ninguém espera nada */
+  var im=gaveta.querySelector('img');
+  if(im&&im.decode)im.decode().then(abre,abre);
+  else abre();
 }
 function fechaBracos(){
+  clearTimeout(tRolar);
   document.querySelectorAll('.obraco-cx.aberto').forEach(function(c){
+    c.querySelector('.obraco-drop').style.height='0px';
     c.classList.remove('aberto');
     c.querySelector('.obraco').setAttribute('aria-expanded','false');
   });
 }
+/* a altura guardada em pixels envelhece quando a janela muda de tamanho */
+addEventListener('resize',function(){
+  var c=document.querySelector('.obraco-cx.aberto');
+  if(!c)return;
+  var g=c.querySelector('.obraco-drop');
+  g.style.height=g.firstElementChild.offsetHeight+'px';
+});
 document.addEventListener('click',function(e){
   var b=e.target.closest('.obraco');
   if(b){e.preventDefault();abreBraco(b);return}
@@ -1389,7 +1420,9 @@ document.addEventListener('click',function(e){
    sem isso a primeira entrada na tela paga a decodificação no meio da
    animação e o movimento engasga */
 function preparaFotos(){
-  document.querySelectorAll('img.bg').forEach(function(im){
+  /* as do ecossistema entram junto: elas aparecem em três tamanhos
+     (satélite, miniatura e gaveta) e cada tamanho é uma decodificação */
+  document.querySelectorAll('img.bg,.eorb-img,.obraco img,.obraco-drop-in img').forEach(function(im){
     if(im.decode)im.decode().catch(function(){});
   });
 }
