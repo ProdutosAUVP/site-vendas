@@ -348,9 +348,15 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
 .eco-disco{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;pointer-events:none;
   display:grid;place-items:center;width:var(--disco);height:var(--disco);text-align:center}
 .eco-disco b{display:block;padding:0 6px;font-family:var(--display);font-weight:700;font-size:clamp(21px,3.8vh,44px);line-height:1.06;letter-spacing:-.03em;color:var(--tinta)}
-/* mote de frase inteira: no disco o corpo de título estoura a circunferência,
-   então o texto longo entra num corpo menor (no empilhado do celular não muda) */
-.eco-disco.longo b{font-size:clamp(14px,2.1vh,25px);line-height:1.14;letter-spacing:-.02em}
+/* mote de frase inteira: o corte das linhas vem do \n do dado, não da
+   largura, então a caixa acompanha o texto e não quebra de novo. O que
+   aperta de lado é o satélite do eixo horizontal, e o setor livre de cada
+   frente é justamente o que aponta para o olho: deslocar o mote para lá
+   abre a largura que as duas linhas precisam para crescer. */
+.eco-disco.longo{width:max-content;height:auto;--desvio:calc(var(--disco)*.16)}
+.eco-frente:first-child .eco-disco.longo{transform:translate(calc(-50% + var(--desvio)),-50%)}
+.eco-frente:last-child .eco-disco.longo{transform:translate(calc(-50% - var(--desvio)),-50%)}
+.eco-disco.longo b{width:auto;padding:0;font-size:clamp(16px,calc(var(--cabe)*.048),38px);line-height:1.1;letter-spacing:-.025em}
 /* cada produto é um satélite na borda do disco: o ângulo posiciona e o
    giro contrário devolve o card à horizontal */
 .eorb{position:absolute;left:50%;top:50%;z-index:3;width:var(--sat);height:var(--sat);margin:calc(var(--sat)/-2);
@@ -590,7 +596,11 @@ a.calc:hover .acesso{background:#fff;color:#09090b}
   .eco-frente:first-child{margin-top:0}
   .eco-disco{position:static;transform:none;display:block;width:auto;height:auto;border:none;border-radius:0;
     background:none;box-shadow:none;text-align:left;margin-bottom:12px}
-  .eco-disco b,.eco-disco.longo b{width:100%;margin-top:4px;padding:0;text-align:left;font-size:clamp(17px,1.6vw,22px);line-height:1.06}
+  .eco-disco b,.eco-disco.longo b{width:100%;margin-top:4px;padding:0;text-align:left;font-size:clamp(17px,1.6vw,22px);line-height:1.1}
+  /* empilhado: o mote volta ao fluxo, sem a caixa justa nem o desvio para
+     o setor livre - a quebra do dado continua valendo */
+  .eco-disco.longo{width:auto;height:auto}
+  .eco-frente:first-child .eco-disco.longo,.eco-frente:last-child .eco-disco.longo{transform:none}
   .eorb{position:static;transform:none!important;display:grid;grid-template-columns:64px 1fr;
     column-gap:12px;row-gap:2px;width:auto;height:auto;margin:0 0 14px;text-align:left}
   .eorb-in{display:contents}
@@ -815,15 +825,15 @@ const NAV=[
    Cada produto é um nó da tela principal e uma tela própria.
    ============================================================ */
 const ECOS=[
-  {grupo:'Educacional',mote:'Você aprende na prática',curto:'Escola',
+  {grupo:'Educacional',mote:'Você aprende\nna prática',curto:'Escola',
    itens:[
     {t:'A Escola',d:'O treinamento completo da AUVP: mais de 100 aulas, sete módulos para você ir do zero à liberdade financeira.',img:'raul explicativo.png',alt:'aulas att.png'},
     {t:'Ferramentas',d:'Quatro ferramentas próprias para apoiar seus estudos e a gestão da carteira.',img:'https://raw.githubusercontent.com/design-auvp/projetodelta/main/Analise-de-ações-e-indicadores-AUVP-Analítica.png',topo:true,alt:'trilha pro.png'},
     {t:'Atualização de Mercado - Semanais',d:'Toda segunda-feira, às 19h, ao vivo com o Raul Sena comentando o que mexeu com o mercado.',img:'lives.jpg'},
-    {t:'Módulos Avançados',d:'Setores, geopolítica, indicadores e aulas técnicas para quem quer ir além da grade principal.',img:'modulos avançados.jpg'},
+    {t:'Módulos Avançados',d:'Análise de Setores, Geopolítica, Indicadores e Aulas Técnicas para quem quer ir além da grade principal.',img:'modulos avançados.jpg'},
     {t:'Módulo Internacional',d:'Aprenda sobre Renda Fixa Internacional, stocks, REITs e Private Equity: como investir fora do Brasil.',img:'https://www.remessaonline.com.br/blog/wp-content/uploads/2024/07/como-investir-no-exterior.jpg',alt:'internacional.jpg'}
    ]},
-  {grupo:'Banking',mote:'Nós cuidamos da sua vida financeira',curto:'Banking',
+  {grupo:'Banking',mote:'Nós cuidamos da sua\nvida financeira',curto:'Banking',
    itens:[
     {t:'Consultoria',d:'Nº 1 no ranking do BTG Pactual, pelo segundo ano seguido.',img:'https://www.maisnovela.com.br/wp-content/uploads/2026/03/AUVP.png',alt:'comunidade pro.png'},
     {t:'Conta com cartão próprio',d:'Conta, cartão e atendimento 100% AUVP, sujeito à análise de crédito.',img:'https://pbs.twimg.com/media/GxSRuKfXMAAQPsS.jpg',alt:'capa modulo 3.jpg'},
@@ -831,7 +841,7 @@ const ECOS=[
     {t:'Câmbio',d:'Enviar, receber ou investir no exterior com custo transparente.',img:'https://www.remessaonline.com.br/blog/wp-content/uploads/2022/04/servico-de-cambio.png',alt:'cripto.jpg'},
     {t:'Seguros',d:'Cotação em até 6 seguradoras, sem viés de interesse.',img:'https://images.pexels.com/photos/20880348/pexels-photo-20880348.jpeg',alt:'thumb INDICADORES.jpg'},
     {t:'Wealth',d:'Blindagem patrimonial, governança e planejamento sucessório.',img:'https://oespecialista.safra.com.br/wp-content/uploads/2026/05/wealth-management-nos-investimentos.jpg',alt:'analitica.jpg'},
-    {t:"ETF's próprios",d:'AUVP11, AUPO11 e AREA11, geridos e baseados em metodologias próprias da AUVP.',img:'https://cdn.asupernova.com.br/lp-auvp/vite/AUVP-0509.webp',alt:'cotações.png'}
+    {t:"ETF's próprios",d:'AUVP11, AUPO11, AREA11 e ABTC11, geridos e baseados em metodologias próprias da AUVP.',img:'https://cdn.asupernova.com.br/lp-auvp/vite/AUVP-0509.webp',alt:'cotações.png'}
    ]}
 ];
 
@@ -1280,7 +1290,7 @@ function frenteEco(g,gi){
   /* com muitos satélites o arco fica apertado: o raio abre um pouco
      mais para os nomes de dois vizinhos não se encostarem */
   return '<div class="eco-frente" style="--fator:'+(n>5?1.32:1)+'">'
-    +'<div class="eco-disco'+(g.mote.length>14?' longo':'')+'"><b>'+esc(g.mote)+'</b></div>'
+    +'<div class="eco-disco'+(g.mote.length>14?' longo':'')+'"><b>'+esc(g.mote).replace(/\n/g,'<br>')+'</b></div>'
     +g.itens.map(function(it,k){
       var a=inicio+(n>1?280*k/(n-1):140);
       /* metade de cima do disco: o nome sobe em vez de descer */
